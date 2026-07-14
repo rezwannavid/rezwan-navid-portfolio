@@ -18,14 +18,12 @@ export function SiteHeader() {
   };
 
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
     if (!open) return;
     const onKey = (event: KeyboardEvent) => event.key === "Escape" && close();
     document.addEventListener("keydown", onKey);
     requestAnimationFrame(() => drawerRef.current?.querySelector<HTMLElement>("a")?.focus());
     return () => {
       document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
     };
   }, [open]);
 
@@ -54,8 +52,9 @@ export function SiteHeader() {
           <a href={email} aria-label="Email Mir Rezwan Navid"><img src="/icons/Email.svg" alt="" /></a>
         </div>
 
-        <button ref={triggerRef} className="mobile-icon mobile-menu-trigger" type="button" aria-label="Open navigation" aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(true)}>
+        <button ref={triggerRef} className="mobile-icon mobile-menu-trigger" data-open={open} type="button" aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} aria-controls="mobile-navigation" onClick={() => open ? close(false) : setOpen(true)}>
           <img src="/icons/HamBurger.svg" alt="" />
+          <span className="menu-close-glyph" aria-hidden="true"><i /><i /></span>
         </button>
         <Link className="mobile-brand" href="/" aria-label="Mir Rezwan Navid, home"><img src="/RNLogo.svg" alt="" /><span>Mir Rezwan Navid</span></Link>
         <a className="mobile-icon mobile-email" href={email} aria-label="Email Mir Rezwan Navid"><img src="/icons/Email.svg" alt="" /></a>
@@ -64,13 +63,21 @@ export function SiteHeader() {
 
       <div className="drawer-backdrop" data-open={open} onMouseDown={(event) => event.target === event.currentTarget && close()}>
         <div ref={drawerRef} id="mobile-navigation" className="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile navigation">
-          <button className="drawer-close" type="button" onClick={() => close()} aria-label="Close navigation">Close</button>
-          <nav>
+          <nav className="drawer-primary" aria-label="Mobile primary navigation">
             <Link href="/work" onClick={() => close(false)}>Work</Link>
             <Link href="/about" onClick={() => close(false)}>About</Link>
-            <a href="https://www.linkedin.com/in/rezwannavid" target="_blank" rel="noreferrer" onClick={() => close(false)}>LinkedIn</a>
-            <a href={email} onClick={() => close(false)}>Email</a>
           </nav>
+          <img className="drawer-brain" src="/BrainImage.png" alt="" />
+          <div className="drawer-social-panel">
+            <nav className="drawer-socials" aria-label="Mobile social links">
+              <a href="https://www.linkedin.com/in/rezwannavid" target="_blank" rel="noreferrer" onClick={() => close(false)}>LinkedIn</a>
+              <a href={email} onClick={() => close(false)}>Email</a>
+              <a href="https://instagram.com/rezwannavid" target="_blank" rel="noreferrer" onClick={() => close(false)}>Instagram</a>
+              <a href="https://medium.com/@rezwannavid" target="_blank" rel="noreferrer" onClick={() => close(false)}>Medium</a>
+              <a href="https://github.com/rezwannavid" target="_blank" rel="noreferrer" onClick={() => close(false)}>GitHub</a>
+            </nav>
+            <span className="drawer-version">v1.01</span>
+          </div>
         </div>
       </div>
     </header>
