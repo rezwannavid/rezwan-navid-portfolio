@@ -59,6 +59,12 @@ for (const width of widths) {
         container: rect('.hero-inner'),
         work: rect('.selected-work'),
         orbit: rect('.orbit'),
+        footer: rect('.site-footer'),
+        footerInner: rect('.footer-inner'),
+        footerLeft: rect('.footer-left'),
+        footerLogo: rect('.footer-logo'),
+        footerImpact: rect('.impact-wrap'),
+        footerBrain: rect('.brain-art'),
         wordsInsideViewport: words.every(r => r.x >= -.5 && r.right <= innerWidth + .5),
         introFontSize: getComputedStyle(intro).fontSize,
         socialLinkHeights: links,
@@ -80,12 +86,12 @@ for (const width of widths) {
     await new Promise((resolve) => setTimeout(resolve, 80));
     const capture = await command("Page.captureScreenshot", { format: "png", fromSurface: true });
     await writeFile(`/tmp/portfolio-${width}.png`, Buffer.from(capture.result.data, "base64"));
-    if (width === 393) {
-      await command("Runtime.evaluate", { expression: "scrollTo(0, document.documentElement.scrollHeight)" });
-      await new Promise((resolve) => setTimeout(resolve, 250));
-      const footerCapture = await command("Page.captureScreenshot", { format: "png", fromSurface: true });
-      await writeFile("/tmp/portfolio-393-footer.png", Buffer.from(footerCapture.result.data, "base64"));
-    }
+    await command("Runtime.evaluate", { expression: "scrollTo(0, document.documentElement.scrollHeight)" });
+    await new Promise((resolve) => setTimeout(resolve, 250));
+    const footerAtBottom = await command("Runtime.evaluate", { expression: `(() => { const box = selector => { const r = document.querySelector(selector)?.getBoundingClientRect(); return r ? { x: r.x, y: r.y, width: r.width, height: r.height } : null }; return { left: box('.footer-left'), logo: box('.footer-logo'), nav: box('.footer-left nav'), impact: box('.impact-wrap'), brain: box('.brain-art') }; })()`, returnByValue: true });
+    value.footerAtBottom = footerAtBottom.result.result.value;
+    const footerCapture = await command("Page.captureScreenshot", { format: "png", fromSurface: true });
+    await writeFile(`/tmp/portfolio-${width}-footer.png`, Buffer.from(footerCapture.result.data, "base64"));
   }
 }
 

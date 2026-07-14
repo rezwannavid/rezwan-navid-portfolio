@@ -8,6 +8,7 @@ const email = "mailto:hello@rezwannavid.me";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
 
@@ -28,13 +29,20 @@ export function SiteHeader() {
     };
   }, [open]);
 
+  useEffect(() => {
+    const update = () => headerRef.current?.toggleAttribute("data-scrolled", window.scrollY > 8);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+
   return (
-    <header className="site-header">
+    <header ref={headerRef} className="site-header">
       <div className="header-inner">
         <div className="desktop-nav-group">
-          <Link className="brand" href="/" aria-label="Rezwan Navid, home">
+          <Link className="brand" href="/" aria-label="Mir Rezwan Navid, home">
             <img src="/RNLogo.svg" alt="" width="107" height="39" />
-            <span>Rezwan Navid</span>
+            <span>Mir Rezwan Navid</span>
           </Link>
           <nav aria-label="Primary navigation">
             <Link href="/work">Work</Link>
@@ -42,15 +50,15 @@ export function SiteHeader() {
           </nav>
         </div>
         <div className="desktop-socials">
-          <a href="https://www.linkedin.com/in/rezwannavid" target="_blank" rel="noreferrer" aria-label="Rezwan Navid on LinkedIn"><img src="/icons/LinkedIn.svg" alt="" /></a>
-          <a href={email} aria-label="Email Rezwan Navid"><img src="/icons/Email.svg" alt="" /></a>
+          <a href="https://www.linkedin.com/in/rezwannavid" target="_blank" rel="noreferrer" aria-label="Mir Rezwan Navid on LinkedIn"><img src="/icons/LinkedIn.svg" alt="" /></a>
+          <a href={email} aria-label="Email Mir Rezwan Navid"><img src="/icons/Email.svg" alt="" /></a>
         </div>
 
         <button ref={triggerRef} className="mobile-icon mobile-menu-trigger" type="button" aria-label="Open navigation" aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(true)}>
           <img src="/icons/HamBurger.svg" alt="" />
         </button>
-        <Link className="mobile-brand" href="/" aria-label="Rezwan Navid, home"><img src="/RNLogo.svg" alt="" /><span>Rezwan Navid</span></Link>
-        <a className="mobile-icon mobile-email" href={email} aria-label="Email Rezwan Navid"><img src="/icons/Email.svg" alt="" /></a>
+        <Link className="mobile-brand" href="/" aria-label="Mir Rezwan Navid, home"><img src="/RNLogo.svg" alt="" /><span>Mir Rezwan Navid</span></Link>
+        <a className="mobile-icon mobile-email" href={email} aria-label="Email Mir Rezwan Navid"><img src="/icons/Email.svg" alt="" /></a>
       </div>
       <AnimatedDivider className="header-divider" />
 

@@ -14,18 +14,18 @@ const neueMontreal = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://rezwannavid.me"),
-  title: "Rezwan Navid — Product Thinker",
-  description: "Rezwan Navid is a product thinker and designer building systems with impact.",
+  title: "Mir Rezwan Navid — Product Thinker",
+  description: "Mir Rezwan Navid is a product thinker and designer building systems with impact.",
   icons: { icon: "/rnfavicon.png" },
   openGraph: {
-    title: "Rezwan Navid — Product Thinker",
+    title: "Mir Rezwan Navid — Product Thinker",
     description: "Designing thoughtful products, brands, and systems with impact.",
     type: "website",
-    images: [{ url: "/linkheader.png", width: 1200, height: 630, alt: "Rezwan Navid portfolio" }],
+    images: [{ url: "/linkheader.png", width: 1200, height: 630, alt: "Mir Rezwan Navid portfolio" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rezwan Navid — Product Thinker",
+    title: "Mir Rezwan Navid — Product Thinker",
     description: "Designing thoughtful products, brands, and systems with impact.",
     images: ["/linkheader.png"],
   },
