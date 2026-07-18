@@ -71,7 +71,7 @@ img { display: block; max-width: 100%; }
 .hero { height: 687px; }
 .hero-inner { height: 100%; position: relative; }
 .orbit { position: absolute; inset: 0; }
-.portrait { position: absolute; width: 380px; height: 380px; left: 50%; top: 61px; transform: translateX(-50%); animation: hero-portrait 1050ms var(--ease-out) both 100ms; }
+.portrait { position: absolute; width: 380px; height: 380px; left: 50%; top: 100px; transform: translateX(-50%); animation: hero-portrait 1050ms var(--ease-out) both 100ms; }
 .orbit-word { position: absolute; font-size: 72px; line-height: 72px; letter-spacing: -.02em; font-weight: 400; animation: hero-word 850ms var(--ease-out) both; }
 .orbit-word.product { --rest-rotate: -24deg; left: 268px; top: 56px; animation-delay: 260ms; }
 .orbit-word.brain { --rest-rotate: 22deg; right: 280px; top: 71px; animation-delay: 345ms; }
@@ -126,6 +126,23 @@ img { display: block; max-width: 100%; }
 .pill-button:hover { background: var(--white-1000-004); border-color: rgb(var(--white-1000-rgb) / .34); }
 .pill-button:hover img { opacity: 1; transform: none; }
 
+/* Portfolio */
+.portfolio-hero { min-height: 822px; display: flex; justify-content: center; padding-top: 79px; }
+.portfolio-module { width: 446px; display: flex; flex-direction: column; align-items: center; gap: 34px; }
+.portfolio-copy { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; font-weight: 500; }
+.portfolio-copy h1, .portfolio-copy p { margin: 0; font-size: 13px; line-height: 16px; font-weight: 500; }
+.portfolio-copy h1 { text-transform: uppercase; }
+.portfolio-copy p { width: 262px; color: var(--white-1000-020); }
+.portfolio-cover-reveal { width: 100%; }
+.portfolio-cover { position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid var(--white-1000-010); border-radius: 12px; box-shadow: 0 21px 18.8px rgb(0 0 0 / .25); }
+.portfolio-cover img { object-fit: cover; }
+.portfolio-actions { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.portfolio-download { width: 185px; height: 71px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--color-border-strong); border-radius: 56px; transition: background 350ms ease, border-color 350ms ease, transform 500ms var(--ease-out); }
+.portfolio-download:hover { background: var(--white-1000-004); border-color: rgb(var(--white-1000-rgb) / .34); transform: translateY(-2px); }
+.portfolio-meta { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--white-1000-020); font-weight: 500; text-align: center; }
+.portfolio-meta span { line-height: 16px; }
+.portfolio-page .connect-layout { padding-top: 64px; }
+
 /* Footer */
 .site-footer { min-height: 507px; padding-top: 64px; padding-bottom: 64px; overflow: hidden; }
 .footer-inner { height: 379px; display: grid; grid-template-columns: 99px minmax(379px, 1fr) 132px; align-items: center; justify-items: center; }
@@ -174,6 +191,8 @@ img { display: block; max-width: 100%; }
   .connect-layout { min-height: 307px; grid-template-columns: 1fr 294px; padding-top: 38px; }
   .connect h2 { width: 370px; font-size: 28px; line-height: 32px; margin-top: 13px; }
   .pill-button { width: 294px; height: 93px; }
+  .portfolio-hero { min-height: 746px; padding-top: 86px; }
+  .portfolio-page .connect-layout { min-height: 263px; padding-top: 38px; }
   .site-footer { min-height: 443px; padding-top: 64px; padding-bottom: 64px; }
   .footer-inner { height: 315px; grid-template-columns: 99px 315px 112px; justify-content: space-between; column-gap: 0; }
   .footer-left nav { margin-top: 147px; }
@@ -272,6 +291,9 @@ img { display: block; max-width: 100%; }
   .connect-layout { min-height: 356px; display: block; padding: 39px 20px 0; }
   .connect h2 { margin-top: 13px; font-size: 28px; line-height: 32px; width: 355px; max-width: 100%; }
   .pill-button { width: 100%; height: 111px; margin-top: 45px; }
+  .portfolio-hero { min-height: 635px; padding-top: 53px; }
+  .portfolio-module { width: calc(100% - 42px); }
+  .portfolio-page .connect-layout { min-height: 307px; padding-top: 39px; }
 
   .site-footer { min-height: 681px; padding: 64px 0; }
   .footer-inner { width: calc(100% - 40px); height: 553px; display: grid; grid-template-columns: 92px minmax(0, 1fr) 80px; grid-template-rows: 215px 315px; column-gap: 0; row-gap: 23px; align-items: start; justify-items: start; }

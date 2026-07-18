@@ -10,7 +10,7 @@ export function ConnectSection() {
       <Container>
         <AnimatedDivider />
         <Reveal className="connect-layout">
-          <div><p className="eyebrow">Connect</p><h2 id="connect-title"><LineReveal className="connect-lines">{[<>Let’s build something</>, <>memorable</>]}</LineReveal></h2></div>
+          <div><p className="eyebrow">Connect</p><h2 id="connect-title"><LineReveal className="connect-lines">{["Let’s build something", "memorable"]}</LineReveal></h2></div>
           <PillButton />
         </Reveal>
       </Container>
