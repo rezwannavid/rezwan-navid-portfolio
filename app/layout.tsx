@@ -17,11 +17,11 @@ const neueMontreal = localFont({
 });
 
 const defaultMetadata = createPageMetadata({
-  title: "Mir Rezwan Navid — Product Designer in Dhaka",
+  title: "Mir Rezwan Navid | Product Thinker",
   description: siteConfig.description,
   path: "/",
-  keywords: ["Rezwan portfolio", "Rezwan Navid portfolio", "UX designer in Dhaka", "product manager in Bangladesh"],
-  category: "Product Design",
+  keywords: ["Rezwan portfolio", "Rezwan Navid portfolio", "UX designer in Dhaka", "product manager in Bangladesh", "Mir Rezwan Navid portfolio", "Rezwan Navid UX designer", "Rezwan Navid product manager"],
+  category: "Product Design, Product Management, UX Design, UI Design, Web Development",
 });
 
 export const metadata: Metadata = {
