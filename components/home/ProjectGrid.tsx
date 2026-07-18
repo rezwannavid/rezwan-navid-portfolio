@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { TiltLink } from "@/components/motion/TiltLink";
 import { Reveal } from "@/components/ui/Reveal";
 import { projects } from "@/lib/site";
 
@@ -9,10 +9,10 @@ export function ProjectGrid() {
       <div className="project-grid">
         {projects.map((project, index) => (
           <Reveal className={`project project-${index + 1}`} delay={(index % 3) * 70} key={project.slug}>
-            <Link href={`/work/${project.slug}`} aria-label={`View ${project.title}, ${project.year}`}>
+            <TiltLink href={`/work/${project.slug}`} ariaLabel={`View ${project.title}, ${project.year}`}>
               <span className="project-media" aria-hidden="true" />
               <span className="project-meta"><span>{project.title}</span><span>{project.year}</span></span>
-            </Link>
+            </TiltLink>
           </Reveal>
         ))}
       </div>

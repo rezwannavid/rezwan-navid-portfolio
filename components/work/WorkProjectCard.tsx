@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { TiltLink } from "@/components/motion/TiltLink";
 import { CategoryIcon } from "@/components/work/CategoryIcon";
 import type { WorkProject } from "@/lib/workProjects";
 
@@ -19,13 +19,13 @@ export function WorkProjectCard({ project, index }: { project: WorkProject; inde
         </div>
 
         <div className="work-card-layout">
-          <Link className="work-card-media" href={project.href} aria-label={`View ${project.title} case study${project.protected ? ", password protected" : ""}`}>
+          <TiltLink className="work-card-media" href={project.href} ariaLabel={`View ${project.title} case study${project.protected ? ", password protected" : ""}`}>
             {project.thumbnail ? (
               <img src={project.thumbnail} alt={project.thumbnailAlt} width="1184" height="680" loading={index === 0 ? "eager" : "lazy"} decoding="async" />
             ) : (
               <span className="work-card-placeholder" role="img" aria-label={project.thumbnailAlt} />
             )}
-          </Link>
+          </TiltLink>
 
           <div className="work-card-meta">
             <div className="work-card-meta-top">

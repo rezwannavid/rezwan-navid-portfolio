@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ParallaxMedia } from "@/components/motion/ParallaxMedia";
 import { Reveal } from "@/components/ui/Reveal";
 import { getPortfolioPdfMetadata } from "@/lib/portfolioPdf";
 
@@ -14,15 +15,17 @@ export function PortfolioDownload() {
         </Reveal>
 
         <Reveal className="portfolio-cover-reveal" delay={140}>
-          <div className="portfolio-cover">
-            <Image
-              src="/rezwan-navid-product-design-portfolio-cover.png"
-              alt="Cover of Mir Rezwan Navid’s 2026 product design portfolio"
-              fill
-              priority
-              sizes="(max-width: 767px) calc(100vw - 42px), 446px"
-            />
-          </div>
+          <ParallaxMedia className="portfolio-cover-parallax" distance={10}>
+            <div className="portfolio-cover">
+              <Image
+                src="/rezwan-navid-product-design-portfolio-cover.png"
+                alt="Cover of Mir Rezwan Navid’s 2026 product design portfolio"
+                fill
+                priority
+                sizes="(max-width: 767px) calc(100vw - 42px), 446px"
+              />
+            </div>
+          </ParallaxMedia>
         </Reveal>
 
         <Reveal className="portfolio-actions" delay={240}>

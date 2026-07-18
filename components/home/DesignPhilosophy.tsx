@@ -3,6 +3,7 @@ import { Container } from "@/components/layout/Container";
 import { AnimatedDivider } from "@/components/ui/AnimatedDivider";
 import { Reveal } from "@/components/ui/Reveal";
 import { LineReveal } from "@/components/motion/LineReveal";
+import { ParallaxMedia } from "@/components/motion/ParallaxMedia";
 
 export function DesignPhilosophy() {
   return (
@@ -23,7 +24,9 @@ export function DesignPhilosophy() {
               <Fragment key="intention">string their intention</Fragment>,
             ]}</LineReveal></p>
           </div>
-          <img className="eye-art" src="/pixel-eye-human-centered-design.png" alt="Pixel-art eye representing perception and human-centered design" width="736" height="594" loading="lazy" decoding="async" />
+          <ParallaxMedia className="eye-art-wrap" distance={12}>
+            <img className="eye-art" src="/pixel-eye-human-centered-design.png" alt="Pixel-art eye representing perception and human-centered design" width="736" height="594" loading="lazy" decoding="async" />
+          </ParallaxMedia>
         </Reveal>
       </Container>
     </section>

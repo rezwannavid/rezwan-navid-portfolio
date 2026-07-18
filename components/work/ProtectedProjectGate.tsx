@@ -60,7 +60,7 @@ export function ProtectedProjectGate({ slug, title }: { slug: string; title: str
           <p id="password-message" className="protected-message" aria-live="polite">
             {status === "error" ? error : status === "success" ? "Access granted. Opening the case study…" : ""}
           </p>
-          <button className="protected-submit" type="submit" disabled={!password || status === "submitting" || status === "success"}>
+          <button className="protected-submit" type="submit" disabled={!password || status === "submitting" || status === "success"} aria-busy={status === "submitting"}>
             {status === "submitting" ? "Checking…" : status === "success" ? "Access granted" : "View case study"}
           </button>
         </form>

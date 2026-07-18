@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { PageTransitionLayer } from "@/components/motion/PageTransitionLayer";
 import { createPageMetadata } from "@/lib/metadata";
 import { globalSchema } from "@/lib/structuredData";
 import { siteConfig } from "@/lib/site";
@@ -57,6 +58,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body className={neueMontreal.variable}>
         <JsonLd data={globalSchema} />
+        <PageTransitionLayer />
         {children}
       </body>
     </html>
