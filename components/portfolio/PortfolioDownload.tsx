@@ -1,7 +1,10 @@
 import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
+import { getPortfolioPdfMetadata } from "@/lib/portfolioPdf";
 
 export function PortfolioDownload() {
+  const pdf = getPortfolioPdfMetadata();
+
   return (
     <section className="portfolio-hero" aria-labelledby="portfolio-title">
       <div className="portfolio-module">
@@ -23,12 +26,12 @@ export function PortfolioDownload() {
         </Reveal>
 
         <Reveal className="portfolio-actions" delay={240}>
-          <a className="portfolio-download" href="/Rezwan-Navid-Portfolio-2026.pdf" download>
+          <a className="portfolio-download" href={pdf.href} download>
             Download PDF
           </a>
           <div className="portfolio-meta">
             <span>Last Updated: July 2026</span>
-            <span>233kB | 45 Pages</span>
+            <span>{pdf.fileSize} | {pdf.pageCount} {pdf.pageCount === 1 ? "Page" : "Pages"}</span>
           </div>
         </Reveal>
       </div>
