@@ -16,6 +16,16 @@ const cachedPublicAssets = [
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   images: { minimumCacheTTL: 86400 },
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.rezwannavid.me" }],
+        destination: "https://rezwannavid.me/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
