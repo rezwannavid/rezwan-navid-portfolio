@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
+import { SiteFooter } from "@/components/layout/SiteFooter";
+import { SiteHeader } from "@/components/layout/SiteHeader";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ProtectedProjectGate } from "@/components/work/ProtectedProjectGate";
 import { createPageMetadata } from "@/lib/metadata";
 import { breadcrumbSchema, pageSchema, schemaIds, webPageSchema } from "@/lib/structuredData";
 import { absoluteUrl, projects } from "@/lib/site";
+import { accessCookieName, hasValidAccessToken } from "@/lib/workAccess";
+import { getWorkProject } from "@/lib/workProjects";
 
 export const dynamicParams = false;
 
@@ -31,6 +37,15 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const project = projects.find((item) => item.slug === slug);
   if (!project) notFound();
 
+  const workProject = getWorkProject(slug);
+  if (workProject?.protected) {
+    const cookieStore = await cookies();
+    const token = cookieStore.get(accessCookieName(slug))?.value;
+    if (!hasValidAccessToken(slug, token)) {
+      return <><SiteHeader /><ProtectedProjectGate slug={slug} title={project.title} /><SiteFooter /></>;
+    }
+  }
+
   const path = `/work/${project.slug}`;
   const title = `${project.title} Product Design Project — Rezwan Navid`;
   const description = `${project.title} is a ${project.year} product design project by Mir Rezwan Navid. The full case study is coming soon.`;
@@ -45,17 +60,17 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     isPartOf: { "@id": `${absoluteUrl("/work")}#webpage` },
   };
 
-  return <main className="placeholder-page">
-    <JsonLd data={pageSchema(
-      webPageSchema({ name: title, description, path }),
-      breadcrumbSchema([
-        { name: "Home", path: "/" },
-        { name: "Work", path: "/work" },
-        { name: project.title, path },
-      ]),
-      creativeWork,
-    )} />
-    <h1>{project.title} case study coming soon.</h1>
-    <Link href="/work">Explore Rezwan Navid’s product design work</Link>
-  </main>;
+  return <><SiteHeader /><main className="placeholder-page">
+      <JsonLd data={pageSchema(
+        webPageSchema({ name: title, description, path }),
+        breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Work", path: "/work" },
+          { name: project.title, path },
+        ]),
+        creativeWork,
+      )} />
+      <h1>{project.title} case study coming soon.</h1>
+      <Link href="/work">Explore Rezwan Navid’s product design work</Link>
+    </main><SiteFooter /></>;
 }

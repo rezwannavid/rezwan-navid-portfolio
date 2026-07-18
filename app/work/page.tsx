@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { ConnectSection } from "@/components/home/ConnectSection";
+import { SiteFooter } from "@/components/layout/SiteFooter";
+import { SiteHeader } from "@/components/layout/SiteHeader";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { WorkArchive } from "@/components/work/WorkArchive";
 import { createPageMetadata } from "@/lib/metadata";
 import { breadcrumbSchema, pageSchema, projectItemListSchema, webPageSchema } from "@/lib/structuredData";
 
@@ -16,13 +19,19 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default function WorkPage() {
-  return <main className="placeholder-page">
-    <JsonLd data={pageSchema(
-      webPageSchema({ name: title, description, path: "/work", type: "CollectionPage" }),
-      breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Work", path: "/work" }]),
-      projectItemListSchema,
-    )} />
-    <h1>Work archive coming soon.</h1>
-    <Link href="/">Visit Rezwan Navid’s homepage</Link>
-  </main>;
+  return (
+    <>
+      <SiteHeader />
+      <main className="work-page">
+        <JsonLd data={pageSchema(
+          webPageSchema({ name: title, description, path: "/work", type: "CollectionPage" }),
+          breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Work", path: "/work" }]),
+          projectItemListSchema,
+        )} />
+        <WorkArchive />
+        <ConnectSection />
+      </main>
+      <SiteFooter />
+    </>
+  );
 }
