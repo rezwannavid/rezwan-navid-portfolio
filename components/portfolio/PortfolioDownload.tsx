@@ -16,7 +16,7 @@ export function PortfolioDownload() {
         <Reveal className="portfolio-cover-reveal" delay={140}>
           <div className="portfolio-cover">
             <Image
-              src="/portfolio-cover.png"
+              src="/rezwan-navid-product-design-portfolio-cover.png"
               alt="Cover of Mir Rezwan Navid’s 2026 product design portfolio"
               fill
               priority

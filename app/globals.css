@@ -159,7 +159,7 @@ img { display: block; max-width: 100%; }
 .impact em { color: var(--white-1000-020); font-style: normal; }
 @keyframes brain-float { 0% { transform: translate3d(0, -3px, 0) rotate(-.25deg); } 48% { transform: translate3d(0, 4px, 0) rotate(.2deg); } 100% { transform: translate3d(0, -1px, 0) rotate(-.1deg); } }
 .placeholder-page { min-height: 100svh; display: grid; place-content: center; gap: 20px; text-align: center; font-size: 20px; }
-.placeholder-page p { text-transform: capitalize; }
+.placeholder-page h1 { margin: 0; font: inherit; text-transform: capitalize; }
 .placeholder-page a { text-decoration: underline; text-underline-offset: 4px; }
 
 /* Tablet */

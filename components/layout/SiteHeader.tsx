@@ -39,7 +39,7 @@ export function SiteHeader() {
       <div className="header-inner">
         <div className="desktop-nav-group">
           <Link className="brand" href="/" aria-label="Mir Rezwan Navid, home">
-            <img src="/RNLogo.svg" alt="" width="107" height="39" />
+            <img src="/rezwan-navid-logo.svg" alt="" width="107" height="39" loading="eager" />
             <span>Mir Rezwan Navid</span>
           </Link>
           <nav aria-label="Primary navigation">
@@ -48,16 +48,16 @@ export function SiteHeader() {
           </nav>
         </div>
         <div className="desktop-socials">
-          <a href="https://www.linkedin.com/in/rezwannavid" target="_blank" rel="noreferrer" aria-label="Mir Rezwan Navid on LinkedIn"><img src="/icons/LinkedIn.svg" alt="" /></a>
-          <a href={email} aria-label="Email Mir Rezwan Navid"><img src="/icons/Email.svg" alt="" /></a>
+          <a href="https://www.linkedin.com/in/rezwannavid" target="_blank" rel="noreferrer" aria-label="Mir Rezwan Navid on LinkedIn"><img src="/icons/LinkedIn.svg" alt="" width="18" height="18" /></a>
+          <a href={email} aria-label="Email Mir Rezwan Navid"><img src="/icons/Email.svg" alt="" width="18" height="18" /></a>
         </div>
 
         <button ref={triggerRef} className="mobile-icon mobile-menu-trigger" data-open={open} type="button" aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} aria-controls="mobile-navigation" onClick={() => open ? close(false) : setOpen(true)}>
-          <img src="/icons/HamBurger.svg" alt="" />
+          <img src="/icons/HamBurger.svg" alt="" width="20" height="20" />
           <span className="menu-close-glyph" aria-hidden="true"><i /><i /></span>
         </button>
-        <Link className="mobile-brand" href="/" aria-label="Mir Rezwan Navid, home"><img src="/RNLogo.svg" alt="" /><span>Mir Rezwan Navid</span></Link>
-        <a className="mobile-icon mobile-email" href={email} aria-label="Email Mir Rezwan Navid"><img src="/icons/Email.svg" alt="" /></a>
+        <Link className="mobile-brand" href="/" aria-label="Mir Rezwan Navid, home"><img src="/rezwan-navid-logo.svg" alt="" width="107" height="39" /><span>Mir Rezwan Navid</span></Link>
+        <a className="mobile-icon mobile-email" href={email} aria-label="Email Mir Rezwan Navid"><img src="/icons/Email.svg" alt="" width="18" height="18" /></a>
       </div>
       <AnimatedDivider className="header-divider" />
 
@@ -67,7 +67,7 @@ export function SiteHeader() {
             <Link href="/work" onClick={() => close(false)}>Work</Link>
             <Link href="/about" onClick={() => close(false)}>About</Link>
           </nav>
-          <img className="drawer-brain" src="/BrainImage.png" alt="" />
+          <img className="drawer-brain" src="/pixel-brain-product-thinking.png" alt="" width="413" height="413" loading="lazy" decoding="async" />
           <div className="drawer-social-panel">
             <nav className="drawer-socials" aria-label="Mobile social links">
               <a href="https://www.linkedin.com/in/rezwannavid" target="_blank" rel="noreferrer" onClick={() => close(false)}>LinkedIn</a>

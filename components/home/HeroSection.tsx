@@ -15,11 +15,11 @@ export function HeroSection() {
       <Container className="hero-inner">
         <div className="orbit" aria-hidden="true">
           <HeroMagneticWords />
-          <img className="portrait" src="/MRNFacePotrait.svg" alt="Pixel-art portrait of Mir Rezwan Navid" width="380" height="380" />
+          <img className="portrait" src="/mir-rezwan-navid-portrait.svg" alt="" width="380" height="380" loading="eager" fetchPriority="high" />
         </div>
         <h1 id="hero-heading" className="intro">
           <span className="intro-name">Mir Rezwan Navid</span>
-          <span className="intro-title"><img src="/icons/Dot.svg" alt="" /> <span className="intro-muted">Product Thinker</span></span>
+          <span className="intro-title"><img src="/icons/Dot.svg" alt="" width="12" height="12" /> <span className="intro-muted">Product Thinker</span></span>
           <span className="intro-impact">I build systems with impact</span>
         </h1>
         <dl className="roles">

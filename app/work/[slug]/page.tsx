@@ -1,6 +1,61 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { createPageMetadata } from "@/lib/metadata";
+import { breadcrumbSchema, pageSchema, schemaIds, webPageSchema } from "@/lib/structuredData";
+import { absoluteUrl, projects } from "@/lib/site";
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return projects.map(({ slug }) => ({ slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const project = projects.find((item) => item.slug === slug);
+  if (!project) return {};
+
+  return createPageMetadata({
+    title: `${project.title} Product Design Project — Rezwan Navid`,
+    description: `${project.title} is a ${project.year} product design project by Mir Rezwan Navid. This project page will present the product thinking, UX, UI, and design process.`,
+    path: `/work/${project.slug}`,
+    keywords: [`${project.title} design`, `${project.title} case study`, "Rezwan Navid project", "product design project"],
+    category: "Product Design Project",
+  });
+}
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  return <main className="placeholder-page"><p>{slug.replaceAll("-", " ")} case study coming soon.</p><Link href="/">Return home</Link></main>;
+  const project = projects.find((item) => item.slug === slug);
+  if (!project) notFound();
+
+  const path = `/work/${project.slug}`;
+  const title = `${project.title} Product Design Project — Rezwan Navid`;
+  const description = `${project.title} is a ${project.year} product design project by Mir Rezwan Navid. The full case study is coming soon.`;
+  const creativeWork = {
+    "@type": "CreativeWork",
+    "@id": `${absoluteUrl(path)}#project`,
+    name: project.title,
+    description,
+    copyrightYear: Number(project.year),
+    creator: { "@id": schemaIds.person },
+    url: absoluteUrl(path),
+    isPartOf: { "@id": `${absoluteUrl("/work")}#webpage` },
+  };
+
+  return <main className="placeholder-page">
+    <JsonLd data={pageSchema(
+      webPageSchema({ name: title, description, path }),
+      breadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Work", path: "/work" },
+        { name: project.title, path },
+      ]),
+      creativeWork,
+    )} />
+    <h1>{project.title} case study coming soon.</h1>
+    <Link href="/work">Explore Rezwan Navid’s product design work</Link>
+  </main>;
 }
