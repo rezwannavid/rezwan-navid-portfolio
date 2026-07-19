@@ -6,7 +6,7 @@ const socialLinks = [
   ["Medium", "https://medium.com/@rezwannavid"],
   ["GitHub", "https://github.com/rezwannavid"],
   ["Instagram", "https://instagram.com/rezwannavid"],
-  ["Email", "mailto:hello@rezwannavid.me"],
+  ["Email", "mailto:m.rezwannavid@gmail.com"],
 ];
 
 export function SiteFooter() {
