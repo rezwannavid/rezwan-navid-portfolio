@@ -4,14 +4,14 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { createPageMetadata } from "@/lib/metadata";
 import { breadcrumbSchema, pageSchema, personSchema, webPageSchema } from "@/lib/structuredData";
 
-const title = "About Mir Rezwan Navid — Product Designer in Dhaka";
-const description = "Learn about Mir Rezwan Navid, a product designer and product manager based in Dhaka, Bangladesh, focused on useful digital products, design systems, and brands.";
+const title = "About | Mir Rezwan Navid";
+const description = "Learn how Mir Rezwan Navid approaches product strategy, design, business, and AI to shape useful, scalable digital experiences.";
 
 export const metadata: Metadata = createPageMetadata({
   title,
   description,
   path: "/about",
-  keywords: ["about Rezwan Navid", "Rezwan designer", "product designer in Dhaka", "product manager in Bangladesh"],
+  keywords: ["about Rezwan Navid", "Rezwan designer", "product strategy", "design leadership"],
   category: "Professional Profile",
 });
 

@@ -8,8 +8,6 @@ const sharedKeywords = [
   "UX designer",
   "UI designer",
   "product manager",
-  "product designer in Dhaka",
-  "designer in Bangladesh",
   "product design portfolio",
 ];
 
@@ -60,8 +58,8 @@ export function createPageMetadata({
     alternates: { canonical },
     robots: sharedRobots,
     openGraph: {
-      title,
-      description,
+      title: siteConfig.title,
+      description: siteConfig.description,
       url: canonical,
       type: "website",
       siteName: siteConfig.applicationName,
@@ -70,8 +68,8 @@ export function createPageMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title,
-      description,
+      title: siteConfig.title,
+      description: siteConfig.description,
       creator: siteConfig.twitterHandle,
       images: [{ url: imageUrl, alt: image.alt }],
     },

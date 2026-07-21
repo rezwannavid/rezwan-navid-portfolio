@@ -8,7 +8,7 @@ import { createPageMetadata } from "@/lib/metadata";
 import { breadcrumbSchema, pageSchema, projectItemListSchema, webPageSchema } from "@/lib/structuredData";
 
 const title = "Product Design Work and Case Studies — Rezwan Navid";
-const description = "Explore selected product design, UX, UI, product management, design-system, branding, and AI projects by Mir Rezwan Navid in Dhaka, Bangladesh.";
+const description = "Explore selected product strategy, UX, UI, design-system, branding, and AI projects by Mir Rezwan Navid.";
 
 export const metadata: Metadata = createPageMetadata({
   title,

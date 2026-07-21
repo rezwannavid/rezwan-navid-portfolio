@@ -10,14 +10,14 @@ import { createPageMetadata } from "@/lib/metadata";
 import { breadcrumbSchema, pageSchema, projectItemListSchema, webPageSchema } from "@/lib/structuredData";
 import { siteConfig } from "@/lib/site";
 
-const title = "Mir Rezwan Navid — Product Designer in Dhaka";
+const title = siteConfig.title;
 const description = siteConfig.description;
 
 export const metadata: Metadata = createPageMetadata({
   title,
   description,
   path: "/",
-  keywords: ["Rezwan portfolio", "Rezwan Navid website", "UX designer in Dhaka", "UI designer in Bangladesh", "product manager in Asia"],
+  keywords: ["Rezwan portfolio", "Rezwan Navid website", "Product Brain", "Design Heart", "product strategy", "AI product design"],
   category: "Product Design",
 });
 
