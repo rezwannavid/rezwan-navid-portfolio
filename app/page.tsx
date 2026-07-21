@@ -19,7 +19,7 @@ export const metadata: Metadata = createPageMetadata({
 export default function HomePage() {
   return (
     <>
-      <SiteHeader minimal email="mailto:m.rezwannavid@gmail.com" />
+      <SiteHeader />
       <JsonLd data={pageSchema(
         webPageSchema({ name: title, description, path: "/" }),
         breadcrumbSchema([{ name: "Home", path: "/" }]),

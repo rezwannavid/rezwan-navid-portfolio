@@ -1,4 +1,4 @@
-import { absoluteUrl, projects, siteConfig, socialProfiles } from "@/lib/site";
+import { absoluteUrl, siteConfig, socialProfiles } from "@/lib/site";
 
 export const schemaIds = {
   person: `${siteConfig.url}/#person`,
@@ -71,18 +71,6 @@ export function webPageSchema({ name, description, path, type = "WebPage" }: { n
     primaryImageOfPage: { "@type": "ImageObject", url: absoluteUrl(siteConfig.openGraphImage.url) },
   };
 }
-
-export const projectItemListSchema = {
-  "@type": "ItemList",
-  name: "Selected product design projects by Mir Rezwan Navid",
-  numberOfItems: projects.length,
-  itemListElement: projects.map((project, index) => ({
-    "@type": "ListItem",
-    position: index + 1,
-    url: absoluteUrl(`/work/${project.slug}`),
-    name: project.title,
-  })),
-};
 
 export const pageSchema = (...nodes: unknown[]) => ({
   "@context": "https://schema.org",

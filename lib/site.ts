@@ -5,7 +5,7 @@ export const siteConfig = {
   alternateNames: ["Rezwan Navid", "Rezwan", "Mir Navid"],
   applicationName: "Rezwan Navid Portfolio",
   description: "Mir Rezwan Navid is a product designer and product manager in Dhaka, Bangladesh, creating digital products, design systems, brands, and AI-enabled experiences.",
-  email: "hello@rezwannavid.me",
+  email: "m.rezwannavid@gmail.com",
   locale: "en_US",
   language: "en",
   location: {
@@ -42,18 +42,6 @@ export const siteConfig = {
     "Figma",
   ],
 } as const;
-
-export const projects = [
-  { title: "RideCentric+", year: "2026", slug: "ridecentric" },
-  { title: "Global Mission Institute", year: "2026", slug: "global-mission-institute" },
-  { title: "Drivers App", year: "2025", slug: "drivers-app" },
-  { title: "RideSync", year: "2024", slug: "ridesync" },
-  { title: "Ruckus Games", year: "2026", slug: "ruckus-games" },
-  { title: "Kivo", year: "2026", slug: "kivo" },
-  { title: "Hobbit", year: "2026", slug: "hobbit" },
-  { title: "TygrLabs", year: "2024", slug: "tygrlabs" },
-  { title: "Global Mission Summit", year: "2025", slug: "global-mission-summit" },
-] as const;
 
 export const absoluteUrl = (path = "/") => new URL(path, siteConfig.url).toString();
 export const socialProfiles = Object.values(siteConfig.social);
