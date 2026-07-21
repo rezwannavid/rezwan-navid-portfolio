@@ -4,9 +4,9 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { AnimatedDivider } from "@/components/ui/AnimatedDivider";
 
-const email = "mailto:hello@rezwannavid.me";
+const defaultEmail = "mailto:hello@rezwannavid.me";
 
-export function SiteHeader() {
+export function SiteHeader({ minimal = false, email = defaultEmail }: { minimal?: boolean; email?: string }) {
   const [open, setOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -35,33 +35,37 @@ export function SiteHeader() {
   }, []);
 
   return (
-    <header ref={headerRef} className="site-header">
+    <header ref={headerRef} className={`site-header${minimal ? " site-header-minimal" : ""}`}>
       <div className="header-inner">
         <div className="desktop-nav-group">
           <Link className="brand" href="/" aria-label="Mir Rezwan Navid, home">
             <img src="/rezwan-navid-logo.svg" alt="" width="107" height="39" loading="eager" />
             <span>Mir Rezwan Navid</span>
           </Link>
-          <nav aria-label="Primary navigation">
-            <Link href="/work">Work</Link>
-            <Link href="/about">About</Link>
-          </nav>
+          {!minimal && (
+            <nav aria-label="Primary navigation">
+              <Link href="/work">Work</Link>
+              <Link href="/about">About</Link>
+            </nav>
+          )}
         </div>
         <div className="desktop-socials">
           <a href="https://www.linkedin.com/in/rezwannavid" target="_blank" rel="noreferrer" aria-label="Mir Rezwan Navid on LinkedIn"><img src="/icons/LinkedIn.svg" alt="" width="18" height="18" /></a>
           <a href={email} aria-label="Email Mir Rezwan Navid"><img src="/icons/Email.svg" alt="" width="18" height="18" /></a>
         </div>
 
-        <button ref={triggerRef} className="mobile-icon mobile-menu-trigger" data-open={open} type="button" aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} aria-controls="mobile-navigation" onClick={() => open ? close(false) : setOpen(true)}>
-          <img src="/icons/HamBurger.svg" alt="" width="20" height="20" />
-          <span className="menu-close-glyph" aria-hidden="true"><i /><i /></span>
-        </button>
+        {minimal ? <span className="mobile-header-spacer" aria-hidden="true" /> : (
+          <button ref={triggerRef} className="mobile-icon mobile-menu-trigger" data-open={open} type="button" aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} aria-controls="mobile-navigation" onClick={() => open ? close(false) : setOpen(true)}>
+            <img src="/icons/HamBurger.svg" alt="" width="20" height="20" />
+            <span className="menu-close-glyph" aria-hidden="true"><i /><i /></span>
+          </button>
+        )}
         <Link className="mobile-brand" href="/" aria-label="Mir Rezwan Navid, home"><img src="/rezwan-navid-logo.svg" alt="" width="107" height="39" /><span>Mir Rezwan Navid</span></Link>
         <a className="mobile-icon mobile-email" href={email} aria-label="Email Mir Rezwan Navid"><img src="/icons/Email.svg" alt="" width="18" height="18" /></a>
       </div>
       <AnimatedDivider className="header-divider" />
 
-      <div className="drawer-backdrop" data-open={open} onMouseDown={(event) => event.target === event.currentTarget && close()}>
+      {!minimal && <div className="drawer-backdrop" data-open={open} onMouseDown={(event) => event.target === event.currentTarget && close()}>
         <div ref={drawerRef} id="mobile-navigation" className="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile navigation">
           <nav className="drawer-primary" aria-label="Mobile primary navigation">
             <Link href="/work" onClick={() => close(false)}>Work</Link>
@@ -79,7 +83,7 @@ export function SiteHeader() {
             <span className="drawer-version">v1.01</span>
           </div>
         </div>
-      </div>
+      </div>}
     </header>
   );
 }
