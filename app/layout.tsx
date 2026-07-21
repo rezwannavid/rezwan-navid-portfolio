@@ -17,10 +17,10 @@ const neueMontreal = localFont({
 });
 
 const defaultMetadata = createPageMetadata({
-  title: "Mir Rezwan Navid | Product Thinker",
+  title: siteConfig.title,
   description: siteConfig.description,
   path: "/",
-  keywords: ["Rezwan portfolio", "Rezwan Navid portfolio", "UX designer in Dhaka", "product manager in Bangladesh", "Mir Rezwan Navid portfolio", "Rezwan Navid UX designer", "Rezwan Navid product manager"],
+  keywords: ["Rezwan portfolio", "Rezwan Navid portfolio", "Mir Rezwan Navid portfolio", "Product Brain", "Design Heart", "product strategy", "AI product design"],
   category: "Product Design, Product Management, UX Design, UI Design, Web Development",
 });
 
@@ -30,10 +30,12 @@ export const metadata: Metadata = {
   manifest: "/manifest.webmanifest",
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "32x32", type: "image/x-icon" },
+      { url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" },
+      { url: "/icon.png", sizes: "192x192", type: "image/png" },
       { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
       { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
     ],
+    shortcut: [{ url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" }],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
     other: [{ rel: "mask-icon", url: "/safari-pinned-tab.svg", color: "#101010" }],
   },

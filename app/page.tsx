@@ -4,15 +4,16 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { createPageMetadata } from "@/lib/metadata";
 import { breadcrumbSchema, pageSchema, webPageSchema } from "@/lib/structuredData";
+import { siteConfig } from "@/lib/site";
 
-const title = "Mir Rezwan Navid — Portfolio in Development";
-const description = "Mir Rezwan Navid is a product designer and product thinker based in Dhaka, Bangladesh. His new portfolio is currently in development.";
+const title = siteConfig.title;
+const description = siteConfig.description;
 
 export const metadata: Metadata = createPageMetadata({
   title,
   description,
   path: "/",
-  keywords: ["Rezwan portfolio", "Rezwan Navid website", "Mir Rezwan Navid portfolio", "product designer in Dhaka"],
+  keywords: ["Rezwan portfolio", "Rezwan Navid website", "Mir Rezwan Navid portfolio", "Product Brain", "Design Heart", "product strategy", "AI product design"],
   category: "Product Design",
 });
 
