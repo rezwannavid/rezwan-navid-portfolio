@@ -404,10 +404,17 @@ img { display: block; max-width: 100%; }
 .work-rail > .home-arrow { justify-self: end; font-size: 26px; }
 
 .experience-section { padding-top: 183px; }
-.experience-frame { position: relative; height: 340px; overflow: hidden; }
-.experience-frame > img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 49%; }
-.experience-frame > p { position: absolute; left: 61px; top: 87px; font-family: var(--home-serif); font-size: 27px; line-height: 27px; }
-.experience-awards { position: absolute; left: 0; right: 0; bottom: 0; height: 35px; padding-inline: 8px; display: flex; align-items: center; justify-content: space-between; background: rgb(4 4 4 / .65); backdrop-filter: blur(5px); font-size: 10px; }
+.experience-frame { position: relative; width: 1080px; height: 344px; }
+.experience-media { position: absolute; top: 0; left: 0; width: 1080px; height: 312px; overflow: hidden; border-radius: 8px; }
+.experience-photo { position: absolute; top: -280px; left: -13px; width: 1386px; height: 924px; }
+.experience-photo > img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; }
+.experience-gradient { position: absolute; top: -44px; left: -43px; width: 1172px; height: 406px; background-position: center; background-repeat: no-repeat; background-size: 100% 100%; pointer-events: none; }
+.experience-copy { position: absolute; top: 82px; left: 77px; width: 298px; color: #d3d3d3; font-family: var(--home-serif); font-size: 40px; line-height: 40px; font-weight: 400; font-variation-settings: "SOFT" 100, "opsz" 144, "WONK" 1; overflow-wrap: break-word; }
+.experience-copy span:last-child { color: rgb(211 211 211 / .76); }
+.experience-awards { position: absolute; top: 325px; left: 0; width: 1080px; display: flex; align-items: center; justify-content: space-between; }
+.experience-award { display: flex; flex: 0 0 auto; gap: 4px; align-items: center; color: #e6e6e6; font-size: 16px; line-height: normal; white-space: nowrap; }
+.experience-award-icon { position: relative; width: 19px; height: 19px; flex: 0 0 19px; overflow: hidden; }
+.experience-award-icon img { position: absolute; top: 1.583px; left: 1.902px; width: 15.195px; height: 15.747px; max-width: none; }
 
 .home-philosophy { padding-top: 176px; }
 .home-philosophy > h2 { color: var(--home-ink-muted); font-family: var(--home-serif); font-size: 48px; line-height: 48px; font-weight: 300; text-align: center; letter-spacing: -.02em; }

@@ -10,12 +10,19 @@ export const personSchema = {
   "@id": schemaIds.person,
   name: siteConfig.name,
   alternateName: siteConfig.alternateNames,
-  description: siteConfig.description,
+  jobTitle: siteConfig.jobTitle,
+  description: siteConfig.entityDescription,
   url: siteConfig.url,
   image: absoluteUrl(siteConfig.personImage),
   email: `mailto:${siteConfig.email}`,
   knowsAbout: siteConfig.knowsAbout,
   sameAs: socialProfiles,
+  hasOccupation: {
+    "@type": "Occupation",
+    name: siteConfig.jobTitle,
+    description: "Product design and design engineering across strategy, UX, systems, technology and AI-enabled products.",
+    skills: siteConfig.knowsAbout,
+  },
 };
 
 export const websiteSchema = {
@@ -26,6 +33,7 @@ export const websiteSchema = {
   alternateName: siteConfig.alternateNames,
   description: siteConfig.description,
   inLanguage: siteConfig.language,
+  author: { "@id": schemaIds.person },
   publisher: { "@id": schemaIds.person },
 };
 
@@ -65,8 +73,8 @@ export function webPageSchema({ name, description, path, type = "WebPage" }: { n
 export const projectItemListSchema = {
   "@type": "ItemList",
   name: "Selected product design projects by Mir Rezwan Navid",
-  numberOfItems: projects.length,
-  itemListElement: projects.map((project, index) => ({
+  numberOfItems: projects.filter((project) => project.indexable).length,
+  itemListElement: projects.filter((project) => project.indexable).map((project, index) => ({
     "@type": "ListItem",
     position: index + 1,
     url: absoluteUrl(`/work/${project.slug}`),
@@ -76,5 +84,5 @@ export const projectItemListSchema = {
 
 export const pageSchema = (...nodes: unknown[]) => ({
   "@context": "https://schema.org",
-  "@graph": nodes,
+  "@graph": nodes.filter(Boolean),
 });

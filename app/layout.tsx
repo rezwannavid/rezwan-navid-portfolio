@@ -29,13 +29,18 @@ const defaultMetadata = createPageMetadata({
   title: siteConfig.title,
   description: siteConfig.description,
   path: "/",
-  keywords: ["Rezwan portfolio", "Rezwan Navid portfolio", "Mir Rezwan Navid portfolio", "Product Brain", "Design Heart", "product strategy", "AI product design"],
-  category: "Product Design, Product Management, UX Design, UI Design, Web Development",
+  openGraphDescription: siteConfig.socialDescription,
+  keywords: ["Rezwan Navid portfolio", "Product Brain", "Design Heart", "Design Engineering", "AI Product Design", "Systems Thinking"],
+  category: "Product Design and Design Engineering",
 });
 
 export const metadata: Metadata = {
   ...defaultMetadata,
-  metadataBase: new URL("https://rezwannavid.me"),
+  title: {
+    default: siteConfig.title,
+    template: `%s — ${siteConfig.name}`,
+  },
+  metadataBase: new URL(siteConfig.url),
   manifest: "/manifest.webmanifest",
   icons: {
     icon: [

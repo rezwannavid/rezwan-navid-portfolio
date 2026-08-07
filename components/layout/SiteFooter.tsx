@@ -3,10 +3,10 @@ import { Container } from "@/components/layout/Container";
 
 const socialLinks = [
   ["LinkedIn", "https://www.linkedin.com/in/rezwannavid"],
-  ["Medium", "https://medium.com/@rezwannavid"],
+  ["Medium", "https://medium.com/@rezwannavidalvee"],
   ["GitHub", "https://github.com/rezwannavid"],
   ["Instagram", "https://instagram.com/rezwannavid"],
-  ["Email", "mailto:m.rezwannavid@gmail.com"],
+  ["Email", "mailto:hello@rezwannavid.me"],
 ];
 
 export function SiteFooter() {

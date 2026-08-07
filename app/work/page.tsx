@@ -7,14 +7,14 @@ import { WorkArchive } from "@/components/work/WorkArchive";
 import { createPageMetadata } from "@/lib/metadata";
 import { breadcrumbSchema, pageSchema, projectItemListSchema, webPageSchema } from "@/lib/structuredData";
 
-const title = "Product Design Work and Case Studies — Rezwan Navid";
-const description = "Explore selected product strategy, UX, UI, design-system, branding, and AI projects by Mir Rezwan Navid.";
+const title = "Selected Work";
+const description = "Explore product design, design engineering, product strategy, AI and systems-oriented work by Mir Rezwan Navid.";
 
 export const metadata: Metadata = createPageMetadata({
   title,
   description,
   path: "/work",
-  keywords: ["Rezwan Navid projects", "Rezwan Navid case study", "product design case studies", "UX portfolio", "UI portfolio"],
+  keywords: ["Rezwan Navid projects", "Product Design case studies", "Design Engineering portfolio", "AI Product Design"],
   category: "Design Portfolio",
 });
 

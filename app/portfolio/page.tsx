@@ -9,7 +9,7 @@ import { breadcrumbSchema, pageSchema, schemaIds, webPageSchema } from "@/lib/st
 import { absoluteUrl } from "@/lib/site";
 import { getPortfolioPdfMetadata } from "@/lib/portfolioPdf";
 
-const title = "Product Design Portfolio 2026 — Rezwan Navid";
+const title = "Product Design Portfolio 2026";
 const description = "View and download Mir Rezwan Navid’s 2026 product design portfolio featuring product studies, design systems, AI exploration, and product thinking.";
 
 export const metadata: Metadata = createPageMetadata({

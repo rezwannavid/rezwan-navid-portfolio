@@ -1,26 +1,48 @@
 # Mir Rezwan Navid
 
-> Mir Rezwan Navid combines product strategy, thoughtful design, business insight, and AI to turn complex problems into intuitive, scalable digital experiences.
+> Mir Rezwan Navid is a product designer and design engineer working across product strategy, UX, systems thinking, product management and AI-enabled products.
+
+Primary role: Product Designer & Design Engineer
+
+Secondary role: Product Thinker
+
+Brand statement: Product Brain, Design Heart
 
 ## Primary pages
 
-- [Homepage](https://rezwannavid.me/): Identity, professional roles, selected projects, and design philosophy.
-- [Work](https://rezwannavid.me/work): Product design projects and case-study index.
+- [Homepage](https://rezwannavid.me/): Professional identity, featured products and design philosophy.
+- [Selected Work](https://rezwannavid.me/work): Product design, design engineering and product strategy projects.
 - [Portfolio 2026](https://rezwannavid.me/portfolio): Downloadable product design portfolio.
-- [About](https://rezwannavid.me/about): Professional profile.
+- [About](https://rezwannavid.me/about): Professional profile and working approach.
 
 ## Expertise
 
-Product design, UX design, UI design, product management, design systems, interaction design, user research, prototyping, brand systems, AI product design, and Figma.
+- Product Design
+- Design Engineering
+- Product Strategy
+- UX Design
+- Product Management
+- Design Systems
+- Systems Thinking
+- Frontend Prototyping
+- AI-Enabled Products
+- Product Discovery
+- Interaction Design
 
 ## Selected projects
 
-RideCentric+, Global Mission Institute, Drivers App, RideSync, Ruckus Games, Kivo, Hobbit, TygrLabs, and Global Mission Summit.
+- [RideCentric+](https://rezwannavid.me/work/ridecentric) — Enterprise transportation operations platform. The detailed case study is password protected.
+- [Global Mission Institute](https://rezwannavid.me/work/global-mission-institute) — Digital learning experience and brand system for mission training.
+- [Drivers App](https://rezwannavid.me/work/drivers-app) — Mobile workflow for professional driver operations.
+
+## About
+
+Mir Rezwan Navid works at the intersection of business strategy, design and technology, shaping products through research, systems thinking and thoughtful execution.
 
 ## Contact and verified profiles
 
 - Email: hello@rezwannavid.me
 - LinkedIn: https://www.linkedin.com/in/rezwannavid
 - GitHub: https://github.com/rezwannavid
-- Medium: https://medium.com/@rezwannavid
+- Medium: https://medium.com/@rezwannavidalvee
 - Instagram: https://instagram.com/rezwannavid

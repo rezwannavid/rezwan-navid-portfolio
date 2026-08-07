@@ -14,7 +14,7 @@ function PortfolioHeader() {
         <nav className="home-nav" aria-label="Primary navigation">
           <Link href="/work">Work</Link>
           <Link href="/about">About</Link>
-          <a href="https://medium.com/@rezwannavid" target="_blank" rel="noreferrer">Opinion</a>
+          <a href="https://medium.com/@rezwannavidalvee" target="_blank" rel="noreferrer">Opinion</a>
           <Link href="/portfolio">Portfolio</Link>
           <a href="/Rezwan-Navid-Portfolio-2026.pdf" target="_blank" rel="noreferrer">Resume</a>
         </nav>
@@ -116,12 +116,35 @@ function WorkRail() {
 }
 
 function ExperienceSection() {
+  const awards = [
+    "Creative Mapper of the Year",
+    "Winner of EWU Analytics",
+    "Gold in UniV",
+    "2nd in BrandAid",
+  ];
+
   return (
     <section className="experience-section home-shell" aria-label="Experience and recognition">
       <div className="experience-frame">
-        <Image unoptimized src="/home-design/experience-banner.png?v=2" alt="Mir Rezwan Navid speaking at a technology event" width={4096} height={2731} sizes="1080px" />
-        <p>7+ years building<br />products across<br />industries</p>
-        <div className="experience-awards"><span>◈ Creative Mapper of The Year</span><span>♙ Winner of EWU Analytics</span><span>♙ GetinView</span><span>♙ 2nd in BrandAid</span></div>
+        <div className="experience-media">
+          <div className="experience-photo">
+            <Image unoptimized src="/home-design/experience-banner.png?v=2" alt="Mir Rezwan Navid speaking at a technology event" width={4096} height={2731} sizes="1386px" />
+          </div>
+          <div
+            className="experience-gradient"
+            aria-hidden="true"
+            style={{ backgroundImage: "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 1172 406' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect width='100%25' height='100%25' fill='url(%23grad)'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(-51.8 15.05 -43.445 -149.53 727 151)'><stop stop-color='rgba(0,0,0,0)'/><stop stop-color='rgba(0,53,111,0)' offset='.086538'/><stop stop-color='rgba(0,25,53,.5)' offset='.55916'/><stop stop-color='rgba(0,13,27,.75)' offset='.77958'/><stop stop-color='rgba(0,6,13,.875)' offset='.88979'/><stop stop-color='rgba(0,0,0,1)' offset='1'/></radialGradient></defs></svg>\")" }}
+          />
+          <p className="experience-copy"><span>7+ years building products </span><span>across industries</span></p>
+        </div>
+        <div className="experience-awards">
+          {awards.map((award) => (
+            <span className="experience-award" key={award}>
+              <span className="experience-award-icon" aria-hidden="true"><img src="/home-design/experience-award.svg" alt="" width="16" height="16" /></span>
+              <span>{award}</span>
+            </span>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -134,7 +157,7 @@ function PhilosophySection() {
       <VideoFeature />
       <nav className="editorial-links" aria-label="More about Mir Rezwan Navid">
         <Link href="/about">about me <Arrow /></Link>
-        <a href="https://medium.com/@rezwannavid" target="_blank" rel="noreferrer">opinion <Arrow /></a>
+        <a href="https://medium.com/@rezwannavidalvee" target="_blank" rel="noreferrer">opinion <Arrow /></a>
       </nav>
     </section>
   );
@@ -149,13 +172,13 @@ function ContactSection() {
         <img className="closing-curved-title" src="/home-design/create-with-impact.png?v=1" alt="Create with Impact" width="1471" height="329" />
         <img className="closing-logo" src="/RNLogo.svg" alt="" width="55" height="20" />
         <nav className="closing-nav" aria-label="Footer navigation">
-          <Link href="/">home</Link><Link href="/work">work</Link><Link href="/about">about</Link><a href="https://medium.com/@rezwannavid" target="_blank" rel="noreferrer">opinions</a><a href="mailto:hello@rezwannavid.me">contact</a><Link href="/portfolio">portfolio</Link><a href="/Rezwan-Navid-Portfolio-2026.pdf">resume</a>
+          <Link href="/">home</Link><Link href="/work">work</Link><Link href="/about">about</Link><a href="https://medium.com/@rezwannavidalvee" target="_blank" rel="noreferrer">opinions</a><a href="mailto:hello@rezwannavid.me">contact</a><Link href="/portfolio">portfolio</Link><a href="/Rezwan-Navid-Portfolio-2026.pdf">resume</a>
         </nav>
         <nav className="closing-socials" aria-label="Social links">
           <a href="https://instagram.com/rezwannavid" aria-label="Instagram"><img src="/home-design/footer-instagram.svg" alt="" width="24" height="24" /></a>
           <a href="https://www.linkedin.com/in/rezwannavid" aria-label="LinkedIn"><img src="/home-design/footer-linkedin.svg" alt="" width="24" height="24" /></a>
           <a href="https://threads.net/@rezwannavid" aria-label="Threads"><img src="/home-design/footer-threads.svg" alt="" width="24" height="24" /></a>
-          <a href="https://medium.com/@rezwannavid" aria-label="Medium"><img src="/home-design/footer-medium.svg" alt="" width="24" height="24" /></a>
+          <a href="https://medium.com/@rezwannavidalvee" aria-label="Medium"><img src="/home-design/footer-medium.svg" alt="" width="24" height="24" /></a>
           <a href="https://github.com/rezwannavid" aria-label="GitHub"><img src="/home-design/footer-github.svg" alt="" width="24" height="24" /></a>
         </nav>
         <p className="made-with">made with coffee and droopy eyes</p>

@@ -77,7 +77,7 @@ export function SiteHeader({ minimal = false, email = defaultEmail }: { minimal?
               <a href="https://www.linkedin.com/in/rezwannavid" target="_blank" rel="noreferrer" onClick={() => close(false)}>LinkedIn</a>
               <a href={email} onClick={() => close(false)}>Email</a>
               <a href="https://instagram.com/rezwannavid" target="_blank" rel="noreferrer" onClick={() => close(false)}>Instagram</a>
-              <a href="https://medium.com/@rezwannavid" target="_blank" rel="noreferrer" onClick={() => close(false)}>Medium</a>
+              <a href="https://medium.com/@rezwannavidalvee" target="_blank" rel="noreferrer" onClick={() => close(false)}>Medium</a>
               <a href="https://github.com/rezwannavid" target="_blank" rel="noreferrer" onClick={() => close(false)}>GitHub</a>
             </nav>
             <span className="drawer-version">v1.01</span>

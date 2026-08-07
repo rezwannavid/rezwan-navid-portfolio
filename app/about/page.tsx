@@ -4,14 +4,14 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { createPageMetadata } from "@/lib/metadata";
 import { breadcrumbSchema, pageSchema, personSchema, webPageSchema } from "@/lib/structuredData";
 
-const title = "About | Mir Rezwan Navid";
-const description = "Learn how Mir Rezwan Navid approaches product strategy, design, business, and AI to shape useful, scalable digital experiences.";
+const title = "About";
+const description = "Learn how Mir Rezwan Navid approaches product design, design engineering, strategy, systems and AI-enabled products.";
 
 export const metadata: Metadata = createPageMetadata({
   title,
   description,
   path: "/about",
-  keywords: ["about Rezwan Navid", "Rezwan designer", "product strategy", "design leadership"],
+  keywords: ["About Mir Rezwan Navid", "Product Designer", "Design Engineer", "Product Thinker"],
   category: "Professional Profile",
 });
 
@@ -26,7 +26,9 @@ export default function AboutPage() {
       profilePage,
       breadcrumbSchema([{ name: "Home", path: "/" }, { name: "About", path: "/about" }]),
     )} />
-    <h1>About page coming soon.</h1>
-    <Link href="/">Visit Rezwan Navid’s homepage</Link>
+    <h1>About Mir Rezwan Navid</h1>
+    <p>Mir Rezwan Navid is a product designer and design engineer working where business strategy, design and technology intersect.</p>
+    <p>A fuller profile is coming soon.</p>
+    <Link href="/work">Explore selected work</Link>
   </main>;
 }

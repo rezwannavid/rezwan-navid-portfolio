@@ -25,13 +25,15 @@ export type WorkProject = {
   protected: boolean;
   passwordIdentifier?: string;
   theme?: "checker" | "dark";
+  seoTitle: string;
+  seoDescription: string;
 };
 
 export const workProjects: WorkProject[] = [
   {
     number: "01",
     title: "RideCentric+",
-    shortDescription: "RideSync modernized luxury transportation operations by replacing fragmented tools with one connected platform.",
+    shortDescription: "RideCentric+ modernized luxury transportation operations by replacing fragmented tools with one connected platform.",
     categories: ["product-study", "interface", "design-system"],
     categoryLabel: "Product Study",
     year: "2025",
@@ -43,6 +45,8 @@ export const workProjects: WorkProject[] = [
     protected: true,
     passwordIdentifier: "RIDECENTRIC",
     theme: "checker",
+    seoTitle: "RideCentric+ — Enterprise Mobility Product Design",
+    seoDescription: "Designing an enterprise mobility platform for managing complex ride operations, events, teams and workflows at scale.",
   },
   {
     number: "02",
@@ -58,6 +62,8 @@ export const workProjects: WorkProject[] = [
     slug: "global-mission-institute",
     protected: false,
     theme: "checker",
+    seoTitle: "Global Mission Institute — Digital Learning Product Design",
+    seoDescription: "A learning experience and brand system designed to make mission training easier to discover, navigate and complete.",
   },
   {
     number: "03",
@@ -73,6 +79,8 @@ export const workProjects: WorkProject[] = [
     slug: "drivers-app",
     protected: false,
     theme: "checker",
+    seoTitle: "Drivers App — Transportation Operations Product Design",
+    seoDescription: "A focused mobile workflow that helps professional drivers coordinate trips, communicate updates and stay on schedule.",
   },
 ];
 

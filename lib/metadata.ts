@@ -4,11 +4,11 @@ import { absoluteUrl, siteConfig } from "@/lib/site";
 const sharedKeywords = [
   "Rezwan Navid",
   "Mir Rezwan Navid",
-  "product designer",
-  "UX designer",
-  "UI designer",
-  "product manager",
-  "product design portfolio",
+  "Product Designer",
+  "Design Engineer",
+  "Product Thinker",
+  "Product Design",
+  "Product Strategy",
 ];
 
 export const sharedRobots: Metadata["robots"] = {
@@ -32,6 +32,8 @@ type PageMetadataInput = {
   keywords?: string[];
   category?: string;
   image?: typeof siteConfig.openGraphImage;
+  openGraphDescription?: string;
+  indexable?: boolean;
 };
 
 export function createPageMetadata({
@@ -41,9 +43,12 @@ export function createPageMetadata({
   keywords = [],
   category = "Design",
   image = siteConfig.openGraphImage,
+  openGraphDescription = description,
+  indexable = true,
 }: PageMetadataInput): Metadata {
   const canonical = absoluteUrl(path);
   const imageUrl = absoluteUrl(image.url);
+  const socialTitle = path === "/" ? title : `${title} — ${siteConfig.name}`;
 
   return {
     title,
@@ -56,10 +61,10 @@ export function createPageMetadata({
     referrer: "origin-when-cross-origin",
     keywords: [...new Set([...sharedKeywords, ...keywords])],
     alternates: { canonical },
-    robots: sharedRobots,
+    robots: indexable ? sharedRobots : { index: false, follow: false, nocache: true },
     openGraph: {
-      title: siteConfig.title,
-      description: siteConfig.description,
+      title: socialTitle,
+      description: openGraphDescription,
       url: canonical,
       type: "website",
       siteName: siteConfig.applicationName,
@@ -68,8 +73,8 @@ export function createPageMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: siteConfig.title,
-      description: siteConfig.description,
+      title: socialTitle,
+      description: openGraphDescription,
       creator: siteConfig.twitterHandle,
       images: [{ url: imageUrl, alt: image.alt }],
     },
