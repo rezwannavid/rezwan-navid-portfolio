@@ -11,10 +11,18 @@ const neueMontreal = localFont({
   src: [
     { path: "../src/fonts/NeueMontreal-Regular.otf", weight: "400", style: "normal" },
     { path: "../src/fonts/NeueMontreal-Medium.otf", weight: "500", style: "normal" },
+    { path: "../NeueMontreal/NeueMontreal-Bold.otf", weight: "700", style: "normal" },
   ],
   variable: "--font-neue-montreal",
   display: "swap",
   fallback: ["Arial", "Helvetica", "sans-serif"],
+});
+
+const fraunces = localFont({
+  src: "../src/fonts/Fraunces.ttf",
+  variable: "--font-fraunces",
+  display: "swap",
+  fallback: ["Georgia", "Times New Roman", "serif"],
 });
 
 const defaultMetadata = createPageMetadata({
@@ -57,8 +65,8 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body className={`${neueMontreal.variable} ${neueMontreal.className}`}>
+    <html lang="en" data-scroll-behavior="smooth">
+      <body className={`${neueMontreal.variable} ${fraunces.variable} ${neueMontreal.className}`}>
         <JsonLd data={globalSchema} />
         <PageTransitionLayer />
         {children}
