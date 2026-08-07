@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { AboutPageContent } from "@/components/about/AboutPageContent";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { createPageMetadata } from "@/lib/metadata";
 import { breadcrumbSchema, pageSchema, personSchema, webPageSchema } from "@/lib/structuredData";
@@ -21,14 +21,11 @@ export default function AboutPage() {
     mainEntity: { "@id": personSchema["@id"] },
   };
 
-  return <main className="placeholder-page">
+  return <>
     <JsonLd data={pageSchema(
       profilePage,
       breadcrumbSchema([{ name: "Home", path: "/" }, { name: "About", path: "/about" }]),
     )} />
-    <h1>About Mir Rezwan Navid</h1>
-    <p>Mir Rezwan Navid is a product designer and design engineer working where business strategy, design and technology intersect.</p>
-    <p>A fuller profile is coming soon.</p>
-    <Link href="/work">Explore selected work</Link>
-  </main>;
+    <AboutPageContent />
+  </>;
 }

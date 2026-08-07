@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion, useMotionValue, useReducedMotion, useSpring } from "motion/react";
 import { useRef, type PointerEvent, type ReactNode } from "react";
 
-export function TiltLink({ href, className = "", ariaLabel, cursorLabel = "View", children }: { href: string; className?: string; ariaLabel: string; cursorLabel?: string; children: ReactNode }) {
+export function TiltLink({ href, className = "", ariaLabel, cursorLabel = "View", maxRotate = 6.4, maxTranslate = 5, children }: { href: string; className?: string; ariaLabel: string; cursorLabel?: string; maxRotate?: number; maxTranslate?: number; children: ReactNode }) {
   const ref = useRef<HTMLAnchorElement>(null);
   const reduceMotion = useReducedMotion();
   const rotateX = useMotionValue(0);
@@ -22,10 +22,10 @@ export function TiltLink({ href, className = "", ariaLabel, cursorLabel = "View"
     const rect = event.currentTarget.getBoundingClientRect();
     const x = (event.clientX - rect.left) / rect.width - .5;
     const y = (event.clientY - rect.top) / rect.height - .5;
-    rotateX.set(y * -6.4);
-    rotateY.set(x * 6.4);
-    translateX.set(x * 5);
-    translateY.set(y * 5);
+    rotateX.set(y * -maxRotate);
+    rotateY.set(x * maxRotate);
+    translateX.set(x * maxTranslate);
+    translateY.set(y * maxTranslate);
     event.currentTarget.style.setProperty("--pointer-x", `${(x + .5) * 100}%`);
     event.currentTarget.style.setProperty("--pointer-y", `${(y + .5) * 100}%`);
     event.currentTarget.style.setProperty("--media-x", `${x * -7}px`);

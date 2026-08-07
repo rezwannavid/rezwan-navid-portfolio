@@ -4,8 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
 import { type PointerEvent } from "react";
-import { EditorialArrow as Arrow, EditorialContactFooter } from "@/components/home/EditorialContactFooter";
+import { ContactCTA, EditorialArrow as Arrow } from "@/components/home/ContactCTA";
 import { EditorialSiteHeader } from "@/components/home/EditorialSiteHeader";
+import { SiteFooter } from "@/components/layout/SiteFooter";
 import { AnimatedLines } from "@/components/motion/AnimatedLines";
 import { AnimatedWords } from "@/components/motion/AnimatedWords";
 import { ParallaxMedia } from "@/components/motion/ParallaxMedia";
@@ -215,5 +216,5 @@ function PhilosophySection() {
 }
 
 export function PortfolioHomepage() {
-  return <><EditorialSiteHeader activeRoute="/" /><HeroSection /><HumanUnderstandingSection /><FeaturedWorkSection /><WorkRail /><ExperienceSection /><PhilosophySection /><EditorialContactFooter /></>;
+  return <><EditorialSiteHeader activeRoute="/" /><HeroSection /><HumanUnderstandingSection /><FeaturedWorkSection /><WorkRail /><ExperienceSection /><PhilosophySection /><ContactCTA /><SiteFooter /></>;
 }

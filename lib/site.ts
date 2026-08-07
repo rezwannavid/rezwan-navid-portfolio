@@ -45,12 +45,17 @@ export const siteConfig = {
 
 export const projects = [
   { title: "RideCentric+", year: "2025", slug: "ridecentric", indexable: false },
-  { title: "Global Mission Institute", year: "2026", slug: "global-mission-institute", indexable: true },
+  { title: "RideSync", year: "2025", slug: "ridesync", indexable: false },
+  { title: "10MS for Parents", year: "2023", slug: "10ms-for-parents", indexable: false },
+  { title: "Nav AI", year: "2026", slug: "nav-ai", indexable: false },
+  { title: "EventFlow", year: "2026", slug: "eventflow", indexable: false },
   { title: "Drivers App", year: "2025", slug: "drivers-app", indexable: true },
-  { title: "RideSync", year: "2024", slug: "ridesync", indexable: false },
   { title: "Ruckus Games", year: "2026", slug: "ruckus-games", indexable: false },
-  { title: "Kivo", year: "2026", slug: "kivo", indexable: false },
-  { title: "Hobbit", year: "2026", slug: "hobbit", indexable: false },
+  { title: "Fodo", year: "2026", slug: "fodo", indexable: false },
+  { title: "Gldn Route", year: "2026", slug: "gldn-route", indexable: false },
+  { title: "Lazy", year: "2025", slug: "lazy", indexable: false },
+  { title: "Voyage", year: "2026", slug: "voyage", indexable: false },
+  { title: "RideCentric Design System", year: "2024", slug: "ridecentric-design-system", indexable: false },
   { title: "TygrLabs", year: "2024", slug: "tygrlabs", indexable: false },
   { title: "Global Mission Summit", year: "2025", slug: "global-mission-summit", indexable: false },
 ] as const;

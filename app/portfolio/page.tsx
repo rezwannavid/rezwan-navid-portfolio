@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { EditorialContactFooter } from "@/components/home/EditorialContactFooter";
+import { ContactCTA } from "@/components/home/ContactCTA";
 import { EditorialSiteHeader } from "@/components/home/EditorialSiteHeader";
+import { SiteFooter } from "@/components/layout/SiteFooter";
 import { PortfolioDownload } from "@/components/portfolio/PortfolioDownload";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { createPageMetadata } from "@/lib/metadata";
@@ -49,8 +50,9 @@ export default function PortfolioPage() {
           portfolioSchema,
         )} />
         <PortfolioDownload pdf={pdf} />
-        <EditorialContactFooter variant="portfolio" />
+        <ContactCTA variant="portfolio" />
       </main>
+      <SiteFooter />
     </div>
   );
 }

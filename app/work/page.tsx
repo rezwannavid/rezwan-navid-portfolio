@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { ConnectSection } from "@/components/home/ConnectSection";
+import { ContactCTA } from "@/components/home/ContactCTA";
+import { EditorialSiteHeader } from "@/components/home/EditorialSiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
-import { SiteHeader } from "@/components/layout/SiteHeader";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { WorkArchive } from "@/components/work/WorkArchive";
+import { WorkProjectBrowser } from "@/components/work/WorkProjectBrowser";
 import { createPageMetadata } from "@/lib/metadata";
 import { breadcrumbSchema, pageSchema, projectItemListSchema, webPageSchema } from "@/lib/structuredData";
 
@@ -20,18 +20,18 @@ export const metadata: Metadata = createPageMetadata({
 
 export default function WorkPage() {
   return (
-    <>
-      <SiteHeader />
+    <div className="home-page work-page-shell">
+      <EditorialSiteHeader activeRoute="/work" />
       <main className="work-page">
         <JsonLd data={pageSchema(
           webPageSchema({ name: title, description, path: "/work", type: "CollectionPage" }),
           breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Work", path: "/work" }]),
           projectItemListSchema,
         )} />
-        <WorkArchive />
-        <ConnectSection />
+        <WorkProjectBrowser />
+        <ContactCTA variant="portfolio" />
       </main>
       <SiteFooter />
-    </>
+    </div>
   );
 }
