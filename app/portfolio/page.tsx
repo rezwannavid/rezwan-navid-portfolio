@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { ConnectSection } from "@/components/home/ConnectSection";
-import { SiteFooter } from "@/components/layout/SiteFooter";
-import { SiteHeader } from "@/components/layout/SiteHeader";
+import { EditorialContactFooter } from "@/components/home/EditorialContactFooter";
+import { EditorialSiteHeader } from "@/components/home/EditorialSiteHeader";
 import { PortfolioDownload } from "@/components/portfolio/PortfolioDownload";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { createPageMetadata } from "@/lib/metadata";
@@ -41,18 +40,17 @@ export default function PortfolioPage() {
   };
 
   return (
-    <>
-      <SiteHeader />
-      <main className="portfolio-page">
+    <div className="home-page portfolio-page">
+      <EditorialSiteHeader activeRoute="/portfolio" />
+      <main className="portfolio-main">
         <JsonLd data={pageSchema(
           webPageSchema({ name: title, description, path: "/portfolio", type: "CollectionPage" }),
           breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Portfolio", path: "/portfolio" }]),
           portfolioSchema,
         )} />
-        <PortfolioDownload />
-        <ConnectSection />
+        <PortfolioDownload pdf={pdf} />
+        <EditorialContactFooter variant="portfolio" />
       </main>
-      <SiteFooter />
-    </>
+    </div>
   );
 }

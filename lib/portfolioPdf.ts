@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { inflateSync } from "node:zlib";
 
@@ -50,11 +50,14 @@ function extractPageCount(pdf: Buffer) {
 }
 
 export function getPortfolioPdfMetadata() {
-  const pdf = readFileSync(path.join(process.cwd(), "public", portfolioPdfHref.slice(1)));
+  const pdfPath = path.join(process.cwd(), "public", portfolioPdfHref.slice(1));
+  const pdf = readFileSync(pdfPath);
+  const modified = statSync(pdfPath).mtime;
 
   return {
     fileSize: formatFileSize(pdf.byteLength),
     href: portfolioPdfHref,
+    lastUpdated: new Intl.DateTimeFormat("en-US", { month: "short", year: "numeric" }).format(modified),
     pageCount: extractPageCount(pdf),
   };
 }

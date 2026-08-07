@@ -2,39 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
-import { useRef, type PointerEvent } from "react";
+import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
+import { type PointerEvent } from "react";
+import { EditorialArrow as Arrow, EditorialContactFooter } from "@/components/home/EditorialContactFooter";
+import { EditorialSiteHeader } from "@/components/home/EditorialSiteHeader";
 import { AnimatedLines } from "@/components/motion/AnimatedLines";
 import { AnimatedWords } from "@/components/motion/AnimatedWords";
-import { Magnetic } from "@/components/motion/Magnetic";
 import { ParallaxMedia } from "@/components/motion/ParallaxMedia";
 import { RevealMedia } from "@/components/motion/RevealMedia";
 import { TiltLink } from "@/components/motion/TiltLink";
 import { VideoFeature } from "@/components/home/VideoFeature";
-import { motionDuration, motionEase, physicalSpring } from "@/lib/motion";
-
-const Arrow = ({ diagonal = false, magnetic = false }: { diagonal?: boolean; magnetic?: boolean }) => {
-  const arrow = <span className={`home-arrow${diagonal ? " is-diagonal" : ""}`} aria-hidden="true">→</span>;
-  return magnetic ? <Magnetic strength={5}>{arrow}</Magnetic> : arrow;
-};
-
-function PortfolioHeader() {
-  return (
-    <motion.header className="home-header" initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: motionDuration.editorial, ease: motionEase.editorial }}>
-      <motion.div className="home-header-inner" initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: .055, delayChildren: .06 } } }}>
-        <motion.div variants={{ hidden: { opacity: 0, y: -4 }, visible: { opacity: 1, y: 0 } }}><Link className="home-logo" href="/" aria-label="Mir Rezwan Navid, home"><img src="/RNLogo.svg" alt="" width="55" height="20" /></Link></motion.div>
-        <motion.nav className="home-nav" aria-label="Primary navigation" variants={{ hidden: {}, visible: { transition: { staggerChildren: .035 } } }}>
-          <Link href="/work">Work</Link>
-          <Link href="/about">About</Link>
-          <a href="https://medium.com/@rezwannavidalvee" target="_blank" rel="noreferrer">Opinion</a>
-          <Link href="/portfolio">Portfolio</Link>
-          <a href="/Rezwan-Navid-Portfolio-2026.pdf" target="_blank" rel="noreferrer">Resume</a>
-        </motion.nav>
-        <motion.a variants={{ hidden: { opacity: 0, x: -4 }, visible: { opacity: 1, x: 0 } }} className="home-contact-link" data-cursor="Open" href="mailto:hello@rezwannavid.me"><Magnetic className="home-contact-magnetic" strength={3}>Contact <img src="/home-design/navbar-arrow-right.svg" alt="" width="16" height="16" /></Magnetic></motion.a>
-      </motion.div>
-    </motion.header>
-  );
-}
+import { motionEase, physicalSpring } from "@/lib/motion";
 
 function IdentityCard() {
   const reduceMotion = useReducedMotion();
@@ -140,14 +118,16 @@ function FeaturedWorkSection() {
               viewport={{ once: true, amount: .12 }}
               transition={{ duration: .7, delay: index * .035, ease: motionEase.editorial }}
             >
-              <RevealMedia className="featured-reveal" delay={.04}>
-                <TiltLink href={project.href} ariaLabel={`View ${project.title}, ${project.year}`} className="featured-media-link">
-                  <ParallaxMedia className="featured-scroll-depth" distance={12} velocityResponse>
-                    <Image unoptimized src={project.image} alt={project.alt} width={2764} height={1856} sizes="(min-width: 1000px) 691px, 70vw" />
-                  </ParallaxMedia>
-                  <span className="featured-lock">Case study locked</span>
-                </TiltLink>
-              </RevealMedia>
+              <TiltLink href={project.href} ariaLabel={`View ${project.title}, ${project.year}`} className="featured-media-link">
+                <RevealMedia className="featured-reveal" delay={.04}>
+                  <span className="featured-media-mask">
+                    <ParallaxMedia className="featured-scroll-depth" distance={12} velocityResponse>
+                      <Image unoptimized src={project.image} alt={project.alt} width={2764} height={1856} sizes="(min-width: 1000px) 691px, 70vw" />
+                    </ParallaxMedia>
+                    <span className="featured-lock">Case study locked</span>
+                  </span>
+                </RevealMedia>
+              </TiltLink>
               <motion.div className="featured-meta" initial={{ opacity: 0, x: -5 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: .2 }} transition={{ duration: .45, delay: .16, ease: motionEase.snappy }}><span>{project.title}</span><span>{project.year}</span></motion.div>
             </motion.article>
           ))}
@@ -158,25 +138,30 @@ function FeaturedWorkSection() {
 }
 
 function WorkRail() {
-  const reduceMotion = useReducedMotion();
-  const x = useMotionValue(0);
-  const smoothX = useSpring(x, physicalSpring);
-  const move = (event: PointerEvent<HTMLAnchorElement>) => {
-    if (reduceMotion || event.pointerType !== "mouse") return;
-    const rect = event.currentTarget.getBoundingClientRect();
-    x.set((((event.clientX - rect.left) / rect.width) - .5) * -7);
-  };
-  const reset = () => x.set(0);
+  const thumbnails = [
+    { primary: "/home-design/thumb-dashboard.png?v=2", alternate: "/home-design/thumb-phone-green.png?v=2", primaryWidth: 4096, primaryHeight: 2733, alternateWidth: 1854, alternateHeight: 2000 },
+    { primary: "/home-design/thumb-phone-green.png?v=2", alternate: "/home-design/thumb-phone-pink.png?v=2", primaryWidth: 1854, primaryHeight: 2000, alternateWidth: 1368, alternateHeight: 2828 },
+    { primary: "/home-design/thumb-phone-pink.png?v=2", alternate: "/home-design/thumb-phone-coral.png?v=2", primaryWidth: 1368, primaryHeight: 2828, alternateWidth: 4096, alternateHeight: 2730 },
+    { primary: "/home-design/thumb-phone-coral.png?v=2", alternate: "/home-design/thumb-dashboard.png?v=2", primaryWidth: 4096, primaryHeight: 2730, alternateWidth: 4096, alternateHeight: 2733 },
+  ];
 
   return (
-    <Link className="work-rail home-shell" data-cursor="Open" href="/work" onPointerMove={move} onPointerLeave={reset}>
-      <motion.span className="work-rail-thumbnails" aria-hidden="true" style={{ x: smoothX }}>
-        <span><Image unoptimized src="/home-design/thumb-dashboard.png?v=2" alt="" width={4096} height={2733} /></span>
-        <span><Image unoptimized src="/home-design/thumb-phone-green.png?v=2" alt="" width={1854} height={2000} /></span>
-        <span><Image unoptimized src="/home-design/thumb-phone-pink.png?v=2" alt="" width={1368} height={2828} /></span>
-        <span><Image unoptimized src="/home-design/thumb-phone-coral.png?v=2" alt="" width={4096} height={2730} /></span>
-      </motion.span>
-      <span className="work-rail-label">see all work</span><Arrow magnetic />
+    <Link className="work-rail home-shell" href="/work">
+      <span className="work-rail-thumbnails" aria-hidden="true">
+        {thumbnails.map((thumbnail, index) => {
+          const direction = index % 2 === 0 ? "up" : "down";
+          const primaryFit = thumbnail.primary.includes("phone-green") || thumbnail.primary.includes("phone-pink") ? "is-contain" : "";
+          const alternateFit = thumbnail.alternate.includes("phone-green") || thumbnail.alternate.includes("phone-pink") ? "is-contain" : "";
+          const primary = <span className="work-rail-image is-primary"><Image unoptimized className={primaryFit} src={thumbnail.primary} alt="" width={thumbnail.primaryWidth} height={thumbnail.primaryHeight} /></span>;
+          const alternate = <span className="work-rail-image is-alternate"><Image unoptimized className={alternateFit} src={thumbnail.alternate} alt="" width={thumbnail.alternateWidth} height={thumbnail.alternateHeight} /></span>;
+          return (
+            <span className={`work-rail-card is-${direction}`} key={thumbnail.primary}>
+              <span className="work-rail-card-track">{direction === "up" ? <>{primary}{alternate}</> : <>{alternate}{primary}</>}</span>
+            </span>
+          );
+        })}
+      </span>
+      <span className="work-rail-cta"><span className="work-rail-label">see all work</span><Arrow /></span>
     </Link>
   );
 }
@@ -229,36 +214,6 @@ function PhilosophySection() {
   );
 }
 
-function ContactSection() {
-  const closingRef = useRef<HTMLDivElement>(null);
-  const reduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: closingRef, offset: ["start end", "end start"] });
-  const landscapeY = useTransform(scrollYProgress, [0, 1], [-7, 7]);
-  const titleY = useTransform(scrollYProgress, [0, 1], [5, -5]);
-
-  return (
-    <section className="home-contact home-shell" aria-labelledby="contact-title">
-      <div className="contact-row"><h2 id="contact-title"><AnimatedLines text="let’s build something worth building" /></h2><a href="mailto:hello@rezwannavid.me" data-cursor="Open"><Magnetic className="contact-email-magnetic" strength={3}><span>email me</span> <Arrow /></Magnetic></a></div>
-      <motion.div ref={closingRef} className="closing-art" initial={{ opacity: .2, scale: .992 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: .12 }} transition={{ duration: .78, ease: motionEase.editorial }}>
-        <motion.div className="closing-landscape-depth" style={{ y: reduceMotion ? 0 : landscapeY }}><Image unoptimized className="closing-landscape" src="/home-design/footer-landscape.png?v=1" alt="A solitary tree beneath a blue landscape" width={4096} height={2403} sizes="1078px" /></motion.div>
-        <motion.img className="closing-curved-title" style={{ y: reduceMotion ? 0 : titleY }} src="/home-design/create-with-impact.png?v=1" alt="Create with Impact" width="1471" height="329" />
-        <img className="closing-logo" src="/RNLogo.svg" alt="" width="55" height="20" />
-        <nav className="closing-nav" aria-label="Footer navigation">
-          <Link href="/">home</Link><Link href="/work">work</Link><Link href="/about">about</Link><a href="https://medium.com/@rezwannavidalvee" target="_blank" rel="noreferrer">opinions</a><a href="mailto:hello@rezwannavid.me">contact</a><Link href="/portfolio">portfolio</Link><a href="/Rezwan-Navid-Portfolio-2026.pdf">resume</a>
-        </nav>
-        <nav className="closing-socials" aria-label="Social links">
-          <a href="https://instagram.com/rezwannavid" aria-label="Instagram"><img src="/home-design/footer-instagram.svg" alt="" width="24" height="24" /></a>
-          <a href="https://www.linkedin.com/in/rezwannavid" aria-label="LinkedIn"><img src="/home-design/footer-linkedin.svg" alt="" width="24" height="24" /></a>
-          <a href="https://threads.net/@rezwannavid" aria-label="Threads"><img src="/home-design/footer-threads.svg" alt="" width="24" height="24" /></a>
-          <a href="https://medium.com/@rezwannavidalvee" aria-label="Medium"><img src="/home-design/footer-medium.svg" alt="" width="24" height="24" /></a>
-          <a href="https://github.com/rezwannavid" aria-label="GitHub"><img src="/home-design/footer-github.svg" alt="" width="24" height="24" /></a>
-        </nav>
-        <p className="made-with">made with coffee and droopy eyes</p>
-      </motion.div>
-    </section>
-  );
-}
-
 export function PortfolioHomepage() {
-  return <><PortfolioHeader /><HeroSection /><HumanUnderstandingSection /><FeaturedWorkSection /><WorkRail /><ExperienceSection /><PhilosophySection /><ContactSection /></>;
+  return <><EditorialSiteHeader activeRoute="/" /><HeroSection /><HumanUnderstandingSection /><FeaturedWorkSection /><WorkRail /><ExperienceSection /><PhilosophySection /><EditorialContactFooter /></>;
 }

@@ -21,6 +21,7 @@ export function AnimatedLines({ text, className = "", emphasis, delay = 0 }: Ani
   useLayoutEffect(() => {
     const root = rootRef.current;
     if (!root) return;
+    let cancelled = false;
 
     const measure = () => {
       const tops: number[] = [];
@@ -33,13 +34,27 @@ export function AnimatedLines({ text, className = "", emphasis, delay = 0 }: Ani
         }
         return line;
       });
-      setLineIndexes((current) => current.every((value, index) => value === next[index]) ? current : next);
+      if (!cancelled) {
+        setLineIndexes((current) => current.every((value, index) => value === next[index]) ? current : next);
+      }
+    };
+
+    const measureAfterFontsLoad = async () => {
+      await document.fonts?.ready;
+      if (!cancelled) measure();
     };
 
     measure();
+    void measureAfterFontsLoad();
     const observer = new ResizeObserver(measure);
     observer.observe(root);
-    return () => observer.disconnect();
+    document.fonts?.addEventListener("loadingdone", measure);
+
+    return () => {
+      cancelled = true;
+      observer.disconnect();
+      document.fonts?.removeEventListener("loadingdone", measure);
+    };
   }, []);
 
   return (
