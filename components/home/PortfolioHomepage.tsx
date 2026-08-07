@@ -13,7 +13,9 @@ import { ParallaxMedia } from "@/components/motion/ParallaxMedia";
 import { RevealMedia } from "@/components/motion/RevealMedia";
 import { TiltLink } from "@/components/motion/TiltLink";
 import { VideoFeature } from "@/components/home/VideoFeature";
+import { WorkRail } from "@/components/home/WorkRail";
 import { motionEase, physicalSpring } from "@/lib/motion";
+import { featuredProjectIds, projectRegistry } from "@/lib/projectRegistry";
 
 function IdentityCard() {
   const reduceMotion = useReducedMotion();
@@ -98,11 +100,7 @@ function HumanUnderstandingSection() {
   );
 }
 
-const featured = [
-  { title: "ridecentric+", year: "2026", image: "/home-design/project-ridecentric.png?v=2", href: "/work/ridecentric", alt: "RideCentric transportation operations dashboard" },
-  { title: "trewhub", year: "2026", image: "/home-design/project-trewhub.png?v=2", href: "/work", alt: "Trewhub executive leadership summit product interface" },
-  { title: "Navi AI", year: "2026", image: "/home-design/project-navi-ai.png?v=2", href: "/work", alt: "Navi AI idea generation interface" },
-];
+const featured = featuredProjectIds.map((id) => projectRegistry[id]);
 
 function FeaturedWorkSection() {
   return (
@@ -123,7 +121,7 @@ function FeaturedWorkSection() {
                 <RevealMedia className="featured-reveal" delay={.04}>
                   <span className="featured-media-mask">
                     <ParallaxMedia className="featured-scroll-depth" distance={12} velocityResponse>
-                      <Image unoptimized src={project.image} alt={project.alt} width={2764} height={1856} sizes="(min-width: 1000px) 691px, 70vw" />
+                      <Image unoptimized priority src={project.resolvedFeaturedThumbnail} alt={project.thumbnailAlt} width={2764} height={1856} sizes="(min-width: 1000px) 691px, 70vw" />
                     </ParallaxMedia>
                     <span className="featured-lock">Case study locked</span>
                   </span>
@@ -135,35 +133,6 @@ function FeaturedWorkSection() {
         </div>
       </div>
     </section>
-  );
-}
-
-function WorkRail() {
-  const thumbnails = [
-    { primary: "/home-design/thumb-dashboard.png?v=2", alternate: "/home-design/thumb-phone-green.png?v=2", primaryWidth: 4096, primaryHeight: 2733, alternateWidth: 1854, alternateHeight: 2000 },
-    { primary: "/home-design/thumb-phone-green.png?v=2", alternate: "/home-design/thumb-phone-pink.png?v=2", primaryWidth: 1854, primaryHeight: 2000, alternateWidth: 1368, alternateHeight: 2828 },
-    { primary: "/home-design/thumb-phone-pink.png?v=2", alternate: "/home-design/thumb-phone-coral.png?v=2", primaryWidth: 1368, primaryHeight: 2828, alternateWidth: 4096, alternateHeight: 2730 },
-    { primary: "/home-design/thumb-phone-coral.png?v=2", alternate: "/home-design/thumb-dashboard.png?v=2", primaryWidth: 4096, primaryHeight: 2730, alternateWidth: 4096, alternateHeight: 2733 },
-  ];
-
-  return (
-    <Link className="work-rail home-shell" href="/work">
-      <span className="work-rail-thumbnails" aria-hidden="true">
-        {thumbnails.map((thumbnail, index) => {
-          const direction = index % 2 === 0 ? "up" : "down";
-          const primaryFit = thumbnail.primary.includes("phone-green") || thumbnail.primary.includes("phone-pink") ? "is-contain" : "";
-          const alternateFit = thumbnail.alternate.includes("phone-green") || thumbnail.alternate.includes("phone-pink") ? "is-contain" : "";
-          const primary = <span className="work-rail-image is-primary"><Image unoptimized className={primaryFit} src={thumbnail.primary} alt="" width={thumbnail.primaryWidth} height={thumbnail.primaryHeight} /></span>;
-          const alternate = <span className="work-rail-image is-alternate"><Image unoptimized className={alternateFit} src={thumbnail.alternate} alt="" width={thumbnail.alternateWidth} height={thumbnail.alternateHeight} /></span>;
-          return (
-            <span className={`work-rail-card is-${direction}`} key={thumbnail.primary}>
-              <span className="work-rail-card-track">{direction === "up" ? <>{primary}{alternate}</> : <>{alternate}{primary}</>}</span>
-            </span>
-          );
-        })}
-      </span>
-      <span className="work-rail-cta"><span className="work-rail-label">see all work</span><Arrow /></span>
-    </Link>
   );
 }
 

@@ -1,3 +1,5 @@
+import { allProjects } from "@/lib/projectRegistry";
+
 export const siteConfig = {
   url: "https://rezwannavid.me",
   name: "Mir Rezwan Navid",
@@ -43,22 +45,7 @@ export const siteConfig = {
   ],
 } as const;
 
-export const projects = [
-  { title: "RideCentric+", year: "2025", slug: "ridecentric", indexable: false },
-  { title: "RideSync", year: "2025", slug: "ridesync", indexable: false },
-  { title: "10MS for Parents", year: "2023", slug: "10ms-for-parents", indexable: false },
-  { title: "Nav AI", year: "2026", slug: "nav-ai", indexable: false },
-  { title: "EventFlow", year: "2026", slug: "eventflow", indexable: false },
-  { title: "Drivers App", year: "2025", slug: "drivers-app", indexable: true },
-  { title: "Ruckus Games", year: "2026", slug: "ruckus-games", indexable: false },
-  { title: "Fodo", year: "2026", slug: "fodo", indexable: false },
-  { title: "Gldn Route", year: "2026", slug: "gldn-route", indexable: false },
-  { title: "Lazy", year: "2025", slug: "lazy", indexable: false },
-  { title: "Voyage", year: "2026", slug: "voyage", indexable: false },
-  { title: "RideCentric Design System", year: "2024", slug: "ridecentric-design-system", indexable: false },
-  { title: "TygrLabs", year: "2024", slug: "tygrlabs", indexable: false },
-  { title: "Global Mission Summit", year: "2025", slug: "global-mission-summit", indexable: false },
-] as const;
+export const projects = allProjects.map(({ title, year, slug, indexable }) => ({ title, year, slug, indexable }));
 
 export const absoluteUrl = (path = "/") => new URL(path, siteConfig.url).toString();
 export const socialProfiles = [siteConfig.social.linkedin, siteConfig.social.github, siteConfig.social.medium];

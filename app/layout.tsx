@@ -2,10 +2,12 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PageTransitionLayer } from "@/components/motion/PageTransitionLayer";
+import { SmoothScrollProvider } from "@/components/motion/SmoothScrollProvider";
 import { createPageMetadata } from "@/lib/metadata";
 import { globalSchema } from "@/lib/structuredData";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
+import "lenis/dist/lenis.css";
 
 const neueMontreal = localFont({
   src: [
@@ -73,8 +75,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" data-scroll-behavior="smooth">
       <body className={`${neueMontreal.variable} ${fraunces.variable} ${neueMontreal.className}`}>
         <JsonLd data={globalSchema} />
-        <PageTransitionLayer />
-        {children}
+        <SmoothScrollProvider>
+          <PageTransitionLayer />
+          {children}
+        </SmoothScrollProvider>
       </body>
     </html>
   );

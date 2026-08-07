@@ -31,8 +31,8 @@ function ProjectMeta({ project }: { project: WorkProject }) {
     <header className="work-browser-meta">
       <h1>Work</h1>
       <DynamicValue className="work-browser-title" value={project.title} />
-      <DynamicValue className="work-browser-description" value={project.browserDescription} />
-      <DynamicValue className="work-browser-role" value={project.browserRole} />
+      <DynamicValue className="work-browser-description" value={project.shortDescription} />
+      <DynamicValue className="work-browser-role" value={project.role} />
       <DynamicValue className="work-browser-year" value={project.year} />
     </header>
   );
@@ -81,7 +81,7 @@ function ProjectCover({ project }: { project: WorkProject }) {
             exit={reduceMotion ? undefined : { clipPath: "inset(0 0 100% 0 round 5px)", scale: .985, y: -4 }}
             transition={{ duration: reduceMotion ? 0 : .34, ease: motionEase.editorial }}
           >
-            <img src={project.cover} alt={project.thumbnailAlt} draggable={false} />
+            <img src={project.resolvedWorkCover} alt={project.thumbnailAlt} draggable={false} />
             {project.locked && <span className="work-browser-lock">full study locked <img src="/home-design/work-lock.svg" alt="" width="10" height="10" /></span>}
           </motion.span>
         </AnimatePresence>
@@ -97,9 +97,9 @@ function MobileProjects() {
       <div className="work-browser-mobile-list">
         {workProjects.map((project) => (
           <article key={project.slug}>
-            <div className="work-browser-mobile-meta"><h2>{project.title}</h2><span>{project.year}</span><p>{project.browserDescription}</p></div>
+            <div className="work-browser-mobile-meta"><h2>{project.title}</h2><span>{project.year}</span><p>{project.shortDescription}</p></div>
             <TiltLink className="work-browser-mobile-cover" href={project.href} ariaLabel={`${project.locked ? "Preview" : "View"} ${project.title}`} cursorLabel={project.locked ? "Preview" : "View"} maxRotate={2.4} maxTranslate={2}>
-              <img src={project.cover} alt={project.thumbnailAlt} loading="lazy" />
+              <img src={project.resolvedWorkCover} alt={project.thumbnailAlt} loading="lazy" />
             </TiltLink>
           </article>
         ))}
@@ -118,7 +118,14 @@ export function WorkProjectBrowser() {
   const displayedProject = workProjects[displayIndex];
 
   useEffect(() => {
-    const preload = () => workProjects.forEach(({ cover }) => { const image = new window.Image(); image.src = cover; });
+    const nearby = [displayIndex - 1, displayIndex, displayIndex + 1]
+      .map((index) => workProjects[index]?.resolvedWorkCover)
+      .filter((src): src is string => Boolean(src));
+    nearby.forEach((src) => { const image = new window.Image(); image.src = src; });
+  }, [displayIndex]);
+
+  useEffect(() => {
+    const preload = () => workProjects.forEach(({ resolvedWorkCover }) => { const image = new window.Image(); image.src = resolvedWorkCover; });
     const idle = window.requestIdleCallback?.(preload, { timeout: 1200 });
     if (!idle) preload();
     return () => { if (idle) window.cancelIdleCallback?.(idle); };

@@ -20,11 +20,7 @@ export function WorkProjectCard({ project, index }: { project: WorkProject; inde
 
         <div className="work-card-layout">
           <TiltLink className="work-card-media" href={project.href} ariaLabel={`View ${project.title} case study${project.protected ? ", password protected" : ""}`}>
-            {project.thumbnail ? (
-              <img src={project.thumbnail} alt={project.thumbnailAlt} width="1184" height="680" loading={index === 0 ? "eager" : "lazy"} decoding="async" />
-            ) : (
-              <span className="work-card-placeholder" role="img" aria-label={project.thumbnailAlt} />
-            )}
+            <img src={project.resolvedThumbnail} alt={project.thumbnailAlt} width="1184" height="680" loading={index === 0 ? "eager" : "lazy"} decoding="async" />
           </TiltLink>
 
           <div className="work-card-meta">

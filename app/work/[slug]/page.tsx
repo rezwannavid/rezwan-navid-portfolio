@@ -1,16 +1,34 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { cookies } from "next/headers";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { EditorialSiteHeader } from "@/components/home/EditorialSiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { ProtectedProjectGate } from "@/components/work/ProtectedProjectGate";
+import { ProtectedCaseStudy, type ProtectedCaseStudyData } from "@/components/work/ProtectedCaseStudy";
+import { EventFlowProjectPage } from "@/components/work/design-project/EventFlowProjectPage";
 import { createPageMetadata } from "@/lib/metadata";
 import { breadcrumbSchema, pageSchema, schemaIds, webPageSchema } from "@/lib/structuredData";
 import { absoluteUrl, projects } from "@/lib/site";
 import { accessCookieName, hasValidAccessToken } from "@/lib/workAccess";
 import { getWorkProject } from "@/lib/workProjects";
+
+type ProtectedPreviewEditorial = Omit<ProtectedCaseStudyData, "slug" | "title" | "role" | "year" | "previewImages">;
+
+const protectedPreviews: Record<string, ProtectedPreviewEditorial> = {
+  ridecentric: {
+    timeline: "6 months",
+    responsibilities: "Product Vision, Product Strategy, Discovery, Prioritization, UX Leadership, Stakeholder Alignment, Delivery",
+    team: [
+      { label: "PM", value: "01" },
+      { label: "Engineers", value: "07" },
+      { label: "QA", value: "02" },
+      { label: "Designer", value: "03" },
+    ],
+    statement: "Designing an enterprise mobility platform for corporate travel, events, and transportation operations.",
+  },
+};
 
 export const dynamicParams = false;
 
@@ -44,11 +62,22 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const workProject = getWorkProject(slug);
   if (workProject?.protected) {
     const cookieStore = await cookies();
-    const token = cookieStore.get(accessCookieName(slug))?.value;
-    if (!hasValidAccessToken(slug, token)) {
-      return <><SiteHeader /><ProtectedProjectGate slug={slug} title={project.title} /><SiteFooter /></>;
-    }
+    const token = cookieStore.get(accessCookieName)?.value;
+    if (hasValidAccessToken(token)) redirect(`/work/${slug}/full`);
+    const preview = protectedPreviews[slug];
+    if (!preview) notFound();
+    const data: ProtectedCaseStudyData = {
+      ...preview,
+      slug: workProject.slug,
+      title: workProject.title,
+      role: workProject.role,
+      year: workProject.year,
+      previewImages: [{ src: workProject.hero, alt: workProject.thumbnailAlt }],
+    };
+    return <div className="home-page protected-case-page"><EditorialSiteHeader activeRoute="/work" /><ProtectedCaseStudy data={data} /><SiteFooter /></div>;
   }
+
+  if (slug === "eventflow") return <EventFlowProjectPage />;
 
   const path = `/work/${project.slug}`;
   const title = workProject?.seoTitle ?? `${project.title} — Case Study Preview`;

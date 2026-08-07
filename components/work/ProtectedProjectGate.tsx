@@ -1,71 +1,62 @@
 "use client";
 
-import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { useRouter } from "next/navigation";
+import { FormEvent, useEffect, useRef, useState } from "react";
+import { Magnetic } from "@/components/motion/Magnetic";
+import { motionEase } from "@/lib/motion";
 
-export function ProtectedProjectGate({ slug, title }: { slug: string; title: string }) {
+export function ProtectedProjectGate({ slug }: { slug: string }) {
   const router = useRouter();
+  const reduceMotion = useReducedMotion();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const resetTimer = useRef<number | null>(null);
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const [status, setStatus] = useState<"idle" | "submitting" | "error" | "success">("idle");
-  const [error, setError] = useState("");
+  const [errorKey, setErrorKey] = useState(0);
+
+  useEffect(() => () => { if (resetTimer.current) window.clearTimeout(resetTimer.current); }, []);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!password || status === "submitting") return;
     setStatus("submitting");
-    setError("");
     try {
       const response = await fetch("/api/work/access", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ slug, password }),
       });
-      const data = await response.json() as { error?: string };
       if (!response.ok) {
+        setPassword("");
         setStatus("error");
-        setError(data.error ?? "Access could not be verified.");
+        setErrorKey((value) => value + 1);
+        resetTimer.current = window.setTimeout(() => { setStatus("idle"); inputRef.current?.focus(); }, 1400);
         return;
       }
       setStatus("success");
-      window.setTimeout(() => router.refresh(), 350);
+      window.setTimeout(() => router.push(`/work/${slug}/full`), 300);
     } catch {
+      setPassword("");
       setStatus("error");
-      setError("Access could not be verified. Check your connection and try again.");
+      setErrorKey((value) => value + 1);
+      resetTimer.current = window.setTimeout(() => { setStatus("idle"); inputRef.current?.focus(); }, 1400);
     }
   }
 
   return (
-    <main className="protected-project-page">
-      <section className="protected-gate" aria-labelledby="protected-project-title">
-        <p className="eyebrow">Confidential case study</p>
-        <h1 id="protected-project-title">{title}</h1>
-        <p>This project contains protected client work. Enter the shared password to continue.</p>
-        <form onSubmit={submit} noValidate>
-          <label htmlFor="project-password">Password</label>
-          <div className="protected-password-field">
-            <input
-              id="project-password"
-              type={showPassword ? "text" : "password"}
-              value={password}
-              onChange={(event) => { setPassword(event.target.value); if (status === "error") setStatus("idle"); }}
-              autoComplete="current-password"
-              aria-invalid={status === "error"}
-              aria-describedby="password-message"
-              disabled={status === "submitting" || status === "success"}
-            />
-            <button type="button" onClick={() => setShowPassword((value) => !value)} aria-label={showPassword ? "Hide password" : "Show password"}>{showPassword ? "Hide" : "Show"}</button>
-          </div>
-          <p id="password-message" className="protected-message" aria-live="polite">
-            {status === "error" ? error : status === "success" ? "Access granted. Opening the case study…" : ""}
-          </p>
-          <button className="protected-submit" type="submit" disabled={!password || status === "submitting" || status === "success"} aria-busy={status === "submitting"}>
-            {status === "submitting" ? "Checking…" : status === "success" ? "Access granted" : "View case study"}
-          </button>
-        </form>
-        <Link href="/work">Back to selected work</Link>
-      </section>
-    </main>
+    <section id="protected-access" className="protected-access protected-case-shell" aria-labelledby="protected-access-label">
+      <p id="protected-access-label" className="protected-access-label">This case study is protected <img src="/home-design/work-lock.svg" alt="" width="14" height="14" /></p>
+      <form className="protected-gate-row" onSubmit={submit} noValidate>
+        <motion.div className="protected-password-field" key={errorKey} animate={status === "error" && !reduceMotion ? { x: [0, -3, 3, -2, 2, 0] } : { x: 0 }} transition={{ duration: .32, ease: motionEase.snappy }}>
+          <label className="sr-only" htmlFor="project-password">Case study password</label>
+          <input ref={inputRef} id="project-password" type="password" value={password} placeholder={status === "error" ? "That password didn’t match" : "enter password"} onChange={(event) => { setPassword(event.target.value); if (status === "error") setStatus("idle"); }} autoComplete="current-password" aria-invalid={status === "error"} aria-describedby="password-message" disabled={status === "submitting" || status === "success"} />
+        </motion.div>
+        <motion.button className="portfolio-download-row protected-submit" type="submit" disabled={!password || status === "submitting" || status === "success"} aria-busy={status === "submitting"} data-status={status} data-cursor="Unlock" whileTap={reduceMotion ? undefined : { scale: .992 }}>
+          <Magnetic className="protected-submit-inner" strength={3}><span>{status === "submitting" ? "checking" : status === "success" ? "opening case study" : "view full case study"}</span><img src="/home-design/work-unlock.svg" alt="" width="24" height="24" /></Magnetic>
+        </motion.button>
+        <span id="password-message" className="sr-only" aria-live="polite">{status === "error" ? "That password didn’t match" : status === "success" ? "Access granted. Opening the full case study." : ""}</span>
+      </form>
+    </section>
   );
 }
