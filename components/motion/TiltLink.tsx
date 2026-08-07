@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { motion, useMotionValue, useReducedMotion, useSpring } from "motion/react";
-import type { PointerEvent, ReactNode } from "react";
+import { useRef, type PointerEvent, type ReactNode } from "react";
 
-export function TiltLink({ href, className = "", ariaLabel, children }: { href: string; className?: string; ariaLabel: string; children: ReactNode }) {
+export function TiltLink({ href, className = "", ariaLabel, cursorLabel = "View", children }: { href: string; className?: string; ariaLabel: string; cursorLabel?: string; children: ReactNode }) {
+  const ref = useRef<HTMLAnchorElement>(null);
   const reduceMotion = useReducedMotion();
   const rotateX = useMotionValue(0);
   const rotateY = useMotionValue(0);
@@ -21,12 +22,14 @@ export function TiltLink({ href, className = "", ariaLabel, children }: { href: 
     const rect = event.currentTarget.getBoundingClientRect();
     const x = (event.clientX - rect.left) / rect.width - .5;
     const y = (event.clientY - rect.top) / rect.height - .5;
-    rotateX.set(y * -2.2);
-    rotateY.set(x * 2.2);
-    translateX.set(x * 2.5);
-    translateY.set(y * 2.5);
+    rotateX.set(y * -6.4);
+    rotateY.set(x * 6.4);
+    translateX.set(x * 5);
+    translateY.set(y * 5);
     event.currentTarget.style.setProperty("--pointer-x", `${(x + .5) * 100}%`);
     event.currentTarget.style.setProperty("--pointer-y", `${(y + .5) * 100}%`);
+    event.currentTarget.style.setProperty("--media-x", `${x * -7}px`);
+    event.currentTarget.style.setProperty("--media-y", `${y * -7}px`);
   };
 
   const reset = () => {
@@ -34,10 +37,14 @@ export function TiltLink({ href, className = "", ariaLabel, children }: { href: 
     rotateY.set(0);
     translateX.set(0);
     translateY.set(0);
+    if (ref.current) {
+      ref.current.style.setProperty("--media-x", "0px");
+      ref.current.style.setProperty("--media-y", "0px");
+    }
   };
 
   return (
-    <Link className={`interactive-tilt ${className}`.trim()} href={href} aria-label={ariaLabel} onPointerMove={move} onPointerLeave={reset} onBlur={reset}>
+    <Link ref={ref} data-cursor={cursorLabel} className={`interactive-tilt ${className}`.trim()} href={href} aria-label={ariaLabel} onPointerMove={move} onPointerLeave={reset} onBlur={reset}>
       <motion.span
         className="interactive-tilt-inner"
         style={{ rotateX: smoothRotateX, rotateY: smoothRotateY, x: smoothX, y: smoothY }}

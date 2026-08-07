@@ -1,45 +1,90 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
+import { useRef, type PointerEvent } from "react";
+import { AnimatedLines } from "@/components/motion/AnimatedLines";
+import { AnimatedWords } from "@/components/motion/AnimatedWords";
+import { Magnetic } from "@/components/motion/Magnetic";
 import { ParallaxMedia } from "@/components/motion/ParallaxMedia";
+import { RevealMedia } from "@/components/motion/RevealMedia";
 import { TiltLink } from "@/components/motion/TiltLink";
 import { VideoFeature } from "@/components/home/VideoFeature";
+import { motionDuration, motionEase, physicalSpring } from "@/lib/motion";
 
-const Arrow = ({ diagonal = false }: { diagonal?: boolean }) => <span className={`home-arrow${diagonal ? " is-diagonal" : ""}`} aria-hidden="true">→</span>;
+const Arrow = ({ diagonal = false, magnetic = false }: { diagonal?: boolean; magnetic?: boolean }) => {
+  const arrow = <span className={`home-arrow${diagonal ? " is-diagonal" : ""}`} aria-hidden="true">→</span>;
+  return magnetic ? <Magnetic strength={5}>{arrow}</Magnetic> : arrow;
+};
 
 function PortfolioHeader() {
   return (
-    <header className="home-header">
-      <div className="home-header-inner">
-        <Link className="home-logo" href="/" aria-label="Mir Rezwan Navid, home"><img src="/RNLogo.svg" alt="" width="55" height="20" /></Link>
-        <nav className="home-nav" aria-label="Primary navigation">
+    <motion.header className="home-header" initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: motionDuration.editorial, ease: motionEase.editorial }}>
+      <motion.div className="home-header-inner" initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: .055, delayChildren: .06 } } }}>
+        <motion.div variants={{ hidden: { opacity: 0, y: -4 }, visible: { opacity: 1, y: 0 } }}><Link className="home-logo" href="/" aria-label="Mir Rezwan Navid, home"><img src="/RNLogo.svg" alt="" width="55" height="20" /></Link></motion.div>
+        <motion.nav className="home-nav" aria-label="Primary navigation" variants={{ hidden: {}, visible: { transition: { staggerChildren: .035 } } }}>
           <Link href="/work">Work</Link>
           <Link href="/about">About</Link>
           <a href="https://medium.com/@rezwannavidalvee" target="_blank" rel="noreferrer">Opinion</a>
           <Link href="/portfolio">Portfolio</Link>
           <a href="/Rezwan-Navid-Portfolio-2026.pdf" target="_blank" rel="noreferrer">Resume</a>
-        </nav>
-        <a className="home-contact-link" href="mailto:hello@rezwannavid.me">Contact <img src="/home-design/navbar-arrow-right.svg" alt="" width="16" height="16" /></a>
-      </div>
-    </header>
+        </motion.nav>
+        <motion.a variants={{ hidden: { opacity: 0, x: -4 }, visible: { opacity: 1, x: 0 } }} className="home-contact-link" data-cursor="Open" href="mailto:hello@rezwannavid.me"><Magnetic className="home-contact-magnetic" strength={3}>Contact <img src="/home-design/navbar-arrow-right.svg" alt="" width="16" height="16" /></Magnetic></motion.a>
+      </motion.div>
+    </motion.header>
   );
 }
 
 function IdentityCard() {
+  const reduceMotion = useReducedMotion();
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const smoothX = useSpring(pointerX, physicalSpring);
+  const smoothY = useSpring(pointerY, physicalSpring);
+  const rotateX = useTransform(smoothY, [-1, 1], [4.5, -4.5]);
+  const rotateY = useTransform(smoothX, [-1, 1], [-4.5, 4.5]);
+  const portraitX = useTransform(smoothX, [-1, 1], [-6, 6]);
+  const portraitY = useTransform(smoothY, [-1, 1], [-5, 5]);
+  const copyX = useTransform(smoothX, [-1, 1], [-2, 2]);
+  const copyY = useTransform(smoothY, [-1, 1], [-2, 2]);
+
+  const move = (event: PointerEvent<HTMLElement>) => {
+    if (reduceMotion || event.pointerType !== "mouse") return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width - .5) * 2;
+    const y = ((event.clientY - rect.top) / rect.height - .5) * 2;
+    pointerX.set(x);
+    pointerY.set(y);
+    event.currentTarget.style.setProperty("--identity-x", `${(x + 1) * 50}%`);
+    event.currentTarget.style.setProperty("--identity-y", `${(y + 1) * 50}%`);
+  };
+  const reset = () => { pointerX.set(0); pointerY.set(0); };
+
   return (
-    <article className="identity-card" aria-label="Mir Rezwan Navid profile">
+    <motion.article
+      className="identity-card"
+      aria-label="Mir Rezwan Navid profile"
+      initial={reduceMotion ? false : { opacity: 0, y: 24, scale: .975, rotate: .7 }}
+      animate={reduceMotion ? undefined : { opacity: 1, y: 0, scale: 1, rotate: 0 }}
+      transition={{ duration: .72, delay: .42, ease: motionEase.editorial }}
+      style={{ rotateX: reduceMotion ? 0 : rotateX, rotateY: reduceMotion ? 0 : rotateY }}
+      onPointerMove={move}
+      onPointerLeave={reset}
+    >
       <span className="identity-overline">04/08</span>
-      <p className="identity-role"><strong>design engineer /</strong><br /><em>product thinker</em></p>
-      <div className="identity-photo"><Image unoptimized src="/home-design/profile-card-portrait.png?v=1" alt="Portrait of Mir Rezwan Navid" width={904} height={904} priority /></div>
-      <p className="identity-name"><span>Mir</span><br /><strong>Rezwan</strong><br /><em>Navid</em></p>
-      <div className="identity-details" aria-label="Current roles">
+      <motion.p className="identity-role" style={{ x: copyX, y: copyY }}><strong>design engineer /</strong><br /><em>product thinker</em></motion.p>
+      <motion.div className="identity-photo" style={{ x: portraitX, y: portraitY }}><Image unoptimized src="/home-design/profile-card-portrait.png?v=1" alt="Portrait of Mir Rezwan Navid" width={904} height={904} priority /></motion.div>
+      <motion.p className="identity-name" style={{ x: portraitX, y: portraitY }}><span>Mir</span><br /><strong>Rezwan</strong><br /><em>Navid</em></motion.p>
+      <motion.div className="identity-details" aria-label="Current roles" style={{ x: copyX, y: copyY }}>
         <span>@mir.stdio</span><span>founder</span>
         <span>@tygrlabs</span><span>product manager</span>
         <span>@10ms</span><span>product exec</span>
         <span>@needin</span><span>snr. product designer</span>
         <span>@heavygari</span><span>product designer</span>
-      </div>
-      <p className="identity-description">Designing products that solve complex problems through research, systems thinking, and thoughtful execution</p>
-    </article>
+      </motion.div>
+      <motion.p className="identity-description" style={{ x: copyX, y: copyY }}>Designing products that solve complex problems through research, systems thinking, and thoughtful execution</motion.p>
+    </motion.article>
   );
 }
 
@@ -48,11 +93,11 @@ function HeroSection() {
     <section className="home-hero" aria-labelledby="home-title">
       <div className="home-shell home-hero-grid">
         <div className="home-hero-copy">
-          <h1 id="home-title"><span>Product Brain,</span><em>Design Heart</em></h1>
-          <div className="home-hero-actions">
+          <h1 id="home-title"><AnimatedWords text="Product Brain," mode="load" delay={.15} /><AnimatedWords text="Design Heart" as="em" mode="load" delay={.24} /></h1>
+          <motion.div className="home-hero-actions" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .58, delay: .48, ease: motionEase.editorial }}>
             <Link href="/work">see work <Arrow /></Link>
             <a href="mailto:hello@rezwannavid.me">connect <Arrow /></a>
-          </div>
+          </motion.div>
         </div>
         <IdentityCard />
       </div>
@@ -64,11 +109,11 @@ function HumanUnderstandingSection() {
   return (
     <section className="human-section" aria-label="Design is deeply about human understanding">
       <div className="human-cluster">
-        <ParallaxMedia className="human-image human-flowers" distance={9}><Image unoptimized src="/home-design/human-flowers.png?v=2" alt="Flowers and ground textures" width={1028} height={640} /></ParallaxMedia>
-        <ParallaxMedia className="human-image human-sky" distance={14}><Image unoptimized src="/home-design/human-sky.png?v=2" alt="Distant tree beneath a warm sky" width={1028} height={640} /></ParallaxMedia>
-        <ParallaxMedia className="human-image human-clouds" distance={18}><Image unoptimized src="/home-design/human-clouds.png?v=2" alt="Soft clouds over a green landscape" width={1844} height={1144} /></ParallaxMedia>
-        <ParallaxMedia className="human-image human-tree" distance={25}><Image unoptimized src="/home-design/human-tree.png?v=2" alt="A tree canopy viewed from below" width={1028} height={984} /></ParallaxMedia>
-        <ParallaxMedia className="human-statement" distance={11}>Design is deeply about human understanding</ParallaxMedia>
+        <ParallaxMedia className="human-image human-clouds" distance={14} xDistance={3} rotateDistance={.55} velocityResponse reveal><Image unoptimized src="/home-design/human-clouds.png?v=2" alt="Soft clouds over a green landscape" width={1844} height={1144} /></ParallaxMedia>
+        <ParallaxMedia className="human-image human-flowers" distance={-18} xDistance={-5} rotateDistance={1.2} velocityResponse reveal revealDelay={.09}><Image unoptimized src="/home-design/human-flowers.png?v=2" alt="Flowers and ground textures" width={1028} height={640} /></ParallaxMedia>
+        <ParallaxMedia className="human-image human-sky" distance={22} xDistance={6} rotateDistance={-.9} velocityResponse reveal revealDelay={.18}><Image unoptimized src="/home-design/human-sky.png?v=2" alt="Distant tree beneath a warm sky" width={1028} height={640} /></ParallaxMedia>
+        <ParallaxMedia className="human-image human-tree" distance={-12} xDistance={4} rotateDistance={.75} velocityResponse reveal revealDelay={.27}><Image unoptimized src="/home-design/human-tree.png?v=2" alt="A tree canopy viewed from below" width={1028} height={984} /></ParallaxMedia>
+        <ParallaxMedia className="human-statement" distance={4} xDistance={32} rotateDistance={.5} reveal revealDelay={.36} revealOffset={6}><img src="/home-design/human-statement.png?v=1" alt="Product is deeply about human understanding" width="2901" height="1079" /></ParallaxMedia>
       </div>
     </section>
   );
@@ -84,16 +129,27 @@ function FeaturedWorkSection() {
   return (
     <section className="featured-section" aria-labelledby="featured-title">
       <div className="home-shell featured-layout">
-        <h2 id="featured-title" className="featured-sticky">featured<br />work</h2>
+        <h2 id="featured-title" className="featured-sticky"><AnimatedWords text="featured" /><AnimatedWords text="work" delay={.06} /></h2>
         <div className="featured-list">
-          {featured.map((project) => (
-            <article className="featured-project" key={project.title}>
-              <TiltLink href={project.href} ariaLabel={`View ${project.title}, ${project.year}`} className="featured-media-link">
-                <Image unoptimized src={project.image} alt={project.alt} width={2764} height={1856} sizes="(min-width: 1000px) 691px, 70vw" />
-                <span className="featured-lock">Case study locked</span>
-              </TiltLink>
-              <div className="featured-meta"><span>{project.title}</span><span>{project.year}</span></div>
-            </article>
+          {featured.map((project, index) => (
+            <motion.article
+              className="featured-project"
+              key={project.title}
+              initial={{ y: 30 }}
+              whileInView={{ y: 0 }}
+              viewport={{ once: true, amount: .12 }}
+              transition={{ duration: .7, delay: index * .035, ease: motionEase.editorial }}
+            >
+              <RevealMedia className="featured-reveal" delay={.04}>
+                <TiltLink href={project.href} ariaLabel={`View ${project.title}, ${project.year}`} className="featured-media-link">
+                  <ParallaxMedia className="featured-scroll-depth" distance={12} velocityResponse>
+                    <Image unoptimized src={project.image} alt={project.alt} width={2764} height={1856} sizes="(min-width: 1000px) 691px, 70vw" />
+                  </ParallaxMedia>
+                  <span className="featured-lock">Case study locked</span>
+                </TiltLink>
+              </RevealMedia>
+              <motion.div className="featured-meta" initial={{ opacity: 0, x: -5 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: .2 }} transition={{ duration: .45, delay: .16, ease: motionEase.snappy }}><span>{project.title}</span><span>{project.year}</span></motion.div>
+            </motion.article>
           ))}
         </div>
       </div>
@@ -102,15 +158,25 @@ function FeaturedWorkSection() {
 }
 
 function WorkRail() {
+  const reduceMotion = useReducedMotion();
+  const x = useMotionValue(0);
+  const smoothX = useSpring(x, physicalSpring);
+  const move = (event: PointerEvent<HTMLAnchorElement>) => {
+    if (reduceMotion || event.pointerType !== "mouse") return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    x.set((((event.clientX - rect.left) / rect.width) - .5) * -7);
+  };
+  const reset = () => x.set(0);
+
   return (
-    <Link className="work-rail home-shell" href="/work">
-      <span className="work-rail-thumbnails" aria-hidden="true">
+    <Link className="work-rail home-shell" data-cursor="Open" href="/work" onPointerMove={move} onPointerLeave={reset}>
+      <motion.span className="work-rail-thumbnails" aria-hidden="true" style={{ x: smoothX }}>
         <span><Image unoptimized src="/home-design/thumb-dashboard.png?v=2" alt="" width={4096} height={2733} /></span>
         <span><Image unoptimized src="/home-design/thumb-phone-green.png?v=2" alt="" width={1854} height={2000} /></span>
         <span><Image unoptimized src="/home-design/thumb-phone-pink.png?v=2" alt="" width={1368} height={2828} /></span>
         <span><Image unoptimized src="/home-design/thumb-phone-coral.png?v=2" alt="" width={4096} height={2730} /></span>
-      </span>
-      <span className="work-rail-label">see all work</span><Arrow />
+      </motion.span>
+      <span className="work-rail-label">see all work</span><Arrow magnetic />
     </Link>
   );
 }
@@ -125,27 +191,27 @@ function ExperienceSection() {
 
   return (
     <section className="experience-section home-shell" aria-label="Experience and recognition">
-      <div className="experience-frame">
-        <div className="experience-media">
-          <div className="experience-photo">
+      <motion.div className="experience-frame" initial="hidden" whileInView="visible" viewport={{ once: true, amount: .2 }}>
+        <motion.div className="experience-media" variants={{ hidden: { clipPath: "inset(8% 0 42% 0 round 8px)" }, visible: { clipPath: "inset(0% 0 0% 0 round 8px)", transition: { duration: .82, ease: motionEase.editorial } } }}>
+          <motion.div className="experience-photo" variants={{ hidden: { scale: 1.025, y: 8 }, visible: { scale: 1, y: 0, transition: { duration: .82, ease: motionEase.editorial } } }}>
             <Image unoptimized src="/home-design/experience-banner.png?v=2" alt="Mir Rezwan Navid speaking at a technology event" width={4096} height={2731} sizes="1386px" />
-          </div>
+          </motion.div>
           <div
             className="experience-gradient"
             aria-hidden="true"
             style={{ backgroundImage: "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 1172 406' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect width='100%25' height='100%25' fill='url(%23grad)'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(-51.8 15.05 -43.445 -149.53 727 151)'><stop stop-color='rgba(0,0,0,0)'/><stop stop-color='rgba(0,53,111,0)' offset='.086538'/><stop stop-color='rgba(0,25,53,.5)' offset='.55916'/><stop stop-color='rgba(0,13,27,.75)' offset='.77958'/><stop stop-color='rgba(0,6,13,.875)' offset='.88979'/><stop stop-color='rgba(0,0,0,1)' offset='1'/></radialGradient></defs></svg>\")" }}
           />
-          <p className="experience-copy"><span>7+ years building products </span><span>across industries</span></p>
-        </div>
-        <div className="experience-awards">
+          <motion.p className="experience-copy" variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: .58, delay: .16, ease: motionEase.editorial } } }}><span>7+ years building products </span><span>across industries</span></motion.p>
+        </motion.div>
+        <motion.div className="experience-awards" variants={{ hidden: {}, visible: { transition: { staggerChildren: .055, delayChildren: .28 } } }}>
           {awards.map((award) => (
-            <span className="experience-award" key={award}>
+            <motion.span className="experience-award" key={award} variants={{ hidden: { opacity: 0, y: 5 }, visible: { opacity: 1, y: 0, transition: { duration: .4, ease: motionEase.snappy } } }}>
               <span className="experience-award-icon" aria-hidden="true"><img src="/home-design/experience-award.svg" alt="" width="16" height="16" /></span>
               <span>{award}</span>
-            </span>
+            </motion.span>
           ))}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
@@ -153,23 +219,29 @@ function ExperienceSection() {
 function PhilosophySection() {
   return (
     <section className="home-philosophy" aria-labelledby="philosophy-title">
-      <h2 id="philosophy-title">Product thinking is the <u>culture</u> of<br />21st-century technology.</h2>
+      <h2 id="philosophy-title"><AnimatedLines text="Product thinking is the culture of 21st-century technology." emphasis="culture" /></h2>
       <VideoFeature />
       <nav className="editorial-links" aria-label="More about Mir Rezwan Navid">
-        <Link href="/about">about me <Arrow /></Link>
-        <a href="https://medium.com/@rezwannavidalvee" target="_blank" rel="noreferrer">opinion <Arrow /></a>
+        <Link href="/about" data-cursor="Open"><span>about me</span> <Arrow magnetic /></Link>
+        <a href="https://medium.com/@rezwannavidalvee" data-cursor="Open" target="_blank" rel="noreferrer"><span>opinion</span> <Arrow magnetic /></a>
       </nav>
     </section>
   );
 }
 
 function ContactSection() {
+  const closingRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: closingRef, offset: ["start end", "end start"] });
+  const landscapeY = useTransform(scrollYProgress, [0, 1], [-7, 7]);
+  const titleY = useTransform(scrollYProgress, [0, 1], [5, -5]);
+
   return (
     <section className="home-contact home-shell" aria-labelledby="contact-title">
-      <div className="contact-row"><h2 id="contact-title">let’s build something<br />worth building</h2><a href="mailto:hello@rezwannavid.me">email me <Arrow /></a></div>
-      <div className="closing-art">
-        <Image unoptimized className="closing-landscape" src="/home-design/footer-landscape.png?v=1" alt="A solitary tree beneath a blue landscape" width={4096} height={2403} sizes="1078px" />
-        <img className="closing-curved-title" src="/home-design/create-with-impact.png?v=1" alt="Create with Impact" width="1471" height="329" />
+      <div className="contact-row"><h2 id="contact-title"><AnimatedLines text="let’s build something worth building" /></h2><a href="mailto:hello@rezwannavid.me" data-cursor="Open"><Magnetic className="contact-email-magnetic" strength={3}><span>email me</span> <Arrow /></Magnetic></a></div>
+      <motion.div ref={closingRef} className="closing-art" initial={{ opacity: .2, scale: .992 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: .12 }} transition={{ duration: .78, ease: motionEase.editorial }}>
+        <motion.div className="closing-landscape-depth" style={{ y: reduceMotion ? 0 : landscapeY }}><Image unoptimized className="closing-landscape" src="/home-design/footer-landscape.png?v=1" alt="A solitary tree beneath a blue landscape" width={4096} height={2403} sizes="1078px" /></motion.div>
+        <motion.img className="closing-curved-title" style={{ y: reduceMotion ? 0 : titleY }} src="/home-design/create-with-impact.png?v=1" alt="Create with Impact" width="1471" height="329" />
         <img className="closing-logo" src="/RNLogo.svg" alt="" width="55" height="20" />
         <nav className="closing-nav" aria-label="Footer navigation">
           <Link href="/">home</Link><Link href="/work">work</Link><Link href="/about">about</Link><a href="https://medium.com/@rezwannavidalvee" target="_blank" rel="noreferrer">opinions</a><a href="mailto:hello@rezwannavid.me">contact</a><Link href="/portfolio">portfolio</Link><a href="/Rezwan-Navid-Portfolio-2026.pdf">resume</a>
@@ -182,7 +254,7 @@ function ContactSection() {
           <a href="https://github.com/rezwannavid" aria-label="GitHub"><img src="/home-design/footer-github.svg" alt="" width="24" height="24" /></a>
         </nav>
         <p className="made-with">made with coffee and droopy eyes</p>
-      </div>
+      </motion.div>
     </section>
   );
 }
