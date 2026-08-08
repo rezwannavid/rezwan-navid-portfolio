@@ -52,20 +52,15 @@ export function FodoProjectPage() {
             <p><AnimatedLines text="Tactile controls, skeuomorphic interactions, sound, and deliberate friction turn a familiar camera interface into something more expressive, playful, and personal." delay={.12} /></p>
           </div>
 
-          <div className="fodo-gif-grid fodo-gif-grid-top">
+          <div className="fodo-gif-grid fodo-gif-grid-all">
             <GifVisual name="Temp.gif" alt="Fodo temperature control interaction in motion" className="fodo-gif" delay={.03} />
             <GifVisual name="Flash.gif" alt="Fodo flash interaction in motion" className="fodo-gif" delay={.1} />
+            <GifVisual name="Cam.gif" alt="Fodo tactile camera controls in motion" className="fodo-gif" delay={.07} />
+            <GifVisual name="Round.gif" alt="Fodo camera dial interaction in motion" className="fodo-gif" delay={.14} />
           </div>
         </div>
 
         <FodoCommentWall />
-
-        <div className="fodo-composition">
-          <div className="fodo-gif-grid fodo-gif-grid-bottom">
-            <GifVisual name="Cam.gif" alt="Fodo tactile camera controls in motion" className="fodo-gif" delay={.03} />
-            <GifVisual name="Round.gif" alt="Fodo camera dial interaction in motion" className="fodo-gif" delay={.1} />
-          </div>
-        </div>
 
         <NextProject projectId={project.nextProjectId} />
         <WorkRail className="design-project-work-rail" />

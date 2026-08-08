@@ -819,21 +819,19 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
 .fodo-statement p + p { margin-top: 29px; }
 .fodo-statement .animated-line-word { letter-spacing: .005em !important; }
 .fodo-gif-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; width: 920px; margin-inline: auto; }
-.fodo-gif-grid-top { margin-top: 70px; }
-.fodo-gif-grid-bottom { margin-top: 65px; }
+.fodo-gif-grid-all { margin-top: 70px; }
 .fodo-gif { width: 100%; aspect-ratio: 1558 / 2160; }
 .fodo-gif img { object-fit: cover; }
-.fodo-comment-section { position: relative; width: 100%; height: 1905px; margin-top: 92px; overflow: clip; }
-.fodo-comment-wall { position: relative; width: min(1440px, 100%); height: 1835px; margin-inline: auto; perspective: 1100px; perspective-origin: 50% 45%; }
+.fodo-comment-section { position: relative; width: 100%; height: 1010px; margin-top: 76px; overflow: clip; }
+.fodo-comment-wall { position: relative; width: min(1440px, 100%); height: 950px; margin-inline: auto; perspective: 1100px; perspective-origin: 50% 45%; }
 .fodo-comment-position { position: absolute; left: clamp(20px, var(--comment-x), calc(100% - var(--comment-width) - 20px)); transform-style: preserve-3d; }
 .fodo-comment-scroll, .fodo-comment-hitbox, .fodo-comment-displace { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; }
 .fodo-comment-scroll, .fodo-comment-displace, .fodo-comment-card { will-change: transform; }
 .fodo-comment-hitbox { padding: 5px; margin: -5px; }
-.fodo-comment-card { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: clamp(5px, 1.2vw, 10px); background: #0e0e0e; box-shadow: 0 7px 18px rgb(0 0 0 / .16); transform-style: preserve-3d; cursor: default; backface-visibility: hidden; }
-.fodo-comment-card img { position: absolute; width: var(--card-image-width); height: auto; max-width: none; left: var(--card-image-left); top: var(--card-image-top); pointer-events: none; user-select: none; }
+.fodo-comment-card { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: clamp(5px, 1.2vw, 10px); box-shadow: 0 7px 18px rgb(0 0 0 / .16); transform-style: preserve-3d; cursor: default; backface-visibility: hidden; }
+.fodo-comment-card img { display: block; width: 100%; height: auto; max-width: none; object-fit: contain; pointer-events: none; user-select: none; }
 .fodo-comment-position[data-tier="hero"] .fodo-comment-card { box-shadow: 0 15px 38px rgb(0 0 0 / .24); }
 .fodo-comment-position[data-tier="support"] .fodo-comment-hitbox { cursor: default; }
-.fodo-comment-position[data-tier="atmosphere"] .fodo-comment-card { filter: blur(.35px); }
 .fodo-project-page .design-project-next { margin-top: 119px; }
 .fodo-project-page .design-project-work-rail { margin-top: 133px; }
 
@@ -1313,8 +1311,8 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   .fodo-hero { aspect-ratio: 1.45 / 1; }
   .fodo-project-page .fodo-statement { width: 100%; margin: 48px 0 0; font-size: 20px; line-height: 26px; }
   .fodo-gif-grid { width: 100%; gap: 8px; }
-  .fodo-comment-section { height: 800px; margin-top: 80px; }
-  .fodo-comment-wall { left: 50%; width: 1280px; height: 1835px; margin-left: -640px; transform: scale(.42); transform-origin: top center; }
+  .fodo-comment-section { height: 440px; margin-top: 64px; }
+  .fodo-comment-wall { left: 50%; width: 1280px; height: 950px; margin-left: -640px; transform: scale(.42); transform-origin: top center; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1324,7 +1322,6 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   .magnetic-word-inner { transform: rotate(var(--rest-rotate)) !important; filter: none !important; }
   .work-card-compress, .work-card-heading, .work-card-media, .work-card-meta { transform: none !important; opacity: 1 !important; filter: none !important; }
   .interactive-tilt-inner, .eye-art-wrap, .portfolio-cover-parallax { transform: none !important; }
-  .fodo-comment-position[data-tier="atmosphere"] .fodo-comment-card { filter: none; }
   .route-transition-layer { display: none; }
   .development-title, .development-portrait, .development-email { opacity: 1; animation: none; filter: none; }
 }
