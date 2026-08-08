@@ -3,8 +3,10 @@
 import Link from "next/link";
 import { motion, useMotionValue, useReducedMotion, useSpring } from "motion/react";
 import { useRef, type PointerEvent, type ReactNode } from "react";
+import { ProjectLink } from "@/components/motion/ProjectTransition";
+import type { ProjectId } from "@/lib/projectRegistry";
 
-export function TiltLink({ href, className = "", ariaLabel, cursorLabel = "View", maxRotate = 6.4, maxTranslate = 5, children }: { href: string; className?: string; ariaLabel: string; cursorLabel?: string; maxRotate?: number; maxTranslate?: number; children: ReactNode }) {
+export function TiltLink({ href, className = "", ariaLabel, cursorLabel = "View", maxRotate = 6.4, maxTranslate = 5, projectId, children }: { href: string; className?: string; ariaLabel: string; cursorLabel?: string; maxRotate?: number; maxTranslate?: number; projectId?: ProjectId; children: ReactNode }) {
   const ref = useRef<HTMLAnchorElement>(null);
   const reduceMotion = useReducedMotion();
   const rotateX = useMotionValue(0);
@@ -43,8 +45,8 @@ export function TiltLink({ href, className = "", ariaLabel, cursorLabel = "View"
     }
   };
 
-  return (
-    <Link ref={ref} data-cursor={cursorLabel} className={`interactive-tilt ${className}`.trim()} href={href} aria-label={ariaLabel} onPointerMove={move} onPointerLeave={reset} onBlur={reset}>
+  const sharedProps = { ref, "data-cursor": cursorLabel, className: `interactive-tilt ${className}`.trim(), href, "aria-label": ariaLabel, onPointerMove: move, onPointerLeave: reset, onBlur: reset };
+  const content = (
       <motion.span
         className="interactive-tilt-inner"
         style={{ rotateX: smoothRotateX, rotateY: smoothRotateY, x: smoothX, y: smoothY }}
@@ -52,6 +54,10 @@ export function TiltLink({ href, className = "", ariaLabel, cursorLabel = "View"
       >
         {children}
       </motion.span>
-    </Link>
+  );
+  return projectId ? (
+    <ProjectLink {...sharedProps} projectId={projectId}>{content}</ProjectLink>
+  ) : (
+    <Link {...sharedProps}>{content}</Link>
   );
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { EditorialSiteHeader } from "@/components/home/EditorialSiteHeader";
 import { WorkRail } from "@/components/home/WorkRail";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { AnimatedLines } from "@/components/motion/AnimatedLines";
@@ -31,7 +30,6 @@ export function FodoProjectPage() {
   if (!project?.nextProjectId || !project.timeline || !project.platform || !project.focus || !project.productType || !project.waitlist || !project.madeWith) return null;
   return (
     <div className="home-page design-project-page fodo-project-page">
-      <EditorialSiteHeader activeRoute="/work" />
       <main>
         <section className="fodo-intro" aria-labelledby="fodo-title">
           <h1 id="fodo-title"><AnimatedWords text={project.title} mode="load" delay={.17} stagger={.055} /></h1>
@@ -47,7 +45,7 @@ export function FodoProjectPage() {
         </section>
 
         <div className="fodo-composition">
-          <ProjectVisual className="fodo-hero" src={project.hero} alt={project.thumbnailAlt} width={3305} height={2424} distance={18} delay={.05} priority />
+          <ProjectVisual className="fodo-hero" src={project.hero} alt={project.thumbnailAlt} width={3305} height={2424} distance={18} delay={.05} priority projectId={project.id} />
 
           <div className="fodo-statement">
             <p><AnimatedLines text="Fodo explores what happens when digital photography feels physical again." delay={.08} /></p>

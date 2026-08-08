@@ -51,6 +51,7 @@ export type ProjectDefinition = {
 };
 
 export type ResolvedProject = ProjectDefinition & {
+  transitionId: string;
   resolvedThumbnail: string;
   resolvedFeaturedThumbnail: string;
   resolvedWorkCover: string;
@@ -133,6 +134,7 @@ const resolveProject = (project: ProjectDefinition): ResolvedProject => {
   const resolvedThumbnail = project.thumbnail ?? project.hero;
   return {
     ...project,
+    transitionId: `project-transition-${project.slug}`,
     resolvedThumbnail,
     resolvedFeaturedThumbnail: project.featuredThumbnail ?? resolvedThumbnail,
     resolvedWorkCover: project.workCover ?? resolvedThumbnail,

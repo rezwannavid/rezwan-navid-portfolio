@@ -5,7 +5,6 @@ import Link from "next/link";
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
 import { useEffect, useLayoutEffect, useRef, useState, type PointerEvent } from "react";
 import { ContactCTA, EditorialArrow } from "@/components/home/ContactCTA";
-import { EditorialSiteHeader } from "@/components/home/EditorialSiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { AnimatedLines } from "@/components/motion/AnimatedLines";
 import { Magnetic } from "@/components/motion/Magnetic";
@@ -235,5 +234,5 @@ function AboutLinks() {
 }
 
 export function AboutPageContent() {
-  return <div className="home-page about-page"><EditorialSiteHeader activeRoute="/about" /><main><AboutHero /><ChildhoodStory /><HowIThink /><OutsideWork /><AboutLinks /><ContactCTA variant="portfolio" /></main><SiteFooter /></div>;
+  return <div className="home-page about-page"><main><AboutHero /><ChildhoodStory /><HowIThink /><OutsideWork /><AboutLinks /><ContactCTA variant="portfolio" /></main><SiteFooter /></div>;
 }

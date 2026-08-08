@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { notFound, redirect } from "next/navigation";
-import { EditorialSiteHeader } from "@/components/home/EditorialSiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
-import { SiteHeader } from "@/components/layout/SiteHeader";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ProtectedCaseStudy, type ProtectedCaseStudyData } from "@/components/work/ProtectedCaseStudy";
 import { EventFlowProjectPage } from "@/components/work/design-project/EventFlowProjectPage";
@@ -75,7 +73,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       year: workProject.year,
       previewImages: [{ src: workProject.hero, alt: workProject.thumbnailAlt }],
     };
-    return <div className="home-page protected-case-page"><EditorialSiteHeader activeRoute="/work" /><ProtectedCaseStudy data={data} /><SiteFooter /></div>;
+    return <div className="home-page protected-case-page"><ProtectedCaseStudy data={data} /><SiteFooter /></div>;
   }
 
   if (slug === "eventflow") return <EventFlowProjectPage />;
@@ -95,7 +93,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     isPartOf: { "@id": `${absoluteUrl("/work")}#webpage` },
   } : null;
 
-  return <><SiteHeader /><main className="placeholder-page">
+  return <><main className="placeholder-page">
       <JsonLd data={pageSchema(
         webPageSchema({ name: title, description, path }),
         breadcrumbSchema([

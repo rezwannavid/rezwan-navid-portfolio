@@ -2,7 +2,9 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PageTransitionLayer } from "@/components/motion/PageTransitionLayer";
+import { ProjectTransitionProvider } from "@/components/motion/ProjectTransition";
 import { SmoothScrollProvider } from "@/components/motion/SmoothScrollProvider";
+import { GlobalNavbar } from "@/components/layout/GlobalNavbar";
 import { createPageMetadata } from "@/lib/metadata";
 import { globalSchema } from "@/lib/structuredData";
 import { siteConfig } from "@/lib/site";
@@ -76,8 +78,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={`${neueMontreal.variable} ${fraunces.variable} ${neueMontreal.className}`}>
         <JsonLd data={globalSchema} />
         <SmoothScrollProvider>
-          <PageTransitionLayer />
-          {children}
+          <ProjectTransitionProvider>
+            <GlobalNavbar />
+            <PageTransitionLayer />
+            {children}
+          </ProjectTransitionProvider>
         </SmoothScrollProvider>
       </body>
     </html>

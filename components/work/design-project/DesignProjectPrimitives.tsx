@@ -1,12 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
 import { AnimatedLines } from "@/components/motion/AnimatedLines";
 import { AnimatedWords } from "@/components/motion/AnimatedWords";
 import { ParallaxMedia } from "@/components/motion/ParallaxMedia";
+import { ProjectLink } from "@/components/motion/ProjectTransition";
 import { motionEase } from "@/lib/motion";
 import { getProject, type ProjectId } from "@/lib/projectRegistry";
 
@@ -63,6 +63,7 @@ export function ProjectVisual({
   xDistance = 0,
   delay = 0,
   priority = false,
+  projectId,
 }: {
   src: string;
   alt: string;
@@ -73,9 +74,11 @@ export function ProjectVisual({
   xDistance?: number;
   delay?: number;
   priority?: boolean;
+  projectId?: ProjectId;
 }) {
+  const transitionProject = projectId ? getProject(projectId) : null;
   return (
-    <figure className={`design-project-visual ${className}`.trim()}>
+    <figure className={`design-project-visual ${className}`.trim()} data-project-transition-hero={transitionProject?.slug}>
       <ParallaxMedia className="design-project-visual-depth" distance={distance} xDistance={xDistance} velocityResponse reveal revealDelay={delay} revealOffset={30}>
         <Image unoptimized priority={priority} src={src} alt={alt} width={width} height={height} sizes="(min-width: 1000px) 920px, calc(100vw - 40px)" />
       </ParallaxMedia>
@@ -103,10 +106,10 @@ export function NextProject({ projectId }: { projectId: ProjectId }) {
     <section className="design-project-next" aria-labelledby="next-project-title">
       <h2 id="next-project-title"><AnimatedWords text="next project" /></h2>
       <motion.div initial={{ opacity: 0, y: 20, clipPath: "inset(12% 0 20% 0 round 8px)" }} whileInView={{ opacity: 1, y: 0, clipPath: "inset(0% 0 0% 0 round 8px)" }} viewport={{ once: true, amount: .2 }} transition={{ duration: .78, ease: motionEase.editorial }}>
-        <Link className="design-project-next-link" href={project.href} data-cursor="View">
+        <ProjectLink className="design-project-next-link" href={project.href} projectId={project.id} data-cursor="View">
           <Image unoptimized src={project.resolvedThumbnail} alt={project.thumbnailAlt} width={2764} height={1856} sizes="602px" />
           <span>{project.title}</span>
-        </Link>
+        </ProjectLink>
       </motion.div>
     </section>
   );

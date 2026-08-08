@@ -70,7 +70,7 @@ function ProjectRail({ activeIndex, displayIndex, setHoverIndex, setFocusIndex }
 function ProjectCover({ project }: { project: WorkProject }) {
   const reduceMotion = useReducedMotion();
   return (
-    <TiltLink className="work-browser-cover" href={project.href} ariaLabel={`${project.locked ? "Preview" : "View"} ${project.title}`} cursorLabel={project.locked ? "Preview" : "View"} maxRotate={3.4} maxTranslate={3}>
+    <TiltLink className="work-browser-cover" href={project.href} projectId={project.id} ariaLabel={`${project.locked ? "Preview" : "View"} ${project.title}`} cursorLabel={project.locked ? "Preview" : "View"} maxRotate={3.4} maxTranslate={3}>
       <span className="work-browser-cover-mask">
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.span
@@ -98,7 +98,7 @@ function MobileProjects() {
         {workProjects.map((project) => (
           <article key={project.slug}>
             <div className="work-browser-mobile-meta"><h2>{project.title}</h2><span>{project.year}</span><p>{project.shortDescription}</p></div>
-            <TiltLink className="work-browser-mobile-cover" href={project.href} ariaLabel={`${project.locked ? "Preview" : "View"} ${project.title}`} cursorLabel={project.locked ? "Preview" : "View"} maxRotate={2.4} maxTranslate={2}>
+            <TiltLink className="work-browser-mobile-cover" href={project.href} projectId={project.id} ariaLabel={`${project.locked ? "Preview" : "View"} ${project.title}`} cursorLabel={project.locked ? "Preview" : "View"} maxRotate={2.4} maxTranslate={2}>
               <img src={project.resolvedWorkCover} alt={project.thumbnailAlt} loading="lazy" />
             </TiltLink>
           </article>

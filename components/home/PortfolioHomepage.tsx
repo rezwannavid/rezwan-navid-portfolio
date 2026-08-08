@@ -5,7 +5,6 @@ import Link from "next/link";
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
 import { type PointerEvent } from "react";
 import { ContactCTA, EditorialArrow as Arrow } from "@/components/home/ContactCTA";
-import { EditorialSiteHeader } from "@/components/home/EditorialSiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { AnimatedLines } from "@/components/motion/AnimatedLines";
 import { AnimatedWords } from "@/components/motion/AnimatedWords";
@@ -117,7 +116,7 @@ function FeaturedWorkSection() {
               viewport={{ once: true, amount: .12 }}
               transition={{ duration: .7, delay: index * .035, ease: motionEase.editorial }}
             >
-              <TiltLink href={project.href} ariaLabel={`View ${project.title}, ${project.year}`} className="featured-media-link">
+              <TiltLink href={project.href} projectId={project.id} ariaLabel={`View ${project.title}, ${project.year}`} className="featured-media-link">
                 <RevealMedia className="featured-reveal" delay={.04}>
                   <span className="featured-media-mask">
                     <ParallaxMedia className="featured-scroll-depth" distance={12} velocityResponse>
@@ -185,5 +184,5 @@ function PhilosophySection() {
 }
 
 export function PortfolioHomepage() {
-  return <><EditorialSiteHeader activeRoute="/" /><HeroSection /><HumanUnderstandingSection /><FeaturedWorkSection /><WorkRail /><ExperienceSection /><PhilosophySection /><ContactCTA /><SiteFooter /></>;
+  return <><HeroSection /><HumanUnderstandingSection /><FeaturedWorkSection /><WorkRail /><ExperienceSection /><PhilosophySection /><ContactCTA /><SiteFooter /></>;
 }

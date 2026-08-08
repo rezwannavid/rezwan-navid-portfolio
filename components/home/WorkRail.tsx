@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { EditorialArrow } from "@/components/home/ContactCTA";
+import { ProjectLink } from "@/components/motion/ProjectTransition";
 import { projectRegistry, seeAllWorkProjectIds } from "@/lib/projectRegistry";
 
 const projectPairs = Array.from({ length: 4 }, (_, index) => [
@@ -13,9 +14,9 @@ const projectPairs = Array.from({ length: 4 }, (_, index) => [
 function ProjectImage({ project, state }: { project: (typeof projectPairs)[number][number]; state: "primary" | "alternate" }) {
   const contain = project.resolvedThumbnail.includes("thumb-phone-green") || project.resolvedThumbnail.includes("thumb-phone-pink");
   return (
-    <Link className={`work-rail-image is-${state}`} href={project.href} aria-label={`View ${project.title}`} data-cursor="View">
+    <ProjectLink className={`work-rail-image is-${state}`} href={project.href} projectId={project.id} aria-label={`View ${project.title}`} data-cursor="View">
       <Image unoptimized className={contain ? "is-contain" : ""} src={project.resolvedThumbnail} alt={project.thumbnailAlt} fill sizes="154px" loading="eager" />
-    </Link>
+    </ProjectLink>
   );
 }
 

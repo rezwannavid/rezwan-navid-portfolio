@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { ContactCTA } from "@/components/home/ContactCTA";
-import { EditorialSiteHeader } from "@/components/home/EditorialSiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { PortfolioDownload } from "@/components/portfolio/PortfolioDownload";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -42,7 +41,6 @@ export default function PortfolioPage() {
 
   return (
     <div className="home-page portfolio-page">
-      <EditorialSiteHeader activeRoute="/portfolio" />
       <main className="portfolio-main">
         <JsonLd data={pageSchema(
           webPageSchema({ name: title, description, path: "/portfolio", type: "CollectionPage" }),

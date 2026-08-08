@@ -19,7 +19,7 @@ export function WorkProjectCard({ project, index }: { project: WorkProject; inde
         </div>
 
         <div className="work-card-layout">
-          <TiltLink className="work-card-media" href={project.href} ariaLabel={`View ${project.title} case study${project.protected ? ", password protected" : ""}`}>
+          <TiltLink className="work-card-media" href={project.href} projectId={project.id} ariaLabel={`View ${project.title} case study${project.protected ? ", password protected" : ""}`}>
             <img src={project.resolvedThumbnail} alt={project.thumbnailAlt} width="1184" height="680" loading={index === 0 ? "eager" : "lazy"} decoding="async" />
           </TiltLink>
 

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { notFound, redirect } from "next/navigation";
 import { ContactCTA } from "@/components/home/ContactCTA";
-import { EditorialSiteHeader } from "@/components/home/EditorialSiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { accessCookieName, hasValidAccessToken } from "@/lib/workAccess";
 import { getWorkProject } from "@/lib/workProjects";
@@ -22,5 +21,5 @@ export default async function FullProtectedProjectPage({ params }: { params: Pro
   const token = cookieStore.get(accessCookieName)?.value;
   if (!hasValidAccessToken(token)) redirect(`/work/${slug}`);
 
-  return <div className="home-page protected-full-page"><EditorialSiteHeader activeRoute="/work" /><main className="placeholder-page"><h1>{project.title}</h1><p>{project.shortDescription}</p><p>The complete protected case study is being prepared for this route.</p><Link href="/work">see other work</Link></main><ContactCTA variant="portfolio" /><SiteFooter /></div>;
+  return <div className="home-page protected-full-page"><main className="placeholder-page"><h1>{project.title}</h1><p>{project.shortDescription}</p><p>The complete protected case study is being prepared for this route.</p><Link href="/work">see other work</Link></main><ContactCTA variant="portfolio" /><SiteFooter /></div>;
 }

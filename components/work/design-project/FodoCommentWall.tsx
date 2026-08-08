@@ -3,140 +3,147 @@
 import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform, type MotionValue } from "motion/react";
 import { useRef, useState, type CSSProperties, type PointerEvent } from "react";
 
-type Card = {
+type CommentTier = "hero" | "support" | "atmosphere";
+
+type CommentCardConfig = {
+  id: string;
   source: string;
-  left: string;
-  top: number;
+  tier: CommentTier;
+  alt: string;
+  x: number;
+  y: number;
   width: number;
-  height: number;
+  aspect: number;
   imageWidth: number;
   imageTop: number;
   imageLeft?: number;
+  rotation: number;
   depth: number;
+  opacity: number;
+  parallax: number;
+  zIndex: number;
 };
 
 const image = (name: string) => `/Fodo Pictures/comments/${name}.png`;
 
-function resolveLeft(value: string) {
-  if (!value.startsWith("calc")) return Number.parseFloat(value);
-  const match = value.match(/calc\(([\d.]+)%\s*([+-])\s*([\d.]+)px\)/);
-  if (!match) return 450;
-  const percent = Number(match[1]);
-  const offset = Number(match[3]) * (match[2] === "-" ? -1 : 1);
-  return 900 * percent / 100 + offset;
-}
+// One manually art-directed reaction field. Each crop is unique and every visual
+// decision can be tuned here without changing the interaction component.
+const comments: CommentCardConfig[] = [
+  { id: "craft", source: image("0611"), tier: "hero", alt: "Yo love the craft that went into this! Beautiful interactions and sounds", x: 7, y: 86, width: 520, aspect: .3185, imageWidth: 109.17, imageTop: -145.93, rotation: -.35, depth: 3, opacity: 1, parallax: 6, zIndex: 44 },
+  { id: "delightful", source: image("0617"), tier: "atmosphere", alt: "Delightful!", x: 67, y: 24, width: 146, aspect: .398, imageWidth: 172.37, imageTop: -551.47, rotation: 1.1, depth: 1, opacity: .66, parallax: 19, zIndex: 7 },
+  { id: "magic", source: image("0619"), tier: "atmosphere", alt: "Magic", x: 81, y: 126, width: 157, aspect: .38, imageWidth: 158.89, imageTop: -585.82, rotation: -.8, depth: 1, opacity: .7, parallax: 17, zIndex: 9 },
+  { id: "looks-amazing", source: image("0612"), tier: "support", alt: "Looks amazing! Can't wait to try it", x: 55, y: 184, width: 310, aspect: .2941, imageWidth: 133.37, imageTop: -190, rotation: .35, depth: 2, opacity: .94, parallax: 11, zIndex: 26 },
+  { id: "beautiful-work", source: image("0611"), tier: "support", alt: "Beautiful work", x: 31, y: 268, width: 255, aspect: .411, imageWidth: 178.1, imageTop: -423.47, rotation: -.7, depth: 2, opacity: .9, parallax: 13, zIndex: 23 },
+  { id: "great-job", source: image("0632"), tier: "atmosphere", alt: "Great job my friend", x: 76, y: 292, width: 170, aspect: .56, imageWidth: 181.38, imageTop: -306.04, rotation: 1.2, depth: 1, opacity: .62, parallax: 21, zIndex: 8 },
+  { id: "smooth", source: image("0613"), tier: "atmosphere", alt: "Smooth", x: 12, y: 346, width: 170, aspect: .392, imageWidth: 163.75, imageTop: -396.11, rotation: -.95, depth: 1, opacity: .72, parallax: 18, zIndex: 11 },
 
-// Exact deterministic crops and placement from the selected Figma comment-wall node (923:30756).
-const cards: Card[] = [
-  { source: image("0614"), left: "calc(37.5% + 39.18px)", top: 0, width: 93.56, height: 37.65, imageWidth: 174.41, imageTop: -598.45, depth: 1 },
-  { source: image("0617"), left: "calc(37.5% + 145.33px)", top: 0, width: 95.49, height: 37.97, imageWidth: 172.37, imageTop: -551.47, depth: 2 },
-  { source: image("0611"), left: "calc(12.5% + 124.95px)", top: 47.65, width: 250.57, height: 79.81, imageWidth: 109.17, imageTop: -145.93, depth: 5 },
-  { source: image("0612"), left: "calc(37.5% + 66.35px)", top: 48.4, width: 169.98, height: 49.99, imageWidth: 133.37, imageTop: -190, depth: 3 },
-  { source: image("0617"), left: "calc(50% + 83.83px)", top: 43.31, width: 147.81, height: 58.78, imageWidth: 172.37, imageTop: -343.91, depth: 4 },
-  { source: image("0615"), left: "calc(37.5% + 151.27px)", top: 107.85, width: 82.37, height: 31.91, imageWidth: 161.95, imageTop: -205.67, depth: 2 },
-  { source: image("0614"), left: "calc(50% + 96.57px)", top: 112.94, width: 265.3, height: 78.24, imageWidth: 99.92, imageTop: -106.32, depth: 5 },
-  { source: image("0619"), left: "calc(37.5% + 37.48px)", top: 127.38, width: 103.19, height: 39.22, imageWidth: 158.89, imageTop: -585.82, depth: 3 },
-  { source: image("0616"), left: "calc(12.5% + 118.86px)", top: 140.11, width: 99.12, height: 38.25, imageWidth: 166.06, imageTop: -168.61, depth: 3 },
-  { source: image("0620"), left: "calc(25% + 72.65px)", top: 140.11, width: 91.86, height: 41.04, imageWidth: 179.18, imageTop: -585.97, imageLeft: -2.16, depth: 2 },
-  { source: image("0613"), left: "calc(25% + 166.91px)", top: 180.88, width: 251.68, height: 79.26, imageWidth: 108.56, imageTop: -140.35, depth: 5 },
-  { source: image("0611"), left: "calc(25% + 57.37px)", top: 197.01, width: 83.91, height: 34.48, imageWidth: 178.1, imageTop: -423.47, depth: 2 },
-  { source: image("0618"), left: "calc(50% + 118.65px)", top: 203.8, width: 101.91, height: 38.81, imageWidth: 161.51, imageTop: -148.2, depth: 3 },
-  { source: image("0627"), left: "calc(62.5% + 78.38px)", top: 205.5, width: 155.85, height: 41.8, imageWidth: 112.93, imageTop: -376.71, depth: 4 },
-  { source: image("0620"), left: "188px", top: 212.29, width: 180.88, height: 57.34, imageWidth: 151.93, imageTop: -483.94, imageLeft: -1.83, depth: 4 },
-  { source: image("0611"), left: "calc(25% + 63.31px)", top: 249.66, width: 92.42, height: 41.32, imageWidth: 178.1, imageTop: -285.42, depth: 3 },
-  { source: image("0618"), left: "calc(50% + 121.2px)", top: 259.85, width: 101.91, height: 39.09, imageWidth: 161.51, imageTop: -546.11, depth: 3 },
-  { source: image("0632"), left: "calc(75% - 38.31px)", top: 261.55, width: 90.74, height: 50.82, imageWidth: 181.38, imageTop: -306.04, depth: 4 },
-  { source: image("0620"), left: "calc(37.5% + 89.28px)", top: 267.49, width: 151.04, height: 53.33, imageWidth: 158.89, imageTop: -216.03, depth: 4 },
-  { source: image("0611"), left: "calc(25% + 168.61px)", top: 275.98, width: 69.56, height: 28.58, imageWidth: 178.1, imageTop: -533.84, depth: 2 },
-  { source: image("0616"), left: "calc(12.5% + 83.2px)", top: 290.42, width: 100.73, height: 38.34, imageWidth: 163.75, imageTop: -574.42, depth: 3 },
-  { source: image("0618"), left: "calc(62.5% + 9.6px)", top: 311.65, width: 101.91, height: 38.81, imageWidth: 161.51, imageTop: -347.33, depth: 3 },
-  { source: image("0613"), left: "calc(12.5% + 198.69px)", top: 327.78, width: 166.16, height: 65.08, imageWidth: 163.75, imageTop: -396.11, depth: 5 },
-  { source: image("0633"), left: "calc(12.5% + 98.48px)", top: 340.52, width: 94.94, height: 54.34, imageWidth: 185.38, imageTop: -396.15, depth: 4 },
-  { source: image("0626"), left: "calc(75% - 28.97px)", top: 337.12, width: 103.58, height: 41.04, imageWidth: 158.89, imageTop: -311.42, depth: 3 },
-  { source: image("0627"), left: "calc(37.5% + 69.75px)", top: 336.27, width: 141.96, height: 63.17, imageWidth: 144.13, imageTop: -99.45, depth: 5 },
-  { source: image("0633"), left: "calc(50% + 64.3px)", top: 333.73, width: 88.79, height: 50.82, imageWidth: 185.38, imageTop: -396.15, depth: 3 },
-  { source: image("0620"), left: "calc(62.5% + 72.44px)", top: 389.77, width: 169.15, height: 53.62, imageWidth: 151.93, imageTop: -483.94, imageLeft: -1.83, depth: 4 },
-  { source: image("0627"), left: "calc(50% + 76.19px)", top: 397.42, width: 145.74, height: 39.09, imageWidth: 112.93, imageTop: -376.71, depth: 3 },
-  { source: image("0613"), left: "calc(25% + 72.65px)", top: 406.76, width: 119.65, height: 46.86, imageWidth: 163.75, imageTop: -502.81, depth: 3 },
-  { source: image("0625"), left: "calc(37.5% + 39.53px)", top: 414.75, width: 83.64, height: 34.29, imageWidth: 163.3, imageTop: -561.44, depth: 2 },
-  { source: image("0624"), left: "calc(37.5% + 131.74px)", top: 417.8, width: 92.5, height: 35.3, imageWidth: 164.21, imageTop: -372.99, depth: 3 },
-  { source: image("0632"), left: "calc(50% + 82.98px)", top: 451.76, width: 97.03, height: 54.34, imageWidth: 181.38, imageTop: -306.04, depth: 4 },
-  { source: image("0613"), left: "calc(25% + 99.83px)", top: 461.95, width: 92.14, height: 39.37, imageWidth: 178.64, imageTop: -290.37, depth: 3 },
-  { source: image("0628"), left: "calc(62.5% + 31.68px)", top: 461.95, width: 94.09, height: 41.04, imageWidth: 174.93, imageTop: -579.59, depth: 3 },
-  { source: image("0624"), left: "calc(75% - 20.48px)", top: 462.8, width: 86.5, height: 33.01, imageWidth: 164.21, imageTop: -372.99, depth: 2 },
-  { source: image("0613"), left: "calc(37.5% + 52.77px)", top: 474.69, width: 141.28, height: 39.37, imageWidth: 116.5, imageTop: -603.75, depth: 4 },
-  { source: image("0619"), left: "calc(12.5% + 130.75px)", top: 478.94, width: 110.77, height: 42.1, imageWidth: 158.89, imageTop: -585.82, depth: 3 },
-  { source: image("0618"), left: "calc(75% - 38.31px)", top: 515.45, width: 108.97, height: 41.5, imageWidth: 161.51, imageTop: -347.33, depth: 4 },
-  { source: image("0613"), left: "calc(25% + 57.37px)", top: 518.85, width: 122.54, height: 56.1, imageWidth: 191.4, imageTop: -712.37, depth: 4 },
-  { source: image("0614"), left: "calc(37.5% + 67.2px)", top: 608.86, width: 100.91, height: 40.6, imageWidth: 174.41, imageTop: -598.45, depth: 3 },
-  { source: image("0617"), left: "calc(50% + 38.83px)", top: 631.79, width: 102.11, height: 40.6, imageWidth: 172.37, imageTop: -343.91, depth: 4 },
-  { source: image("0612"), left: "calc(62.5% - 10.78px)", top: 629.24, width: 181.76, height: 53.46, imageWidth: 133.37, imageTop: -190, depth: 5 },
-  { source: image("0611"), left: "calc(12.5% + 134.15px)", top: 657.26, width: 267.94, height: 85.35, imageWidth: 109.17, imageTop: -145.93, depth: 6 },
-  { source: image("0617"), left: "calc(75% + 10.94px)", top: 682.74, width: 102.11, height: 40.6, imageWidth: 172.37, imageTop: -141.91, depth: 3 },
-  { source: image("0620"), left: "calc(50% + 48.17px)", top: 691.23, width: 161.51, height: 57.03, imageWidth: 158.89, imageTop: -216.03, depth: 5 },
-  { source: image("0618"), left: "calc(62.5% + 48.66px)", top: 705.67, width: 108.97, height: 41.8, imageWidth: 161.51, imageTop: -546.11, depth: 4 },
-  { source: image("0613"), left: "calc(12.5% + 129.05px)", top: 753.22, width: 98.53, height: 42.1, imageWidth: 178.64, imageTop: -290.37, depth: 3 },
-  { source: image("0611"), left: "calc(25% + 87.09px)", top: 754.92, width: 98.82, height: 44.19, imageWidth: 178.1, imageTop: -285.42, depth: 3 },
-  { source: image("0617"), left: "calc(37.5% + 45.12px)", top: 758.32, width: 102.11, height: 40.6, imageWidth: 172.37, imageTop: -551.47, depth: 3 },
-  { source: image("0626"), left: "calc(75% - 13.68px)", top: 764.26, width: 110.77, height: 43.89, imageWidth: 158.89, imageTop: -311.42, depth: 4 },
-  { source: image("0614"), left: "calc(50% + 6.56px)", top: 766.81, width: 283.7, height: 83.67, imageWidth: 99.92, imageTop: -106.32, depth: 6 },
-  { source: image("0613"), left: "calc(12.5% + 112.07px)", top: 822, width: 151.07, height: 42.1, imageWidth: 116.5, imageTop: -603.75, depth: 4 },
-  { source: image("0615"), left: "calc(37.5% + 76.54px)", top: 830.5, width: 88.09, height: 34.12, imageWidth: 161.95, imageTop: -205.67, depth: 3 },
-  { source: image("0611"), left: "calc(25% + 127px)", top: 835.59, width: 74.39, height: 30.56, imageWidth: 178.1, imageTop: -533.84, depth: 2 },
-  { source: image("0620"), left: "calc(62.5% + 56.3px)", top: 867.86, width: 98.23, height: 43.89, imageWidth: 179.18, imageTop: -585.97, imageLeft: -2.16, depth: 3 },
-  { source: image("0627"), left: "calc(50% + 86.38px)", top: 870.41, width: 122.11, height: 54.34, imageWidth: 144.13, imageTop: -99.45, depth: 4 },
-  { source: image("0613"), left: "calc(12.5% + 163.02px)", top: 874.65, width: 131.04, height: 59.99, imageWidth: 191.4, imageTop: -712.37, depth: 5 },
-  { source: image("0625"), left: "calc(25% + 156.72px)", top: 883.15, width: 89.44, height: 36.67, imageWidth: 163.3, imageTop: -561.44, depth: 3 },
-  { source: image("0626"), left: "calc(37.5% + 113.06px)", top: 889.94, width: 110.77, height: 43.89, imageWidth: 158.89, imageTop: -123.13, depth: 4 },
-  { source: image("0628"), left: "calc(25% + 165.21px)", top: 935.79, width: 100.62, height: 43.89, imageWidth: 174.93, imageTop: -579.59, depth: 3 },
+  { id: "polished", source: image("0614"), tier: "hero", alt: "Looks really polished. The micro animations make the camera feel much more tactile.", x: 49, y: 388, width: 535, aspect: .295, imageWidth: 99.92, imageTop: -106.32, rotation: .28, depth: 3, opacity: 1, parallax: 5, zIndex: 45 },
+  { id: "so-satisfying", source: image("0611"), tier: "support", alt: "So satisfying", x: 5, y: 470, width: 275, aspect: .447, imageWidth: 178.1, imageTop: -285.42, rotation: .8, depth: 2, opacity: .9, parallax: 13, zIndex: 25 },
+  { id: "amazing", source: image("0616"), tier: "atmosphere", alt: "Amazing", x: 30, y: 422, width: 147, aspect: .386, imageWidth: 163.75, imageTop: -574.42, rotation: -1.1, depth: 1, opacity: .64, parallax: 20, zIndex: 10 },
+  { id: "perfect", source: image("0618"), tier: "atmosphere", alt: "Perfect", x: 74, y: 564, width: 168, aspect: .381, imageWidth: 161.51, imageTop: -546.11, rotation: .75, depth: 1, opacity: .68, parallax: 18, zIndex: 12 },
+  { id: "more-apps", source: image("0613"), tier: "support", alt: "More apps should rely on this approach", x: 38, y: 596, width: 290, aspect: .392, imageWidth: 163.75, imageTop: -502.81, rotation: -.35, depth: 2, opacity: .91, parallax: 12, zIndex: 28 },
+  { id: "looks-clean", source: image("0626"), tier: "support", alt: "Looks clean", x: 77, y: 652, width: 245, aspect: .397, imageWidth: 158.89, imageTop: -311.42, rotation: .55, depth: 2, opacity: .86, parallax: 13, zIndex: 21 },
+  { id: "skeuomorphism", source: image("0611"), tier: "atmosphere", alt: "Skeuomorphism!", x: 17, y: 626, width: 146, aspect: .411, imageWidth: 178.1, imageTop: -533.84, rotation: -1.25, depth: 1, opacity: .61, parallax: 22, zIndex: 6 },
+
+  { id: "sound", source: image("0613"), tier: "hero", alt: "So good I'll increase my phone's volume every time I use it.", x: 10, y: 728, width: 500, aspect: .315, imageWidth: 108.56, imageTop: -140.35, rotation: -.25, depth: 3, opacity: 1, parallax: 7, zIndex: 46 },
+  { id: "app-name-please", source: image("0620"), tier: "support", alt: "App name please", x: 56, y: 740, width: 275, aspect: .353, imageWidth: 158.89, imageTop: -216.03, rotation: .55, depth: 2, opacity: .94, parallax: 12, zIndex: 31 },
+  { id: "interested", source: image("0627"), tier: "support", alt: "Interested! When is it available?", x: 72, y: 832, width: 295, aspect: .445, imageWidth: 144.13, imageTop: -99.45, rotation: -.45, depth: 2, opacity: .9, parallax: 10, zIndex: 30 },
+  { id: "whoa", source: image("0617"), tier: "atmosphere", alt: "Whoa", x: 4, y: 880, width: 155, aspect: .397, imageWidth: 172.37, imageTop: -343.91, rotation: 1.2, depth: 1, opacity: .66, parallax: 20, zIndex: 8 },
+  { id: "need-this", source: image("0618"), tier: "support", alt: "I need this", x: 30, y: 904, width: 244, aspect: .381, imageWidth: 161.51, imageTop: -347.33, rotation: .35, depth: 2, opacity: .88, parallax: 14, zIndex: 24 },
+  { id: "stunning", source: image("0628"), tier: "support", alt: "Which iPhone is this, looks stunning", x: 56, y: 970, width: 300, aspect: .436, imageWidth: 174.93, imageTop: -579.59, rotation: -.2, depth: 2, opacity: .92, parallax: 11, zIndex: 29 },
+  { id: "yes", source: image("0624"), tier: "atmosphere", alt: "Oh yes I like that", x: 84, y: 1026, width: 148, aspect: .382, imageWidth: 164.21, imageTop: -372.99, rotation: .8, depth: 1, opacity: .62, parallax: 20, zIndex: 7 },
+
+  { id: "clean-interface", source: image("0620"), tier: "hero", alt: "That's a clean interface, love it", x: 50, y: 1080, width: 510, aspect: .317, imageWidth: 151.93, imageTop: -483.94, imageLeft: -1.83, rotation: .22, depth: 3, opacity: 1, parallax: 6, zIndex: 47 },
+  { id: "cant-wait", source: image("0613"), tier: "support", alt: "Can't wait, that's hot", x: 8, y: 1050, width: 270, aspect: .392, imageWidth: 178.64, imageTop: -290.37, rotation: -.55, depth: 2, opacity: .86, parallax: 14, zIndex: 22 },
+  { id: "ready-test", source: image("0626"), tier: "support", alt: "Ready to test if needed", x: 22, y: 1178, width: 295, aspect: .396, imageWidth: 158.89, imageTop: -123.13, rotation: .45, depth: 2, opacity: .9, parallax: 12, zIndex: 27 },
+  { id: "extremely-yes", source: image("0633"), tier: "atmosphere", alt: "Extremely yes", x: 81, y: 1215, width: 167, aspect: .572, imageWidth: 185.38, imageTop: -396.15, rotation: -.9, depth: 1, opacity: .65, parallax: 19, zIndex: 9 },
+  { id: "available-store", source: image("0613"), tier: "atmosphere", alt: "Is it available in App Store?", x: 5, y: 1272, width: 188, aspect: .392, imageWidth: 116.5, imageTop: -603.75, rotation: 1.05, depth: 1, opacity: .68, parallax: 18, zIndex: 12 },
+  { id: "app-name", source: image("0616"), tier: "atmosphere", alt: "App name", x: 73, y: 1308, width: 160, aspect: .386, imageWidth: 166.06, imageTop: -168.61, rotation: -.65, depth: 1, opacity: .72, parallax: 17, zIndex: 14 },
+  { id: "aesthetics", source: image("0625"), tier: "support", alt: "The most interesting design for aesthetics", x: 41, y: 1316, width: 275, aspect: .41, imageWidth: 163.3, imageTop: -561.44, rotation: .3, depth: 2, opacity: .87, parallax: 13, zIndex: 25 },
+
+  { id: "physical-control", source: image("0628"), tier: "support", alt: "A well-designed interface replicating physical interaction", x: 58, y: 1438, width: 285, aspect: .436, imageWidth: 174.93, imageTop: -579.59, rotation: -.3, depth: 2, opacity: .84, parallax: 14, zIndex: 20 },
+  { id: "clean-short", source: image("0626"), tier: "atmosphere", alt: "Looks clean", x: 14, y: 1432, width: 160, aspect: .397, imageWidth: 158.89, imageTop: -311.42, rotation: .9, depth: 1, opacity: .64, parallax: 20, zIndex: 8 },
+  { id: "delightful-short", source: image("0615"), tier: "atmosphere", alt: "Delightful", x: 38, y: 1485, width: 142, aspect: .387, imageWidth: 161.95, imageTop: -205.67, rotation: -1.05, depth: 1, opacity: .61, parallax: 21, zIndex: 6 },
+  { id: "beautiful", source: image("0614"), tier: "atmosphere", alt: "Beautiful", x: 78, y: 1547, width: 154, aspect: .402, imageWidth: 174.41, imageTop: -598.45, rotation: .75, depth: 1, opacity: .66, parallax: 18, zIndex: 10 },
+  { id: "polaroid", source: image("0613"), tier: "atmosphere", alt: "Cooking", x: 22, y: 1563, width: 175, aspect: .457, imageWidth: 191.4, imageTop: -712.37, rotation: -.65, depth: 1, opacity: .58, parallax: 22, zIndex: 5 },
+  { id: "amazing-short", source: image("0617"), tier: "atmosphere", alt: "Looks amazing", x: 48, y: 1596, width: 158, aspect: .397, imageWidth: 172.37, imageTop: -141.91, rotation: .9, depth: 1, opacity: .64, parallax: 19, zIndex: 8 },
+  { id: "interest", source: image("0627"), tier: "atmosphere", alt: "Let me know when it is out", x: 64, y: 1650, width: 190, aspect: .37, imageWidth: 112.93, imageTop: -376.71, rotation: -.45, depth: 1, opacity: .62, parallax: 20, zIndex: 7 },
+  { id: "clean-interface-small", source: image("0620"), tier: "atmosphere", alt: "Gimme", x: 28, y: 1688, width: 145, aspect: .445, imageWidth: 179.18, imageTop: -585.97, imageLeft: -2.16, rotation: .6, depth: 1, opacity: .57, parallax: 23, zIndex: 4 },
+  { id: "design-interest", source: image("0624"), tier: "atmosphere", alt: "Definitely a yes", x: 73, y: 1724, width: 160, aspect: .382, imageWidth: 164.21, imageTop: -372.99, rotation: -.8, depth: 1, opacity: .55, parallax: 22, zIndex: 5 },
 ];
 
-function CommentCard({ card, index, activeIndex, progress, onActiveChange }: { card: Card; index: number; activeIndex: number | null; progress: MotionValue<number>; onActiveChange: (index: number | null) => void }) {
+function referenceLeft(card: CommentCardConfig) {
+  return 12.8 * card.x;
+}
+
+function CommentCard({ card, index, activeIndex, progress, onActiveChange }: { card: CommentCardConfig; index: number; activeIndex: number | null; progress: MotionValue<number>; onActiveChange: (index: number | null) => void }) {
   const reduceMotion = useReducedMotion();
-  const centerX = resolveLeft(card.left) + card.width / 2;
-  const centerY = card.top + card.height / 2;
   const active = activeIndex === index;
-  const activeCard = activeIndex === null ? null : cards[activeIndex];
-  const dx = activeCard ? centerX - (resolveLeft(activeCard.left) + activeCard.width / 2) : 0;
-  const dy = activeCard ? centerY - (activeCard.top + activeCard.height / 2) : 0;
-  const distance = Math.hypot(dx, dy);
-  const push = activeCard && !active && distance < 190 ? (1 - distance / 190) * 13 : 0;
-  const pushX = distance ? (dx / distance) * push : 0;
-  const pushY = distance ? (dy / distance) * push : 0;
+  const activeCard = activeIndex === null ? null : comments[activeIndex];
+  const centerX = referenceLeft(card) + card.width / 2;
+  const centerY = card.y + card.width * card.aspect / 2;
+  const activeCenterX = activeCard ? referenceLeft(activeCard) + activeCard.width / 2 : 0;
+  const activeCenterY = activeCard ? activeCard.y + activeCard.width * activeCard.aspect / 2 : 0;
+  const dx = centerX - activeCenterX;
+  const dy = centerY - activeCenterY;
+  const distance = activeCard ? Math.hypot(dx, dy) : Number.POSITIVE_INFINITY;
+  const influenceRadius = activeCard?.tier === "hero" ? 370 : 300;
+  const push = activeCard && !active && distance < influenceRadius ? (1 - distance / influenceRadius) * (card.tier === "atmosphere" ? 18 : 13) : 0;
+  const pushX = distance > 0 && Number.isFinite(distance) ? dx / distance * push : 0;
+  const pushY = distance > 0 && Number.isFinite(distance) ? dy / distance * push : 0;
+  const nearbyDim = activeCard && !active && distance < influenceRadius ? 1 - (1 - distance / influenceRadius) * .2 : 1;
+  const interactive = card.tier !== "atmosphere";
   const tiltX = useMotionValue(0);
   const tiltY = useMotionValue(0);
-  const rotateX = useSpring(tiltX, { stiffness: 320, damping: 30, mass: .65 });
-  const rotateY = useSpring(tiltY, { stiffness: 320, damping: 30, mass: .65 });
-  const scrollY = useTransform(progress, [0, 1], reduceMotion ? [0, 0] : [(card.depth - 3) * -5, (card.depth - 3) * 8]);
+  const rotateX = useSpring(tiltX, { stiffness: 270, damping: 29, mass: .72 });
+  const rotateY = useSpring(tiltY, { stiffness: 270, damping: 29, mass: .72 });
+  const settleOffset = card.depth === 3 ? 16 : card.depth === 2 ? 11 : 7;
+  const scrollY = useTransform(progress, [0, .44, 1], reduceMotion ? [0, 0, 0] : [settleOffset, 0, -card.parallax]);
+  const scrollRotate = useTransform(progress, [0, .44, 1], reduceMotion ? [card.rotation, card.rotation, card.rotation] : [card.rotation + (card.rotation < 0 ? -1.2 : 1.2), card.rotation, card.rotation]);
 
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
-    if (!active || reduceMotion || event.pointerType === "touch") return;
+    if (!active || reduceMotion || event.pointerType !== "mouse") return;
     const rect = event.currentTarget.getBoundingClientRect();
     tiltY.set(((event.clientX - rect.left) / rect.width - .5) * 4);
-    tiltX.set(((event.clientY - rect.top) / rect.height - .5) * -4);
+    tiltX.set(((event.clientY - rect.top) / rect.height - .5) * -3.2);
   };
 
+  const variables = {
+    "--comment-x": `${card.x}%`,
+    "--comment-width": `${card.width}px`,
+    "--comment-opacity": card.opacity,
+    "--card-image-width": `${card.imageWidth}%`,
+    "--card-image-top": `${card.imageTop}%`,
+    "--card-image-left": `${card.imageLeft ?? 0}%`,
+  } as CSSProperties;
+
   return (
-    <motion.div className="fodo-comment-scroll" style={{ left: card.left, top: card.top, width: card.width, height: card.height, y: scrollY, zIndex: active ? 100 : card.depth }}>
-      <motion.div
-        className="fodo-comment-card"
-        animate={{ x: reduceMotion ? 0 : pushX, y: reduceMotion ? 0 : pushY, scale: active ? 1.075 : 1 }}
-        transition={{ type: "spring", stiffness: 310, damping: 27, mass: .72 }}
-        style={{ rotateX, rotateY }}
-        onPointerEnter={() => onActiveChange(index)}
-        onPointerMove={handlePointerMove}
-        onPointerLeave={() => { tiltX.set(0); tiltY.set(0); onActiveChange(null); }}
-      >
-        <img
-          src={card.source}
-          alt=""
-          loading="eager"
-          decoding="async"
-          draggable={false}
-          style={{ "--card-image-width": `${card.imageWidth}%`, "--card-image-top": `${card.imageTop}%`, "--card-image-left": `${card.imageLeft ?? 0}%` } as CSSProperties}
-        />
+    <div className="fodo-comment-position" data-tier={card.tier} style={{ ...variables, top: card.y, width: card.width, height: card.width * card.aspect, zIndex: active ? 1000 : card.zIndex }}>
+      <motion.div className="fodo-comment-scroll" style={{ y: scrollY, rotateZ: scrollRotate }}>
+        <div
+          className="fodo-comment-hitbox"
+          onPointerEnter={interactive ? () => onActiveChange(index) : undefined}
+          onPointerMove={interactive ? handlePointerMove : undefined}
+          onPointerLeave={interactive ? () => { tiltX.set(0); tiltY.set(0); onActiveChange(null); } : undefined}
+        >
+          <motion.div
+            className="fodo-comment-displace"
+            animate={{ x: reduceMotion ? 0 : pushX, y: reduceMotion ? 0 : pushY, opacity: reduceMotion ? card.opacity : card.opacity * nearbyDim }}
+            transition={{ type: "spring", stiffness: 285, damping: 28, mass: .78 }}
+          >
+            <motion.div
+              className="fodo-comment-card"
+              data-active={active ? "true" : "false"}
+              animate={{ scale: active ? (card.tier === "hero" ? 1.055 : 1.075) : 1, z: active ? (card.tier === "hero" ? 38 : 54) : card.depth * 6 }}
+              transition={{ type: "spring", stiffness: 260, damping: 26, mass: .76 }}
+              style={{ rotateX, rotateY }}
+            >
+              <img src={card.source} alt={card.alt} loading={card.tier === "hero" ? "eager" : "lazy"} decoding="async" draggable={false} />
+            </motion.div>
+          </motion.div>
+        </div>
       </motion.div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -144,12 +151,11 @@ export function FodoCommentWall() {
   const wallRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const { scrollYProgress } = useScroll({ target: wallRef, offset: ["start end", "end start"] });
+
   return (
     <section className="fodo-comment-section" aria-label="Community reactions to Fodo">
       <div ref={wallRef} className="fodo-comment-wall" onPointerLeave={() => setActiveIndex(null)}>
-        {cards.map((card, index) => (
-          <CommentCard key={`${card.source}-${index}`} card={card} index={index} activeIndex={activeIndex} progress={scrollYProgress} onActiveChange={setActiveIndex} />
-        ))}
+        {comments.map((card, index) => <CommentCard key={card.id} card={card} index={index} activeIndex={activeIndex} progress={scrollYProgress} onActiveChange={setActiveIndex} />)}
       </div>
     </section>
   );

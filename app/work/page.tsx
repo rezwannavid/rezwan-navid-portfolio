@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { ContactCTA } from "@/components/home/ContactCTA";
-import { EditorialSiteHeader } from "@/components/home/EditorialSiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { WorkProjectBrowser } from "@/components/work/WorkProjectBrowser";
@@ -21,7 +20,6 @@ export const metadata: Metadata = createPageMetadata({
 export default function WorkPage() {
   return (
     <div className="home-page work-page-shell">
-      <EditorialSiteHeader activeRoute="/work" />
       <main className="work-page">
         <JsonLd data={pageSchema(
           webPageSchema({ name: title, description, path: "/work", type: "CollectionPage" }),

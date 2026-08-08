@@ -51,7 +51,7 @@ export function ProtectedCaseStudy({ data }: { data: ProtectedCaseStudyData }) {
           <p className="protected-statement"><AnimatedLines text={data.statement} delay={.4} /></p>
         </div>
 
-        <motion.div className="protected-preview-hero protected-case-shell" initial={{ opacity: 0, y: 24, scale: .985, clipPath: "inset(5% 0 7% 0 round 6px)" }} animate={{ opacity: 1, y: 0, scale: 1, clipPath: "inset(0% 0 0% 0 round 6px)" }} transition={{ duration: .88, delay: .58, ease: motionEase.editorial }}>
+        <motion.div className="protected-preview-hero protected-case-shell" data-project-transition-hero={data.slug} initial={{ opacity: 0, y: 24, scale: .985, clipPath: "inset(5% 0 7% 0 round 6px)" }} animate={{ opacity: 1, y: 0, scale: 1, clipPath: "inset(0% 0 0% 0 round 6px)" }} transition={{ duration: .88, delay: .58, ease: motionEase.editorial }}>
           <TiltLink href="#protected-access" className="protected-preview-link" ariaLabel="Go to password access for the full case study" cursorLabel="Unlock" maxRotate={2.4} maxTranslate={2}>
             <span className="protected-preview-mask"><img src={hero.src} alt={hero.alt} style={{ objectPosition: hero.objectPosition ?? "center" }} /></span>
           </TiltLink>

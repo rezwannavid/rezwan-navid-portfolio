@@ -1,7 +1,6 @@
 "use client";
 
 import { SiteFooter } from "@/components/layout/SiteFooter";
-import { EditorialSiteHeader } from "@/components/home/EditorialSiteHeader";
 import { WorkRail } from "@/components/home/WorkRail";
 import {
   NextProject,
@@ -19,7 +18,6 @@ export function EventFlowProjectPage() {
   if (!project?.nextProjectId) return null;
   return (
     <div className="home-page design-project-page eventflow-project-page">
-      <EditorialSiteHeader activeRoute="/work" />
       <main>
         <ProjectIntro
           title="Eventflow for FIFA World Cup"
@@ -34,7 +32,7 @@ export function EventFlowProjectPage() {
         />
 
         <div className="eventflow-composition">
-          <ProjectVisual className="eventflow-visual-01" src={project.hero} alt={project.thumbnailAlt} width={2765} height={1632} distance={20} delay={.06} priority />
+          <ProjectVisual className="eventflow-visual-01" src={project.hero} alt={project.thumbnailAlt} width={2765} height={1632} distance={20} delay={.06} priority projectId={project.id} />
 
           <div className="eventflow-editorial-grid">
             <ProjectVisual className="eventflow-visual-02" src={picture("EventFlow 02")} alt="EventFlow for FIFA World Cup identity" width={1369} height={1344} distance={12} xDistance={-2} delay={.04} />
