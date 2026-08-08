@@ -699,6 +699,43 @@ img { display: block; max-width: 100%; }
 .design-project-work-rail { margin-top: 133px; }
 .design-project-page > .home-site-footer { padding-top: 171px; }
 
+/* Fodo — approved desktop composition and selected Figma comment wall (923:30756) */
+.fodo-intro { position: relative; width: min(1280px, 100%); height: 364px; margin-inline: auto; }
+.fodo-intro h1 { position: absolute; top: 94px; left: calc(50% - 406px); color: #ececec; font-family: var(--home-serif); font-size: 64px; line-height: 54px; font-weight: 400; font-variation-settings: "SOFT" 100, "opsz" 144, "WONK" 1; letter-spacing: -.025em; }
+.fodo-meta-row { position: absolute; top: 177px; left: calc(50% - 406px); width: 812px; height: 116px; }
+.fodo-meta-field { position: absolute; display: flex; flex-direction: column; color: #fff; font-size: 15px; line-height: 22px; letter-spacing: .1px; }
+.fodo-meta-field > span { color: rgb(231 231 231 / .63); }
+.fodo-meta-field strong { display: flex; flex-direction: column; font-weight: 400; }
+.fodo-meta-year { top: 10px; left: 5px; }
+.fodo-meta-timeline { top: 10px; left: 104px; }
+.fodo-meta-waitlist { top: 30px; left: 202px; }
+.fodo-meta-type { top: 78px; left: 5px; width: 229px; }
+.fodo-meta-platform { top: 78px; left: 300px; }
+.fodo-meta-made { top: 3px; left: 633px; width: 179px; }
+.fodo-meta-focus { top: 78px; left: 633px; width: 179px; }
+.fodo-composition { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
+.fodo-hero { width: 100%; aspect-ratio: 1.685 / 1; }
+.fodo-hero img { object-fit: cover; }
+.fodo-project-page .fodo-statement { width: 560px; margin: 57px 0 0 100px; color: var(--home-ink); font-size: 24px; line-height: 30px; font-weight: 500; letter-spacing: .005em; }
+.fodo-statement p + p { margin-top: 29px; }
+.fodo-statement .animated-line-word { letter-spacing: .005em !important; }
+.fodo-gif-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; width: 920px; margin-inline: auto; }
+.fodo-gif-grid-top { margin-top: 70px; }
+.fodo-gif-grid-bottom { margin-top: 65px; }
+.fodo-gif { width: 100%; aspect-ratio: 1558 / 2160; }
+.fodo-gif img { object-fit: cover; }
+.fodo-comment-section { position: relative; width: 100%; height: 1130px; margin-top: 116px; overflow: clip; }
+.fodo-comment-wall { position: relative; width: 900px; height: 994px; margin-inline: auto; perspective: 900px; }
+.fodo-comment-scroll { position: absolute; will-change: transform; }
+.fodo-comment-card { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 6.793px; background: #0e0e0e; box-shadow: 0 6px 7px rgb(34 21 8 / .17); transform-style: preserve-3d; cursor: default; will-change: transform; }
+.fodo-comment-card img { position: absolute; width: var(--card-image-width); height: auto; max-width: none; left: var(--card-image-left); top: var(--card-image-top); pointer-events: none; user-select: none; }
+.fodo-project-page .design-project-next { margin-top: 119px; }
+.fodo-project-page .design-project-work-rail { margin-top: 133px; }
+
+@media (hover: hover) and (pointer: fine) {
+  .fodo-comment-card:hover { box-shadow: 0 12px 25px rgb(0 0 0 / .42); }
+}
+
 @media (min-width: 768px) and (max-width: 1099px) {
   .design-project-intro h1,
   .design-project-meta-left,
@@ -1158,6 +1195,20 @@ img { display: block; max-width: 100%; }
   .home-contact.is-portfolio .contact-row { height: 260px; display: block; }
   .home-contact.is-portfolio .contact-row h2 { width: 100%; font-size: 40px; line-height: 1.02; }
   .home-contact.is-portfolio .contact-row a { width: 100%; height: 88px; margin-top: 64px; }
+}
+
+@media (max-width: 767px) {
+  .fodo-intro { height: auto; padding: 108px 20px 72px; }
+  .fodo-intro h1, .fodo-meta-row { position: static; width: 100%; }
+  .fodo-intro h1 { font-size: 48px; line-height: 48px; }
+  .fodo-meta-row { display: grid; height: auto; margin-top: 48px; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .fodo-meta-field { position: static; }
+  .fodo-composition { width: calc(100% - 40px); }
+  .fodo-hero { aspect-ratio: 1.45 / 1; }
+  .fodo-project-page .fodo-statement { width: 100%; margin: 48px 0 0; font-size: 20px; line-height: 26px; }
+  .fodo-gif-grid { width: 100%; gap: 8px; }
+  .fodo-comment-section { height: 460px; margin-top: 80px; }
+  .fodo-comment-wall { left: 50%; margin-left: -450px; transform: scale(.42); transform-origin: top center; }
 }
 
 @media (prefers-reduced-motion: reduce) {

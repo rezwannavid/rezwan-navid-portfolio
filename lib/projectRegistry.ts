@@ -24,6 +24,13 @@ export type ProjectDefinition = {
   shortDescription: string;
   role: string;
   year: string;
+  timeline?: string;
+  platform?: string;
+  focus?: string[];
+  projectType?: "client" | "personal" | "experimental" | "ai";
+  productType?: string;
+  waitlist?: string;
+  madeWith?: string[];
   href: string;
   protected: boolean;
   hero: string;
@@ -86,8 +93,8 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
     seoTitle: "Ruckus Games — Multiplayer Party Games", seoDescription: "Product direction and design engineering for expressive multiplayer party games.",
   },
   fodo: {
-    id: "fodo", slug: "fodo", title: "Fodo", shortDescription: "A tactile camera experiment exploring physical-feeling controls and playful capture.", role: "Product Design", year: "2026", href: "/work/fodo", protected: false,
-    hero: "/home-design/thumb-phone-pink.png?v=2", placeholder: true, thumbnailAlt: "Fodo tactile camera experiment", categories: ["interface"], categoryLabel: "Experiment", client: "Independent", locked: false, indexable: false,
+    id: "fodo", slug: "fodo", title: "Fodo", shortDescription: "A tactile camera experiment exploring physical-feeling controls and playful capture.", role: "Independent", year: "2026", timeline: "3 weeks", platform: "iOS", focus: ["Interaction Design", "Prototyping", "Skeuomorphism"], projectType: "personal", productType: "Product Exploration with AI", waitlist: "100+ in Waitlist", madeWith: ["Claude", "Cursor", "SwiftUI", "Figma", "Adobe After Effects"], href: "/work/fodo", protected: false,
+    hero: "/Fodo Pictures/Header.png", nextProjectId: "ridecentric", placeholder: false, thumbnailAlt: "Fodo tactile camera interface held against a sunset landscape", categories: ["interface"], categoryLabel: "Personal Project", client: "Independent", locked: false, indexable: true,
     seoTitle: "Fodo — Tactile Camera Experiment", seoDescription: "A tactile camera concept exploring physical-feeling controls and playful capture.",
   },
   "gldn-route": {

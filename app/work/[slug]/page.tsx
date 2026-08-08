@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ProtectedCaseStudy, type ProtectedCaseStudyData } from "@/components/work/ProtectedCaseStudy";
 import { EventFlowProjectPage } from "@/components/work/design-project/EventFlowProjectPage";
+import { FodoProjectPage } from "@/components/work/design-project/FodoProjectPage";
 import { createPageMetadata } from "@/lib/metadata";
 import { breadcrumbSchema, pageSchema, schemaIds, webPageSchema } from "@/lib/structuredData";
 import { absoluteUrl, projects } from "@/lib/site";
@@ -78,6 +79,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   }
 
   if (slug === "eventflow") return <EventFlowProjectPage />;
+  if (slug === "fodo") return <FodoProjectPage />;
 
   const path = `/work/${project.slug}`;
   const title = workProject?.seoTitle ?? `${project.title} — Case Study Preview`;
