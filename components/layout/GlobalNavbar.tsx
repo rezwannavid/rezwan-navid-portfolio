@@ -53,10 +53,15 @@ export function GlobalNavbar() {
     <header className="global-navbar global-navbar-desktop" data-node-id="856:40143">
       <motion.div
         className="global-navbar-shell"
-        initial={reduceMotion ? false : { clipPath: "inset(0 46.25% 0 46.25% round 103px)", opacity: 0 }}
-        animate={{ clipPath: "inset(0 0% 0 0% round 103px)", opacity: 1 }}
+        initial={reduceMotion ? false : { opacity: 0, y: -12, scale: .985 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={reduceMotion ? { duration: .12 } : { duration: .72, ease: motionEase.editorial }}
       >
+        <div
+          className="global-navbar-glass"
+          aria-hidden="true"
+          style={{ backdropFilter: "blur(29.7px)", WebkitBackdropFilter: "blur(29.7px)" }}
+        />
         <motion.div
           className="global-navbar-content"
           initial={reduceMotion ? false : { opacity: 0, y: -3 }}

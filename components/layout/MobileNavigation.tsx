@@ -214,17 +214,24 @@ export function MobileNavigation() {
         animate={{ y: navVisible ? 0 : -82, opacity: navVisible ? 1 : 0, scale: navVisible ? 1 : .985 }}
         transition={{ duration: reduceMotion ? .08 : .3, ease: motionEase.editorial }}
       >
-        <Link className="mobile-nav-home" href="/" aria-label="Mir Rezwan Navid, home"><img src="/RNLogo.svg" alt="" width="55" height="20" /></Link>
-        <motion.button
-          ref={triggerRef}
-          className="mobile-nav-trigger"
-          type="button"
-          aria-label="Open navigation"
-          aria-expanded={mounted}
-          aria-controls="mobile-navigation-sheet"
-          onClick={openMenu}
-          whileTap={reduceMotion ? undefined : { scale: .88, x: 1, y: 1 }}
-        ><img src="/icons/HamBurger.svg" alt="" width="20" height="20" /></motion.button>
+        <div
+          className="mobile-nav-glass"
+          aria-hidden="true"
+          style={{ backdropFilter: "blur(29.7px)", WebkitBackdropFilter: "blur(29.7px)" }}
+        />
+        <div className="mobile-nav-content">
+          <Link className="mobile-nav-home" href="/" aria-label="Mir Rezwan Navid, home"><img src="/RNLogo.svg" alt="" width="55" height="20" /></Link>
+          <motion.button
+            ref={triggerRef}
+            className="mobile-nav-trigger"
+            type="button"
+            aria-label="Open navigation"
+            aria-expanded={mounted}
+            aria-controls="mobile-navigation-sheet"
+            onClick={openMenu}
+            whileTap={reduceMotion ? undefined : { scale: .88, x: 1, y: 1 }}
+          ><img src="/icons/HamBurger.svg" alt="" width="20" height="20" /></motion.button>
+        </div>
       </motion.div>
 
       {mounted && (

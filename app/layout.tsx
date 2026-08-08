@@ -77,9 +77,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" data-scroll-behavior="smooth">
       <body className={`${neueMontreal.variable} ${fraunces.variable} ${neueMontreal.className}`}>
         <JsonLd data={globalSchema} />
+        <GlobalNavbar />
         <SmoothScrollProvider>
           <ProjectTransitionProvider>
-            <GlobalNavbar />
             <PageTransitionLayer />
             {children}
           </ProjectTransitionProvider>
