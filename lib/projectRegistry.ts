@@ -60,7 +60,7 @@ export type ResolvedProject = ProjectDefinition & {
 const definitions: Record<ProjectId, ProjectDefinition> = {
   ridecentric: {
     id: "ridecentric", slug: "ridecentric", title: "RideCentric+", shortDescription: "An enterprise mobility platform for corporate travel, events and transportation operations.", role: "Product Manager / Product Direction", year: "2026", href: "/work/ridecentric", protected: true,
-    hero: "/home-design/project-ridecentric.png?v=2", placeholder: false, thumbnailAlt: "RideCentric+ enterprise transportation operating system", categories: ["product-study", "interface", "design-system"], categoryLabel: "Product Study", client: "RideCentric", locked: true, theme: "dark", indexable: false,
+    hero: "/home-design/project-ridecentric.png?v=2", featuredThumbnail: "/home-design/mobile-project-ridecentric.png", placeholder: false, thumbnailAlt: "RideCentric+ enterprise transportation operating system", categories: ["product-study", "interface", "design-system"], categoryLabel: "Product Study", client: "RideCentric", locked: true, theme: "dark", indexable: false,
     seoTitle: "RideCentric+ — Enterprise Mobility Product Design", seoDescription: "Designing an enterprise mobility platform for managing complex ride operations, events, teams and workflows at scale.",
   },
   ridesync: {
@@ -75,12 +75,12 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
   },
   "nav-ai": {
     id: "nav-ai", slug: "nav-ai", title: "Nav AI", shortDescription: "An AI impact advisor that turns early ideas into structured product opportunities.", role: "Product Manager", year: "2026", href: "/work/nav-ai", protected: false,
-    hero: "/home-design/project-navi-ai.png?v=2", placeholder: true, thumbnailAlt: "Nav AI idea generation interface", categories: ["product-study", "interface", "product-management"], categoryLabel: "AI Product", client: "Independent", locked: false, theme: "dark", indexable: false,
+    hero: "/home-design/project-navi-ai.png?v=2", featuredThumbnail: "/home-design/mobile-project-nav-ai.png", placeholder: true, thumbnailAlt: "Nav AI idea generation interface", categories: ["product-study", "interface", "product-management"], categoryLabel: "AI Product", client: "Independent", locked: false, theme: "dark", indexable: false,
     seoTitle: "Nav AI — AI Impact Advisor", seoDescription: "An AI impact advisor for turning early ideas into structured product opportunities.",
   },
   eventflow: {
     id: "eventflow", slug: "eventflow", title: "EventFlow", shortDescription: "An event-aware transportation planning extension for the FIFA World Cup.", role: "Product Manager - Experience", year: "2026", href: "/work/eventflow", protected: false,
-    hero: "/Eventflow Pictures/EventFlow 01.png", nextProjectId: "ridecentric", placeholder: false, thumbnailAlt: "EventFlow World Cup match planning experience", categories: ["product-study", "interface"], categoryLabel: "Product Study", client: "RideCentric", locked: false, indexable: true,
+    hero: "/Eventflow Pictures/EventFlow 01.png", featuredThumbnail: "/home-design/mobile-project-eventflow.png", nextProjectId: "ridecentric", placeholder: false, thumbnailAlt: "EventFlow World Cup match planning experience", categories: ["product-study", "interface"], categoryLabel: "Product Study", client: "RideCentric", locked: false, indexable: true,
     seoTitle: "EventFlow — World Cup Ride Planning", seoDescription: "An event-aware transportation planning extension helping World Cup fans coordinate venues, pickup timing and post-match journeys.",
   },
   "drivers-app": {

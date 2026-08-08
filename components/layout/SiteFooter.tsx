@@ -21,7 +21,7 @@ export function SiteFooter() {
         <img className="closing-logo" src="/RNLogo.svg" alt="" width="55" height="20" />
         <img className="closing-logo-secondary" src="/RNLogo.svg" alt="" width="55" height="20" />
         <nav className="closing-nav" aria-label="Footer navigation">
-          <Link href="/">home</Link><Link href="/work">work</Link><Link href="/about">about</Link><a href="https://medium.com/@rezwannavidalvee" target="_blank" rel="noreferrer">opinions</a><a href="mailto:hello@rezwannavid.me">contact</a><Link href="/portfolio">portfolio</Link><a href="/Rezwan-Navid-Resume.pdf">resume</a>
+          <Link href="/">home</Link><Link href="/work">work</Link><Link href="/about">about</Link><a href="mailto:hello@rezwannavid.me">contact</a><Link href="/opinion">opinion</Link><Link href="/portfolio">portfolio</Link><Link href="/photography">lens</Link>
         </nav>
         <nav className="closing-socials" aria-label="Social links">
           <a href="https://instagram.com/rezwannavid" aria-label="Instagram"><img src="/home-design/footer-instagram.svg" alt="" width="24" height="24" /></a>
@@ -30,8 +30,12 @@ export function SiteFooter() {
           <a href="https://medium.com/@rezwannavidalvee" aria-label="Medium"><img src="/home-design/footer-medium.svg" alt="" width="24" height="24" /></a>
           <a href="https://github.com/rezwannavid" aria-label="GitHub"><img src="/home-design/footer-github.svg" alt="" width="24" height="24" /></a>
         </nav>
-        <p className="made-with">made with coffee and droopy eyes</p>
+        <p className="made-with made-with-desktop">made with coffee and droopy eyes</p>
       </motion.div>
+      <div className="mobile-footer-credit">
+        <p>made with coffee and droopy eyes</p>
+        <span>Mir Rezwan Navid © 2026</span>
+      </div>
     </footer>
   );
 }

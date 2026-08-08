@@ -6,6 +6,7 @@ import { AnimatePresence, LayoutGroup, motion, useMotionValue, useReducedMotion,
 import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { globalNavigation, globalTextNavigation, isNavigationItemActive, isTextNavigationItemActive, type GlobalNavItem, type GlobalTextNavItem } from "@/lib/navigation";
 import { motionEase, physicalSpring } from "@/lib/motion";
+import { MobileNavigation } from "@/components/layout/MobileNavigation";
 
 type TooltipState = { label: string; visible: boolean };
 const MotionLink = motion.create(Link);
@@ -48,7 +49,8 @@ export function GlobalNavbar() {
   };
 
   return (
-    <header className="global-navbar" data-node-id="856:40143">
+    <>
+    <header className="global-navbar global-navbar-desktop" data-node-id="856:40143">
       <motion.div
         className="global-navbar-shell"
         initial={reduceMotion ? false : { clipPath: "inset(0 46.25% 0 46.25% round 103px)", opacity: 0 }}
@@ -113,6 +115,8 @@ export function GlobalNavbar() {
         )}
       </AnimatePresence>
     </header>
+    <MobileNavigation />
+    </>
   );
 }
 

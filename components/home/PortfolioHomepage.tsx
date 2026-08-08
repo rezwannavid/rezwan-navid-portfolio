@@ -15,6 +15,7 @@ import { VideoFeature } from "@/components/home/VideoFeature";
 import { WorkRail } from "@/components/home/WorkRail";
 import { motionEase, physicalSpring } from "@/lib/motion";
 import { featuredProjectIds, projectRegistry } from "@/lib/projectRegistry";
+import { MobileHomepage } from "@/components/home/MobileHomepage";
 
 function IdentityCard() {
   const reduceMotion = useReducedMotion();
@@ -177,12 +178,12 @@ function PhilosophySection() {
       <VideoFeature />
       <nav className="editorial-links" aria-label="More about Mir Rezwan Navid">
         <Link href="/about" data-cursor="Open"><span>about me</span> <Arrow magnetic /></Link>
-        <a href="https://medium.com/@rezwannavidalvee" data-cursor="Open" target="_blank" rel="noreferrer"><span>opinion</span> <Arrow magnetic /></a>
+        <Link href="/opinion" data-cursor="Open"><span>opinion</span> <Arrow magnetic /></Link>
       </nav>
     </section>
   );
 }
 
 export function PortfolioHomepage() {
-  return <><HeroSection /><HumanUnderstandingSection /><FeaturedWorkSection /><WorkRail /><ExperienceSection /><PhilosophySection /><ContactCTA /><SiteFooter /></>;
+  return <><div className="desktop-homepage"><HeroSection /><HumanUnderstandingSection /><FeaturedWorkSection /><WorkRail /><ExperienceSection /><PhilosophySection /><ContactCTA /></div><MobileHomepage /><SiteFooter /></>;
 }
