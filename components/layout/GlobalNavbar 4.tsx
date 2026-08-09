@@ -6,7 +6,6 @@ import { AnimatePresence, LayoutGroup, motion, useMotionValue, useReducedMotion,
 import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { globalNavigation, globalTextNavigation, isNavigationItemActive, isTextNavigationItemActive, type GlobalNavItem, type GlobalTextNavItem } from "@/lib/navigation";
 import { motionEase, physicalSpring } from "@/lib/motion";
-import { GlassNavbarSurface } from "@/components/layout/GlassNavbarSurface";
 import { MobileNavigation } from "@/components/layout/MobileNavigation";
 
 type TooltipState = { label: string; visible: boolean };
@@ -58,48 +57,50 @@ export function GlobalNavbar() {
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={reduceMotion ? { duration: .12 } : { duration: .72, ease: motionEase.editorial }}
       >
-        <GlassNavbarSurface className="global-navbar-glass">
-          <motion.div
-            className="global-navbar-content"
-            initial={reduceMotion ? false : { opacity: 0, y: -3 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={reduceMotion ? { duration: .12 } : { duration: .42, delay: .18, ease: motionEase.editorial }}
-          >
-            <LayoutGroup id="global-navbar-active-state">
-              <div className="global-navbar-primary">
-                <NavbarLogo pathname={pathname} reduceMotion={Boolean(reduceMotion)} />
-                <nav className="global-navbar-text-items" aria-label="Main pages">
-                  {globalTextNavigation.map((item) => (
-                    <NavbarTextItem
-                      key={item.id}
-                      item={item}
-                      active={isTextNavigationItemActive(pathname, item)}
-                      reduceMotion={Boolean(reduceMotion)}
-                      onNavigate={beginNavigation}
-                    />
-                  ))}
-                </nav>
-              </div>
+        <div
+          className="global-navbar-glass glass-surface"
+          aria-hidden="true"
+        />
+        <motion.div
+          className="global-navbar-content"
+          initial={reduceMotion ? false : { opacity: 0, y: -3 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={reduceMotion ? { duration: .12 } : { duration: .42, delay: .18, ease: motionEase.editorial }}
+        >
+          <LayoutGroup id="global-navbar-active-state">
+            <div className="global-navbar-primary">
+              <NavbarLogo pathname={pathname} reduceMotion={Boolean(reduceMotion)} />
+              <nav className="global-navbar-text-items" aria-label="Main pages">
+                {globalTextNavigation.map((item) => (
+                  <NavbarTextItem
+                    key={item.id}
+                    item={item}
+                    active={isTextNavigationItemActive(pathname, item)}
+                    reduceMotion={Boolean(reduceMotion)}
+                    onNavigate={beginNavigation}
+                  />
+                ))}
+              </nav>
+            </div>
 
-              <motion.nav layout className="global-navbar-items" aria-label="Primary navigation" onPointerMove={updateTooltipPosition} onPointerLeave={() => { suppressTooltip.current = false; }}>
-                {globalNavigation.map((item) => {
-                  const active = isNavigationItemActive(pathname, item);
-                  return (
-                    <NavbarItem
-                      key={item.id}
-                      item={item}
-                      active={active}
-                      reduceMotion={Boolean(reduceMotion)}
-                      onTooltipShow={showTooltip}
-                      onTooltipHide={hideTooltip}
-                      onNavigate={beginNavigation}
-                    />
-                  );
-                })}
-              </motion.nav>
-            </LayoutGroup>
-          </motion.div>
-        </GlassNavbarSurface>
+            <motion.nav layout className="global-navbar-items" aria-label="Primary navigation" onPointerMove={updateTooltipPosition} onPointerLeave={() => { suppressTooltip.current = false; }}>
+              {globalNavigation.map((item) => {
+                const active = isNavigationItemActive(pathname, item);
+                return (
+                  <NavbarItem
+                    key={item.id}
+                    item={item}
+                    active={active}
+                    reduceMotion={Boolean(reduceMotion)}
+                    onTooltipShow={showTooltip}
+                    onTooltipHide={hideTooltip}
+                    onNavigate={beginNavigation}
+                  />
+                );
+              })}
+            </motion.nav>
+          </LayoutGroup>
+        </motion.div>
       </motion.div>
 
       <AnimatePresence>

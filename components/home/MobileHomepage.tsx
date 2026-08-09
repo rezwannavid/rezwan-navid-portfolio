@@ -18,6 +18,7 @@ import { AnimatedWords } from "@/components/motion/AnimatedWords";
 import { ProjectLink } from "@/components/motion/ProjectTransition";
 import { motionEase, physicalSpring } from "@/lib/motion";
 import { featuredProjectIds, projectRegistry, type ProjectId } from "@/lib/projectRegistry";
+import { useHomeIntroCard } from "@/components/home/HomeIntro";
 
 type GestureState = {
   active: boolean;
@@ -114,12 +115,12 @@ function useTactileMotion(maxX: number, maxY: number, maxTilt: number) {
 
 function MobileIdentityCard() {
   const tactile = useTactileMotion(13, 8, 2.8);
+  const registerIntroCard = useHomeIntroCard();
   return (
     <motion.div
-      className="mobile-identity-entry"
-      initial={tactile.reduceMotion ? false : { opacity: 0, y: 24, scale: .955, rotateX: 3.2 }}
-      animate={tactile.reduceMotion ? undefined : { opacity: 1, y: 0, scale: 1, rotateX: 0 }}
-      transition={{ duration: .58, delay: .18, ease: motionEase.editorial }}
+      ref={registerIntroCard}
+      className="mobile-identity-entry home-intro-card-entry"
+      initial={false}
     >
       <motion.article
         className="mobile-identity-card"
@@ -141,8 +142,8 @@ function MobileHero() {
   return (
     <section className="mobile-home-hero" aria-labelledby="mobile-home-title">
       <h1 id="mobile-home-title">
-        <AnimatedWords text="Product Brain," mode="load" delay={.08} stagger={.11} />
-        <AnimatedWords text="Design Heart" as="em" mode="load" delay={.31} stagger={.11} />
+        <span>Product Brain,</span>
+        <em>Design Heart</em>
       </h1>
       <MobileIdentityCard />
     </section>

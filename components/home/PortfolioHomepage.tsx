@@ -17,6 +17,7 @@ import { EditorialLinks } from "@/components/home/EditorialLinks";
 import { motionEase, physicalSpring } from "@/lib/motion";
 import { featuredProjectIds, projectRegistry } from "@/lib/projectRegistry";
 import { MobileHomepage } from "@/components/home/MobileHomepage";
+import { HomeIntroProvider, useHomeIntroCard } from "@/components/home/HomeIntro";
 
 function IdentityCard() {
   const reduceMotion = useReducedMotion();
@@ -47,9 +48,7 @@ function IdentityCard() {
     <motion.article
       className="identity-card"
       aria-label="Mir Rezwan Navid profile"
-      initial={reduceMotion ? false : { opacity: 0, y: 24, scale: .975, rotate: .7 }}
-      animate={reduceMotion ? undefined : { opacity: 1, y: 0, scale: 1, rotate: 0 }}
-      transition={{ duration: .72, delay: .42, ease: motionEase.editorial }}
+      initial={false}
       style={{ rotateX: reduceMotion ? 0 : rotateX, rotateY: reduceMotion ? 0 : rotateY }}
       onPointerMove={move}
       onPointerLeave={reset}
@@ -71,17 +70,18 @@ function IdentityCard() {
 }
 
 function HeroSection() {
+  const registerIntroCard = useHomeIntroCard();
   return (
     <section className="home-hero" aria-labelledby="home-title">
       <div className="home-shell home-hero-grid">
         <div className="home-hero-copy">
-          <h1 id="home-title"><AnimatedWords text="Product Brain," mode="load" delay={.15} /><AnimatedWords text="Design Heart" as="em" mode="load" delay={.24} /></h1>
-          <motion.div className="home-hero-actions" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .58, delay: .48, ease: motionEase.editorial }}>
+          <h1 id="home-title"><span>Product Brain,</span><em>Design Heart</em></h1>
+          <div className="home-hero-actions">
             <Link href="/work">see work <Arrow /></Link>
             <a href="mailto:hello@rezwannavid.me">connect <Arrow /></a>
-          </motion.div>
+          </div>
         </div>
-        <IdentityCard />
+        <div ref={registerIntroCard} className="identity-card-entry home-intro-card-entry"><IdentityCard /></div>
       </div>
     </section>
   );
@@ -183,5 +183,5 @@ function PhilosophySection() {
 }
 
 export function PortfolioHomepage() {
-  return <><div className="desktop-homepage"><HeroSection /><HumanUnderstandingSection /><FeaturedWorkSection /><WorkRail /><ExperienceSection /><PhilosophySection /><ContactCTA /></div><MobileHomepage /><SiteFooter /></>;
+  return <HomeIntroProvider><div className="desktop-homepage"><HeroSection /><HumanUnderstandingSection /><FeaturedWorkSection /><WorkRail /><ExperienceSection /><PhilosophySection /><ContactCTA /></div><MobileHomepage /><SiteFooter /></HomeIntroProvider>;
 }

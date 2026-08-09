@@ -6,7 +6,6 @@ import { animate, motion, useMotionValue, useReducedMotion, useTransform } from 
 import { useCallback, useEffect, useRef, useState, type MouseEvent } from "react";
 import { globalNavigation, globalTextNavigation } from "@/lib/navigation";
 import { motionEase } from "@/lib/motion";
-import { GlassNavbarSurface } from "@/components/layout/GlassNavbarSurface";
 
 type MenuPhase = "idle" | "opening" | "open" | "selecting" | "cover" | "revealing" | "closing";
 type MenuItem = { id: string; label: string; href: string; icon?: string; primary: boolean };
@@ -216,21 +215,24 @@ export function MobileNavigation() {
         animate={{ y: navVisible ? 0 : -82, opacity: navVisible ? 1 : 0, scale: navVisible ? 1 : .985 }}
         transition={{ duration: reduceMotion ? .08 : .3, ease: motionEase.editorial }}
       >
-        <GlassNavbarSurface className="mobile-nav-glass">
-          <div className="mobile-nav-content">
-            <Link className="mobile-nav-home" href="/" aria-label="Mir Rezwan Navid, home"><img src="/RNLogo.svg" alt="" width="55" height="20" /></Link>
-            <motion.button
-              ref={triggerRef}
-              className="mobile-nav-trigger"
-              type="button"
-              aria-label="Open navigation"
-              aria-expanded={mounted}
-              aria-controls="mobile-navigation-sheet"
-              onClick={openMenu}
-              whileTap={reduceMotion ? undefined : { scale: .88, x: 1, y: 1 }}
-            ><img src="/icons/HamBurger.svg" alt="" width="20" height="20" /></motion.button>
-          </div>
-        </GlassNavbarSurface>
+        <div
+          className="mobile-nav-glass"
+          aria-hidden="true"
+          style={{ backdropFilter: "blur(var(--glass-blur)) saturate(var(--glass-saturation))", WebkitBackdropFilter: "blur(var(--glass-blur)) saturate(var(--glass-saturation))" }}
+        />
+        <div className="mobile-nav-content">
+          <Link className="mobile-nav-home" href="/" aria-label="Mir Rezwan Navid, home"><img src="/RNLogo.svg" alt="" width="55" height="20" /></Link>
+          <motion.button
+            ref={triggerRef}
+            className="mobile-nav-trigger"
+            type="button"
+            aria-label="Open navigation"
+            aria-expanded={mounted}
+            aria-controls="mobile-navigation-sheet"
+            onClick={openMenu}
+            whileTap={reduceMotion ? undefined : { scale: .88, x: 1, y: 1 }}
+          ><img src="/icons/HamBurger.svg" alt="" width="20" height="20" /></motion.button>
+        </div>
       </motion.div>
 
       {mounted && (
