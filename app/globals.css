@@ -1,9 +1,20 @@
 :root {
+  /*
+   * Global mobile viewport contract:
+   * - current: fills the space that is visible right now (pages and overlays)
+   * - stable: stays still while browser chrome expands/collapses (sticky content)
+   * - visual: paints the largest possible environment (non-interactive backdrops)
+   * 100vh is the compatibility fallback; modern browsers take the overrides below.
+   */
+  --viewport-current: 100vh;
+  --viewport-stable: 100vh;
+  --viewport-visual: 100vh;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-right: env(safe-area-inset-right, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-left: env(safe-area-inset-left, 0px);
-  --site-background: #101010;
+  --environment-background: #040404;
+  --site-background: var(--environment-background);
   --black-1000: #101010;
   --black-800: #151515;
   --black-700: #1a1a1a;
@@ -40,11 +51,29 @@
   --z-global-navbar: 1100;
 }
 
+@supports (height: 100dvh) {
+  :root { --viewport-current: 100dvh; }
+}
+
+@supports (height: 100svh) {
+  :root { --viewport-stable: 100svh; }
+}
+
+@supports (height: 100lvh) {
+  :root { --viewport-visual: 100lvh; }
+}
+
 * { box-sizing: border-box; }
-html { width: 100%; max-width: 100%; min-height: 100%; overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 88px; background: var(--site-background); }
+html { width: 100%; max-width: 100%; min-height: 100%; overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 88px; background: var(--environment-background); color-scheme: dark; }
 html.lenis { scroll-behavior: auto; }
-body { --font-sans: var(--font-neue-montreal); width: 100%; max-width: 100%; min-height: 100dvh; margin: 0; background: var(--site-background); color: var(--color-text-primary); font-family: var(--font-sans); font-size: 13px; line-height: 16px; overflow-x: clip; }
-html:has(.home-page), body:has(.home-page), html:has(.photography-page), body:has(.photography-page) { --site-background: #040404; }
+body { --font-sans: var(--font-neue-montreal); width: 100%; max-width: 100%; min-height: var(--viewport-current); margin: 0; background: var(--environment-background); color: var(--color-text-primary); font-family: var(--font-sans); font-size: 13px; line-height: 16px; overflow-x: clip; }
+.app-shell { position: relative; min-height: var(--viewport-current); background: var(--environment-background); isolation: isolate; }
+
+/* Shared primitives for viewport-aware routes and future full-screen sections. */
+.viewport-fill-current { min-height: var(--viewport-current); }
+.viewport-fill-stable { min-height: var(--viewport-stable); }
+.viewport-visual-cover { min-height: var(--viewport-visual); }
+.safe-area-content { padding: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left); }
 a { color: inherit; text-decoration: none; }
 button { color: inherit; font: inherit; }
 img { display: block; max-width: 100%; }
@@ -125,11 +154,11 @@ img { display: block; max-width: 100%; }
   .mobile-nav-home img, .mobile-nav-sheet-logo { width: 55px; height: 20px; max-width: none; }
   .mobile-nav-trigger { width: 44px; height: 44px; margin: -12px; padding: 12px; display: grid; place-items: center; border: 0; border-radius: 999px; background: transparent; cursor: pointer; transform-origin: center; }
   .mobile-nav-trigger img { width: 20px; height: 20px; max-width: none; }
-  .mobile-nav-backdrop { position: fixed; z-index: calc(var(--z-global-navbar) + 240); inset: 0; width: 100%; min-height: 100dvh; padding: 0; border: 0; background: #000; cursor: default; touch-action: none; will-change: opacity; }
+  .mobile-nav-backdrop { position: fixed; z-index: calc(var(--z-global-navbar) + 240); inset: 0; width: 100%; min-height: var(--viewport-current); padding: 0; border: 0; background: #000; cursor: default; touch-action: none; will-change: opacity; }
   .mobile-nav-backdrop:active { scale: 1; }
-  .mobile-nav-sheet-layer { position: fixed; z-index: calc(var(--z-global-navbar) + 260); right: 0; bottom: 0; left: 0; height: min(573px, 100svh); overflow: visible; touch-action: none; }
+  .mobile-nav-sheet-layer { position: fixed; z-index: calc(var(--z-global-navbar) + 260); right: 0; bottom: 0; left: 0; height: min(573px, var(--viewport-stable)); overflow: visible; touch-action: none; }
   .mobile-nav-sheet-surface { position: absolute; z-index: 0; bottom: 0; left: 50%; translate: -50% 0; background: #040404; transform-origin: 50% 100%; }
-  .mobile-nav-sheet-content { position: absolute; z-index: 1; bottom: 0; left: 50%; width: min(392px, 100vw); height: min(573px, 100svh); translate: -50% 0; color: #fff; pointer-events: none; }
+  .mobile-nav-sheet-content { position: absolute; z-index: 1; bottom: 0; left: 50%; width: min(392px, 100vw); height: min(573px, var(--viewport-stable)); translate: -50% 0; color: #fff; pointer-events: none; }
   .mobile-nav-sheet-logo { position: absolute; top: 27px; left: 25px; pointer-events: none; }
   .mobile-nav-close { position: absolute; top: 13px; right: 23px; width: 60px; height: 44px; padding: 12px; border: 0; border-radius: 999px; background: transparent; color: white; font-size: 16px; line-height: 20px; font-weight: 500; text-align: center; cursor: pointer; pointer-events: auto; transform-origin: center; }
   .mobile-nav-menu-link { position: absolute; display: flex; align-items: flex-start; color: rgb(255 255 255 / .8); pointer-events: auto; transform-origin: left center; }
@@ -265,7 +294,7 @@ img { display: block; max-width: 100%; }
 }
 
 /* Photography exhibition — Figma node 924:30758 */
-.photography-page { position: relative; width: 100%; min-height: 100dvh; overflow: hidden; isolation: isolate; background: #040404; color: #e8e8e8; }
+.photography-page { position: relative; width: 100%; min-height: var(--viewport-current); overflow: hidden; isolation: isolate; background: #040404; color: #e8e8e8; }
 .photography-title { position: fixed; z-index: 4; top: 102px; left: 50%; width: 280px; height: 174px; translate: -50% 0; pointer-events: none; }
 .photography-title-arc { position: absolute; inset: 0; font-family: var(--font-fraunces); font-size: 29px; line-height: 1; font-weight: 300; font-optical-sizing: none; font-variation-settings: "opsz" 72, "wght" 300, "SOFT" 50, "WONK" 1; }
 .photography-title-arc span { --letter-angle: 0deg; position: absolute; left: 50%; top: 89px; transform-origin: 50% 50%; transform: translate(-50%, -50%) rotate(var(--letter-angle)) translateY(-73px); white-space: pre; }
@@ -457,7 +486,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   .portfolio-download-row:hover img { transform: translate3d(2px, 3px, 0) rotate(2deg); }
 }
 
-.placeholder-page { min-height: 100dvh; display: grid; place-content: center; gap: 20px; text-align: center; font-size: 20px; }
+.placeholder-page { min-height: var(--viewport-current); display: grid; place-content: center; gap: 20px; text-align: center; font-size: 20px; }
 .placeholder-page h1 { margin: 0; font: inherit; text-transform: capitalize; }
 .placeholder-page a { text-decoration: underline; text-decoration-color: var(--white-1000-020); text-underline-offset: 4px; transition: color 300ms ease, text-decoration-color 300ms ease, transform 450ms var(--ease-out); }
 .placeholder-page a:hover { color: var(--color-text-primary); text-decoration-color: currentColor; transform: translateY(-2px); }
@@ -1074,7 +1103,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   .about-hero-stage { height: 774px; }
   .about-hero h1 { top: 89px; left: 0; width: 300px; font-size: 48px; line-height: 48px; }
   .about-hero h1, .about-intro { translate: none; }
-  .about-hero-title[data-phase="assembling"] { top: 50svh; left: 0; translate: 0 -50%; width: calc(100vw - 40px); font-size: clamp(54px, 15vw, 64px); line-height: .91; }
+  .about-hero-title[data-phase="assembling"] { top: calc(var(--viewport-stable) / 2); left: 0; translate: 0 -50%; width: calc(100vw - 40px); font-size: clamp(54px, 15vw, 64px); line-height: .91; }
   .about-intro { top: 235px; left: 0; width: 100%; }
   .about-intro h2 { width: 100%; font-size: 26px; line-height: 34px; }
   .about-intro .about-copy { margin-top: 50px; line-height: 27px; letter-spacing: .02em; }
@@ -1091,8 +1120,8 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   .about-thinking { height: auto; min-height: 0; padding-top: 17px; padding-bottom: 0; }
   .about-thinking > .about-section-label { font-size: 36px; line-height: 29px; font-weight: 400; }
   .about-principles-desktop { display: none; }
-  .about-mobile-principles-runway { position: relative; display: block; height: 200svh; min-height: 1100px; margin-top: 53px; }
-  .about-mobile-principles-sticky { position: sticky; top: 0; width: 100%; height: 100svh; min-height: 550px; overflow: hidden; background: var(--home-canvas); isolation: isolate; }
+  .about-mobile-principles-runway { position: relative; display: block; height: calc(var(--viewport-stable) + var(--viewport-stable)); min-height: 1100px; margin-top: 53px; }
+  .about-mobile-principles-sticky { position: sticky; top: 0; width: 100%; height: var(--viewport-stable); min-height: 550px; overflow: hidden; background: var(--home-canvas); isolation: isolate; }
   .about-mobile-principle-visual { position: absolute; z-index: 0; inset: 0 0 auto; height: 61%; overflow: hidden; background: #040404; }
   .about-mobile-principle-layer { position: absolute; inset: -6% -5% 0; transform-origin: center; will-change: transform, opacity, clip-path; }
   .about-mobile-principle-layer img { object-fit: cover; object-position: center; }
@@ -1121,7 +1150,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
 /* Work — sticky project browser */
 .work-page-shell { min-width: 768px; }
 .work-browser-runway { position: relative; height: var(--work-runway-height); }
-.work-browser-sticky { position: sticky; top: 0; height: 100svh; min-height: 640px; overflow: hidden; background: var(--home-canvas); }
+.work-browser-sticky { position: sticky; top: 0; height: var(--viewport-stable); min-height: 640px; overflow: hidden; background: var(--home-canvas); }
 .work-browser-stage {
   --work-top-clearance: 62px;
   --work-meta-min-height: 118px;
@@ -1246,7 +1275,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
     position: relative;
     display: block;
     width: 100%;
-    min-height: 100dvh;
+    min-height: var(--viewport-current);
     background: #040404;
   }
   .mobile-work-heading {
@@ -1394,9 +1423,9 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
     z-index: 1050;
     inset: 0;
     width: 100%;
-    height: 100dvh;
-    max-height: 100dvh;
-    min-height: 100dvh;
+    height: var(--viewport-current);
+    max-height: var(--viewport-current);
+    min-height: var(--viewport-current);
     overflow: hidden;
     background: #040404;
     touch-action: auto;
@@ -1407,7 +1436,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
     right: 0;
     bottom: 0;
     left: 0;
-    height: calc(100dvh - var(--safe-top) - 142px);
+    height: calc(var(--viewport-current) - var(--safe-top) - 142px);
     min-height: 0;
     padding: 0 0 max(48px, calc(var(--safe-bottom) + 24px));
     overflow-x: hidden;
@@ -1532,7 +1561,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   .drawer-backdrop { display: block; position: fixed; left: 0; right: 0; top: calc(60px + var(--safe-top)); bottom: 0; z-index: 40; background: var(--color-page); visibility: hidden; pointer-events: none; transition: visibility 0ms linear 600ms; }
   .drawer-backdrop[data-open="true"] { visibility: visible; transition-delay: 0ms; }
   .drawer-backdrop[data-open="true"] { pointer-events: auto; touch-action: none; overscroll-behavior: contain; }
-  .mobile-drawer { position: absolute; left: 0; top: 0; width: min(265px, 100vw); height: min(663px, calc(100dvh - 60px - var(--safe-top))); overflow: hidden; background: var(--black-800); backdrop-filter: blur(7px); transform: translate3d(-100%, 0, 0); transition: transform 600ms var(--ease-out); }
+  .mobile-drawer { position: absolute; left: 0; top: 0; width: min(265px, 100vw); height: min(663px, calc(var(--viewport-current) - 60px - var(--safe-top))); overflow: hidden; background: var(--black-800); backdrop-filter: blur(7px); transform: translate3d(-100%, 0, 0); transition: transform 600ms var(--ease-out); }
   .drawer-backdrop[data-open="true"] .mobile-drawer { transform: none; }
   .drawer-primary { display: grid; grid-template-rows: 78px 81px; }
   .drawer-primary a { display: flex; align-items: flex-start; padding: 30px 31px 0; border-bottom: 1px solid var(--color-border); font-size: 20px; line-height: 22px; }
@@ -1558,8 +1587,8 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   .drawer-backdrop[data-open="true"] .drawer-socials a:nth-child(5) { transition-delay: 580ms; }
   .drawer-backdrop[data-open="true"] .drawer-version { opacity: 1; transform: none; transition-delay: 650ms; }
 
-  .development-landing { min-height: calc(100svh - 60px - var(--safe-top)); }
-  .development-stage { min-height: max(508px, calc(100svh - 60px - var(--safe-top))); }
+  .development-landing { min-height: calc(var(--viewport-stable) - 60px - var(--safe-top)); }
+  .development-stage { min-height: max(508px, calc(var(--viewport-stable) - 60px - var(--safe-top))); }
   .development-title { top: clamp(42px, 7svh, 62px); left: 12px; right: 12px; font-size: clamp(32px, 10vw, 42px); line-height: 1; letter-spacing: -.025em; }
   .development-portrait { top: clamp(90px, 16svh, 118px); width: min(84vw, 320px); height: min(84vw, 320px); }
   .development-email { top: clamp(390px, 66svh, 560px); width: calc(100% - 40px); max-width: 399px; height: clamp(96px, 16svh, 111px); }
