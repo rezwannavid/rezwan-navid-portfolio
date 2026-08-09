@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import { TiltLink } from "@/components/motion/TiltLink";
 import { motionEase } from "@/lib/motion";
 import { workProjects, type WorkProject } from "@/lib/workProjects";
@@ -91,19 +91,251 @@ function ProjectCover({ project }: { project: WorkProject }) {
 }
 
 function MobileProjects() {
+  const reduceMotion = useReducedMotion();
+  const rootRef = useRef<HTMLElement>(null);
+  const savedScrollRef = useRef(0);
+  const bodyStylesRef = useRef<Partial<CSSStyleDeclaration> | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [compact, setCompact] = useState(false);
+  const [allWorkOpen, setAllWorkOpen] = useState(false);
+  const [headerVisible, setHeaderVisible] = useState(true);
+  const activeProject = workProjects[activeIndex] ?? workProjects[0];
+  const stickyHeading = allWorkOpen ? "All Work" : activeProject.title;
+
+  const releaseScroll = useCallback((restorePosition = true) => {
+    const saved = bodyStylesRef.current;
+    if (!saved) return;
+    const body = document.body;
+    const html = document.documentElement;
+    body.style.position = saved.position ?? "";
+    body.style.top = saved.top ?? "";
+    body.style.left = saved.left ?? "";
+    body.style.right = saved.right ?? "";
+    body.style.width = saved.width ?? "";
+    body.style.overflow = saved.overflow ?? "";
+    html.style.overflow = saved.overflowY ?? "";
+    html.style.overscrollBehavior = saved.overscrollBehavior ?? "";
+    bodyStylesRef.current = null;
+    if (restorePosition) {
+      const root = document.documentElement;
+      const previousBehavior = root.style.scrollBehavior;
+      root.style.scrollBehavior = "auto";
+      window.scrollTo(0, savedScrollRef.current);
+      requestAnimationFrame(() => { root.style.scrollBehavior = previousBehavior; });
+    }
+  }, []);
+
+  const openAllWork = useCallback(() => {
+    savedScrollRef.current = window.scrollY;
+    const body = document.body;
+    bodyStylesRef.current = {
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
+      width: body.style.width,
+      overflow: body.style.overflow,
+      overflowY: document.documentElement.style.overflow,
+      overscrollBehavior: document.documentElement.style.overscrollBehavior,
+    };
+    body.style.position = "fixed";
+    body.style.top = `-${savedScrollRef.current}px`;
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
+    body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    document.documentElement.style.overscrollBehavior = "none";
+    setAllWorkOpen(true);
+  }, []);
+
+  const toggleAllWork = useCallback(() => {
+    if (allWorkOpen) {
+      setAllWorkOpen(false);
+      releaseScroll(true);
+    } else {
+      openAllWork();
+    }
+  }, [allWorkOpen, openAllWork, releaseScroll]);
+
+  useEffect(() => () => releaseScroll(false), [releaseScroll]);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    let pollTimer = 0;
+    let lastScroll = Number.NaN;
+    let activationLine = 174;
+    let firstProjectTop = 0;
+    let projectStep = 1;
+    let rootBottom = 0;
+    let projectCount = 0;
+    let delayedMeasure = 0;
+
+    const measure = () => {
+      const isMobile = window.matchMedia("(max-width: 767px), (max-height: 500px) and (orientation: landscape)").matches;
+      if (!isMobile) return;
+      const nav = document.querySelector<HTMLElement>(".mobile-nav-closed");
+      const safeTop = Math.max(0, (nav?.getBoundingClientRect().top ?? 10) - 10);
+      activationLine = safeTop + 174;
+      const projects = Array.from(root.querySelectorAll<HTMLElement>("[data-mobile-project-index]"));
+      if (!projects.length) return;
+      const scroll = window.scrollY;
+      const firstRect = projects[0].getBoundingClientRect();
+      const secondRect = projects[1]?.getBoundingClientRect();
+      firstProjectTop = firstRect.top + scroll;
+      projectStep = secondRect ? secondRect.top - firstRect.top : firstRect.height + 8;
+      rootBottom = root.getBoundingClientRect().bottom + scroll;
+      projectCount = projects.length;
+      lastScroll = Number.NaN;
+    };
+
+    const update = () => {
+      const scroll = window.scrollY;
+      if (scroll !== lastScroll && projectCount) {
+        lastScroll = scroll;
+        const crossedDistance = scroll + activationLine - firstProjectTop;
+        const nextCompact = crossedDistance >= 0;
+        const nextIndex = Math.max(0, Math.min(projectCount - 1, Math.floor(Math.max(0, crossedDistance) / projectStep)));
+        const nextVisible = scroll + activationLine < rootBottom;
+        setCompact((current) => current === nextCompact ? current : nextCompact);
+        setActiveIndex((current) => current === nextIndex ? current : nextIndex);
+        setHeaderVisible((current) => current === nextVisible ? current : nextVisible);
+      }
+    };
+
+    const resize = () => {
+      measure();
+      update();
+      if (projectCount && !pollTimer) pollTimer = window.setInterval(update, 50);
+    };
+    resize();
+    delayedMeasure = window.setTimeout(resize, 180);
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", resize, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", resize);
+      window.clearInterval(pollTimer);
+      window.clearTimeout(delayedMeasure);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!allWorkOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      event.preventDefault();
+      setAllWorkOpen(false);
+      releaseScroll(true);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [allWorkOpen, releaseScroll]);
+
   return (
-    <section className="work-browser-mobile" aria-labelledby="mobile-work-title">
-      <h1 id="mobile-work-title">Work</h1>
-      <div className="work-browser-mobile-list">
-        {workProjects.map((project) => (
-          <article key={project.slug}>
-            <div className="work-browser-mobile-meta"><h2>{project.title}</h2><span>{project.year}</span><p>{project.shortDescription}</p></div>
-            <TiltLink className="work-browser-mobile-cover" href={project.href} projectId={project.id} ariaLabel={`${project.locked ? "Preview" : "View"} ${project.title}`} cursorLabel={project.locked ? "Preview" : "View"} maxRotate={2.4} maxTranslate={2}>
-              <img src={project.resolvedWorkCover} alt={project.thumbnailAlt} loading="lazy" />
-            </TiltLink>
-          </article>
+    <section ref={rootRef} className="work-browser-mobile" aria-labelledby="mobile-work-title" data-compact={compact} data-menu-open={allWorkOpen}>
+      <div
+        className="mobile-work-heading"
+        data-visible={headerVisible || allWorkOpen}
+      >
+        <motion.h1
+          className="mobile-work-origin-title"
+          id="mobile-work-title"
+          initial={false}
+          animate={{ y: compact || allWorkOpen ? 0 : 71, scale: compact || allWorkOpen ? .375 : 1, opacity: compact || allWorkOpen ? 0 : 1 }}
+          transition={{ duration: reduceMotion ? 0 : .3, ease: motionEase.editorial }}
+        >
+          Work
+        </motion.h1>
+        <div className="mobile-work-active-title" data-visible={compact || allWorkOpen} aria-live="polite">
+          <AnimatePresence mode="sync" initial={false}>
+            <motion.span
+              key={stickyHeading}
+              data-long={stickyHeading.length > 20}
+              initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={reduceMotion ? undefined : { opacity: 0, y: -18 }}
+              transition={{ duration: reduceMotion ? 0 : .28, ease: motionEase.editorial }}
+            >
+              {stickyHeading}
+            </motion.span>
+          </AnimatePresence>
+        </div>
+      </div>
+
+      <motion.div
+        aria-hidden="true"
+        className="mobile-work-foreground-mask"
+        initial={false}
+        animate={{ opacity: compact && !allWorkOpen && headerVisible ? 1 : 0 }}
+        transition={{ duration: reduceMotion ? 0 : .2, ease: motionEase.editorial }}
+      >
+        <img src="/work-mobile-header-mask.svg" alt="" />
+      </motion.div>
+
+      <motion.button
+        className="mobile-work-index-toggle"
+        type="button"
+        aria-label={allWorkOpen ? "Close all work" : "Open all work"}
+        aria-expanded={allWorkOpen}
+        aria-controls="mobile-all-work-index"
+        data-visible={(compact && headerVisible) || allWorkOpen}
+        onClick={toggleAllWork}
+        whileTap={reduceMotion ? undefined : { opacity: .72 }}
+      >
+        <motion.span aria-hidden="true" animate={{ rotate: allWorkOpen ? 180 : 0 }} transition={{ duration: reduceMotion ? 0 : .22, ease: motionEase.editorial }} />
+      </motion.button>
+
+      <div className="work-browser-mobile-list" aria-label="Selected work">
+        {workProjects.map((project, index) => (
+          <Link
+            className="mobile-work-project"
+            data-mobile-project-index={index}
+            href={project.href}
+            key={project.slug}
+            aria-label={`${project.locked ? "Preview" : "View"} ${project.title}`}
+          >
+            <img
+              src={project.resolvedFeaturedThumbnail}
+              alt={project.thumbnailAlt}
+              loading={index === 0 ? "eager" : "lazy"}
+              fetchPriority={index === 0 ? "high" : "auto"}
+              draggable={false}
+            />
+          </Link>
         ))}
       </div>
+
+      <AnimatePresence>
+        {allWorkOpen && (
+          <motion.div
+            className="mobile-all-work"
+            id="mobile-all-work-index"
+            role="dialog"
+            aria-modal="true"
+            aria-label="All work"
+            initial={reduceMotion ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: reduceMotion ? 0 : .2, ease: motionEase.editorial }}
+          >
+            <nav className="mobile-all-work-list" aria-label="All projects">
+              {workProjects.map((project, index) => (
+                <motion.div
+                  className="mobile-all-work-row"
+                  key={project.slug}
+                  initial={reduceMotion ? false : { opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: reduceMotion ? 0 : .2, delay: reduceMotion ? 0 : index * .025, ease: motionEase.editorial }}
+                >
+                  <Link href={project.href} onClick={() => releaseScroll(true)}>{project.pillLabel ?? project.title}</Link>
+                </motion.div>
+              ))}
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
