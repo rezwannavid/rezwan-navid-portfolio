@@ -199,7 +199,8 @@ export function MobileNavigation() {
   }, [closeMenu, mounted]);
 
   useEffect(() => {
-    if (window.innerWidth >= 768) return;
+    const shortLandscape = window.matchMedia("(max-height: 500px) and (orientation: landscape)").matches;
+    if (window.innerWidth >= 768 && !shortLandscape) return;
     [...primaryItems, ...secondaryItems].forEach((item) => {
       if (!item.href.startsWith("mailto:")) router.prefetch(item.href);
     });
@@ -217,7 +218,7 @@ export function MobileNavigation() {
         <div
           className="mobile-nav-glass"
           aria-hidden="true"
-          style={{ backdropFilter: "blur(29.7px)", WebkitBackdropFilter: "blur(29.7px)" }}
+          style={{ backdropFilter: "blur(var(--glass-blur)) saturate(var(--glass-saturation))", WebkitBackdropFilter: "blur(var(--glass-blur)) saturate(var(--glass-saturation))" }}
         />
         <div className="mobile-nav-content">
           <Link className="mobile-nav-home" href="/" aria-label="Mir Rezwan Navid, home"><img src="/RNLogo.svg" alt="" width="55" height="20" /></Link>

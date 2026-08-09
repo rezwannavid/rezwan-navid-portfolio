@@ -60,7 +60,7 @@ export function GlobalNavbar() {
         <div
           className="global-navbar-glass"
           aria-hidden="true"
-          style={{ backdropFilter: "blur(29.7px)", WebkitBackdropFilter: "blur(29.7px)" }}
+          style={{ backdropFilter: "blur(var(--glass-blur)) saturate(var(--glass-saturation))", WebkitBackdropFilter: "blur(var(--glass-blur)) saturate(var(--glass-saturation))" }}
         />
         <motion.div
           className="global-navbar-content"
