@@ -1,10 +1,7 @@
 :root {
-  /*
-   * Global mobile viewport contract:
-   * - current: fills the space that is visible right now (pages and overlays)
-   * - stable: stays still while browser chrome expands/collapses (sticky content)
-   * - visual: paints the largest possible environment (non-interactive backdrops)
-   * 100vh is the compatibility fallback; modern browsers take the overrides below.
+  /* Viewport units are reserved for true viewport scenes and modal surfaces.
+   * The document roots below deliberately use percentage minimum heights so
+   * changing browser chrome never turns the whole site into a sized viewport.
    */
   --viewport-current: 100vh;
   --viewport-stable: 100vh;
@@ -62,10 +59,10 @@
 }
 
 * { box-sizing: border-box; }
-html { width: 100%; max-width: 100%; min-height: 100%; overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 88px; background: var(--environment-background); color-scheme: dark; }
+html { width: 100%; max-width: 100%; min-height: 100%; overflow-x: clip; overflow-y: visible; scroll-behavior: smooth; scroll-padding-top: 88px; background: var(--environment-background); color-scheme: dark; }
 html.lenis { scroll-behavior: auto; }
-body { --font-sans: var(--font-neue-montreal); width: 100%; max-width: 100%; min-height: var(--viewport-current); margin: 0; background: var(--environment-background); color: var(--color-text-primary); font-family: var(--font-sans); font-size: 13px; line-height: 16px; overflow-x: clip; }
-.app-shell { position: relative; min-height: var(--viewport-current); background: var(--environment-background); isolation: isolate; }
+body { --font-sans: var(--font-neue-montreal); width: 100%; max-width: 100%; min-height: 100%; margin: 0; background: var(--environment-background); color: var(--color-text-primary); font-family: var(--font-sans); font-size: 13px; line-height: 16px; }
+.app-shell { position: relative; width: 100%; min-height: 100%; background: var(--environment-background); isolation: isolate; }
 
 /* Shared primitives for viewport-aware routes and future full-screen sections. */
 .viewport-fill-current { min-height: var(--viewport-current); }
@@ -204,7 +201,7 @@ img { display: block; max-width: 100%; }
 @media (max-width: 767px), (max-height: 500px) and (orientation: landscape) {
   .home-page { min-width: 0; }
   .desktop-homepage { display: none; }
-  .mobile-homepage { display: block; width: 100%; overflow: clip; background: var(--home-canvas); }
+  .mobile-homepage { display: block; width: 100%; background: var(--home-canvas); }
 
   .mobile-home-hero { min-height: 705px; padding-top: 143px; perspective: 900px; }
   .mobile-home-hero h1 { padding-inline: 20px; color: var(--home-ink-bright); font-size: clamp(43px, 14vw, 55px); line-height: .88; font-weight: 400; letter-spacing: -.025em; }
@@ -511,7 +508,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
 
 /* Work archive */
 .sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important; }
-.work-page { overflow: clip; }
+.work-page { position: relative; }
 .work-archive { position: relative; display: flex; flex-direction: column; }
 .work-header { position: sticky; top: 73px; z-index: 30; height: 180px; margin-bottom: 0; flex: none; background: var(--color-page); transition: height 650ms var(--ease-soft), margin-bottom 650ms var(--ease-soft), background-color 450ms ease, backdrop-filter 450ms ease; }
 .work-header[data-collapsed="true"] { height: 65px; margin-bottom: 115px; background: var(--color-page); backdrop-filter: blur(18px) saturate(115%); }
@@ -570,7 +567,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
 .work-empty { min-height: 420px; margin: 0; color: var(--color-text-secondary); }
 .work-page .connect-layout { padding-top: 64px; }
 .protected-case-page { min-width: 768px; }
-.protected-case-main { overflow: clip; }
+.protected-case-main { position: relative; }
 .protected-case-shell { width: min(1080px, calc(100% - 64px)); margin-inline: auto; }
 .protected-case-preview { padding-top: 130px; }
 .protected-case-header { position: relative; height: 435px; }
@@ -686,8 +683,6 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   background: var(--home-canvas);
   color: var(--home-ink);
   font-family: var(--home-sans);
-  overflow-x: clip;
-  overflow-y: visible;
 }
 .home-shell { width: min(var(--home-content), calc(100% - 2 * var(--home-gutter))); margin-inline: auto; }
 .home-page h1, .home-page h2, .home-page p { margin: 0; }
@@ -1016,7 +1011,7 @@ html[data-home-intro="running"] .home-intro-card-entry { position: relative; z-i
 
 /* About — Figma 873:27382 */
 .about-page { min-width: 960px; }
-.about-page main { overflow: clip; }
+.about-page main { position: relative; }
 .about-shell { position: relative; width: min(1080px, calc(100% - 2 * var(--home-gutter))); margin-inline: auto; }
 .about-copy { color: rgb(233 233 233 / .9); font-size: 14px; line-height: 23px; }
 .about-copy p + p { margin-top: 18px; }
@@ -1075,7 +1070,7 @@ html[data-home-intro="running"] .home-intro-card-entry { position: relative; z-i
 
 /* Design projects — EventFlow reference composition (Figma 895:31537) */
 .design-project-page { min-width: 960px; }
-.design-project-page main { overflow: clip; }
+.design-project-page main { position: relative; }
 .design-project-intro { position: relative; width: min(1280px, 100%); height: 646px; margin-inline: auto; }
 .design-project-intro h1 { position: absolute; top: 130px; left: calc(50% - 406px); color: #ececec; font-family: var(--home-serif); font-size: 64px; line-height: 48px; font-weight: 400; font-variation-settings: "SOFT" 100, "opsz" 144, "WONK" 1; letter-spacing: -.02em; white-space: nowrap; }
 .design-project-meta-left { position: absolute; top: 225px; left: calc(50% - 406px); }
@@ -1411,7 +1406,6 @@ html[data-home-intro="running"] .home-intro-card-entry { position: relative; z-i
     position: relative;
     display: block;
     width: 100%;
-    min-height: var(--viewport-current);
     background: #040404;
   }
   .mobile-work-heading {
@@ -1477,6 +1471,7 @@ html[data-home-intro="running"] .home-intro-card-entry { position: relative; z-i
     inset: 0 0 auto;
     height: calc(var(--safe-top) + 202px);
     overflow: hidden;
+    background: linear-gradient(#040404, #040404) top / 100% calc(var(--safe-top) + 132px) no-repeat;
     pointer-events: none;
   }
   .mobile-work-foreground-mask img {
@@ -1863,7 +1858,7 @@ html[data-home-intro="running"] .home-intro-card-entry { position: relative; z-i
 .mobile-footer-credit { display: none; }
 
 @media (max-width: 767px), (max-height: 500px) and (orientation: landscape) {
-  .mobile-homepage { overflow: clip; }
+  .mobile-homepage { overflow: visible; }
 
   .mobile-home-hero { min-height: 695px; padding-top: 143px; overflow: visible; perspective: 1000px; }
   .mobile-home-hero h1 { padding-inline: 20px; font-size: clamp(43px, 14vw, 55px); line-height: 48px; }
@@ -1881,7 +1876,7 @@ html[data-home-intro="running"] .home-intro-card-entry { position: relative; z-i
   .mobile-identity-description { top: 44.898%; right: 4.326%; width: 39.949%; font-size: clamp(11px, 3.56vw, 14px); line-height: clamp(15px, 4.835vw, 19px); }
   .mobile-identity-index { right: 4.58%; bottom: 7.4%; font-size: 10px; }
 
-  .mobile-human { height: 810px; padding: 0; overflow: visible; }
+  .mobile-human { height: 810px; padding: 0; overflow-x: clip; overflow-y: visible; }
   .mobile-human-canvas { position: relative; top: 96px; left: 50%; width: 393px; height: 568px; translate: -50% 0; overflow: visible; perspective: 900px; }
   .mobile-human-copy { z-index: 9; transform-origin: center; will-change: transform, clip-path; }
   .mobile-human-copy > img { display: block; width: 100%; height: 100%; max-width: none; object-fit: fill; }
