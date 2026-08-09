@@ -13,6 +13,7 @@ import { RevealMedia } from "@/components/motion/RevealMedia";
 import { TiltLink } from "@/components/motion/TiltLink";
 import { VideoFeature } from "@/components/home/VideoFeature";
 import { WorkRail } from "@/components/home/WorkRail";
+import { EditorialLinks } from "@/components/home/EditorialLinks";
 import { motionEase, physicalSpring } from "@/lib/motion";
 import { featuredProjectIds, projectRegistry } from "@/lib/projectRegistry";
 import { MobileHomepage } from "@/components/home/MobileHomepage";
@@ -176,10 +177,7 @@ function PhilosophySection() {
     <section className="home-philosophy" aria-labelledby="philosophy-title">
       <h2 id="philosophy-title"><AnimatedLines text="Product thinking is the culture of 21st-century technology." emphasis="culture" /></h2>
       <VideoFeature />
-      <nav className="editorial-links" aria-label="More about Mir Rezwan Navid">
-        <Link href="/about" data-cursor="Open"><span>about me</span> <Arrow magnetic /></Link>
-        <Link href="/opinion" data-cursor="Open"><span>opinion</span> <Arrow magnetic /></Link>
-      </nav>
+      <EditorialLinks ariaLabel="More about Mir Rezwan Navid" items={[{ href: "/about", label: "about me" }, { href: "/opinion", label: "opinion" }]} />
     </section>
   );
 }

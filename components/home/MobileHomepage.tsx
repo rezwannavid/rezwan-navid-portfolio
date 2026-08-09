@@ -13,6 +13,7 @@ import {
 import { useRef, type PointerEvent } from "react";
 import { EditorialArrow } from "@/components/home/ContactCTA";
 import { VideoFeature } from "@/components/home/VideoFeature";
+import { EditorialLinks } from "@/components/home/EditorialLinks";
 import { AnimatedWords } from "@/components/motion/AnimatedWords";
 import { ProjectLink } from "@/components/motion/ProjectTransition";
 import { motionEase, physicalSpring } from "@/lib/motion";
@@ -294,10 +295,7 @@ function MobilePhilosophy() {
     <section className="mobile-philosophy" aria-labelledby="mobile-philosophy-title">
       <div id="mobile-philosophy-title"><ProductThinkingTitle /></div>
       <VideoFeature />
-      <nav className="mobile-editorial-links" aria-label="More about Mir Rezwan Navid">
-        <motion.div whileTap={{ scale: .992 }}><Link href="/about"><span>about me</span><EditorialArrow /></Link></motion.div>
-        <motion.div whileTap={{ scale: .992 }}><Link href="/opinion"><span>opinions</span><EditorialArrow /></Link></motion.div>
-      </nav>
+      <EditorialLinks ariaLabel="More about Mir Rezwan Navid" items={[{ href: "/about", label: "about me" }, { href: "/opinion", label: "opinions" }]} />
     </section>
   );
 }

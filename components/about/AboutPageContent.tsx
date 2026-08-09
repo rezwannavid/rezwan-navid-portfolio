@@ -1,13 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
+import { AnimatePresence, motion, useMotionValue, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
 import { useEffect, useLayoutEffect, useRef, useState, type PointerEvent } from "react";
-import { ContactCTA, EditorialArrow } from "@/components/home/ContactCTA";
+import { ContactCTA } from "@/components/home/ContactCTA";
+import { EditorialLinks } from "@/components/home/EditorialLinks";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { AnimatedLines } from "@/components/motion/AnimatedLines";
-import { Magnetic } from "@/components/motion/Magnetic";
 import { ParallaxMedia } from "@/components/motion/ParallaxMedia";
 import { motionEase } from "@/lib/motion";
 
@@ -75,21 +74,32 @@ function FlipPhoto() {
   const reduceMotion = useReducedMotion();
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
+  const touchOffsetX = useMotionValue(0);
+  const touchOffsetY = useMotionValue(0);
   const smoothX = useSpring(pointerX, { stiffness: 220, damping: 28, mass: .75 });
   const smoothY = useSpring(pointerY, { stiffness: 220, damping: 28, mass: .75 });
+  const smoothTouchX = useSpring(touchOffsetX, { stiffness: 220, damping: 28, mass: .75 });
+  const smoothTouchY = useSpring(touchOffsetY, { stiffness: 220, damping: 28, mass: .75 });
   const rotateX = useTransform(smoothY, [-1, 1], [2.2, -2.2]);
   const rotateY = useTransform(smoothX, [-1, 1], [-2.2, 2.2]);
   const move = (event: PointerEvent<HTMLButtonElement>) => {
-    if (reduceMotion || event.pointerType !== "mouse") return;
+    if (reduceMotion) return;
     const rect = event.currentTarget.getBoundingClientRect();
-    pointerX.set(((event.clientX - rect.left) / rect.width - .5) * 2);
-    pointerY.set(((event.clientY - rect.top) / rect.height - .5) * 2);
+    const resistance = event.pointerType === "mouse" ? 1 : .55;
+    const nextX = ((event.clientX - rect.left) / rect.width - .5) * 2 * resistance;
+    const nextY = ((event.clientY - rect.top) / rect.height - .5) * 2 * resistance;
+    pointerX.set(nextX);
+    pointerY.set(nextY);
+    if (event.pointerType !== "mouse") {
+      touchOffsetX.set(nextX * 3);
+      touchOffsetY.set(nextY * 2);
+    }
   };
-  const reset = () => { pointerX.set(0); pointerY.set(0); };
+  const reset = () => { pointerX.set(0); pointerY.set(0); touchOffsetX.set(0); touchOffsetY.set(0); };
 
   return (
-    <motion.button className="about-child-flip" type="button" data-flipped={flipped} data-cursor="Flip" aria-label="Flip childhood photo" aria-pressed={flipped} initial={reduceMotion ? false : { opacity: 0, x: 34, y: 28, scale: .88, rotate: 3 }} whileInView={reduceMotion ? undefined : { opacity: 1, x: 0, y: 0, scale: 1, rotate: 0 }} viewport={{ once: true, amount: .3 }} transition={{ duration: .82, delay: .15, ease: motionEase.editorial }} onClick={() => setFlipped((value) => !value)} onPointerMove={move} onPointerLeave={reset}>
-      <motion.span className="about-child-tilt" style={{ rotateX: reduceMotion ? 0 : rotateX, rotateY: reduceMotion ? 0 : rotateY }}>
+    <motion.button className="about-child-flip" type="button" data-flipped={flipped} data-cursor="Flip" aria-label="Flip childhood photo" aria-pressed={flipped} initial={reduceMotion ? false : { opacity: 0, x: 34, y: 28, scale: .88, rotate: 3 }} whileInView={reduceMotion ? undefined : { opacity: 1, x: 0, y: 0, scale: 1, rotate: 0 }} viewport={{ once: true, amount: .3 }} transition={{ duration: .82, delay: .15, ease: motionEase.editorial }} onClick={() => setFlipped((value) => !value)} onPointerMove={move} onPointerLeave={reset} onPointerUp={reset} onPointerCancel={reset}>
+      <motion.span className="about-child-tilt" style={{ x: reduceMotion ? 0 : smoothTouchX, y: reduceMotion ? 0 : smoothTouchY, rotateX: reduceMotion ? 0 : rotateX, rotateY: reduceMotion ? 0 : rotateY }}>
         <motion.span className="about-child-flipper" animate={reduceMotion ? { opacity: 1 } : { rotateY: flipped ? 180 : 0 }} transition={{ duration: .58, ease: motionEase.editorial }}>
           <span className="about-child-face about-child-front"><Image unoptimized src="/about/childhood-photo.png" alt="Mir Rezwan Navid as a child" width={473} height={1024} /></span>
           <span className="about-child-face about-child-back"><Image unoptimized src="/home-design/human-clouds.png?v=2" alt="Placeholder artwork on the back of the childhood photo" width={1028} height={640} /></span>
@@ -97,6 +107,22 @@ function FlipPhoto() {
       </motion.span>
     </motion.button>
   );
+}
+
+function MemoryPhoto() {
+  const reduceMotion = useReducedMotion();
+  const offsetX = useMotionValue(0);
+  const offsetY = useMotionValue(0);
+  const x = useSpring(offsetX, { stiffness: 220, damping: 28, mass: .75 });
+  const y = useSpring(offsetY, { stiffness: 220, damping: 28, mass: .75 });
+  const reset = () => { offsetX.set(0); offsetY.set(0); };
+  const move = (event: PointerEvent<HTMLDivElement>) => {
+    if (reduceMotion || event.pointerType === "mouse") return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    offsetX.set(((event.clientX - rect.left) / rect.width - .5) * 4);
+    offsetY.set(((event.clientY - rect.top) / rect.height - .5) * 3);
+  };
+  return <motion.div className="about-memory-image" initial={reduceMotion ? false : { opacity: .15, x: -28, y: 32, scale: .88, rotate: -3 }} whileInView={reduceMotion ? undefined : { opacity: 1, x: 0, y: 0, scale: 1, rotate: 0 }} viewport={{ once: true, amount: .15 }} transition={{ duration: .84, ease: motionEase.editorial }} onPointerMove={move} onPointerLeave={reset} onPointerUp={reset} onPointerCancel={reset}><motion.span className="about-memory-tactile" style={{ x: reduceMotion ? 0 : x, y: reduceMotion ? 0 : y }}><Image unoptimized src="/about/powerpoint-memory.png" alt="Abstract artwork representing an early PowerPoint interface experiment" width={1028} height={984} /></motion.span></motion.div>;
 }
 
 function PrincipleImage({ src, angle }: { src: string; angle: number }) {
@@ -113,6 +139,69 @@ function PrincipleImage({ src, angle }: { src: string; angle: number }) {
   };
   const reset = () => { pointerX.set(0); pointerY.set(0); };
   return <motion.div className="about-principle-image" initial={reduceMotion ? { opacity: 1 } : { opacity: .2, scale: .78, y: 28, rotate: angle * 3 }} animate={{ opacity: 1, scale: 1, y: 0, rotate: angle }} exit={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: .86, y: -12, rotate: angle * -2 }} transition={{ duration: .44, ease: motionEase.editorial }} style={{ x: reduceMotion ? 0 : x, translateY: reduceMotion ? 0 : y }} onPointerMove={move} onPointerLeave={reset}><Image unoptimized src={src} alt="" width={1028} height={984} /></motion.div>;
+}
+
+function MobilePrincipleWords({ text }: { text: string }) {
+  const reduceMotion = useReducedMotion();
+  return <span className="about-mobile-principle-words" aria-label={text}>{text.split(" ").map((word, index) => <span className="about-mobile-word-mask" aria-hidden="true" key={`${word}-${index}`}><motion.span initial={reduceMotion ? false : { opacity: 0, y: 8, filter: "blur(5px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={reduceMotion ? undefined : { opacity: 0, y: -6, filter: "blur(4px)" }} transition={{ duration: reduceMotion ? .01 : .28, delay: reduceMotion ? 0 : index * .018, ease: motionEase.editorial }}>{word}</motion.span>{index < text.split(" ").length - 1 ? <span>&nbsp;</span> : null}</span>)}</span>;
+}
+
+function MobilePrinciples() {
+  const runwayRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: runwayRef, offset: ["start start", "end end"] });
+  const [progress, setProgress] = useState(0);
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    const normalized = Math.min(1, Math.max(0, latest));
+    setProgress((current) => Math.abs(current - normalized) < .001 ? current : normalized);
+  });
+
+  useEffect(() => {
+    principles.forEach((principle) => {
+      const image = new window.Image();
+      image.src = principle.image;
+    });
+  }, []);
+
+  const segment = progress * principles.length;
+  const activeIndex = progress === 1 ? principles.length - 1 : Math.min(principles.length - 1, Math.floor(segment));
+  const localProgress = progress === 1 ? 1 : segment - Math.floor(segment);
+  const active = principles[activeIndex];
+  const nextIndex = activeIndex < principles.length - 1 ? activeIndex + 1 : null;
+  const progressFills = principles.map((_, index) => Math.min(1, Math.max(0, segment - index)));
+
+  return (
+    <div ref={runwayRef} className="about-mobile-principles-runway">
+      <div className="about-mobile-principles-sticky">
+        <div className="about-mobile-principle-visual" aria-hidden="true">
+          <MobilePrincipleVisual key={`current-${activeIndex}`} image={active.image} role="current" transitionProgress={localProgress} final={nextIndex === null} reduceMotion={Boolean(reduceMotion)} />
+          {nextIndex !== null && <MobilePrincipleVisual key={`next-${nextIndex}`} image={principles[nextIndex].image} role="next" transitionProgress={localProgress} final={false} reduceMotion={Boolean(reduceMotion)} />}
+          <div className="about-mobile-principle-shade" />
+        </div>
+        <div className="about-mobile-principle-copy">
+          <AnimatePresence initial={false} mode="sync">
+            <motion.h3 key={active.title} initial={{ opacity: 1 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduceMotion ? .01 : .12 }}><MobilePrincipleWords text={active.title} /></motion.h3>
+          </AnimatePresence>
+          <AnimatePresence initial={false} mode="sync">
+            <motion.p key={active.description} initial={reduceMotion ? false : { opacity: 0, y: 6, filter: "blur(4px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={reduceMotion ? undefined : { opacity: 0, y: -4, filter: "blur(3px)" }} transition={{ duration: reduceMotion ? .01 : .25, ease: motionEase.editorial }}>{active.description}</motion.p>
+          </AnimatePresence>
+        </div>
+        <div className="about-mobile-principle-progress" aria-label={`Principle ${activeIndex + 1} of ${principles.length}`} data-progress={progress.toFixed(3)}>
+          {principles.map((principle, index) => <span className="about-mobile-progress-track" key={principle.title}><span className="about-mobile-progress-fill" style={{ transform: `scaleX(${progressFills[index]})` }} /></span>)}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MobilePrincipleVisual({ image, role, transitionProgress, final, reduceMotion }: { image: string; role: "current" | "next"; transitionProgress: number; final: boolean; reduceMotion: boolean }) {
+  const incoming = role === "next";
+  const progress = final ? 0 : transitionProgress;
+  const y = reduceMotion ? 0 : incoming ? (1 - progress) * 42 : progress * -28;
+  const scale = reduceMotion ? 1 : incoming ? 1.055 - progress * .055 : 1 - progress * .025;
+  const clipPath = reduceMotion || !incoming ? "inset(0% 0 0% 0)" : `inset(${(1 - progress) * 100}% 0 0% 0)`;
+  return <div className={`about-mobile-principle-layer is-${role}`} style={{ zIndex: incoming ? 2 : 1, opacity: incoming ? 1 : 1 - progress * .16, transform: `translate3d(0, ${y}px, 0) scale(${scale})`, clipPath }}><Image unoptimized src={image} alt="" fill sizes="100vw" priority={image === principles[0].image} /></div>;
 }
 
 function HowIThink() {
@@ -155,7 +244,7 @@ function HowIThink() {
   return (
     <section ref={sectionRef} className="about-thinking" aria-labelledby="about-thinking-title">
       <SectionLabel>How I Think</SectionLabel>
-      <div className="about-principles home-shell">
+      <div className="about-principles about-principles-desktop home-shell">
         {principles.map((principle, index) => {
           const active = displayIndex === index;
           return (
@@ -168,6 +257,7 @@ function HowIThink() {
           );
         })}
       </div>
+      <MobilePrinciples />
     </section>
   );
 }
@@ -213,11 +303,11 @@ function AboutHero() {
     };
   }, [reduceMotion]);
 
-  return <section className="about-hero" data-intro-phase={phase} aria-labelledby="about-title"><div className="about-intro-curtain" aria-hidden="true" /><div className="about-shell about-hero-stage"><motion.h1 id="about-title" className="about-hero-title" data-phase={phase} layout transition={{ layout: { duration: reduceMotion ? .35 : .82, ease: motionEase.editorial } }}><span className="about-title-line">{titleWords.slice(0, 3).map((word, index) => <motion.span className="about-title-word" key={word} initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: wordTiming[index].y, filter: `blur(${wordTiming[index].blur}px)`, scale: wordTiming[index].scale, letterSpacing: ".015em" }} animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)", scale: 1, letterSpacing: "-.02em" }} transition={reduceMotion ? { duration: .2, delay: index * .05 } : { duration: wordTiming[index].duration, delay: wordTiming[index].delay, ease: motionEase.editorial }} style={{ transformOrigin: "center bottom" }}>{word}{index < 2 ? "\u00a0" : ""}</motion.span>)}</span><span className="about-title-line">{titleWords.slice(3).map((word, lineIndex) => { const index = lineIndex + 3; return <motion.span className="about-title-word" key={word} initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: wordTiming[index].y, filter: `blur(${wordTiming[index].blur}px)`, scale: wordTiming[index].scale, letterSpacing: ".015em" }} animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)", scale: 1, letterSpacing: "-.02em" }} transition={reduceMotion ? { duration: .2, delay: index * .05 } : { duration: wordTiming[index].duration, delay: wordTiming[index].delay, ease: motionEase.editorial }} style={{ transformOrigin: "center bottom" }}>{word}{lineIndex === 0 ? "\u00a0" : ""}</motion.span>; })}</span></motion.h1>{phase !== "assembling" && <motion.div className="about-intro" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: .35, delay: reduceMotion ? 0 : .28, ease: motionEase.editorial }}><h2><AnimatedLines text="I design and build products where strategy, systems, and human behavior meet." delay={reduceMotion ? 0 : .08} /></h2><div className="about-copy">{introParagraphs.map((paragraph, index) => <p key={paragraph}><AnimatedLines text={paragraph} delay={(reduceMotion ? 0 : .16) + index * .08} /></p>)}</div></motion.div>}</div></section>;
+  return <section className="about-hero" data-intro-phase={phase} aria-labelledby="about-title"><div className="about-intro-curtain" aria-hidden="true" /><div className="about-shell about-hero-stage"><motion.h1 id="about-title" className="about-hero-title" data-phase={phase} layout transition={{ layout: { duration: reduceMotion ? .35 : .82, ease: motionEase.editorial } }}><span className="about-title-line">{titleWords.slice(0, 3).map((word, index) => <motion.span className="about-title-word" key={word} initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: wordTiming[index].y, filter: `blur(${wordTiming[index].blur}px)`, scale: wordTiming[index].scale, letterSpacing: ".015em" }} animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)", scale: 1, letterSpacing: "-.02em" }} transition={reduceMotion ? { duration: .2, delay: index * .05 } : { duration: wordTiming[index].duration, delay: wordTiming[index].delay, ease: motionEase.editorial }} style={{ transformOrigin: "center bottom" }}>{word}{index < 2 ? "\u00a0" : ""}</motion.span>)}</span><span className="about-title-line">{titleWords.slice(3).map((word, lineIndex) => { const index = lineIndex + 3; return <motion.span className="about-title-word" key={word} initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: wordTiming[index].y, filter: `blur(${wordTiming[index].blur}px)`, scale: wordTiming[index].scale, letterSpacing: ".015em" }} animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)", scale: 1, letterSpacing: "-.02em" }} transition={reduceMotion ? { duration: .2, delay: index * .05 } : { duration: wordTiming[index].duration, delay: wordTiming[index].delay, ease: motionEase.editorial }} style={{ transformOrigin: "center bottom" }}>{word}{lineIndex === 0 ? "\u00a0" : ""}</motion.span>; })}</span></motion.h1>{(phase === "landing" || phase === "complete") && <motion.div className="about-intro" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: .35, delay: reduceMotion ? 0 : .28, ease: motionEase.editorial }}><h2><AnimatedLines text="I design and build products where strategy, systems, and human behavior meet." delay={reduceMotion ? 0 : .08} /></h2><div className="about-copy">{introParagraphs.map((paragraph, index) => <p key={paragraph}><AnimatedLines text={paragraph} delay={(reduceMotion ? 0 : .16) + index * .08} /></p>)}</div></motion.div>}</div></section>;
 }
 
 function ChildhoodStory() {
-  return <section className="about-childhood" aria-labelledby="about-childhood-title"><div className="about-shell about-childhood-stage"><h2 id="about-childhood-title"><AnimatedLines text="My first interface was built in Microsoft PowerPoint." /></h2><ParallaxMedia className="about-memory-parallax" distance={22} xDistance={-10} rotateDistance={1.1} velocityResponse><motion.div className="about-memory-image" initial={{ opacity: .15, x: -28, y: 32, scale: .88, rotate: -3 }} whileInView={{ opacity: 1, x: 0, y: 0, scale: 1, rotate: 0 }} viewport={{ once: true, amount: .15 }} transition={{ duration: .84, ease: motionEase.editorial }}><Image unoptimized src="/about/powerpoint-memory.png" alt="Abstract artwork representing an early PowerPoint interface experiment" width={1028} height={984} /></motion.div></ParallaxMedia><ParallaxMedia className="about-child-parallax" distance={-18} xDistance={9} rotateDistance={-1} velocityResponse><FlipPhoto /></ParallaxMedia><div className="about-childhood-copy about-copy">{childhoodParagraphs.map((paragraph, index) => <p key={paragraph}><AnimatedLines text={paragraph} delay={index * .06} /></p>)}</div></div></section>;
+  return <section className="about-childhood" aria-labelledby="about-childhood-title"><div className="about-shell about-childhood-stage"><h2 id="about-childhood-title"><AnimatedLines text="My first interface was built in Microsoft PowerPoint." /></h2><ParallaxMedia className="about-memory-parallax" distance={22} xDistance={-10} rotateDistance={1.1} velocityResponse><MemoryPhoto /></ParallaxMedia><ParallaxMedia className="about-child-parallax" distance={-18} xDistance={9} rotateDistance={-1} velocityResponse><FlipPhoto /></ParallaxMedia><div className="about-childhood-copy about-copy">{childhoodParagraphs.map((paragraph, index) => <p key={paragraph}><AnimatedLines text={paragraph} delay={index * .06} /></p>)}</div></div></section>;
 }
 
 function OutsideWork() {
@@ -230,7 +320,7 @@ function OutsideWork() {
 }
 
 function AboutLinks() {
-  return <motion.nav className="editorial-links about-links" aria-label="About page links" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .35 }} transition={{ duration: .72, ease: motionEase.editorial }}><Link href="/work" data-cursor="Open"><Magnetic strength={3}><span>my work</span></Magnetic><EditorialArrow magnetic /></Link><a href="https://medium.com/@rezwannavidalvee" target="_blank" rel="noreferrer" data-cursor="Open"><Magnetic strength={3}><span>opinion</span></Magnetic><EditorialArrow magnetic /></a></motion.nav>;
+  return <EditorialLinks className="about-links" ariaLabel="About page links" items={[{ href: "/work", label: "my work" }, { href: "https://medium.com/@rezwannavidalvee", label: "my opinions", external: true }]} />;
 }
 
 export function AboutPageContent() {
