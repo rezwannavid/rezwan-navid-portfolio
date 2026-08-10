@@ -64,6 +64,7 @@ export function ProjectVisual({
   delay = 0,
   priority = false,
   projectId,
+  native = false,
 }: {
   src: string;
   alt: string;
@@ -75,12 +76,17 @@ export function ProjectVisual({
   delay?: number;
   priority?: boolean;
   projectId?: ProjectId;
+  native?: boolean;
 }) {
   const transitionProject = projectId ? getProject(projectId) : null;
   return (
     <figure className={`design-project-visual ${className}`.trim()} data-project-transition-hero={transitionProject?.slug}>
       <ParallaxMedia className="design-project-visual-depth" distance={distance} xDistance={xDistance} velocityResponse reveal revealDelay={delay} revealOffset={30}>
-        <Image unoptimized priority={priority} src={src} alt={alt} width={width} height={height} sizes="(min-width: 1000px) 920px, calc(100vw - 40px)" />
+        {native ? (
+          <img src={src} alt={alt} width={width} height={height} loading={priority ? "eager" : "lazy"} />
+        ) : (
+          <Image unoptimized priority={priority} src={src} alt={alt} width={width} height={height} sizes="(min-width: 1000px) 920px, calc(100vw - 40px)" />
+        )}
       </ParallaxMedia>
     </figure>
   );

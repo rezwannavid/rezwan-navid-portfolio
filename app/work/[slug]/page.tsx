@@ -5,6 +5,7 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ProtectedCaseStudy, type ProtectedCaseStudyData } from "@/components/work/ProtectedCaseStudy";
 import { EventFlowProjectPage } from "@/components/work/design-project/EventFlowProjectPage";
+import { DriversAppProjectPage } from "@/components/work/design-project/DriversAppProjectPage";
 import { FodoProjectPage } from "@/components/work/design-project/FodoProjectPage";
 import { RuckusGamesProjectPage } from "@/components/work/design-project/RuckusGamesProjectPage";
 import { createPageMetadata } from "@/lib/metadata";
@@ -73,6 +74,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   }
 
   if (slug === "eventflow") return <EventFlowProjectPage />;
+  if (slug === "drivers-app") return <DriversAppProjectPage />;
   if (slug === "fodo") return <FodoProjectPage />;
   if (slug === "ruckus-games") return <RuckusGamesProjectPage />;
 

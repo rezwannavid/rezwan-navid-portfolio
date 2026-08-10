@@ -84,8 +84,8 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
     seoTitle: "EventFlow — World Cup Ride Planning", seoDescription: "An event-aware transportation planning extension helping World Cup fans coordinate venues, pickup timing and post-match journeys.",
   },
   "drivers-app": {
-    id: "drivers-app", slug: "drivers-app", title: "RC Drivers App", pillLabel: "Drivers App", shortDescription: "A focused mobile companion for professional drivers coordinating trips and updates.", role: "Product Manager / Product Direction", year: "2026", href: "/work/drivers-app", protected: false,
-    hero: "/home-design/thumb-phone-coral.png?v=2", placeholder: true, thumbnailAlt: "Professional driver operations mobile app", categories: ["product-study", "interface", "product-management"], categoryLabel: "Product Study", client: "RideCentric", locked: false, indexable: true,
+    id: "drivers-app", slug: "drivers-app", title: "Drivers App", pillLabel: "Drivers App", shortDescription: "A focused mobile companion for professional drivers coordinating trips and updates.", role: "Product Manager - Experience", year: "2026", href: "/work/drivers-app", protected: false,
+    hero: "/Drivers App Pictures/Drivers Hero.png", nextProjectId: "ridecentric", placeholder: false, thumbnailAlt: "RC Drivers app displayed on a phone beside architectural panels", categories: ["product-study", "interface", "product-management"], categoryLabel: "Product Study", client: "RideCentric", locked: false, indexable: true,
     seoTitle: "RC Drivers App — Driver Operations Companion", seoDescription: "A mobile workflow helping professional drivers coordinate trips, communicate updates and stay on schedule.",
   },
   "ruckus-games": {
