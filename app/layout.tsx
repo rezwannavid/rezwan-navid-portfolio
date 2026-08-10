@@ -29,8 +29,6 @@ const fraunces = localFont({
   fallback: ["Georgia", "Times New Roman", "serif"],
 });
 
-const homeIntroBootScript = `(()=>{if(location.pathname!=="/")return;const h=document.documentElement,k="rezwan-home-intro-v2";try{const r=matchMedia("(prefers-reduced-motion: reduce)").matches,s=sessionStorage.getItem(k)==="1";if(r||s){sessionStorage.setItem(k,"1");h.dataset.homeIntro="complete"}else{sessionStorage.setItem(k,"1");h.dataset.homeIntro="boot"}}catch{h.dataset.homeIntro="complete"}})();`;
-
 const defaultMetadata = createPageMetadata({
   title: siteConfig.title,
   description: siteConfig.description,
@@ -78,7 +76,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className={`${neueMontreal.variable} ${fraunces.variable} ${neueMontreal.className}`}>
-        <script dangerouslySetInnerHTML={{ __html: homeIntroBootScript }} />
         <JsonLd data={globalSchema} />
         <GlobalNavbar />
         <div className="app-shell">

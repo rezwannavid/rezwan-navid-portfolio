@@ -54,14 +54,14 @@ export function GlobalNavbar() {
     <header className="global-navbar global-navbar-desktop" data-node-id="856:40143">
       <motion.div
         className="global-navbar-shell"
-        initial={reduceMotion ? false : { opacity: 0, y: -12, scale: .985 }}
+        initial={false}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={reduceMotion ? { duration: .12 } : { duration: .72, ease: motionEase.editorial }}
       >
         <GlassNavbarSurface className="global-navbar-glass">
           <motion.div
             className="global-navbar-content"
-            initial={reduceMotion ? false : { opacity: 0, y: -3 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={reduceMotion ? { duration: .12 } : { duration: .42, delay: .18, ease: motionEase.editorial }}
           >

@@ -357,13 +357,6 @@ export function WorkProjectBrowser() {
   }, [displayIndex]);
 
   useEffect(() => {
-    const preload = () => workProjects.forEach(({ resolvedWorkCover }) => { const image = new window.Image(); image.src = resolvedWorkCover; });
-    const idle = window.requestIdleCallback?.(preload, { timeout: 1200 });
-    if (!idle) preload();
-    return () => { if (idle) window.cancelIdleCallback?.(idle); };
-  }, []);
-
-  useEffect(() => {
     const node = runwayRef.current;
     if (!node) return;
     let frame = 0;

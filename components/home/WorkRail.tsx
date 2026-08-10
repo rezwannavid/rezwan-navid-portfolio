@@ -15,7 +15,7 @@ function ProjectImage({ project, state }: { project: (typeof projectPairs)[numbe
   const contain = project.resolvedThumbnail.includes("thumb-phone-green") || project.resolvedThumbnail.includes("thumb-phone-pink");
   return (
     <ProjectLink className={`work-rail-image is-${state}`} href={project.href} projectId={project.id} aria-label={`View ${project.title}`} data-cursor="View">
-      <Image unoptimized className={contain ? "is-contain" : ""} src={project.resolvedThumbnail} alt={project.thumbnailAlt} fill sizes="154px" loading="eager" />
+      <Image unoptimized className={contain ? "is-contain" : ""} src={project.resolvedThumbnail} alt={project.thumbnailAlt} fill sizes="154px" />
     </ProjectLink>
   );
 }

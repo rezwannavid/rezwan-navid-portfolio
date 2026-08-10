@@ -95,7 +95,7 @@ function HumanUnderstandingSection() {
         <ParallaxMedia className="human-image human-flowers" distance={-18} xDistance={-5} rotateDistance={1.2} velocityResponse reveal revealDelay={.09}><Image unoptimized src="/home-design/human-flowers.png?v=2" alt="Flowers and ground textures" width={1028} height={640} /></ParallaxMedia>
         <ParallaxMedia className="human-image human-sky" distance={22} xDistance={6} rotateDistance={-.9} velocityResponse reveal revealDelay={.18}><Image unoptimized src="/home-design/human-sky.png?v=2" alt="Distant tree beneath a warm sky" width={1028} height={640} /></ParallaxMedia>
         <ParallaxMedia className="human-image human-tree" distance={-12} xDistance={4} rotateDistance={.75} velocityResponse reveal revealDelay={.27}><Image unoptimized src="/home-design/human-tree.png?v=2" alt="A tree canopy viewed from below" width={1028} height={984} /></ParallaxMedia>
-        <ParallaxMedia className="human-statement" distance={4} xDistance={32} rotateDistance={.5} reveal revealDelay={.36} revealOffset={6}><img src="/home-design/human-statement.png?v=1" alt="Product is deeply about human understanding" width="2901" height="1079" /></ParallaxMedia>
+        <ParallaxMedia className="human-statement" distance={4} xDistance={32} rotateDistance={.5} reveal revealDelay={.36} revealOffset={6}><img src="/home-design/human-statement.png?v=1" alt="Product is deeply about human understanding" width="2901" height="1079" loading="lazy" /></ParallaxMedia>
       </div>
     </section>
   );
@@ -122,7 +122,7 @@ function FeaturedWorkSection() {
                 <RevealMedia className="featured-reveal" delay={.04}>
                   <span className="featured-media-mask">
                     <ParallaxMedia className="featured-scroll-depth" distance={12} velocityResponse>
-                      <Image unoptimized priority src={project.resolvedFeaturedThumbnail} alt={project.thumbnailAlt} width={2764} height={1856} sizes="(min-width: 1000px) 691px, 70vw" />
+                      <Image unoptimized src={project.resolvedFeaturedThumbnail} alt={project.thumbnailAlt} width={2764} height={1856} sizes="(min-width: 1000px) 691px, 70vw" />
                     </ParallaxMedia>
                     <span className="featured-lock">Case study locked</span>
                   </span>
@@ -162,7 +162,7 @@ function ExperienceSection() {
         <motion.div className="experience-awards" variants={{ hidden: {}, visible: { transition: { staggerChildren: .055, delayChildren: .28 } } }}>
           {awards.map((award) => (
             <motion.span className="experience-award" key={award} variants={{ hidden: { opacity: 0, y: 5 }, visible: { opacity: 1, y: 0, transition: { duration: .4, ease: motionEase.snappy } } }}>
-              <span className="experience-award-icon" aria-hidden="true"><img src="/home-design/experience-award.svg" alt="" width="16" height="16" /></span>
+              <span className="experience-award-icon" aria-hidden="true"><img src="/home-design/experience-award.svg" alt="" width="16" height="16" loading="lazy" /></span>
               <span>{award}</span>
             </motion.span>
           ))}

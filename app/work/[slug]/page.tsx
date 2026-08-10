@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { cookies } from "next/headers";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ProtectedCaseStudy, type ProtectedCaseStudyData } from "@/components/work/ProtectedCaseStudy";
@@ -11,7 +10,6 @@ import { RuckusGamesProjectPage } from "@/components/work/design-project/RuckusG
 import { createPageMetadata } from "@/lib/metadata";
 import { breadcrumbSchema, pageSchema, schemaIds, webPageSchema } from "@/lib/structuredData";
 import { absoluteUrl, projects } from "@/lib/site";
-import { accessCookieName, hasValidAccessToken } from "@/lib/workAccess";
 import { getWorkProject } from "@/lib/workProjects";
 
 type ProtectedPreviewEditorial = Omit<ProtectedCaseStudyData, "slug" | "title" | "role" | "year" | "previewImages">;
@@ -61,9 +59,6 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   const workProject = getWorkProject(slug);
   if (workProject?.protected) {
-    const cookieStore = await cookies();
-    const token = cookieStore.get(accessCookieName)?.value;
-    if (hasValidAccessToken(token)) redirect(`/work/${slug}/full`);
     const preview = protectedPreviews[slug];
     if (!preview) notFound();
     const data: ProtectedCaseStudyData = {

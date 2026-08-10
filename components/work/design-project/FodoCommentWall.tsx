@@ -183,7 +183,7 @@ function CommentCard({ card, index, activeIndex, progress, onActiveChange }: { c
         <div className="fodo-comment-hitbox" onPointerEnter={interactive ? () => onActiveChange(index) : undefined} onPointerMove={interactive ? handlePointerMove : undefined} onPointerLeave={interactive ? () => { tiltX.set(0); tiltY.set(0); onActiveChange(null); } : undefined}>
           <motion.div className="fodo-comment-displace" animate={{ x: reduceMotion ? 0 : pushX, y: reduceMotion ? 0 : pushY, opacity: reduceMotion ? card.opacity : card.opacity * nearbyDim }} transition={{ type: "spring", stiffness: 315, damping: 30, mass: .72 }}>
             <motion.div className="fodo-comment-card" data-active={active ? "true" : "false"} animate={{ scale: active ? (card.tier === "hero" ? 1.03 : 1.05) : 1, z: active ? (card.tier === "hero" ? 26 : 36) : card.depth * 4 }} transition={{ type: "spring", stiffness: 290, damping: 28, mass: .72 }} style={{ rotateX, rotateY }}>
-              <img src={asset(card.file)} alt={card.alt} width={sourceWidth} height={sourceHeight} loading="eager" decoding="sync" draggable={false} />
+              <img src={asset(card.file)} alt={card.alt} width={sourceWidth} height={sourceHeight} loading="lazy" decoding="async" draggable={false} />
             </motion.div>
           </motion.div>
         </div>

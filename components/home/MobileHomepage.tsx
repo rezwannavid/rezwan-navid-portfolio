@@ -194,7 +194,7 @@ function CurvedCopy({ className, src, alt, width, height, distance, rotate }: { 
       className={`mobile-human-copy ${className}`}
       style={{ y: reduceMotion ? 0 : y, rotate: reduceMotion ? 0 : r }}
     >
-      <img src={src} alt={alt} width={width} height={height} />
+      <img src={src} alt={alt} width={width} height={height} loading="lazy" />
     </motion.div>
   );
 }
@@ -229,7 +229,7 @@ function MobileProjectCard({ id, index }: { id: ProjectId; index: number }) {
       <motion.div className="mobile-featured-motion-frame" style={{ clipPath: reduceMotion ? "inset(0% round 9px)" : frameInset, scale: reduceMotion ? 1 : frameScale }}>
         <ProjectLink className={`mobile-featured-link is-${id}`} href={project.href} projectId={project.id} aria-label={`View ${project.title}, ${project.year}`}>
           <motion.div className="mobile-featured-image-depth" style={{ scale: reduceMotion ? 1 : imageScale, y: reduceMotion ? 0 : imageY }}>
-            <Image unoptimized src={project.resolvedFeaturedThumbnail} alt={project.thumbnailAlt} fill sizes="(max-width: 767px) 393px, 1px" priority={index === 0} />
+            <Image unoptimized src={project.resolvedFeaturedThumbnail} alt={project.thumbnailAlt} fill sizes="(max-width: 767px) 393px, 1px" />
           </motion.div>
         </ProjectLink>
       </motion.div>
@@ -250,7 +250,7 @@ function MobileFeaturedWork() {
 const awards = ["Creative Mapper of the Year", "Winner of EWU Analytics", "Gold in UniV", "2nd in BrandAid"];
 
 function AwardsMarquee() {
-  return <div className="mobile-awards" aria-label="Awards and recognition"><div className="mobile-awards-track">{[...awards, ...awards].map((award, index) => <span className="mobile-award" key={`${award}-${index}`} aria-hidden={index >= awards.length}><img src="/home-design/experience-award.svg" alt="" width="20" height="20" />{award}</span>)}</div></div>;
+  return <div className="mobile-awards" aria-label="Awards and recognition"><div className="mobile-awards-track">{[...awards, ...awards].map((award, index) => <span className="mobile-award" key={`${award}-${index}`} aria-hidden={index >= awards.length}><img src="/home-design/experience-award.svg" alt="" width="20" height="20" loading="lazy" />{award}</span>)}</div></div>;
 }
 
 function MobileExperience() {
