@@ -624,6 +624,38 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
 }
 
 @media (max-width: 767px), (max-height: 500px) and (orientation: landscape) {
+  .ruckus-intro { height: auto; padding: 108px 20px 72px; }
+  .ruckus-intro h1, .ruckus-meta-row { position: static; width: 100%; }
+  .ruckus-intro h1 { font-size: clamp(42px, 12.5vw, 50px); line-height: .96; white-space: normal; }
+  .ruckus-meta-row { display: grid; height: auto; margin-top: 48px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 18px; }
+  .ruckus-meta-field { position: static; width: auto; }
+  .ruckus-meta-made { grid-column: 1 / -1; }
+  .ruckus-composition { width: calc(100% - 40px); transform: none; margin-bottom: 0; }
+  .ruckus-hero { left: auto; width: 100%; margin-left: 0; aspect-ratio: 4447 / 2625; }
+  .ruckus-opening { width: 100%; margin: 42px 0 0; font-size: 20px; line-height: 27px; }
+  .ruckus-brand-grid { grid-template-columns: 42.45% 57%; grid-template-rows: repeat(2, 1fr); column-gap: .55%; width: 100%; height: auto; aspect-ratio: 921 / 782; margin-top: 72px; }
+  .ruckus-ai-statement { width: 100%; margin-top: 64px; padding-inline: 4px; }
+  .ruckus-editorial-text { font-size: 17px; line-height: 24px; }
+  .ruckus-journey { width: 100%; margin-top: 72px; }
+  .ruckus-micro-statement { width: 100%; margin-top: 48px; padding-inline: 8px; }
+  .ruckus-interaction-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: 51.66% 47.3%; gap: 1.04% .55%; width: 100%; height: auto; aspect-ratio: 921 / 873; margin-top: 48px; }
+  .ruckus-phone-gif, .ruckus-square-gif { border-radius: 5px; }
+  .ruckus-phone-gif-1 .ruckus-phone-frame { top: -4.43%; left: 24.24%; width: 51.64%; height: 108.87%; }
+  .ruckus-phone-gif-1 .ruckus-phone-animation { top: -.61%; left: 26.41%; width: 47.27%; height: 103.32%; border-radius: 8.25%; }
+  .ruckus-square-gif-1 img, .ruckus-square-gif-2 img { top: -8.96%; width: 106.55%; height: 118.16%; }
+  .ruckus-square-gif-1 img { left: -8.52%; }
+  .ruckus-square-gif-2 img { left: -4.81%; }
+  .ruckus-square-gif-3 img { top: -4.43%; left: -1.53%; width: 102.84%; height: 104.43%; }
+  .ruckus-pacing-statement { width: 100%; margin-top: 52px; padding-inline: 8px; }
+  .ruckus-phone-gif-2 { width: 87.73%; height: auto; aspect-ratio: 808 / 712; margin-top: 48px; }
+  .ruckus-phone-gif-2 .ruckus-phone-frame { top: 11.1%; left: 33.42%; width: 33.04%; height: 77.84%; }
+  .ruckus-phone-gif-2 .ruckus-phone-animation { top: 12.5%; left: 34.65%; width: 30.82%; height: 75.14%; border-radius: 5.23%; }
+  .ruckus-feedback-statement { width: 100%; margin-top: 52px; padding-inline: 8px; }
+  .ruckus-feedback-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55%; width: 100%; height: auto; aspect-ratio: 922 / 764; margin-top: 48px; }
+  .ruckus-project-page .design-project-next { margin-top: 120px; }
+}
+
+@media (max-width: 767px), (max-height: 500px) and (orientation: landscape) {
   .protected-case-page { min-width: 0; }
   .protected-case-shell { width: calc(100% - 40px); }
   .protected-case-preview { padding-top: 120px; }
@@ -1154,6 +1186,90 @@ html[data-home-intro="running"] .home-intro-card-entry { position: relative; z-i
 .fodo-comment-position[data-tier="support"] .fodo-comment-hitbox { cursor: default; }
 .fodo-project-page .design-project-next { margin-top: 119px; }
 .fodo-project-page .design-project-work-rail { margin-top: 133px; }
+
+/* Ruckus Games — desktop composition from Figma 903:32593 and layered GIF groups. */
+.ruckus-intro { position: relative; width: min(1280px, 100%); height: 442px; margin-inline: auto; }
+.ruckus-intro h1 { position: absolute; top: 130px; left: calc(50% - 459px); color: #ececec; font-family: var(--home-serif); font-size: 64px; line-height: 48px; font-weight: 400; font-variation-settings: "SOFT" 100, "opsz" 144, "WONK" 1; letter-spacing: -.02em; white-space: nowrap; }
+.ruckus-meta-row { position: absolute; top: 213px; left: calc(50% - 459px); width: 918px; height: 128px; }
+.ruckus-meta-field { position: absolute; display: flex; flex-direction: column; color: #fff; font-size: 15px; line-height: 22px; letter-spacing: .1px; }
+.ruckus-meta-field > span { color: rgb(231 231 231 / .63); }
+.ruckus-meta-field strong { font-weight: 400; }
+.ruckus-meta-year { top: 7px; left: 0; }
+.ruckus-meta-timeline { top: 7px; left: 99px; }
+.ruckus-meta-status { top: 27px; left: 236px; }
+.ruckus-meta-type { top: 75px; left: 0; width: 229px; }
+.ruckus-meta-made { top: 0; right: 0; width: 177px; }
+
+.ruckus-composition { width: 1080px; margin-inline: auto; }
+.ruckus-hero { left: 50%; width: 1111.668px; aspect-ratio: 1111.668 / 656.1; margin-left: -555.834px; }
+.ruckus-hero img { object-fit: cover; }
+.ruckus-opening { width: 537px; color: var(--home-ink); font-size: 24px; line-height: 31px; font-weight: 500; letter-spacing: .01em; }
+.ruckus-project-page .ruckus-opening { margin: 53px 0 0 81px; }
+.ruckus-opening .animated-line-word, .ruckus-editorial-text .animated-line-word { letter-spacing: inherit !important; }
+.ruckus-brand-grid { display: grid; grid-template-columns: 391px 525px; grid-template-rows: 388px 388px; column-gap: 5px; width: 921px; height: 782px; margin: 83px auto 0; }
+.ruckus-brand-grid .design-project-visual { width: 100%; height: 100%; }
+.ruckus-brand-party { grid-column: 1; grid-row: 1; }
+.ruckus-brand-mark { grid-column: 1; grid-row: 2; }
+.ruckus-room { grid-column: 2; grid-row: 1 / span 2; }
+.ruckus-editorial-text { color: var(--home-ink); font-size: 20px; line-height: 29px; font-weight: 500; letter-spacing: .01em; text-align: center; }
+.ruckus-ai-statement { width: 688px; }
+.ruckus-project-page .ruckus-ai-statement { margin: 99px auto 0; }
+.ruckus-journey { width: 1080px; aspect-ratio: 1080 / 615; margin-top: 99px; }
+.ruckus-micro-statement { width: 440px; }
+.ruckus-project-page .ruckus-micro-statement { margin: 57px auto 0; }
+.ruckus-interaction-grid { display: grid; grid-template-columns: 458px 458px; grid-template-rows: 451px 413px; gap: 9px 5px; width: 921px; margin: 57px auto 0; }
+.ruckus-phone-gif, .ruckus-square-gif { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 8px; background: #e8e1d4; }
+.ruckus-phone-gif .reveal-media-mask, .ruckus-phone-gif .reveal-media-inner, .ruckus-square-gif .reveal-media-mask, .ruckus-square-gif .reveal-media-inner { width: 100%; height: 100%; }
+.ruckus-phone-gif-1 { grid-column: 1; grid-row: 1; }
+.ruckus-square-gif-3 { grid-column: 2; grid-row: 1; background: #e1dbc8; }
+.ruckus-square-gif-1 { grid-column: 1; grid-row: 2; background: #e5e1d3; }
+.ruckus-square-gif-2 { grid-column: 2; grid-row: 2; background: #e5e1d3; }
+.ruckus-square-gif img { position: absolute; display: block; width: 488px; height: 488px; max-width: none; object-fit: cover; }
+.ruckus-square-gif-1 img { top: -37px; left: -39px; }
+.ruckus-square-gif-2 img { top: -37px; left: -22px; }
+.ruckus-square-gif-3 img { top: -20px; left: -7px; width: 471px; height: 471px; }
+.ruckus-phone-stage { position: relative; width: 100%; height: 100%; }
+.ruckus-phone-stage img { position: absolute; display: block; max-width: none; object-fit: fill; }
+.ruckus-phone-gif-1 .ruckus-phone-frame { top: -20px; left: 111px; width: 236.53px; height: 491px; }
+.ruckus-phone-gif-1 .ruckus-phone-animation { top: -2.73px; left: 120.97px; width: 216.499px; height: 465.967px; border-radius: 37.207px; }
+.ruckus-pacing-statement { width: 440px; }
+.ruckus-project-page .ruckus-pacing-statement { margin: 56px auto 0; }
+.ruckus-phone-gif-2 { width: 808px; height: 712px; margin: 50px auto 0; background: #e8e1d4; }
+.ruckus-phone-gif-2 .ruckus-phone-frame { top: 79px; left: 270px; width: 267px; height: 554.25px; }
+.ruckus-phone-gif-2 .ruckus-phone-animation { top: 89px; left: 280px; width: 249px; height: 535px; border-radius: 37.207px; }
+.ruckus-feedback-statement { width: 440px; }
+.ruckus-project-page .ruckus-feedback-statement { margin: 62px auto 0; }
+.ruckus-feedback-grid { display: grid; grid-template-columns: 458px 459px; gap: 5px; width: 922px; height: 764px; margin: 62px auto 0; }
+.ruckus-feedback-grid .design-project-visual { width: 100%; height: 100%; }
+.ruckus-project-page .design-project-next { margin-top: 243px; }
+.ruckus-project-page .design-project-work-rail { width: min(1083px, calc(100% - 64px)); margin-top: 133px; }
+.ruckus-project-page main { overflow: clip; }
+
+@media (min-width: 1100px) {
+  .ruckus-project-page > .home-site-footer { padding-bottom: 63px; }
+  .ruckus-project-page > .home-site-footer .closing-art { width: 1078px; height: 632px; aspect-ratio: auto; }
+  .ruckus-project-page > .home-site-footer .closing-logo { top: 173px; }
+  .ruckus-project-page > .home-site-footer .closing-logo-secondary { position: absolute; z-index: 2; top: 290px; left: calc(50% - 27.5px); display: block; width: 55px; height: 20px; }
+  .ruckus-project-page > .home-site-footer .made-with { top: 649px; }
+}
+
+@media (min-width: 768px) and (max-width: 1099px) {
+  .ruckus-intro h1, .ruckus-meta-row { left: 54px; }
+  .ruckus-meta-row { width: calc(100% - 108px); }
+  .ruckus-composition { margin-left: 32px; transform: scale(.65); transform-origin: top left; margin-bottom: -1865px; }
+}
+
+@media (min-width: 840px) and (max-width: 919px) {
+  .ruckus-composition { transform: scale(.72); margin-bottom: -1492px; }
+}
+
+@media (min-width: 920px) and (max-width: 999px) {
+  .ruckus-composition { transform: scale(.79); margin-bottom: -1120px; }
+}
+
+@media (min-width: 1000px) and (max-width: 1099px) {
+  .ruckus-composition { transform: scale(.87); margin-bottom: -693px; }
+}
 
 @media (hover: hover) and (pointer: fine) {
   .fodo-comment-position:not([data-tier="atmosphere"]) .fodo-comment-hitbox { cursor: zoom-in; }
@@ -1963,4 +2079,37 @@ html[data-home-intro="running"] .home-intro-card-entry { position: relative; z-i
   .mobile-identity-entry, .mobile-identity-card, .mobile-human-card, .mobile-human-copy, .mobile-featured-motion-frame, .mobile-featured-image-depth, .mobile-experience-depth { transform: none !important; clip-path: none !important; opacity: 1 !important; }
   .mobile-thinking-word-mask > span { transform: none !important; opacity: 1 !important; }
   .mobile-thinking-word-mask i { transform: scaleX(1) !important; }
+}
+
+/* Keep Ruckus mobile overrides after the shared project rules. */
+@media (max-width: 767px), (max-height: 500px) and (orientation: landscape) {
+  .ruckus-intro { height: auto; padding: 108px 20px 72px; }
+  .ruckus-intro h1, .ruckus-meta-row { position: static; width: 100%; }
+  .ruckus-intro h1 { font-size: clamp(42px, 12.5vw, 50px); line-height: .96; white-space: normal; }
+  .ruckus-meta-row { display: grid; height: auto; margin-top: 48px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 18px; }
+  .ruckus-meta-field { position: static; width: auto; }
+  .ruckus-meta-made { grid-column: 1 / -1; }
+  .ruckus-composition { width: calc(100% - 40px); transform: none; margin-bottom: 0; }
+  .ruckus-hero { left: auto; width: 100%; margin-left: 0; aspect-ratio: 4447 / 2625; }
+  .ruckus-project-page .ruckus-opening { width: 100%; margin: 42px 0 0; font-size: 20px; line-height: 27px; }
+  .ruckus-brand-grid { grid-template-columns: 42.45% 57%; grid-template-rows: repeat(2, 1fr); column-gap: .55%; width: 100%; height: auto; aspect-ratio: 921 / 782; margin-top: 72px; }
+  .ruckus-project-page .ruckus-ai-statement { width: 100%; margin-top: 64px; padding-inline: 4px; }
+  .ruckus-editorial-text { font-size: 17px; line-height: 24px; }
+  .ruckus-journey { width: 100%; margin-top: 72px; }
+  .ruckus-project-page .ruckus-micro-statement { width: 100%; margin-top: 48px; padding-inline: 8px; }
+  .ruckus-interaction-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: 51.66% 47.3%; gap: 1.04% .55%; width: 100%; height: auto; aspect-ratio: 921 / 873; margin-top: 48px; }
+  .ruckus-phone-gif, .ruckus-square-gif { border-radius: 5px; }
+  .ruckus-phone-gif-1 .ruckus-phone-frame { top: -4.43%; left: 24.24%; width: 51.64%; height: 108.87%; }
+  .ruckus-phone-gif-1 .ruckus-phone-animation { top: -.61%; left: 26.41%; width: 47.27%; height: 103.32%; border-radius: 8.25%; }
+  .ruckus-square-gif-1 img, .ruckus-square-gif-2 img { top: -8.96%; width: 106.55%; height: 118.16%; }
+  .ruckus-square-gif-1 img { left: -8.52%; }
+  .ruckus-square-gif-2 img { left: -4.81%; }
+  .ruckus-square-gif-3 img { top: -4.43%; left: -1.53%; width: 102.84%; height: 104.43%; }
+  .ruckus-project-page .ruckus-pacing-statement { width: 100%; margin-top: 52px; padding-inline: 8px; }
+  .ruckus-phone-gif-2 { width: 87.73%; height: auto; aspect-ratio: 808 / 712; margin-top: 48px; }
+  .ruckus-phone-gif-2 .ruckus-phone-frame { top: 11.1%; left: 33.42%; width: 33.04%; height: 77.84%; }
+  .ruckus-phone-gif-2 .ruckus-phone-animation { top: 12.5%; left: 34.65%; width: 30.82%; height: 75.14%; border-radius: 5.23%; }
+  .ruckus-project-page .ruckus-feedback-statement { width: 100%; margin-top: 52px; padding-inline: 8px; }
+  .ruckus-feedback-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55%; width: 100%; height: auto; aspect-ratio: 922 / 764; margin-top: 48px; }
+  .ruckus-project-page .design-project-next { margin-top: 120px; }
 }

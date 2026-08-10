@@ -14,7 +14,7 @@ export type ProjectId =
   | "tygrlabs"
   | "global-mission-summit";
 
-export type ProjectCategory = "product-study" | "interface" | "design-system" | "product-management" | "brand";
+export type ProjectCategory = "product-study" | "interface" | "design-system" | "product-management" | "brand" | "ai";
 
 export type ProjectDefinition = {
   id: ProjectId;
@@ -89,8 +89,8 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
     seoTitle: "RC Drivers App — Driver Operations Companion", seoDescription: "A mobile workflow helping professional drivers coordinate trips, communicate updates and stay on schedule.",
   },
   "ruckus-games": {
-    id: "ruckus-games", slug: "ruckus-games", title: "Ruckus Games", shortDescription: "A collection of fast, expressive multiplayer party games built for shared rooms.", role: "Product Direction / Design Engineering", year: "2026", href: "/work/ruckus-games", protected: false,
-    hero: "/home-design/video-poster.png?v=1", placeholder: true, thumbnailAlt: "Ruckus multiplayer party game experience", categories: ["product-study", "interface"], categoryLabel: "Product Direction", client: "Ruckus Games", locked: false, theme: "dark", indexable: false,
+    id: "ruckus-games", slug: "ruckus-games", title: "Ruckus Games", shortDescription: "A free multiplayer party-game platform that makes game nights effortless.", role: "Product Direction / Design Engineering", year: "2026", timeline: "3 weeks", projectType: "ai", productType: "Product Exploration with AI", madeWith: ["Claude", "Cursor", "Vercel", "Figma", "Railway", "v0"], href: "/work/ruckus-games", protected: false,
+    hero: "/Ruckus Games Pictures/EventFlow 01.png", nextProjectId: "ridecentric", placeholder: false, thumbnailAlt: "Ruckus multiplayer party game experience on a phone", categories: ["ai"], categoryLabel: "AI", client: "Ruckus Games", locked: false, theme: "dark", indexable: true,
     seoTitle: "Ruckus Games — Multiplayer Party Games", seoDescription: "Product direction and design engineering for expressive multiplayer party games.",
   },
   fodo: {

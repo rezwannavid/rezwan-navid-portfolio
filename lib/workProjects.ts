@@ -7,6 +7,7 @@ export const workCategories = [
   { id: "design-system", label: "Design System" },
   { id: "product-management", label: "Product Management" },
   { id: "brand", label: "Brand" },
+  { id: "ai", label: "AI" },
 ] as const;
 
 export type WorkCategory = "all" | ProjectCategory;
