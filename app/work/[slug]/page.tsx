@@ -7,6 +7,7 @@ import { ProtectedCaseStudy, type ProtectedCaseStudyData } from "@/components/wo
 import { EventFlowProjectPage } from "@/components/work/design-project/EventFlowProjectPage";
 import { DriversAppProjectPage } from "@/components/work/design-project/DriversAppProjectPage";
 import { FodoProjectPage } from "@/components/work/design-project/FodoProjectPage";
+import { GmiCompanionProjectPage } from "@/components/work/design-project/GmiCompanionProjectPage";
 import { RuckusGamesProjectPage } from "@/components/work/design-project/RuckusGamesProjectPage";
 import { createPageMetadata } from "@/lib/metadata";
 import { breadcrumbSchema, pageSchema, schemaIds, webPageSchema } from "@/lib/structuredData";
@@ -76,6 +77,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   if (slug === "eventflow") return <EventFlowProjectPage />;
   if (slug === "drivers-app") return <DriversAppProjectPage />;
   if (slug === "fodo") return <FodoProjectPage />;
+  if (slug === "gmi-companion") return <GmiCompanionProjectPage />;
   if (slug === "ruckus-games") return <RuckusGamesProjectPage />;
 
   const path = `/work/${project.slug}`;

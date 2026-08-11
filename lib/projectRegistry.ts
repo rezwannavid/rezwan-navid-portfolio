@@ -2,11 +2,11 @@ export type ProjectId =
   | "ridecentric"
   | "ridesync"
   | "10ms-for-parents"
-  | "nav-ai"
   | "eventflow"
   | "drivers-app"
   | "ruckus-games"
   | "fodo"
+  | "gmi-companion"
   | "gldn-route"
   | "lazy"
   | "voyage"
@@ -73,11 +73,6 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
     hero: "/home-design/thumb-phone-green.png?v=2", placeholder: true, thumbnailAlt: "10 Minute School parent experience", categories: ["product-study", "interface"], categoryLabel: "Product Study", client: "10 Minute School", locked: true, indexable: false,
     seoTitle: "10MS for Parents — Parent Trust Experience", seoDescription: "A parent-facing product experience centered on trust, visibility and learning outcomes.",
   },
-  "nav-ai": {
-    id: "nav-ai", slug: "nav-ai", title: "Nav AI", shortDescription: "An AI impact advisor that turns early ideas into structured product opportunities.", role: "Product Manager", year: "2026", href: "/work/nav-ai", protected: false,
-    hero: "/home-design/project-navi-ai.png?v=2", featuredThumbnail: "/home-design/mobile-project-nav-ai.png", placeholder: true, thumbnailAlt: "Nav AI idea generation interface", categories: ["product-study", "interface", "product-management"], categoryLabel: "AI Product", client: "Independent", locked: false, theme: "dark", indexable: false,
-    seoTitle: "Nav AI — AI Impact Advisor", seoDescription: "An AI impact advisor for turning early ideas into structured product opportunities.",
-  },
   eventflow: {
     id: "eventflow", slug: "eventflow", title: "EventFlow", shortDescription: "An event-aware transportation planning extension for the FIFA World Cup.", role: "Product Manager - Experience", year: "2026", href: "/work/eventflow", protected: false,
     hero: "/Eventflow Pictures/EventFlow 01.png", featuredThumbnail: "/home-design/mobile-project-eventflow.png", nextProjectId: "ridecentric", placeholder: false, thumbnailAlt: "EventFlow World Cup match planning experience", categories: ["product-study", "interface"], categoryLabel: "Product Study", client: "RideCentric", locked: false, indexable: true,
@@ -97,6 +92,11 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
     id: "fodo", slug: "fodo", title: "Fodo", shortDescription: "A tactile camera experiment exploring physical-feeling controls and playful capture.", role: "Independent", year: "2026", timeline: "3 weeks", platform: "iOS", focus: ["Interaction Design", "Prototyping", "Skeuomorphism"], projectType: "personal", productType: "Product Exploration with AI", waitlist: "100+ in Waitlist", madeWith: ["Claude", "Cursor", "SwiftUI", "Figma", "Adobe After Effects"], href: "/work/fodo", protected: false,
     hero: "/Fodo Pictures/Header.png", nextProjectId: "ridecentric", placeholder: false, thumbnailAlt: "Fodo tactile camera interface held against a sunset landscape", categories: ["interface"], categoryLabel: "Personal Project", client: "Independent", locked: false, indexable: true,
     seoTitle: "Fodo — Tactile Camera Experiment", seoDescription: "A tactile camera concept exploring physical-feeling controls and playful capture.",
+  },
+  "gmi-companion": {
+    id: "gmi-companion", slug: "gmi-companion", title: "GMI Companion", shortDescription: "A connected product experience bringing guidance, resources, organizational context, and AI-powered support together.", role: "Design Direction / Interface Design", year: "2026", platform: "Web, Mobile", href: "/work/gmi-companion", protected: false,
+    hero: "/GMI Companion Pictures/Hero.png", nextProjectId: "ridecentric", placeholder: false, thumbnailAlt: "GMI Companion identity across a red and blue motion gradient", categories: ["product-study", "interface", "brand", "ai"], categoryLabel: "Product Study", client: "GMI", locked: false, theme: "dark", indexable: true,
+    seoTitle: "GMI Companion — Connected Mission-Driven Product Experience", seoDescription: "Design direction, interface design, brand, and motion for GMI Companion, a connected support experience for mission-driven organizations.",
   },
   "gldn-route": {
     id: "gldn-route", slug: "gldn-route", title: "Gldn Route", shortDescription: "A World Cup mobility simulation for testing routes, timing and operational scenarios.", role: "Product Direction / Design Engineering", year: "2026", href: "/work/gldn-route", protected: false,
@@ -161,5 +161,5 @@ export function getProjectWorkCover(id: ProjectId) {
   return projectRegistry[id].resolvedWorkCover;
 }
 
-export const featuredProjectIds: ProjectId[] = ["ridecentric", "eventflow", "nav-ai"];
-export const seeAllWorkProjectIds: ProjectId[] = ["ridecentric", "eventflow", "nav-ai", "drivers-app", "ruckus-games", "fodo", "tygrlabs", "global-mission-summit"];
+export const featuredProjectIds: ProjectId[] = ["ridecentric", "eventflow", "gmi-companion"];
+export const seeAllWorkProjectIds: ProjectId[] = ["ridecentric", "eventflow", "gmi-companion", "drivers-app", "ruckus-games", "fodo", "tygrlabs", "global-mission-summit"];

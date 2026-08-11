@@ -14,7 +14,7 @@ export type WorkCategory = "all" | ProjectCategory;
 export type WorkProject = ResolvedProject & { number: string };
 
 export const workProjectIds: ProjectId[] = [
-  "ridecentric", "ridesync", "10ms-for-parents", "nav-ai", "eventflow", "drivers-app", "ruckus-games", "fodo", "gldn-route", "lazy", "voyage", "ridecentric-design-system", "tygrlabs", "global-mission-summit",
+  "ridecentric", "ridesync", "10ms-for-parents", "eventflow", "drivers-app", "ruckus-games", "fodo", "gmi-companion", "gldn-route", "lazy", "voyage", "ridecentric-design-system", "tygrlabs", "global-mission-summit",
 ];
 
 export const workProjects: WorkProject[] = workProjectIds.map((id, index) => ({

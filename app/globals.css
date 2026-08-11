@@ -242,7 +242,7 @@ img { display: block; max-width: 100%; }
   .mobile-featured-link:active img { transform: scale(.992); filter: brightness(.94); }
   .mobile-featured-link.is-ridecentric img { object-position: 50% 51%; }
   .mobile-featured-link.is-eventflow img { object-position: 50% 50%; }
-  .mobile-featured-link.is-nav-ai img { object-position: 50% 50%; }
+  .mobile-featured-link.is-gmi-companion img { object-position: 50% 50%; }
   .mobile-see-work { height: 141px; margin-top: 44px; padding: 0 20px; border-top: 1px solid var(--home-line); border-bottom: 1px solid var(--home-line); display: flex; align-items: center; justify-content: space-between; font-family: var(--home-serif); font-size: 24px; line-height: 22px; }
   .mobile-see-work .home-arrow { font-size: 26px; }
   .mobile-see-work:active span:first-child { transform: translateX(4px); }
@@ -1161,6 +1161,60 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
 .drivers-final-media .design-project-visual { width: 100%; height: 100%; }
 .drivers-project-page .design-project-next { margin-top: 151px; }
 
+/* GMI Companion — editorial composition from Figma 915:17303. */
+.gmi-project-page { min-width: 0; }
+.gmi-project-page main { overflow: clip; }
+.gmi-intro { position: relative; width: min(1280px, 100%); height: 502px; margin-inline: auto; }
+.gmi-intro h1 { position: absolute; top: 130px; left: calc(50% - 406px); color: #ececec; font-family: var(--home-serif); font-size: 64px; line-height: 48px; font-weight: 400; font-variation-settings: "SOFT" 100, "opsz" 144, "WONK" 1; letter-spacing: -.02em; white-space: nowrap; }
+.gmi-meta { position: absolute; display: flex; flex-direction: column; color: #fff; font-size: 15px; line-height: 22px; letter-spacing: .1px; }
+.gmi-meta > span { color: rgb(231 231 231 / .63); }
+.gmi-meta strong { font-weight: 400; }
+.gmi-meta-year { top: 225px; left: calc(50% - 401px); }
+.gmi-meta-company { top: 225px; left: calc(50% - 295px); }
+.gmi-meta-skills { top: 314px; left: calc(50% + 189px); width: 229px; }
+.gmi-intro-copy { position: absolute; top: 314px; left: calc(50% - 406px); width: 537px; color: var(--home-ink); font-size: 24px; line-height: 31px; font-weight: 500; letter-spacing: .01em; }
+.gmi-intro-copy .animated-line-word, .gmi-copy .animated-line-word { letter-spacing: inherit !important; }
+.gmi-composition { width: min(1080px, calc(100% - 40px)); margin-inline: auto; }
+.gmi-hero { width: 99.907%; aspect-ratio: 1079 / 540; margin-inline: auto; }
+.gmi-copy { color: var(--home-ink); font-size: 20px; line-height: 29px; font-weight: 500; letter-spacing: .01em; }
+.gmi-project-page .gmi-motion-copy { width: 78.241%; margin: 111px 0 0 7.685%; font-size: 22px; line-height: 31px; }
+.gmi-motion-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.598%; width: 99.722%; aspect-ratio: 1077 / 630; margin: 113px auto 0; }
+.gmi-animated-composition { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 6px; }
+.gmi-animated-composition .reveal-media-mask, .gmi-animated-composition .reveal-media-inner, .gmi-animation-stage { width: 100%; height: 100%; }
+.gmi-animation-stage { position: relative; overflow: hidden; border-radius: inherit; }
+.gmi-animation-stage img { position: absolute; display: block; max-width: none; object-fit: fill; }
+.gmi-animation-base { inset: 0; width: 100%; height: 100%; }
+.gmi-motion-01 .gmi-animation-screen { top: 8.73%; left: 15.511%; width: 68.938%; height: 82.54%; border-radius: 15.417% / 7.115%; }
+.gmi-motion-02 .gmi-animation-screen { top: 8.73%; left: 15.541%; width: 68.938%; height: 82.54%; border-radius: 15.417% / 7.115%; }
+.gmi-motion-03 .gmi-animation-screen { top: 8.73%; left: 15.409%; width: 68.938%; height: 82.54%; border-radius: 15.417% / 7.115%; }
+.gmi-project-page .gmi-transitions-copy,
+.gmi-project-page .gmi-organization-copy { width: 63.704%; margin-right: auto; margin-left: auto; text-align: center; }
+.gmi-project-page .gmi-transitions-copy { margin-top: 77px; }
+.gmi-tablet { left: 50%; width: 99.537%; aspect-ratio: 1075 / 614; margin: 106px 0 0 -49.769%; }
+.gmi-project-page .gmi-organization-copy { margin-top: 105px; }
+.gmi-impact { left: 50%; width: 100.556%; aspect-ratio: 1086 / 788; margin: 113px 0 0 -50.278%; border-radius: 8px; }
+.gmi-impact .gmi-animation-screen { top: 8.726%; left: 36.192%; width: 27.621%; height: 82.525%; border-radius: 15.421% / 7.114%; }
+.gmi-quote { width: 73.611%; margin: 84px auto 0; color: var(--home-ink); font-family: var(--home-serif); font-size: 48px; line-height: 48px; font-weight: 400; font-variation-settings: "SOFT" 100, "opsz" 144, "WONK" 1; letter-spacing: .01em; text-align: center; }
+.gmi-resource-row { position: relative; width: 100%; aspect-ratio: 1080 / 630; margin-top: 100px; }
+.gmi-resources { position: absolute; top: 0; left: .093%; width: 54.907%; height: 100%; }
+.gmi-resources-copy { position: absolute; top: 35.714%; left: 64.537%; width: 29.63%; font-size: 16px; line-height: 24px; }
+.gmi-palette { width: 99.722%; aspect-ratio: 1077 / 517; margin: 23px auto 0; }
+.gmi-identity-row { position: relative; width: 100%; aspect-ratio: 1080 / 630; margin-top: 23px; }
+.gmi-identity { position: absolute; top: 0; left: 44.907%; width: 54.907%; height: 100%; }
+.gmi-identity-copy { position: absolute; top: 36.667%; left: 7.963%; width: 29.63%; font-size: 16px; line-height: 24px; }
+.gmi-project-page .design-project-next { margin-top: 177px; }
+
+@media (min-width: 768px) and (max-width: 1099px) {
+  .gmi-intro h1, .gmi-intro-copy, .gmi-meta-year { left: max(54px, calc(50% - 406px)); }
+  .gmi-intro-copy { width: min(55vw, 537px); }
+  .gmi-meta-company { left: max(160px, calc(50% - 295px)); }
+  .gmi-meta-skills { left: auto; right: 54px; }
+  .gmi-project-page .gmi-motion-copy { font-size: clamp(18px, 2.04vw, 22px); line-height: 1.41; }
+  .gmi-copy { font-size: clamp(16px, 1.85vw, 20px); line-height: 1.45; }
+  .gmi-resources-copy, .gmi-identity-copy { font-size: clamp(12px, 1.48vw, 16px); line-height: 1.5; }
+  .gmi-quote { font-size: clamp(38px, 4.44vw, 48px); line-height: 1; }
+}
+
 @media (min-width: 768px) and (max-width: 1099px) {
   .drivers-project-page .design-project-description { width: min(55vw, 537px); }
   .drivers-project-page .drivers-opening { margin-top: clamp(52px, 6.85vw, 74px); }
@@ -2057,4 +2111,32 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   .drivers-green-detail { order: 5; width: 100%; height: auto; aspect-ratio: 457 / 408; margin-top: 28px; }
   .drivers-final-media { width: 100%; margin-top: 8px; gap: 1.1%; }
   .drivers-project-page .design-project-next { margin-top: 120px; }
+}
+
+/* Keep GMI Companion mobile overrides after the shared project rules. */
+@media (max-width: 767px), (max-height: 500px) and (orientation: landscape) {
+  .gmi-intro { height: auto; padding: 108px 20px 72px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; }
+  .gmi-intro h1, .gmi-meta, .gmi-intro-copy { position: static; }
+  .gmi-intro h1 { grid-column: 1 / -1; font-size: clamp(42px, 12vw, 52px); line-height: .96; white-space: normal; }
+  .gmi-meta { width: auto; margin-top: 48px; font-size: 13px; line-height: 20px; }
+  .gmi-meta-skills { grid-column: 1 / -1; width: 100%; margin-top: 28px; }
+  .gmi-project-page .gmi-intro-copy { grid-column: 1 / -1; width: 100%; margin-top: 58px; font-size: 20px; line-height: 27px; }
+  .gmi-composition { width: calc(100% - 40px); }
+  .gmi-hero { width: 100%; }
+  .gmi-project-page .gmi-motion-copy { width: 100%; margin: 48px 0 0; font-size: 20px; line-height: 27px; }
+  .gmi-motion-grid { width: 100%; margin-top: 70px; gap: .8%; }
+  .gmi-transitions-copy, .gmi-organization-copy { width: 100%; padding-inline: 3px; font-size: 17px; line-height: 24px; }
+  .gmi-project-page .gmi-transitions-copy { margin-top: 54px; }
+  .gmi-tablet { left: auto; width: 100%; margin: 72px 0 0; }
+  .gmi-project-page .gmi-organization-copy { margin-top: 54px; }
+  .gmi-impact { left: auto; width: 100%; margin: 72px 0 0; }
+  .gmi-quote { width: 100%; margin-top: 60px; padding-inline: 2px; font-size: clamp(32px, 9vw, 40px); line-height: 1.03; }
+  .gmi-resource-row { display: flex; width: 100%; aspect-ratio: auto; margin-top: 72px; flex-direction: column; }
+  .gmi-resources { position: relative; inset: auto; width: 100%; height: auto; aspect-ratio: 593 / 630; }
+  .gmi-project-page .gmi-resources-copy { position: static; width: 100%; margin-top: 32px; font-size: 15px; line-height: 22px; }
+  .gmi-palette { width: 100%; margin-top: 64px; }
+  .gmi-identity-row { display: flex; width: 100%; aspect-ratio: auto; margin-top: 64px; flex-direction: column; }
+  .gmi-identity-copy { position: static; width: 100%; font-size: 15px; line-height: 22px; }
+  .gmi-identity { position: relative; inset: auto; width: 100%; height: auto; aspect-ratio: 593 / 630; margin-top: 32px; }
+  .gmi-project-page .design-project-next { margin-top: 120px; }
 }
