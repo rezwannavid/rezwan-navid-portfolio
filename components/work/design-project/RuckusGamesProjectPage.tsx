@@ -72,7 +72,7 @@ function SquareGif({ index }: { index: 1 | 2 | 3 }) {
 
 export function RuckusGamesProjectPage() {
   const project = getProject("ruckus-games");
-  if (!project?.nextProjectId) return null;
+  if (!project) return null;
 
   return (
     <div className="home-page design-project-page ruckus-project-page">
@@ -124,7 +124,7 @@ export function RuckusGamesProjectPage() {
           </div>
         </div>
 
-        <NextProject projectId={project.nextProjectId} />
+        <NextProject currentSlug={project.slug} />
         <WorkRail className="design-project-work-rail" />
       </main>
       <SiteFooter />

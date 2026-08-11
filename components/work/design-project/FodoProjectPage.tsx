@@ -27,7 +27,7 @@ function GifVisual({ name, alt, className, delay }: { name: string; alt: string;
 
 export function FodoProjectPage() {
   const project = getProject("fodo");
-  if (!project?.nextProjectId || !project.timeline || !project.platform || !project.focus || !project.productType || !project.waitlist || !project.madeWith) return null;
+  if (!project || !project.timeline || !project.platform || !project.focus || !project.productType || !project.waitlist || !project.madeWith) return null;
   return (
     <div className="home-page design-project-page fodo-project-page">
       <main>
@@ -62,7 +62,7 @@ export function FodoProjectPage() {
 
         <FodoCommentWall />
 
-        <NextProject projectId={project.nextProjectId} />
+        <NextProject currentSlug={project.slug} />
         <WorkRail className="design-project-work-rail" />
       </main>
       <SiteFooter />

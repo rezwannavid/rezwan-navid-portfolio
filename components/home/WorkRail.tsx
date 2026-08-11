@@ -1,21 +1,21 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { EditorialArrow } from "@/components/home/ContactCTA";
 import { ProjectLink } from "@/components/motion/ProjectTransition";
-import { projectRegistry, seeAllWorkProjectIds } from "@/lib/projectRegistry";
+import { ProjectMedia } from "@/components/project/ProjectMedia";
+import { publishedProjects, type ResolvedProject } from "@/lib/projectRegistry";
 
-const projectPairs = Array.from({ length: 4 }, (_, index) => [
-  projectRegistry[seeAllWorkProjectIds[index * 2]],
-  projectRegistry[seeAllWorkProjectIds[index * 2 + 1]],
-]);
+const cardCount = Math.min(4, publishedProjects.length);
+const projectPairs = publishedProjects.slice(0, cardCount).map((project, index) => [
+  project,
+  publishedProjects[(index + cardCount) % publishedProjects.length] ?? project,
+] as const);
 
-function ProjectImage({ project, state }: { project: (typeof projectPairs)[number][number]; state: "primary" | "alternate" }) {
-  const contain = project.resolvedThumbnail.includes("thumb-phone-green") || project.resolvedThumbnail.includes("thumb-phone-pink");
+function ProjectImage({ project, state }: { project: ResolvedProject; state: "primary" | "alternate" }) {
   return (
     <ProjectLink className={`work-rail-image is-${state}`} href={project.href} projectId={project.id} aria-label={`View ${project.title}`} data-cursor="View">
-      <Image unoptimized className={contain ? "is-contain" : ""} src={project.resolvedThumbnail} alt={project.thumbnailAlt} fill sizes="154px" />
+      <ProjectMedia project={project} context="small" />
     </ProjectLink>
   );
 }

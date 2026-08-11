@@ -16,8 +16,9 @@ import { VideoFeature } from "@/components/home/VideoFeature";
 import { EditorialLinks } from "@/components/home/EditorialLinks";
 import { AnimatedWords } from "@/components/motion/AnimatedWords";
 import { ProjectLink } from "@/components/motion/ProjectTransition";
+import { ProjectMedia } from "@/components/project/ProjectMedia";
 import { motionEase, physicalSpring } from "@/lib/motion";
-import { featuredProjectIds, projectRegistry, type ProjectId } from "@/lib/projectRegistry";
+import { featuredProjects, type ResolvedProject } from "@/lib/projectRegistry";
 import { useHomeIntroCard } from "@/components/home/HomeIntro";
 
 type GestureState = {
@@ -211,10 +212,9 @@ function MobileHumanSection() {
   );
 }
 
-function MobileProjectCard({ id, index }: { id: ProjectId; index: number }) {
+function MobileProjectCard({ project, index }: { project: ResolvedProject; index: number }) {
   const ref = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
-  const project = projectRegistry[id];
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const frameInset = useTransform(scrollYProgress, [0, .5, 1], index === 1
     ? ["inset(8% .6% 6% round 9px)", "inset(0% 0% 0% round 9px)", "inset(5% .4% 4% round 9px)"]
@@ -227,9 +227,9 @@ function MobileProjectCard({ id, index }: { id: ProjectId; index: number }) {
   return (
     <motion.article ref={ref} className="mobile-featured-project" initial={reduceMotion ? false : { opacity: 0, y: 28 }} whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }} viewport={{ once: true, amount: .08 }} transition={{ duration: .72, delay: index * .04, ease: motionEase.editorial }}>
       <motion.div className="mobile-featured-motion-frame" style={{ clipPath: reduceMotion ? "inset(0% round 9px)" : frameInset, scale: reduceMotion ? 1 : frameScale }}>
-        <ProjectLink className={`mobile-featured-link is-${id}`} href={project.href} projectId={project.id} aria-label={`View ${project.title}, ${project.year}`}>
+        <ProjectLink className={`mobile-featured-link is-${project.id}`} href={project.href} projectId={project.id} aria-label={`View ${project.title}, ${project.year}`}>
           <motion.div className="mobile-featured-image-depth" style={{ scale: reduceMotion ? 1 : imageScale, y: reduceMotion ? 0 : imageY }}>
-            <Image unoptimized src={project.resolvedFeaturedThumbnail} alt={project.thumbnailAlt} fill sizes="(max-width: 767px) 393px, 1px" />
+            <ProjectMedia project={project} context="homepage" priority={index === 0} />
           </motion.div>
         </ProjectLink>
       </motion.div>
@@ -241,7 +241,7 @@ function MobileFeaturedWork() {
   return (
     <section className="mobile-featured" aria-labelledby="mobile-featured-title">
       <h2 id="mobile-featured-title"><AnimatedWords text="featured work" stagger={.11} /></h2>
-      <div className="mobile-featured-list">{featuredProjectIds.map((id, index) => <MobileProjectCard key={id} id={id} index={index} />)}</div>
+      <div className="mobile-featured-list">{featuredProjects.map((project, index) => <MobileProjectCard key={project.id} project={project} index={index} />)}</div>
       <Link className="mobile-see-work" href="/work"><span>see all work</span><EditorialArrow /></Link>
     </section>
   );

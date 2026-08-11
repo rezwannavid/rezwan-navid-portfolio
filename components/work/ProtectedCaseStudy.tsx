@@ -9,6 +9,7 @@ import { Magnetic } from "@/components/motion/Magnetic";
 import { ParallaxMedia } from "@/components/motion/ParallaxMedia";
 import { TiltLink } from "@/components/motion/TiltLink";
 import { ProtectedProjectGate } from "@/components/work/ProtectedProjectGate";
+import { NextProject } from "@/components/work/design-project/DesignProjectPrimitives";
 import { motionEase } from "@/lib/motion";
 
 export type ProtectedCaseStudyData = {
@@ -61,6 +62,8 @@ export function ProtectedCaseStudy({ data }: { data: ProtectedCaseStudyData }) {
       </section>
 
       <ProtectedProjectGate slug={data.slug} />
+
+      <NextProject currentSlug={data.slug} />
 
       <motion.div className="protected-see-work protected-case-shell" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .5 }} transition={{ duration: .58, ease: motionEase.editorial }}>
         <Link href="/work" data-cursor="Open"><Magnetic strength={3}><span>see other work</span><EditorialArrow magnetic /></Magnetic></Link>

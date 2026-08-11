@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import { ContactCTA } from "@/components/home/ContactCTA";
-import { SiteFooter } from "@/components/layout/SiteFooter";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { WorkProjectBrowser } from "@/components/work/WorkProjectBrowser";
 import { createPageMetadata } from "@/lib/metadata";
@@ -27,9 +25,7 @@ export default function WorkPage() {
           projectItemListSchema,
         )} />
         <WorkProjectBrowser />
-        <ContactCTA variant="portfolio" />
       </main>
-      <SiteFooter />
     </div>
   );
 }

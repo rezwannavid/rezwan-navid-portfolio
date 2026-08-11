@@ -1,5 +1,6 @@
 import { TiltLink } from "@/components/motion/TiltLink";
 import { CategoryIcon } from "@/components/work/CategoryIcon";
+import { ProjectMedia } from "@/components/project/ProjectMedia";
 import type { WorkProject } from "@/lib/workProjects";
 
 function LockIcon() {
@@ -20,7 +21,7 @@ export function WorkProjectCard({ project, index }: { project: WorkProject; inde
 
         <div className="work-card-layout">
           <TiltLink className="work-card-media" href={project.href} projectId={project.id} ariaLabel={`View ${project.title} case study${project.protected ? ", password protected" : ""}`}>
-            <img src={project.resolvedThumbnail} alt={project.thumbnailAlt} width="1184" height="680" loading={index === 0 ? "eager" : "lazy"} decoding="async" />
+            <ProjectMedia project={project} context="work" priority={index === 0} />
           </TiltLink>
 
           <div className="work-card-meta">

@@ -14,6 +14,15 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
     const desktop = window.matchMedia("(hover: hover) and (pointer: fine)");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let lockObserver: MutationObserver | null = null;
+    const onImmediateScroll = (event: Event) => {
+      const customEvent = event as CustomEvent<{ top?: number }>;
+      const top = customEvent.detail?.top;
+      if (typeof top !== "number" || !Number.isFinite(top)) return;
+      event.preventDefault();
+      const lenis = lenisRef.current;
+      if (lenis) lenis.scrollTo(top, { immediate: true, force: true });
+      else window.scrollTo(0, top);
+    };
 
     const destroy = () => {
       lockObserver?.disconnect();
@@ -59,10 +68,12 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
     };
 
     create();
+    window.addEventListener("portfolio:immediate-scroll", onImmediateScroll);
     desktop.addEventListener("change", create);
     reducedMotion.addEventListener("change", create);
 
     return () => {
+      window.removeEventListener("portfolio:immediate-scroll", onImmediateScroll);
       desktop.removeEventListener("change", create);
       reducedMotion.removeEventListener("change", create);
       destroy();

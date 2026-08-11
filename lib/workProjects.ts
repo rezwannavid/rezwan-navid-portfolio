@@ -1,4 +1,4 @@
-import { getProject, projectRegistry, type ProjectCategory, type ProjectId, type ResolvedProject } from "@/lib/projectRegistry";
+import { getProject, publishedProjects, type ProjectCategory, type ResolvedProject } from "@/lib/projectRegistry";
 
 export const workCategories = [
   { id: "all", label: "All" },
@@ -13,12 +13,8 @@ export const workCategories = [
 export type WorkCategory = "all" | ProjectCategory;
 export type WorkProject = ResolvedProject & { number: string };
 
-export const workProjectIds: ProjectId[] = [
-  "ridecentric", "ridesync", "10ms-for-parents", "eventflow", "drivers-app", "ruckus-games", "fodo", "gmi-companion", "gldn-route", "lazy", "voyage", "ridecentric-design-system", "tygrlabs", "global-mission-summit",
-];
-
-export const workProjects: WorkProject[] = workProjectIds.map((id, index) => ({
-  ...projectRegistry[id],
+export const workProjects: WorkProject[] = publishedProjects.map((project, index) => ({
+  ...project,
   number: String(index + 1).padStart(2, "0"),
 }));
 

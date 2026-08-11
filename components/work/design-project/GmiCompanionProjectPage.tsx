@@ -61,7 +61,7 @@ function AnimatedComposition({
 
 export function GmiCompanionProjectPage() {
   const project = getProject("gmi-companion");
-  if (!project?.nextProjectId) return null;
+  if (!project) return null;
 
   return (
     <div className="home-page design-project-page gmi-project-page">
@@ -108,7 +108,7 @@ export function GmiCompanionProjectPage() {
           </div>
         </div>
 
-        <NextProject projectId={project.nextProjectId} />
+        <NextProject currentSlug={project.slug} />
         <WorkRail className="design-project-work-rail" />
       </main>
       <SiteFooter />

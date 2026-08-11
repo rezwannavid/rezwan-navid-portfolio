@@ -7,8 +7,9 @@ import { AnimatedLines } from "@/components/motion/AnimatedLines";
 import { AnimatedWords } from "@/components/motion/AnimatedWords";
 import { ParallaxMedia } from "@/components/motion/ParallaxMedia";
 import { ProjectLink } from "@/components/motion/ProjectTransition";
+import { ProjectMedia } from "@/components/project/ProjectMedia";
 import { motionEase } from "@/lib/motion";
-import { getProject, type ProjectId } from "@/lib/projectRegistry";
+import { getNextPublishedProject, getProject, type ProjectId } from "@/lib/projectRegistry";
 
 export type DesignProjectMetadata = {
   role: string;
@@ -105,15 +106,15 @@ export function ProjectStatement({ text }: { text: string }) {
   return <p className="design-project-statement"><AnimatedLines text={text} /></p>;
 }
 
-export function NextProject({ projectId }: { projectId: ProjectId }) {
-  const project = getProject(projectId);
+export function NextProject({ currentSlug }: { currentSlug: string }) {
+  const project = getNextPublishedProject(currentSlug);
   if (!project) return null;
   return (
     <section className="design-project-next" aria-labelledby="next-project-title">
       <h2 id="next-project-title"><AnimatedWords text="next project" /></h2>
       <motion.div initial={{ opacity: 0, y: 20, clipPath: "inset(12% 0 20% 0 round 8px)" }} whileInView={{ opacity: 1, y: 0, clipPath: "inset(0% 0 0% 0 round 8px)" }} viewport={{ once: true, amount: .2 }} transition={{ duration: .78, ease: motionEase.editorial }}>
         <ProjectLink className="design-project-next-link" href={project.href} projectId={project.id} data-cursor="View">
-          <Image unoptimized src={project.resolvedThumbnail} alt={project.thumbnailAlt} width={2764} height={1856} sizes="602px" />
+          <ProjectMedia project={project} context="small" />
           <span>{project.title}</span>
         </ProjectLink>
       </motion.div>

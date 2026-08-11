@@ -60,7 +60,7 @@ function AnimatedGreenVisual() {
 
 export function DriversAppProjectPage() {
   const project = getProject("drivers-app");
-  if (!project?.nextProjectId) return null;
+  if (!project) return null;
 
   return (
     <div className="home-page design-project-page drivers-project-page">
@@ -114,7 +114,7 @@ export function DriversAppProjectPage() {
           </div>
         </div>
 
-        <NextProject projectId={project.nextProjectId} />
+        <NextProject currentSlug={project.slug} />
         <WorkRail className="design-project-work-rail" />
       </main>
       <SiteFooter />

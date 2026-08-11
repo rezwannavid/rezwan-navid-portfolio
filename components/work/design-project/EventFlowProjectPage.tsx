@@ -15,7 +15,7 @@ const picture = (name: string) => `/Eventflow Pictures/${name}.png`;
 
 export function EventFlowProjectPage() {
   const project = getProject("eventflow");
-  if (!project?.nextProjectId) return null;
+  if (!project) return null;
   return (
     <div className="home-page design-project-page eventflow-project-page">
       <main>
@@ -32,7 +32,7 @@ export function EventFlowProjectPage() {
         />
 
         <div className="eventflow-composition">
-          <ProjectVisual className="eventflow-visual-01" src={project.hero} alt={project.thumbnailAlt} width={2765} height={1632} distance={20} delay={.06} priority projectId={project.id} />
+          <ProjectVisual className="eventflow-visual-01" src={project.hero} alt={project.thumbnailAlt} width={4316} height={2336} distance={20} delay={.06} priority projectId={project.id} />
 
           <div className="eventflow-editorial-grid">
             <ProjectVisual className="eventflow-visual-02" src={picture("EventFlow 02")} alt="EventFlow for FIFA World Cup identity" width={1369} height={1344} distance={12} xDistance={-2} delay={.04} />
@@ -43,12 +43,15 @@ export function EventFlowProjectPage() {
             <ProjectCaption className="eventflow-caption-venue" delay={.12}>Users confirm where they’re traveling before deciding when, creating a simpler planning flow.</ProjectCaption>
           </div>
 
-          <ProjectVisual className="eventflow-visual-06" src={picture("EventFlow 06")} alt="EventFlow schedule builder on a mobile device" width={2765} height={2445} distance={10} delay={.04} />
+          <ProjectVisual className="eventflow-visual-06" src={picture("EventFewwelow 06")} alt="EventFlow schedule builder on a mobile device" width={2765} height={2445} distance={10} delay={.04} />
           <ProjectStatement text="Fans already know the game. EventFlow handles everything around it, venue, pickup, timing, and the ride itself, as one connected plan." />
-          <ProjectVisual className="eventflow-visual-07" src={picture("EventFlow 07")} alt="EventFlow itinerary confirmation shown on a mobile device" width={2760} height={1806} distance={18} delay={.04} />
+          <div className="eventflow-final-grid">
+            <ProjectVisual className="eventflow-visual-07" src={picture("EventFlow 07")} alt="EventFlow itinerary confirmation shown on a mobile device" width={2760} height={1806} distance={18} delay={.04} />
+            <ProjectVisual className="eventflow-visual-08" src={picture("EvewewentFlow 8")} alt="EventFlow vehicle selection interface" width={1368} height={1806} distance={-14} delay={.1} />
+          </div>
         </div>
 
-        <NextProject projectId={project.nextProjectId} />
+        <NextProject currentSlug={project.slug} />
         <WorkRail className="design-project-work-rail" />
       </main>
       <SiteFooter />

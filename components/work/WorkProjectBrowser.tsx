@@ -2,10 +2,47 @@
 
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { flushSync } from "react-dom";
 import { TiltLink } from "@/components/motion/TiltLink";
+import { ProjectMedia } from "@/components/project/ProjectMedia";
 import { motionEase } from "@/lib/motion";
 import { workProjects, type WorkProject } from "@/lib/workProjects";
+
+const LOOP_COPIES = 3;
+const DESKTOP_STEP_SVH = 65;
+const MOBILE_CARD_GAP = 8;
+const immediateScrollEvent = "portfolio:immediate-scroll";
+const mobileWorkQuery = "(max-width: 767px), (max-height: 500px) and (orientation: landscape)";
+
+const modulo = (value: number, length: number) => ((value % length) + length) % length;
+
+function nearestOccurrence(logicalIndex: number, anchor: number, length: number) {
+  return logicalIndex + Math.round((anchor - logicalIndex) / length) * length;
+}
+
+function scrollImmediately(top: number) {
+  const event = new CustomEvent(immediateScrollEvent, { cancelable: true, detail: { top } });
+  if (window.dispatchEvent(event)) {
+    const root = document.documentElement;
+    const previousBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = "auto";
+    window.scrollTo(0, top);
+    requestAnimationFrame(() => { root.style.scrollBehavior = previousBehavior; });
+  }
+}
+
+function useMobileWorkMode() {
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
+  useLayoutEffect(() => {
+    const query = window.matchMedia(mobileWorkQuery);
+    const update = () => setIsMobile(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+  return isMobile;
+}
 
 function DynamicValue({ value, className = "" }: { value: string; className?: string }) {
   const reduceMotion = useReducedMotion();
@@ -81,7 +118,7 @@ function ProjectCover({ project }: { project: WorkProject }) {
             exit={reduceMotion ? undefined : { clipPath: "inset(0 0 100% 0 round 5px)", scale: .985, y: -4 }}
             transition={{ duration: reduceMotion ? 0 : .34, ease: motionEase.editorial }}
           >
-            <img src={project.resolvedWorkCover} alt={project.thumbnailAlt} draggable={false} />
+            <ProjectMedia project={project} context="work" priority />
             {project.locked && <span className="work-browser-lock">full study locked <img src="/home-design/work-lock.svg" alt="" width="10" height="10" /></span>}
           </motion.span>
         </AnimatePresence>
@@ -92,15 +129,20 @@ function ProjectCover({ project }: { project: WorkProject }) {
 
 function MobileProjects() {
   const reduceMotion = useReducedMotion();
+  const isMobile = useMobileWorkMode();
   const rootRef = useRef<HTMLElement>(null);
   const savedScrollRef = useRef(0);
   const bodyStylesRef = useRef<Partial<CSSStyleDeclaration> | null>(null);
+  const initializedRef = useRef(false);
+  const enteredLoopRef = useRef(false);
+  const metricsRef = useRef({ rootStart: 0, trackOrigin: 0, step: 531, cycle: 531 * workProjects.length, activationLine: 174, virtual: workProjects.length });
   const [activeIndex, setActiveIndex] = useState(0);
   const [compact, setCompact] = useState(false);
   const [allWorkOpen, setAllWorkOpen] = useState(false);
-  const [headerVisible, setHeaderVisible] = useState(true);
+  const [loopLayout, setLoopLayout] = useState({ leading: 242, step: 531, anchor: workProjects.length });
   const activeProject = workProjects[activeIndex] ?? workProjects[0];
   const stickyHeading = allWorkOpen ? "All Work" : activeProject.title;
+  const loopPositions = useMemo(() => workProjects.map((_, index) => nearestOccurrence(index, loopLayout.anchor, workProjects.length)), [loopLayout.anchor]);
 
   const releaseScroll = useCallback((restorePosition = true) => {
     const saved = bodyStylesRef.current;
@@ -117,11 +159,7 @@ function MobileProjects() {
     html.style.overscrollBehavior = saved.overscrollBehavior ?? "";
     bodyStylesRef.current = null;
     if (restorePosition) {
-      const root = document.documentElement;
-      const previousBehavior = root.style.scrollBehavior;
-      root.style.scrollBehavior = "auto";
-      window.scrollTo(0, savedScrollRef.current);
-      requestAnimationFrame(() => { root.style.scrollBehavior = previousBehavior; });
+      scrollImmediately(savedScrollRef.current);
     }
   }, []);
 
@@ -160,66 +198,109 @@ function MobileProjects() {
 
   useEffect(() => () => releaseScroll(false), [releaseScroll]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = rootRef.current;
     if (!root) return;
-    let pollTimer = 0;
-    let lastScroll = Number.NaN;
-    let activationLine = 174;
-    let firstProjectTop = 0;
-    let projectStep = 1;
-    let rootBottom = 0;
-    let projectCount = 0;
+    let frame = 0;
     let delayedMeasure = 0;
 
-    const measure = () => {
+    const measure = (preservePosition: boolean) => {
       const isMobile = window.matchMedia("(max-width: 767px), (max-height: 500px) and (orientation: landscape)").matches;
       if (!isMobile) return;
+      const list = root.querySelector<HTMLElement>(".work-browser-mobile-list");
+      const spacers = root.querySelectorAll<HTMLElement>(".mobile-work-loop-spacer");
+      if (!list || spacers.length < 2 || !workProjects.length) return;
       const nav = document.querySelector<HTMLElement>(".mobile-nav-closed");
       const safeTop = Math.max(0, (nav?.getBoundingClientRect().top ?? 10) - 10);
-      activationLine = safeTop + 174;
-      const projects = Array.from(root.querySelectorAll<HTMLElement>("[data-mobile-project-index]"));
-      if (!projects.length) return;
       const scroll = window.scrollY;
-      const firstRect = projects[0].getBoundingClientRect();
-      const secondRect = projects[1]?.getBoundingClientRect();
-      firstProjectTop = firstRect.top + scroll;
-      projectStep = secondRect ? secondRect.top - firstRect.top : firstRect.height + 8;
-      rootBottom = root.getBoundingClientRect().bottom + scroll;
-      projectCount = projects.length;
-      lastScroll = Number.NaN;
-    };
+      const previous = metricsRef.current;
+      const previousVirtual = (scroll + previous.activationLine - previous.trackOrigin) / previous.step;
+      const listRect = list.getBoundingClientRect();
+      const firstRect = spacers[0].getBoundingClientRect();
+      const secondRect = spacers[1].getBoundingClientRect();
+      const leading = firstRect.top - listRect.top;
+      const step = Math.max(1, secondRect.top - firstRect.top || firstRect.height + MOBILE_CARD_GAP);
+      const rootStart = root.getBoundingClientRect().top + scroll;
+      const activationLine = safeTop + 174;
+      const trackOrigin = rootStart + leading;
+      const cycle = step * workProjects.length;
+      const initialTop = rootStart + cycle;
+      const virtual = initializedRef.current && preservePosition ? previousVirtual : workProjects.length;
 
-    const update = () => {
-      const scroll = window.scrollY;
-      if (scroll !== lastScroll && projectCount) {
-        lastScroll = scroll;
-        const crossedDistance = scroll + activationLine - firstProjectTop;
-        const nextCompact = crossedDistance >= 0;
-        const nextIndex = Math.max(0, Math.min(projectCount - 1, Math.floor(Math.max(0, crossedDistance) / projectStep)));
-        const nextVisible = scroll + activationLine < rootBottom;
-        setCompact((current) => current === nextCompact ? current : nextCompact);
-        setActiveIndex((current) => current === nextIndex ? current : nextIndex);
-        setHeaderVisible((current) => current === nextVisible ? current : nextVisible);
+      metricsRef.current = { rootStart, trackOrigin, step, cycle, activationLine, virtual };
+      setLoopLayout({ leading, step, anchor: Math.round(virtual) });
+
+      if (!initializedRef.current) {
+        initializedRef.current = true;
+        scrollImmediately(initialTop);
+      } else if (preservePosition) {
+        scrollImmediately(trackOrigin + virtual * step - activationLine);
       }
     };
 
-    const resize = () => {
-      measure();
-      update();
-      if (projectCount && !pollTimer) pollTimer = window.setInterval(update, 50);
+    const update = () => {
+      frame = 0;
+      if (!initializedRef.current || !workProjects.length) return;
+      const metrics = metricsRef.current;
+      const scroll = window.scrollY;
+      let virtual = (scroll + metrics.activationLine - metrics.trackOrigin) / metrics.step;
+      let normalizedTop: number | null = null;
+
+      if (virtual < workProjects.length * .35) {
+        virtual += workProjects.length;
+        normalizedTop = scroll + metrics.cycle;
+      } else if (virtual > workProjects.length * 2.65) {
+        virtual -= workProjects.length;
+        normalizedTop = scroll - metrics.cycle;
+      }
+
+      const anchor = Math.round(virtual);
+      const logicalIndex = modulo(Math.floor(virtual), workProjects.length);
+      if (!enteredLoopRef.current && (virtual >= workProjects.length || virtual <= workProjects.length - .25)) enteredLoopRef.current = true;
+      const nextCompact = enteredLoopRef.current;
+      metrics.virtual = virtual;
+
+      if (normalizedTop !== null) {
+        flushSync(() => {
+          setLoopLayout((current) => current.anchor === anchor ? current : { ...current, anchor });
+          setActiveIndex((current) => current === logicalIndex ? current : logicalIndex);
+          setCompact((current) => current === nextCompact ? current : nextCompact);
+        });
+        scrollImmediately(normalizedTop);
+        return;
+      }
+
+      setLoopLayout((current) => current.anchor === anchor ? current : { ...current, anchor });
+      setActiveIndex((current) => current === logicalIndex ? current : logicalIndex);
+      setCompact((current) => current === nextCompact ? current : nextCompact);
     };
-    resize();
-    delayedMeasure = window.setTimeout(resize, 180);
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", resize, { passive: true });
+
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    const onResize = () => measure(true);
+
+    measure(false);
+    delayedMeasure = window.setTimeout(() => measure(true), 180);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize, { passive: true });
     return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", resize);
-      window.clearInterval(pollTimer);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
       window.clearTimeout(delayedMeasure);
+      if (frame) cancelAnimationFrame(frame);
     };
   }, []);
+
+  const selectProject = useCallback((index: number) => {
+    const metrics = metricsRef.current;
+    const occurrence = nearestOccurrence(index, metrics.virtual, workProjects.length);
+    const target = metrics.trackOrigin + occurrence * metrics.step - metrics.activationLine + 1;
+    enteredLoopRef.current = true;
+    setAllWorkOpen(false);
+    releaseScroll(false);
+    scrollImmediately(target);
+  }, [releaseScroll]);
 
   useEffect(() => {
     if (!allWorkOpen) return;
@@ -235,10 +316,7 @@ function MobileProjects() {
 
   return (
     <section ref={rootRef} className="work-browser-mobile" aria-labelledby="mobile-work-title" data-compact={compact} data-menu-open={allWorkOpen}>
-      <div
-        className="mobile-work-heading"
-        data-visible={headerVisible || allWorkOpen}
-      >
+      <div className="mobile-work-heading" data-visible="true">
         <motion.h1
           className="mobile-work-origin-title"
           id="mobile-work-title"
@@ -268,7 +346,7 @@ function MobileProjects() {
         aria-hidden="true"
         className="mobile-work-foreground-mask"
         initial={false}
-        animate={{ opacity: compact && !allWorkOpen && headerVisible ? 1 : 0 }}
+        animate={{ opacity: compact && !allWorkOpen ? 1 : 0 }}
         transition={{ duration: reduceMotion ? 0 : .2, ease: motionEase.editorial }}
       >
         <img src="/work-mobile-header-mask.svg" alt="" />
@@ -280,7 +358,7 @@ function MobileProjects() {
         aria-label={allWorkOpen ? "Close all work" : "Open all work"}
         aria-expanded={allWorkOpen}
         aria-controls="mobile-all-work-index"
-        data-visible={(compact && headerVisible) || allWorkOpen}
+        data-visible={compact || allWorkOpen}
         onClick={toggleAllWork}
         whileTap={reduceMotion ? undefined : { opacity: .72 }}
       >
@@ -288,21 +366,20 @@ function MobileProjects() {
       </motion.button>
 
       <div className="work-browser-mobile-list" aria-label="Selected work">
+        <div className="mobile-work-loop-spacers" aria-hidden="true">
+          {Array.from({ length: workProjects.length * LOOP_COPIES }, (_, index) => <span className="mobile-work-loop-spacer" key={index} />)}
+        </div>
         {workProjects.map((project, index) => (
           <Link
             className="mobile-work-project"
             data-mobile-project-index={index}
+            data-loop-position={loopPositions[index]}
             href={project.href}
             key={project.slug}
             aria-label={`${project.locked ? "Preview" : "View"} ${project.title}`}
+            style={{ top: loopLayout.leading + loopPositions[index] * loopLayout.step }}
           >
-            <img
-              src={project.resolvedFeaturedThumbnail}
-              alt={project.thumbnailAlt}
-              loading={index === 0 ? "eager" : "lazy"}
-              fetchPriority={index === 0 ? "high" : "auto"}
-              draggable={false}
-            />
+            {isMobile ? <ProjectMedia project={project} context="work" priority={index === 0} /> : null}
           </Link>
         ))}
       </div>
@@ -329,7 +406,7 @@ function MobileProjects() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: reduceMotion ? 0 : .2, delay: reduceMotion ? 0 : index * .025, ease: motionEase.editorial }}
                 >
-                  <Link href={project.href} onClick={() => releaseScroll(true)}>{project.pillLabel ?? project.title}</Link>
+                  <button type="button" onClick={() => selectProject(index)}>{project.pillLabel ?? project.title}</button>
                 </motion.div>
               ))}
             </nav>
@@ -341,6 +418,7 @@ function MobileProjects() {
 }
 
 export function WorkProjectBrowser() {
+  const isMobile = useMobileWorkMode();
   const runwayRef = useRef<HTMLElement>(null);
   const activeRef = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -349,42 +427,44 @@ export function WorkProjectBrowser() {
   const displayIndex = focusIndex ?? hoverIndex ?? activeIndex;
   const displayedProject = workProjects[displayIndex];
 
-  useEffect(() => {
-    const nearby = [displayIndex - 1, displayIndex, displayIndex + 1]
-      .map((index) => workProjects[index]?.resolvedWorkCover)
-      .filter((src): src is string => Boolean(src));
-    nearby.forEach((src) => { const image = new window.Image(); image.src = src; });
-  }, [displayIndex]);
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     const node = runwayRef.current;
-    if (!node) return;
+    if (!node || !workProjects.length) return;
     let frame = 0;
     let settleTimer = 0;
 
     const metrics = () => {
       const start = node.offsetTop;
       const range = Math.max(1, node.offsetHeight - window.innerHeight);
-      const progress = Math.min(1, Math.max(0, (window.scrollY - start) / range));
-      return { start, range, progress };
+      const step = range / (workProjects.length * LOOP_COPIES);
+      const cycle = step * workProjects.length;
+      const virtual = (window.scrollY - start) / step;
+      return { start, range, step, cycle, virtual };
     };
     const update = () => {
       frame = 0;
-      if (window.matchMedia("(max-width: 767px)").matches) return;
-      const { progress } = metrics();
-      const rawIndex = progress * (workProjects.length - 1);
-      const next = Math.round(rawIndex);
-      if (next !== activeRef.current && Math.abs(rawIndex - activeRef.current) > .54) {
+      if (window.matchMedia(mobileWorkQuery).matches) return;
+      const { cycle, virtual } = metrics();
+      let normalizedVirtual = virtual;
+      let normalizedTop: number | null = null;
+      if (virtual < workProjects.length * .35) {
+        normalizedVirtual += workProjects.length;
+        normalizedTop = window.scrollY + cycle;
+      } else if (virtual > workProjects.length * 2.65) {
+        normalizedVirtual -= workProjects.length;
+        normalizedTop = window.scrollY - cycle;
+      }
+      const next = modulo(Math.round(normalizedVirtual), workProjects.length);
+      if (next !== activeRef.current) {
         activeRef.current = next;
         setActiveIndex(next);
       }
+      if (normalizedTop !== null) scrollImmediately(normalizedTop);
     };
     const settle = () => {
-      if (window.matchMedia("(max-width: 767px), (prefers-reduced-motion: reduce)").matches) return;
-      const { start, range, progress } = metrics();
-      if (progress <= 0 || progress >= 1) return;
-      const nearest = Math.round(progress * (workProjects.length - 1)) / (workProjects.length - 1);
-      const target = start + nearest * range;
+      if (window.matchMedia(`${mobileWorkQuery}, (prefers-reduced-motion: reduce)`).matches) return;
+      const { start, step, virtual } = metrics();
+      const target = start + Math.round(virtual) * step;
       const distance = Math.abs(target - window.scrollY);
       if (distance > 3 && distance < 72) window.scrollTo({ top: target, behavior: "smooth" });
     };
@@ -394,7 +474,11 @@ export function WorkProjectBrowser() {
       settleTimer = window.setTimeout(settle, 180);
     };
 
-    update();
+    if (!window.matchMedia(mobileWorkQuery).matches) {
+      const { start, cycle } = metrics();
+      scrollImmediately(start + cycle);
+      update();
+    }
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll, { passive: true });
     return () => {
@@ -407,17 +491,17 @@ export function WorkProjectBrowser() {
 
   return (
     <>
-      <section ref={runwayRef} className="work-browser-runway" style={{ "--work-runway-height": `${100 + (workProjects.length - 1) * 65}svh` } as CSSProperties} aria-label="Selected work browser">
+      <section ref={runwayRef} className="work-browser-runway" style={{ "--work-runway-height": `${100 + workProjects.length * LOOP_COPIES * DESKTOP_STEP_SVH}svh` } as CSSProperties} aria-label="Selected work browser">
         <div className="work-browser-sticky">
           <div className="work-browser-stage">
             <ProjectMeta project={displayedProject} />
             <div className="work-browser-presentation">
               <ProjectRail activeIndex={activeIndex} displayIndex={displayIndex} setHoverIndex={setHoverIndex} setFocusIndex={setFocusIndex} />
-              <div className="work-browser-canvas"><ProjectCover project={displayedProject} /></div>
+              <div className="work-browser-canvas">{isMobile === false ? <ProjectCover project={displayedProject} /> : null}</div>
             </div>
           </div>
         </div>
-        <div className="work-browser-steps" aria-hidden="true">{workProjects.map((project) => <span key={project.slug} />)}</div>
+        <div className="work-browser-steps" aria-hidden="true">{Array.from({ length: workProjects.length * LOOP_COPIES }, (_, index) => <span key={index} />)}</div>
       </section>
       <MobileProjects />
     </>

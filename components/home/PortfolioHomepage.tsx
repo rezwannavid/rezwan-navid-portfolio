@@ -14,8 +14,9 @@ import { TiltLink } from "@/components/motion/TiltLink";
 import { VideoFeature } from "@/components/home/VideoFeature";
 import { WorkRail } from "@/components/home/WorkRail";
 import { EditorialLinks } from "@/components/home/EditorialLinks";
+import { ProjectMedia } from "@/components/project/ProjectMedia";
 import { motionEase, physicalSpring } from "@/lib/motion";
-import { featuredProjectIds, projectRegistry } from "@/lib/projectRegistry";
+import { featuredProjects } from "@/lib/projectRegistry";
 import { MobileHomepage } from "@/components/home/MobileHomepage";
 import { HomeIntroProvider, useHomeIntroCard } from "@/components/home/HomeIntro";
 
@@ -101,15 +102,13 @@ function HumanUnderstandingSection() {
   );
 }
 
-const featured = featuredProjectIds.map((id) => projectRegistry[id]);
-
 function FeaturedWorkSection() {
   return (
     <section className="featured-section" aria-labelledby="featured-title">
       <div className="home-shell featured-layout">
         <h2 id="featured-title" className="featured-sticky"><AnimatedWords text="featured" /><AnimatedWords text="work" delay={.06} /></h2>
         <div className="featured-list">
-          {featured.map((project, index) => (
+          {featuredProjects.map((project, index) => (
             <motion.article
               className="featured-project"
               key={project.title}
@@ -122,9 +121,9 @@ function FeaturedWorkSection() {
                 <RevealMedia className="featured-reveal" delay={.04}>
                   <span className="featured-media-mask">
                     <ParallaxMedia className="featured-scroll-depth" distance={12} velocityResponse>
-                      <Image unoptimized src={project.resolvedFeaturedThumbnail} alt={project.thumbnailAlt} width={2764} height={1856} sizes="(min-width: 1000px) 691px, 70vw" />
+                      <ProjectMedia project={project} context="homepage" priority={index === 0} />
                     </ParallaxMedia>
-                    <span className="featured-lock">Case study locked</span>
+                    {project.locked ? <span className="featured-lock">Case study locked</span> : null}
                   </span>
                 </RevealMedia>
               </TiltLink>
