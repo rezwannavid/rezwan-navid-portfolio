@@ -9,7 +9,7 @@ import { Magnetic } from "@/components/motion/Magnetic";
 import { ParallaxMedia } from "@/components/motion/ParallaxMedia";
 import { TiltLink } from "@/components/motion/TiltLink";
 import { ProtectedProjectGate } from "@/components/work/ProtectedProjectGate";
-import { NextProject } from "@/components/work/design-project/DesignProjectPrimitives";
+import { CaseStudyShell, NextProject } from "@/components/work/design-project/DesignProjectPrimitives";
 import { motionEase } from "@/lib/motion";
 
 export type ProtectedCaseStudyData = {
@@ -39,7 +39,7 @@ export function ProtectedCaseStudy({ data }: { data: ProtectedCaseStudyData }) {
   return (
     <main className="protected-case-main">
       <section className="protected-case-preview" aria-labelledby="protected-case-title">
-        <div className="protected-case-shell protected-case-header">
+        <CaseStudyShell className="protected-case-header">
           <h1 id="protected-case-title"><AnimatedWords text={data.title} mode="load" delay={.1} /></h1>
           <dl className="protected-meta-left">
             <MetadataField label="Role" value={data.role} delay={.18} />
@@ -50,24 +50,28 @@ export function ProtectedCaseStudy({ data }: { data: ProtectedCaseStudyData }) {
             <div className="protected-team"><motion.dt initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .48, delay: .4, ease: motionEase.editorial }}>Team</motion.dt><dd>{data.team.map(({ label, value }, index) => <motion.span key={label} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .42, delay: .47 + index * .04, ease: motionEase.editorial }}><i>{label} </i>{value}{index < data.team.length - 1 ? ", " : ""}</motion.span>)}</dd></div>
           </dl>
           <p className="protected-statement"><AnimatedLines text={data.statement} delay={.4} /></p>
-        </div>
+        </CaseStudyShell>
 
-        <motion.div className="protected-preview-hero protected-case-shell" data-project-transition-hero={data.slug} initial={{ opacity: 0, y: 24, scale: .985, clipPath: "inset(5% 0 7% 0 round 6px)" }} animate={{ opacity: 1, y: 0, scale: 1, clipPath: "inset(0% 0 0% 0 round 6px)" }} transition={{ duration: .88, delay: .58, ease: motionEase.editorial }}>
-          <TiltLink href="#protected-access" className="protected-preview-link" ariaLabel="Go to password access for the full case study" cursorLabel="Unlock" maxRotate={2.4} maxTranslate={2}>
-            <span className="protected-preview-mask"><img src={hero.src} alt={hero.alt} style={{ objectPosition: hero.objectPosition ?? "center" }} /></span>
-          </TiltLink>
-        </motion.div>
+        <CaseStudyShell>
+          <motion.div className="protected-preview-hero" data-project-transition-hero={data.slug} initial={{ opacity: 0, y: 24, scale: .985, clipPath: "inset(5% 0 7% 0 round 6px)" }} animate={{ opacity: 1, y: 0, scale: 1, clipPath: "inset(0% 0 0% 0 round 6px)" }} transition={{ duration: .88, delay: .58, ease: motionEase.editorial }}>
+            <TiltLink href="#protected-access" className="protected-preview-link" ariaLabel="Go to password access for the full case study" cursorLabel="Unlock" maxRotate={2.4} maxTranslate={2}>
+              <span className="protected-preview-mask"><img src={hero.src} alt={hero.alt} style={{ objectPosition: hero.objectPosition ?? "center" }} /></span>
+            </TiltLink>
+          </motion.div>
+        </CaseStudyShell>
 
-        {teasers.length > 0 && <div className="protected-teasers protected-case-shell">{teasers.map((image, index) => <ParallaxMedia key={image.src} className="protected-teaser" distance={image.depth ?? 10 + index * 4} reveal revealDelay={index * .08}><img src={image.src} alt={image.alt} style={{ objectPosition: image.objectPosition ?? "center" }} /></ParallaxMedia>)}</div>}
+        {teasers.length > 0 && <CaseStudyShell className="protected-teasers">{teasers.map((image, index) => <ParallaxMedia key={image.src} className="protected-teaser" distance={image.depth ?? 10 + index * 4} reveal revealDelay={index * .08}><img src={image.src} alt={image.alt} style={{ objectPosition: image.objectPosition ?? "center" }} /></ParallaxMedia>)}</CaseStudyShell>}
       </section>
 
       <ProtectedProjectGate slug={data.slug} />
 
       <NextProject currentSlug={data.slug} />
 
-      <motion.div className="protected-see-work protected-case-shell" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .5 }} transition={{ duration: .58, ease: motionEase.editorial }}>
-        <Link href="/work" data-cursor="Open"><Magnetic strength={3}><span>see other work</span><EditorialArrow magnetic /></Magnetic></Link>
-      </motion.div>
+      <CaseStudyShell>
+        <motion.div className="protected-see-work" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .5 }} transition={{ duration: .58, ease: motionEase.editorial }}>
+          <Link href="/work" data-cursor="Open"><Magnetic strength={3}><span>see other work</span><EditorialArrow magnetic /></Magnetic></Link>
+        </motion.div>
+      </CaseStudyShell>
 
       <ContactCTA variant="portfolio" />
     </main>

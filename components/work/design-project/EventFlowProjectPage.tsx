@@ -3,6 +3,7 @@
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { WorkRail } from "@/components/home/WorkRail";
 import {
+  CaseStudyShell,
   NextProject,
   ProjectCaption,
   ProjectIntro,
@@ -31,7 +32,7 @@ export function EventFlowProjectPage() {
           }}
         />
 
-        <div className="eventflow-composition">
+        <CaseStudyShell className="eventflow-composition">
           <ProjectVisual className="eventflow-visual-01" src={project.hero} alt={project.thumbnailAlt} width={4316} height={2336} distance={20} delay={.06} priority projectId={project.id} />
 
           <div className="eventflow-editorial-grid">
@@ -49,10 +50,10 @@ export function EventFlowProjectPage() {
             <ProjectVisual className="eventflow-visual-07" src={picture("EventFlow 07")} alt="EventFlow itinerary confirmation shown on a mobile device" width={2760} height={1806} distance={18} delay={.04} />
             <ProjectVisual className="eventflow-visual-08" src={picture("EvewewentFlow 8")} alt="EventFlow vehicle selection interface" width={1368} height={1806} distance={-14} delay={.1} />
           </div>
-        </div>
+        </CaseStudyShell>
 
         <NextProject currentSlug={project.slug} />
-        <WorkRail className="design-project-work-rail" />
+        <WorkRail shell="case-study" className="design-project-work-rail" />
       </main>
       <SiteFooter />
     </div>

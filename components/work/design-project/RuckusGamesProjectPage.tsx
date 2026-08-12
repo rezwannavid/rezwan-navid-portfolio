@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { AnimatedLines } from "@/components/motion/AnimatedLines";
 import { AnimatedWords } from "@/components/motion/AnimatedWords";
 import { RevealMedia } from "@/components/motion/RevealMedia";
-import { NextProject, ProjectVisual } from "@/components/work/design-project/DesignProjectPrimitives";
+import { CaseStudyShell, NextProject, ProjectVisual } from "@/components/work/design-project/DesignProjectPrimitives";
 import { motionEase } from "@/lib/motion";
 import { getProject } from "@/lib/projectRegistry";
 
@@ -77,7 +77,7 @@ export function RuckusGamesProjectPage() {
   return (
     <div className="home-page design-project-page ruckus-project-page">
       <main>
-        <section className="ruckus-intro" aria-labelledby="ruckus-title">
+        <CaseStudyShell as="section" className="ruckus-intro" aria-labelledby="ruckus-title">
           <h1 id="ruckus-title"><AnimatedWords text={project.title} mode="load" delay={.17} stagger={.055} /></h1>
           <div className="ruckus-meta-row">
             <Meta className="ruckus-meta-year" label="Year" delay={.05}>{project.year}</Meta>
@@ -86,9 +86,9 @@ export function RuckusGamesProjectPage() {
             <Meta className="ruckus-meta-type" label="Type" delay={.17}>Product Exploration with AI</Meta>
             <Meta className="ruckus-meta-made" label="How it was made" delay={.13}>Claude, Cursor, Vercel, Figma, Railway, v0</Meta>
           </div>
-        </section>
+        </CaseStudyShell>
 
-        <div className="ruckus-composition">
+        <CaseStudyShell className="ruckus-composition">
           <ProjectVisual className="ruckus-hero" src={media("EventFlow 01.png")} alt={project.thumbnailAlt} width={4447} height={2625} distance={18} delay={.05} priority projectId={project.id} />
 
           <p className="ruckus-opening"><AnimatedLines text="A free multiplayer party-game platform that makes game nights effortless. Players can instantly join from their phones, no app download required, and enjoy fast, social experiences designed to bring friends together." delay={.08} /></p>
@@ -122,10 +122,10 @@ export function RuckusGamesProjectPage() {
             <ProjectVisual className="ruckus-feedback-v1" src={media("Frame 1000004836.png")} alt="First version of the Ruckus voting screen" width={1832} height={3056} distance={8} delay={.03} />
             <ProjectVisual className="ruckus-feedback-v2" src={media("Frame 1000004837.png")} alt="Second version of the Ruckus voting screen with stronger visual cues" width={1836} height={3056} distance={-8} delay={.09} />
           </div>
-        </div>
+        </CaseStudyShell>
 
         <NextProject currentSlug={project.slug} />
-        <WorkRail className="design-project-work-rail" />
+        <WorkRail shell="case-study" className="design-project-work-rail" />
       </main>
       <SiteFooter />
     </div>

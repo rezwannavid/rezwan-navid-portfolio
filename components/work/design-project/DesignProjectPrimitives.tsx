@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
-import type { ReactNode } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
 import { AnimatedLines } from "@/components/motion/AnimatedLines";
 import { AnimatedWords } from "@/components/motion/AnimatedWords";
 import { ParallaxMedia } from "@/components/motion/ParallaxMedia";
@@ -18,6 +18,14 @@ export type DesignProjectMetadata = {
   responsibilities: string;
   team: ReactNode;
 };
+
+type CaseStudyShellProps = HTMLAttributes<HTMLElement> & {
+  as?: "div" | "section";
+};
+
+export function CaseStudyShell({ as: Tag = "div", className = "", children, ...props }: CaseStudyShellProps) {
+  return <Tag className="case-study-shell" {...props}><div className={className}>{children}</div></Tag>;
+}
 
 function MetadataField({ label, children, className = "", delay = 0 }: { label: string; children: ReactNode; className?: string; delay?: number }) {
   const reduceMotion = useReducedMotion();
@@ -36,7 +44,7 @@ function MetadataField({ label, children, className = "", delay = 0 }: { label: 
 
 export function ProjectIntro({ title, description, metadata }: { title: string; description: string; metadata: DesignProjectMetadata }) {
   return (
-    <section className="design-project-intro" aria-labelledby="design-project-title">
+    <CaseStudyShell as="section" className="design-project-intro" aria-labelledby="design-project-title">
       <h1 id="design-project-title"><AnimatedWords text={title} mode="load" delay={.17} stagger={.055} /></h1>
       <div className="design-project-meta-left">
         <MetadataField label="Role" delay={.05}>{metadata.role}</MetadataField>
@@ -50,7 +58,7 @@ export function ProjectIntro({ title, description, metadata }: { title: string; 
         <MetadataField label="Team" delay={.17}>{metadata.team}</MetadataField>
       </div>
       <p className="design-project-description"><AnimatedLines text={description} delay={.24} /></p>
-    </section>
+    </CaseStudyShell>
   );
 }
 

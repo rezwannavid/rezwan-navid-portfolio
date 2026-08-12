@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { Magnetic } from "@/components/motion/Magnetic";
+import { CaseStudyShell } from "@/components/work/design-project/DesignProjectPrimitives";
 import { motionEase } from "@/lib/motion";
 
 export function ProtectedProjectGate({ slug }: { slug: string }) {
@@ -45,7 +46,7 @@ export function ProtectedProjectGate({ slug }: { slug: string }) {
   }
 
   return (
-    <section id="protected-access" className="protected-access protected-case-shell" aria-labelledby="protected-access-label">
+    <CaseStudyShell as="section" id="protected-access" className="protected-access" aria-labelledby="protected-access-label">
       <p id="protected-access-label" className="protected-access-label">This case study is protected <img src="/home-design/work-lock.svg" alt="" width="14" height="14" /></p>
       <form className="protected-gate-row" onSubmit={submit} noValidate>
         <motion.div className="protected-password-field" key={errorKey} animate={status === "error" && !reduceMotion ? { x: [0, -3, 3, -2, 2, 0] } : { x: 0 }} transition={{ duration: .32, ease: motionEase.snappy }}>
@@ -57,6 +58,6 @@ export function ProtectedProjectGate({ slug }: { slug: string }) {
         </motion.button>
         <span id="password-message" className="sr-only" aria-live="polite">{status === "error" ? "That password didn’t match" : status === "success" ? "Access granted. Opening the full case study." : ""}</span>
       </form>
-    </section>
+    </CaseStudyShell>
   );
 }

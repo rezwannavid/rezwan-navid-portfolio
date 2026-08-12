@@ -131,10 +131,10 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
     seoTitle: "RideCentric Design System — Mobility Product Systems", seoDescription: "A scalable mobility design system connecting product patterns, tokens and teams.",
   },
   tygrlabs: {
-    id: "tygrlabs", slug: "tygrlabs", title: "TygrLabs", shortDescription: "A flexible identity system for a product studio working across strategy and technology.", role: "Product Designer", year: "2023", href: "/work/tygrlabs", protected: false,
-    published: false, featured: false, media: { fallback: { type: "asset", src: "/home-design/experience-banner.png?v=2" } },
-    hero: "/home-design/experience-banner.png?v=2", placeholder: true, thumbnailAlt: "TygrLabs brand identity system", categories: ["brand", "design-system"], categoryLabel: "Brand", client: "TygrLabs", locked: false, indexable: false,
-    seoTitle: "TygrLabs — Brand Identity System", seoDescription: "A flexible identity system for a product studio working across strategy and technology.",
+    id: "tygrlabs", slug: "tygrlabs", title: "TygrLabs", shortDescription: "A new identity for a product studio working across design, technology, and emerging ideas.", role: "Design Direction, Brand, Motion & Interface", year: "2024", timeline: "8 weeks", productType: "Brand System Refresh", href: "/work/tygrlabs", protected: false,
+    published: true, featured: false, workOrder: 6, media: { fallback: { type: "asset", src: "/Tygrlabs Pictures/opening-hero.png" } },
+    hero: "/Tygrlabs Pictures/opening-hero.png", placeholder: false, thumbnailAlt: "TygrLabs identity mark over a red, green, yellow, and warm neutral gradient", categories: ["brand", "design-system"], categoryLabel: "Brand", client: "TygrLabs", locked: false, indexable: true,
+    seoTitle: "TygrLabs — Brand System Refresh", seoDescription: "Design direction, brand, motion, and interface for a refreshed TygrLabs identity built to work across products, digital experiences, and emerging ideas.",
   },
   "global-mission-summit": {
     id: "global-mission-summit", slug: "global-mission-summit", title: "Global Mission Summit", pillLabel: "GMS 2025", shortDescription: "A coherent summit identity and digital experience for a global impact gathering.", role: "Product Manager / Creative Direction", year: "2025", href: "/work/global-mission-summit", protected: false,

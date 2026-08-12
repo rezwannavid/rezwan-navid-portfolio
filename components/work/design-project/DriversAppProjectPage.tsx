@@ -5,6 +5,7 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { AnimatedLines } from "@/components/motion/AnimatedLines";
 import { ParallaxMedia } from "@/components/motion/ParallaxMedia";
 import {
+  CaseStudyShell,
   NextProject,
   ProjectIntro,
   ProjectVisual,
@@ -77,7 +78,7 @@ export function DriversAppProjectPage() {
           }}
         />
 
-        <div className="drivers-composition">
+        <CaseStudyShell className="drivers-composition">
           <ProjectVisual
             className="drivers-hero"
             src={media("Drivers Hero")}
@@ -112,10 +113,10 @@ export function DriversAppProjectPage() {
             <ProjectVisual native className="drivers-ride-complete" src={media("Ride Complete")} alt="Ride completion and driver note screens" width={457} height={477} distance={8} delay={.03} />
             <ProjectVisual native className="drivers-home-screen" src={media("Home Screen")} alt="RC Driver app icon on an iPhone home screen" width={457} height={477} distance={-8} delay={.08} />
           </div>
-        </div>
+        </CaseStudyShell>
 
         <NextProject currentSlug={project.slug} />
-        <WorkRail className="design-project-work-rail" />
+        <WorkRail shell="case-study" className="design-project-work-rail" />
       </main>
       <SiteFooter />
     </div>

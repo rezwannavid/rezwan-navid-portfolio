@@ -9,6 +9,7 @@ import { DriversAppProjectPage } from "@/components/work/design-project/DriversA
 import { FodoProjectPage } from "@/components/work/design-project/FodoProjectPage";
 import { GmiCompanionProjectPage } from "@/components/work/design-project/GmiCompanionProjectPage";
 import { RuckusGamesProjectPage } from "@/components/work/design-project/RuckusGamesProjectPage";
+import { TygrlabsProjectPage } from "@/components/work/design-project/TygrlabsProjectPage";
 import { createPageMetadata } from "@/lib/metadata";
 import { breadcrumbSchema, pageSchema, schemaIds, webPageSchema } from "@/lib/structuredData";
 import { absoluteUrl, projects } from "@/lib/site";
@@ -79,6 +80,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   if (slug === "fodo") return <FodoProjectPage />;
   if (slug === "gmi-companion") return <GmiCompanionProjectPage />;
   if (slug === "ruckus-games") return <RuckusGamesProjectPage />;
+  if (slug === "tygrlabs") return <TygrlabsProjectPage />;
 
   const path = `/work/${project.slug}`;
   const title = workProject?.seoTitle ?? `${project.title} — Case Study Preview`;

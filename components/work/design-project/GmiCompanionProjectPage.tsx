@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { AnimatedLines } from "@/components/motion/AnimatedLines";
 import { AnimatedWords } from "@/components/motion/AnimatedWords";
 import { RevealMedia } from "@/components/motion/RevealMedia";
-import { NextProject, ProjectVisual } from "@/components/work/design-project/DesignProjectPrimitives";
+import { CaseStudyShell, NextProject, ProjectVisual } from "@/components/work/design-project/DesignProjectPrimitives";
 import { motionEase } from "@/lib/motion";
 import { getProject } from "@/lib/projectRegistry";
 
@@ -66,15 +66,15 @@ export function GmiCompanionProjectPage() {
   return (
     <div className="home-page design-project-page gmi-project-page">
       <main>
-        <section className="gmi-intro" aria-labelledby="gmi-title">
+        <CaseStudyShell as="section" className="gmi-intro" aria-labelledby="gmi-title">
           <h1 id="gmi-title"><AnimatedWords text="GMI Companion" mode="load" delay={.17} stagger={.055} /></h1>
           <Meta className="gmi-meta-year" label="Year" delay={.05}>2026</Meta>
           <Meta className="gmi-meta-company" label="Platform" delay={.09}>Web, Mobile</Meta>
           <Meta className="gmi-meta-skills" label="Role" delay={.13}>Design Direction, Interface Design, Brand &amp; Motion</Meta>
           <p className="gmi-intro-copy"><AnimatedLines delay={.22} text="GMI Companion brings guidance, resources, organizational context, and AI-powered support into one connected experience for mission-driven organizations." /></p>
-        </section>
+        </CaseStudyShell>
 
-        <div className="gmi-composition">
+        <CaseStudyShell className="gmi-composition">
           <ProjectVisual native className="gmi-hero" src={media("Hero")} alt="GMI Companion identity across a red and blue motion gradient" width={2158} height={1080} distance={18} delay={.05} priority projectId={project.id} />
 
           <EditorialCopy className="gmi-motion-copy">Motion is treated as part of the product language rather than decoration. Light, color, transitions, and the Companion spark create a recognizable rhythm while communicating moments of listening, thinking, transition, and response.</EditorialCopy>
@@ -106,10 +106,10 @@ export function GmiCompanionProjectPage() {
             <EditorialCopy className="gmi-identity-copy">The visual system balances institutional credibility with a more expressive digital character. Typography, contrast, scale, restrained surfaces, and moments of bold expression work together to create an experience that feels distinctly GMI while giving Companion an identity of its own.</EditorialCopy>
             <ProjectVisual native className="gmi-identity" src={media("Identity")} alt="GMI Companion identity construction and brand lockups" width={1186} height={1260} distance={-8} delay={.06} />
           </div>
-        </div>
+        </CaseStudyShell>
 
         <NextProject currentSlug={project.slug} />
-        <WorkRail className="design-project-work-rail" />
+        <WorkRail shell="case-study" className="design-project-work-rail" />
       </main>
       <SiteFooter />
     </div>

@@ -468,3 +468,20 @@ The homepage is complete only when:
 - There is no horizontal overflow
 - Keyboard navigation works
 - The build, type-check, and lint commands pass
+
+---
+
+## 16. Case-study layout architecture
+
+Every editorial case study must use `CaseStudyShell` for its outer canvas. The shell is the sole owner of page-level centering, desktop capping, and responsive gutters:
+
+- Desktop maximum: `1280px`
+- Desktop gutter: `80px` once the reference canvas has room to fit
+- Tablet gutter: `32px`
+- Mobile gutter: `20px`
+
+Between tablet and the 1280px reference viewport, the active gutter interpolates smoothly so the shell does not jump at a breakpoint. At 1280px the shell is 1120px wide; it then grows to its 1280px cap at 1440px and remains capped on larger displays.
+
+Project pages own only their internal composition. Root project sections must not introduce a competing `max-width`, viewport-width formula, fixed desktop canvas, or `transform: scale()` workaround. Express internal columns, image grids, and art-directed offsets as percentages or aspect ratios relative to the shared shell.
+
+The intro, main editorial composition, protected-case preview/access areas, and case-study work rail must all inherit this shared canvas. `NextProject` remains a shared dynamic component driven by the published-project registry; project `published` and `featured` flags remain independent.

@@ -20,9 +20,9 @@ function ProjectImage({ project, state }: { project: ResolvedProject; state: "pr
   );
 }
 
-export function WorkRail({ className = "" }: { className?: string }) {
+export function WorkRail({ className = "", shell = "home" }: { className?: string; shell?: "home" | "case-study" }) {
   return (
-    <section className={`work-rail home-shell ${className}`.trim()} aria-label="See all work">
+    <section className={`work-rail ${shell === "case-study" ? "case-study-shell" : "home-shell"} ${className}`.trim()} aria-label="See all work">
       <span className="work-rail-thumbnails">
         {projectPairs.map(([primaryProject, alternateProject], index) => {
           const direction = index % 2 === 0 ? "up" : "down";

@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { AnimatedLines } from "@/components/motion/AnimatedLines";
 import { AnimatedWords } from "@/components/motion/AnimatedWords";
 import { FodoCommentWall } from "@/components/work/design-project/FodoCommentWall";
-import { NextProject, ProjectVisual } from "@/components/work/design-project/DesignProjectPrimitives";
+import { CaseStudyShell, NextProject, ProjectVisual } from "@/components/work/design-project/DesignProjectPrimitives";
 import { motionEase } from "@/lib/motion";
 import { getProject } from "@/lib/projectRegistry";
 
@@ -31,7 +31,7 @@ export function FodoProjectPage() {
   return (
     <div className="home-page design-project-page fodo-project-page">
       <main>
-        <section className="fodo-intro" aria-labelledby="fodo-title">
+        <CaseStudyShell as="section" className="fodo-intro" aria-labelledby="fodo-title">
           <h1 id="fodo-title"><AnimatedWords text={project.title} mode="load" delay={.17} stagger={.055} /></h1>
           <div className="fodo-meta-row">
             <Meta className="fodo-meta-year" label="Year" delay={.05}>{project.year}</Meta>
@@ -42,9 +42,9 @@ export function FodoProjectPage() {
             <Meta className="fodo-meta-made" label="How it was made" delay={.13}>{project.madeWith.join(", ")}</Meta>
             <Meta className="fodo-meta-focus" label="Focus" delay={.22}>{project.focus.join(", ")}</Meta>
           </div>
-        </section>
+        </CaseStudyShell>
 
-        <div className="fodo-composition">
+        <CaseStudyShell className="fodo-composition">
           <ProjectVisual className="fodo-hero" src={project.hero} alt={project.thumbnailAlt} width={3305} height={2424} distance={18} delay={.05} priority projectId={project.id} />
 
           <div className="fodo-statement">
@@ -58,12 +58,12 @@ export function FodoProjectPage() {
             <GifVisual name="Cam.gif" alt="Fodo tactile camera controls in motion" className="fodo-gif" delay={.07} />
             <GifVisual name="Round.gif" alt="Fodo camera dial interaction in motion" className="fodo-gif" delay={.14} />
           </div>
-        </div>
+        </CaseStudyShell>
 
         <FodoCommentWall />
 
         <NextProject currentSlug={project.slug} />
-        <WorkRail className="design-project-work-rail" />
+        <WorkRail shell="case-study" className="design-project-work-rail" />
       </main>
       <SiteFooter />
     </div>
