@@ -1262,6 +1262,41 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
 .drivers-final-media .design-project-visual { width: 100%; height: 100%; }
 .drivers-project-page .design-project-next { margin-top: 151px; }
 
+/* HeavyGari — fixed editorial composition from Figma 1164:20352. */
+.heavygari-project-page { min-width: 0; }
+.heavygari-project-page main { overflow: clip; }
+.heavygari-project-page .design-project-intro { height: 651px; }
+.heavygari-composition { width: 96.429%; margin-inline: auto; }
+.heavygari-hero { width: 99.907%; aspect-ratio: 1079 / 584; margin-inline: auto; }
+.heavygari-copy { color: var(--home-ink); font-weight: 500; letter-spacing: .01em; }
+.heavygari-copy .animated-line-word { letter-spacing: inherit !important; }
+.heavygari-project-page .heavygari-opening { width: 85%; margin: 73px 0 0 7.593%; font-size: 22px; line-height: 31px; }
+.heavygari-first-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.192%; width: 85.463%; aspect-ratio: 923 / 602; margin: 90px 0 0 7.222%; }
+.heavygari-first-pair .design-project-visual { width: 100%; height: 100%; }
+.heavygari-project-page .heavygari-journey { width: 63.704%; margin: 91px auto 0; font-size: 20px; line-height: 29px; text-align: center; }
+.heavygari-editorial-stage { position: relative; width: 85.556%; aspect-ratio: 924 / 1584; margin: 97px auto 0; }
+.heavygari-editorial-stage .design-project-visual,
+.heavygari-editorial-stage .heavygari-copy { position: absolute; }
+.heavygari-vehicle { top: 0; left: 0; width: 49.351%; height: 38.005%; }
+.heavygari-statement-card { top: 0; left: 50.541%; width: 49.351%; height: 19.697%; }
+.heavygari-selection-copy { top: 21.78%; left: 58.225%; width: 34.632%; font-size: 16px; line-height: 24px; }
+.heavygari-vehicle-copy { top: 46.97%; left: 6.494%; width: 34.632%; font-size: 16px; line-height: 24px; }
+.heavygari-booking-copy { top: 54.55%; left: 6.494%; width: 34.632%; font-size: 14px; line-height: 21px; }
+.heavygari-booking-management { top: 29.987%; left: 50.541%; width: 49.351%; height: 38.005%; }
+.heavygari-booking-details { top: 61.995%; left: 0; width: 49.351%; height: 38.005%; }
+.heavygari-tracking { top: 68.876%; left: 50.649%; width: 49.351%; height: 31.124%; }
+.heavygari-project-page .heavygari-closing { width: 63.704%; margin: 85px auto 0; font-size: 20px; line-height: 29px; text-align: center; }
+.heavygari-project-page .design-project-next { margin-top: 171px; }
+
+@media (min-width: 768px) and (max-width: 1099px) {
+  .heavygari-project-page .heavygari-opening { margin-top: clamp(52px, 6.85vw, 73px); }
+  .heavygari-first-pair { margin-top: clamp(62px, 8.05vw, 90px); }
+  .heavygari-project-page .heavygari-journey { margin-top: clamp(64px, 8.42vw, 91px); }
+  .heavygari-editorial-stage { margin-top: clamp(72px, 8.98vw, 97px); }
+  .heavygari-selection-copy, .heavygari-vehicle-copy { font-size: clamp(13px, 1.48vw, 16px); line-height: 1.5; }
+  .heavygari-booking-copy { font-size: clamp(11px, 1.3vw, 14px); line-height: 1.5; }
+}
+
 /* GMI Companion — editorial composition from Figma 915:17303. */
 .gmi-project-page { min-width: 0; }
 .gmi-project-page main { overflow: clip; }
@@ -2248,6 +2283,29 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   .drivers-green-detail { order: 5; width: 100%; height: auto; aspect-ratio: 457 / 408; margin-top: 28px; }
   .drivers-final-media { width: 100%; margin-top: 8px; gap: 1.1%; }
   .drivers-project-page .design-project-next { margin-top: 120px; }
+}
+
+/* Keep HeavyGari mobile overrides after the shared project rules. */
+@media (max-width: 767px), (max-height: 500px) and (orientation: landscape) {
+  .heavygari-composition { width: 100%; }
+  .heavygari-hero { width: 100%; }
+  .heavygari-project-page .design-project-intro { height: auto; }
+  .heavygari-project-page .heavygari-opening { width: 100%; margin: 42px 0 0; font-size: 20px; line-height: 27px; }
+  .heavygari-first-pair { width: 100%; margin: 70px 0 0; gap: 1.1%; }
+  .heavygari-project-page .heavygari-journey { width: 100%; margin-top: 58px; padding-inline: 3px; font-size: 17px; line-height: 24px; }
+  .heavygari-editorial-stage { display: flex; width: 100%; aspect-ratio: auto; margin-top: 72px; flex-direction: column; }
+  .heavygari-editorial-stage .design-project-visual,
+  .heavygari-editorial-stage .heavygari-copy { position: relative; inset: auto; width: 100%; height: auto; }
+  .heavygari-vehicle, .heavygari-booking-management, .heavygari-booking-details { aspect-ratio: 456 / 602; }
+  .heavygari-statement-card { aspect-ratio: 456 / 312; margin-top: 8px; }
+  .heavygari-project-page .heavygari-selection-copy,
+  .heavygari-project-page .heavygari-vehicle-copy,
+  .heavygari-project-page .heavygari-booking-copy { margin-top: 28px; font-size: 15px; line-height: 22px; }
+  .heavygari-project-page .heavygari-vehicle-copy { margin-top: 58px; }
+  .heavygari-booking-management, .heavygari-booking-details { margin-top: 58px; }
+  .heavygari-tracking { aspect-ratio: 456 / 493; margin-top: 8px; }
+  .heavygari-project-page .heavygari-closing { width: 100%; margin-top: 58px; padding-inline: 3px; font-size: 17px; line-height: 24px; }
+  .heavygari-project-page .design-project-next { margin-top: 120px; }
 }
 
 /* Keep GMI Companion mobile overrides after the shared project rules. */
