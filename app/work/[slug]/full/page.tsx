@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { notFound, redirect } from "next/navigation";
 import { ContactCTA } from "@/components/home/ContactCTA";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { RideCentricProjectPage } from "@/components/work/design-project/RideCentricProjectPage";
 import { accessCookieName, hasValidAccessToken } from "@/lib/workAccess";
 import { getWorkProject } from "@/lib/workProjects";
 
@@ -20,6 +21,10 @@ export default async function FullProtectedProjectPage({ params }: { params: Pro
   const cookieStore = await cookies();
   const token = cookieStore.get(accessCookieName)?.value;
   if (!hasValidAccessToken(token)) redirect(`/work/${slug}`);
+
+  if (slug === "ridecentric") {
+    return <RideCentricProjectPage />;
+  }
 
   return <div className="home-page protected-full-page"><main className="placeholder-page"><h1>{project.title}</h1><p>{project.shortDescription}</p><p>The complete protected case study is being prepared for this route.</p><Link href="/work">see other work</Link></main><ContactCTA variant="portfolio" /><SiteFooter /></div>;
 }
