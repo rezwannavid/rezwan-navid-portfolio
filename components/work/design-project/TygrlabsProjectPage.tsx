@@ -122,7 +122,7 @@ export function TygrlabsProjectPage() {
 
           <div className="tygr-final-copy">
             <EditorialCopy>The final system gives Tygrlabs a recognizable foundation without locking the brand into a single visual style.</EditorialCopy>
-            <EditorialCopy>It can be precise or expressive, quiet or loud, digital or physical—while still feeling like the same brand.</EditorialCopy>
+            <EditorialCopy>It can be precise or expressive, quiet or loud, digital or physical, while still feeling like the same brand.</EditorialCopy>
             <EditorialCopy>One system. Many expressions.</EditorialCopy>
           </div>
 

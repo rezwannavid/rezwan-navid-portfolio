@@ -1,4 +1,4 @@
-# Codex Implementation Prompt — Rezwan Navid Portfolio Homepage
+# Codex Implementation Prompt, Rezwan Navid Portfolio Homepage
 
 You are implementing the responsive homepage of my personal portfolio from supplied Figma frames, Figma MCP components, design variables, and local assets.
 

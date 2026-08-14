@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const project = projects.find((item) => item.slug === slug);
   if (!project) return {};
   const workProject = getWorkProject(slug);
-  const title = workProject?.seoTitle ?? `${project.title} — Case Study Preview`;
+  const title = workProject?.seoTitle ?? `${project.title}, Case Study Preview`;
   const description = workProject?.seoDescription ?? `A future portfolio case study by Mir Rezwan Navid about ${project.title}.`;
 
   return createPageMetadata({
@@ -85,7 +85,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   if (slug === "heavygari") return <HeavyGariProjectPage />;
 
   const path = `/work/${project.slug}`;
-  const title = workProject?.seoTitle ?? `${project.title} — Case Study Preview`;
+  const title = workProject?.seoTitle ?? `${project.title}, Case Study Preview`;
   const description = workProject?.seoDescription ?? `A future portfolio case study by Mir Rezwan Navid about ${project.title}.`;
   const creativeWork = workProject ? {
     "@type": "CreativeWork",

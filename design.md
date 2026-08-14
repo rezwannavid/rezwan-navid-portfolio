@@ -1,4 +1,4 @@
-# Rezwan Navid Portfolio — Design Specification
+# Rezwan Navid Portfolio, Design Specification
 
 ## 1. Product scope
 

@@ -19,7 +19,7 @@ const introParagraphs = [
 const childhoodParagraphs = [
   "I grew up in Dhaka, and I’ve been designing interfaces long before I knew that “product design” was a job.",
   "Around fourth grade I saw an iPhone for the first time and became obsessed with the idea that anyone could make the things living inside that screen. I started sketching my own apps in school notebooks, imagining what the icons would look like, what happened after you tapped something, and how I would design them differently.",
-  "I didn’t know any design tools, so my first actual interfaces were built in Microsoft PowerPoint. Boxes, gradients, buttons, transitions—whatever I could use to get an idea out of my head and onto a screen.",
+  "I didn’t know any design tools, so my first actual interfaces were built in Microsoft PowerPoint. Boxes, gradients, buttons, transitions, whatever I could use to get an idea out of my head and onto a screen.",
   "What stayed with me wasn’t the tool. It was the feeling of taking something imaginary, giving it structure, and making another person able to see what I was thinking.",
   "Eventually I learned the proper tools. Then UX. Then product strategy. Then systems, code and AI. But in a strange way, I’m still doing the same thing I was doing in those notebooks: trying to understand how something should work, then finding the clearest way to make it real.",
 ];

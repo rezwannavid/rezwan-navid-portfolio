@@ -114,7 +114,7 @@ img { display: block; max-width: 100%; }
   .glass-navbar-surface { background: rgb(10 10 12 / .32); }
 }
 
-/* Persistent global navbar — Figma node 856:40143 */
+/* Persistent global navbar, Figma node 856:40143 */
 .global-navbar { position: fixed; z-index: var(--z-global-navbar); top: 0; left: 0; right: 0; height: 66px; pointer-events: none; }
 .global-navbar-shell {
   position: relative;
@@ -161,7 +161,7 @@ img { display: block; max-width: 100%; }
   .global-navbar-shell, .global-navbar-logo img, .global-navbar-icon, .global-navbar-label { transition-duration: 1ms !important; }
 }
 
-/* Mobile navigation — Figma nodes 932:36552 and 932:36795 */
+/* Mobile navigation, Figma nodes 932:36552 and 932:36795 */
 @media (max-width: 767px), (max-height: 500px) and (orientation: landscape) {
   .global-navbar-desktop { display: none; }
   .mobile-navigation { display: block; }
@@ -199,7 +199,7 @@ img { display: block; max-width: 100%; }
   .mobile-nav-menu-link:focus-visible, .mobile-nav-close:focus-visible, .mobile-nav-trigger:focus-visible, .mobile-nav-home:focus-visible { outline: 1px solid #e7e7e7; outline-offset: 3px; }
 }
 
-/* Mobile homepage — Figma 932:34356 */
+/* Mobile homepage, Figma 932:34356 */
 .mobile-homepage { display: none; }
 
 @media (max-width: 767px), (max-height: 500px) and (orientation: landscape) {
@@ -309,7 +309,7 @@ img { display: block; max-width: 100%; }
   .mobile-identity-card { transform: none !important; }
 }
 
-/* Photography exhibition — Figma node 924:30758 */
+/* Photography exhibition, Figma node 924:30758 */
 .photography-page { position: relative; width: 100%; min-height: var(--viewport-current); overflow: hidden; isolation: isolate; background: #040404; color: #e8e8e8; }
 .photography-title { position: fixed; z-index: 4; top: 102px; left: 50%; width: 280px; height: 174px; translate: -50% 0; pointer-events: none; }
 .photography-title-arc { position: absolute; inset: 0; font-family: var(--font-fraunces); font-size: 29px; line-height: 1; font-weight: 300; font-optical-sizing: none; font-variation-settings: "opsz" 72, "wght" 300, "SOFT" 50, "WONK" 1; }
@@ -681,7 +681,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   .work-card-media:hover .work-card-placeholder { filter: contrast(1.03); }
 }
 
-/* Portfolio homepage — independent Figma-derived token system */
+/* Portfolio homepage, independent Figma-derived token system */
 .home-page {
   --home-canvas: #040404;
   --home-ink: #e7e7e7;
@@ -931,7 +931,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
 .home-contact.is-portfolio .contact-row h2 { width: 443px; line-height: 49px; }
 .home-contact.is-portfolio .contact-row a { height: 111px; }
 
-/* About — Figma 873:27382 */
+/* About, Figma 873:27382 */
 .about-page { min-width: 960px; }
 .about-page main { position: relative; }
 .about-shell { position: relative; width: min(1080px, calc(100% - 2 * var(--home-gutter))); margin-inline: auto; }
@@ -1009,7 +1009,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   }
 }
 
-/* Design projects — EventFlow reference composition (Figma 895:31537) */
+/* Design projects, EventFlow reference composition (Figma 895:31537) */
 .design-project-page { min-width: 0; }
 .design-project-page main { position: relative; }
 .design-project-intro { position: relative; width: 100%; height: 646px; }
@@ -1061,7 +1061,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
 .design-project-work-rail { margin-top: 133px; }
 .design-project-page > .home-site-footer { padding-top: 171px; }
 
-/* Fodo — approved desktop composition and selected Figma comment wall (923:30756) */
+/* Fodo, approved desktop composition and selected Figma comment wall (923:30756) */
 .fodo-intro { position: relative; width: 100%; height: 364px; }
 .fodo-intro h1 { position: absolute; top: 94px; left: calc(50% - 406px); color: #ececec; font-family: var(--home-serif); font-size: 64px; line-height: 54px; font-weight: 400; font-variation-settings: "SOFT" 100, "opsz" 144, "WONK" 1; letter-spacing: -.025em; }
 .fodo-meta-row { position: absolute; top: 177px; left: calc(50% - 406px); width: 812px; height: 116px; }
@@ -1098,7 +1098,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
 .fodo-project-page .design-project-next { margin-top: 119px; }
 .fodo-project-page .design-project-work-rail { margin-top: 133px; }
 
-/* TygrLabs — editorial brand-system composition from Figma 1112:30518. */
+/* TygrLabs, editorial brand-system composition from Figma 1112:30518. */
 .tygr-project-page { min-width: 0; }
 .tygr-project-page main { overflow: clip; }
 .tygr-intro { position: relative; width: 100%; height: 449px; }
@@ -1171,7 +1171,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   .tygr-final-copy { width: 81.78%; }
 }
 
-/* Ruckus Games — desktop composition from Figma 903:32593 and layered GIF groups. */
+/* Ruckus Games, desktop composition from Figma 903:32593 and layered GIF groups. */
 .ruckus-intro { position: relative; width: 100%; height: 442px; }
 .ruckus-intro h1 { position: absolute; top: 130px; left: calc(50% - 459px); color: #ececec; font-family: var(--home-serif); font-size: 64px; line-height: 48px; font-weight: 400; font-variation-settings: "SOFT" 100, "opsz" 144, "WONK" 1; letter-spacing: -.02em; white-space: nowrap; }
 .ruckus-meta-row { position: absolute; top: 213px; left: calc(50% - 459px); width: 918px; height: 128px; }
@@ -1229,7 +1229,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
 .ruckus-project-page .design-project-work-rail { margin-top: 133px; }
 .ruckus-project-page main { overflow: clip; }
 
-/* Drivers App — editorial composition from Figma 932:32856. */
+/* Drivers App, editorial composition from Figma 932:32856. */
 .drivers-project-page { min-width: 0; }
 .drivers-project-page main { overflow: clip; }
 .drivers-project-page .design-project-intro { height: 651px; }
@@ -1262,7 +1262,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
 .drivers-final-media .design-project-visual { width: 100%; height: 100%; }
 .drivers-project-page .design-project-next { margin-top: 151px; }
 
-/* HeavyGari — fixed editorial composition from Figma 1164:20352. */
+/* HeavyGari, fixed editorial composition from Figma 1164:20352. */
 .heavygari-project-page { min-width: 0; }
 .heavygari-project-page main { overflow: clip; }
 .heavygari-project-page .design-project-intro { height: 651px; }
@@ -1297,7 +1297,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   .heavygari-booking-copy { font-size: clamp(11px, 1.3vw, 14px); line-height: 1.5; }
 }
 
-/* GMI Companion — editorial composition from Figma 915:17303. */
+/* GMI Companion, editorial composition from Figma 915:17303. */
 .gmi-project-page { min-width: 0; }
 .gmi-project-page main { overflow: clip; }
 .gmi-intro { position: relative; width: 100%; height: 502px; }
@@ -1533,7 +1533,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   .about-page .home-contact.is-portfolio { padding-top: 130px; }
 }
 
-/* Work — sticky project browser */
+/* Work, sticky project browser */
 .work-page-shell { min-width: 768px; }
 .work-browser-runway { position: relative; height: var(--work-runway-height); }
 .work-browser-sticky { position: sticky; top: 0; height: var(--viewport-stable); min-height: 640px; overflow: hidden; background: var(--home-canvas); }
@@ -1775,34 +1775,24 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   .mobile-work-index-toggle > span::before { left: 1.75px; transform: rotate(45deg); transform-origin: 100% 50%; }
   .mobile-work-index-toggle > span::after { right: 1.75px; transform: rotate(-45deg); transform-origin: 0 50%; }
   .work-browser-mobile-list {
-    position: relative;
     width: 100%;
-    padding: 0;
-    display: block;
-    transition: opacity 180ms var(--home-ease);
-  }
-  .mobile-work-loop-spacers {
-    width: 100%;
-    padding-top: calc(var(--safe-top) + 242px);
+    padding: calc(var(--safe-top) + 242px) 0 max(80px, calc(var(--safe-bottom) + 48px));
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    visibility: hidden;
-    pointer-events: none;
+    transition: opacity 180ms var(--home-ease);
   }
-  .mobile-work-loop-spacer { width: min(393px, 100%); aspect-ratio: 393 / 523; flex: 0 0 auto; }
   .work-browser-mobile[data-menu-open="true"] .work-browser-mobile-list { opacity: 0; pointer-events: none; }
   .mobile-work-project {
-    position: absolute;
-    left: 50%;
+    position: relative;
+    flex: 0 0 auto;
     width: min(393px, 100%);
     aspect-ratio: 393 / 523;
     overflow: hidden;
     border-radius: 8px;
     display: block;
     background: #0b0b0b;
-    transform: translateX(-50%);
     transition: opacity 90ms linear;
   }
   .mobile-work-project:active { opacity: .94; scale: 1; }
@@ -1882,7 +1872,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   .identity-card, .interactive-tilt-inner { transform: none !important; }
 }
 
-/* RideCentric+ exact fixed-width Figma canvas — node 1249:32568. */
+/* RideCentric+ exact fixed-width Figma canvas, node 1249:32568. */
 .rcx-page { --home-serif: var(--font-fraunces), Georgia, serif; position: relative; width: 100%; min-height: 100vh; overflow: hidden; background: #040404; }
 .rcx-canvas { position: absolute; top: 0; left: 50%; width: 1280px; height: 15421px; overflow: hidden; transform-origin: top center; background: #040404; color: #e7e7e7; }
 .rcx-content { position: absolute; top: -52px; left: 0; width: 1280px; height: 15473px; }
@@ -2148,7 +2138,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   .rcx-responsive-page .design-project-next > div { width: calc(100% - 32px); margin-inline: 16px; }
 }
 
-/* RideCentric+ — Figma 1249:32568. Green fields intentionally remain visual placeholders. */
+/* RideCentric+, Figma 1249:32568. Green fields intentionally remain visual placeholders. */
 .ridecentric-project-page { --rc-green: #003324; min-width: 0; overflow: clip; background: #040404; }
 .ridecentric-project-page main { position: relative; padding-top: 1px; }
 .ridecentric-hero, .ridecentric-composition { position: relative; width: min(1080px, 100%); margin-inline: auto; }
@@ -2591,7 +2581,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   .home-page { min-width: 0; }
 }
 
-/* Mobile homepage correction — measured from Figma nodes 932:35496, 939:36825,
+/* Mobile homepage correction, measured from Figma nodes 932:35496, 939:36825,
    939:36826 and 932:36467. These late rules intentionally supersede the first pass. */
 .mobile-footer-credit { display: none; }
 

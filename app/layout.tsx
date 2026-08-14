@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   ...defaultMetadata,
   title: {
     default: siteConfig.title,
-    template: `%s — ${siteConfig.name}`,
+    template: `%s, ${siteConfig.name}`,
   },
   metadataBase: new URL(siteConfig.url),
   manifest: "/manifest.webmanifest",

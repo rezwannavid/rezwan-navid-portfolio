@@ -48,7 +48,7 @@ export function createPageMetadata({
 }: PageMetadataInput): Metadata {
   const canonical = absoluteUrl(path);
   const imageUrl = absoluteUrl(image.url);
-  const socialTitle = path === "/" ? title : `${title} — ${siteConfig.name}`;
+  const socialTitle = path === "/" ? title : `${title}, ${siteConfig.name}`;
 
   return {
     title,

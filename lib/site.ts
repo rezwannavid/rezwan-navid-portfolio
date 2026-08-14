@@ -3,7 +3,7 @@ import { allProjects } from "@/lib/projectRegistry";
 export const siteConfig = {
   url: "https://rezwannavid.me",
   name: "Mir Rezwan Navid",
-  title: "Mir Rezwan Navid — Product Designer & Design Engineer",
+  title: "Mir Rezwan Navid, Product Designer & Design Engineer",
   shortName: "Mir Rezwan Navid",
   alternateNames: ["Rezwan Navid"],
   applicationName: "Mir Rezwan Navid",
@@ -28,7 +28,7 @@ export const siteConfig = {
     url: "/rezwan-navid-portfolio-og.png",
     width: 1200,
     height: 630,
-    alt: "Mir Rezwan Navid — Product Designer & Design Engineer",
+    alt: "Mir Rezwan Navid, Product Designer & Design Engineer",
   },
   knowsAbout: [
     "Product Design",

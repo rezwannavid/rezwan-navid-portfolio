@@ -194,7 +194,7 @@ function ResponsiveRideCentric() {
         <section className="rcxr-shell rcxr-design-system">
           <ResponsiveLabel>Design System</ResponsiveLabel>
           <ResponsiveGreen className="rcxr-design-main" />
-          <div className="rcxr-design-secondary"><ResponsiveGreen /><ResponsiveBody className="rcxr-lead">As the product expanded across rides, events, passengers, teams, permissions and finance, consistency became an operational requirement—not simply a visual one.</ResponsiveBody></div>
+          <div className="rcxr-design-secondary"><ResponsiveGreen /><ResponsiveBody className="rcxr-lead">As the product expanded across rides, events, passengers, teams, permissions and finance, consistency became an operational requirement, not simply a visual one.</ResponsiveBody></div>
         </section>
 
         <section className="rcxr-shell rcxr-platform">
@@ -314,7 +314,7 @@ export function RideCentricProjectPage() {
         <Positioned className="rcx-label" x={240} y={9084} width={106}>Design System</Positioned>
         <GreenBlock x={100} y={9126} width={1080} height={604} />
         <GreenBlock x={100} y={9744} width={739} height={464} />
-        <Positioned className="rcx-subhead" x={872} y={10077} width={308}>As the product expanded across rides,<br />events, passengers, teams,<br />permissions and finance, consistency<br />became an operational requirement—<br />not simply a visual one.</Positioned>
+        <Positioned className="rcx-subhead" x={872} y={10077} width={308}>As the product expanded across rides,<br />events, passengers, teams,<br />permissions and finance, consistency<br />became an operational requirement,<br />not simply a visual one.</Positioned>
 
         <Positioned className="rcx-label" x={240} y={10368} width={125}>Platform Thinking</Positioned>
         <Positioned className="rcx-serif rcx-heading" x={239} y={10400} width={532}>The same transportation state had to serve<br />people doing fundamentally different jobs.</Positioned>
