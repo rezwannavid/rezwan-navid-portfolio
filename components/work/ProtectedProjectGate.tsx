@@ -36,7 +36,7 @@ export function ProtectedProjectGate({ slug }: { slug: string }) {
         return;
       }
       setStatus("success");
-      window.setTimeout(() => router.push(`/work/${slug}/full`), 300);
+      resetTimer.current = window.setTimeout(() => router.push(`/work/${slug}/full`), 300);
     } catch {
       setPassword("");
       setStatus("error");

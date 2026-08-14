@@ -1,8 +1,5 @@
 import "server-only";
 
-import { readdirSync, statSync } from "node:fs";
-import path from "node:path";
-
 export type PhotographyItem = {
   src: string;
   filename: string;
@@ -40,48 +37,24 @@ const curatedOrder = [
   "IDG_20260706_183815_196.jpg",
 ];
 
-const supportedImage = /\.(jpe?g|png|webp|avif|heic)$/i;
-
-function fallbackDate(filePath: string) {
-  const date = statSync(filePath).birthtime;
-  return Number.isNaN(date.getTime()) ? "DATE TBD" : date.toLocaleDateString("en-US", { month: "short", year: "numeric" }).toUpperCase();
-}
-
-function readableFilename(filename: string) {
-  return filename.replace(/\.[^.]+$/, "").replace(/[_-]+/g, " ").replace(/\b(img|jpg|jpeg|dsc)\b/gi, "").trim() || "A photograph by Mir Rezwan Navid";
-}
+const nikonPhotos = new Set(["IMG_9093.JPG", "IMG_9094.JPG", "IMG_9095.JPG", "IMG_9092.JPG", "IMG_7560.JPG"]);
 
 export function getPhotographyGallery(): PhotographyItem[] {
-  const directory = path.join(process.cwd(), "public", "Photography");
-  const filenames = readdirSync(directory).filter((filename) => supportedImage.test(filename));
-  const order = new Map(curatedOrder.map((filename, index) => [filename, index]));
-  const chronological = [...filenames].sort((a, b) => {
-    const aDate = overrides[a]?.capturedAt ?? statSync(path.join(directory, a)).birthtime.toISOString();
-    const bDate = overrides[b]?.capturedAt ?? statSync(path.join(directory, b)).birthtime.toISOString();
-    return aDate.localeCompare(bDate) || a.localeCompare(b);
-  });
-  const nikon = new Set(chronological.slice(0, 5));
-
-  return filenames
-    .sort((a, b) => (order.get(a) ?? Number.MAX_SAFE_INTEGER) - (order.get(b) ?? Number.MAX_SAFE_INTEGER) || a.localeCompare(b))
-    .map((filename, index) => {
+  return curatedOrder.map((filename) => {
       const configured = overrides[filename];
-      const width = configured?.width ?? 1600;
-      const height = configured?.height ?? 1200;
-      const ratio = width / height;
       return {
         src: `/Photography/${encodeURIComponent(filename)}`,
         filename,
-        alt: configured?.alt ?? readableFilename(filename),
-        date: configured?.date ?? fallbackDate(path.join(directory, filename)),
-        camera: nikon.has(filename) ? "Nikon D5300" : "iPhone 15 Pro",
-        width,
-        height,
-        displayWidth: configured?.displayWidth ?? (ratio < .85 ? 270 : ratio > 1.45 ? 455 : 390),
-        yOffset: configured?.yOffset ?? ((index % 3) - 1) * 18,
-        baseRotateX: configured?.baseRotateX ?? 0,
-        baseRotateY: configured?.baseRotateY ?? (index % 2 ? 3 : -3),
-        baseRotateZ: configured?.baseRotateZ ?? (index % 2 ? .25 : -.25),
+        alt: configured.alt,
+        date: configured.date,
+        camera: nikonPhotos.has(filename) ? "Nikon D5300" : "iPhone 15 Pro",
+        width: configured.width,
+        height: configured.height,
+        displayWidth: configured.displayWidth,
+        yOffset: configured.yOffset,
+        baseRotateX: configured.baseRotateX,
+        baseRotateY: configured.baseRotateY,
+        baseRotateZ: configured.baseRotateZ,
       };
     });
 }

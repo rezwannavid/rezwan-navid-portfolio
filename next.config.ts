@@ -18,7 +18,7 @@ const cachedPublicAssets = [
 const nextConfig: NextConfig = {
   agentRules: false,
   poweredByHeader: false,
-  images: { minimumCacheTTL: 86400 },
+  images: { minimumCacheTTL: 86400, qualities: [75, 90, 92] },
   async redirects() {
     return [
       {

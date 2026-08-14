@@ -1,7 +1,7 @@
 "use client";
 
 import { Glass, type GlassOptics } from "@samasante/liquid-glass";
-import { useEffect, useState, type ReactNode } from "react";
+import { useSyncExternalStore, type ReactNode } from "react";
 
 export const navbarGlassOptics: Partial<GlassOptics> = {
   strength: .039,
@@ -34,19 +34,20 @@ const frostedNavbarOptics: Partial<GlassOptics> = {
 
 type NavigatorWithUAData = Navigator & { userAgentData?: unknown };
 
+const subscribeToBrowserEngine = () => () => {};
+const serverFrostedFallback = () => false;
+
+function getFrostedFallback() {
+  const ua = navigator.userAgent;
+  const hasUAData = (navigator as NavigatorWithUAData).userAgentData != null;
+  const isBlink = hasUAData || (/\b(?:Chrome|Chromium|Edg)\//.test(ua)
+    && !/\b(?:CriOS|EdgiOS|FxiOS|OPiOS)\b/.test(ua)
+    && !/iPhone|iPad|iPod/.test(ua));
+  return !isBlink;
+}
+
 function useFrostedFallback() {
-  const [frosted, setFrosted] = useState(false);
-
-  useEffect(() => {
-    const ua = navigator.userAgent;
-    const hasUAData = (navigator as NavigatorWithUAData).userAgentData != null;
-    const isBlink = hasUAData || (/\b(?:Chrome|Chromium|Edg)\//.test(ua)
-      && !/\b(?:CriOS|EdgiOS|FxiOS|OPiOS)\b/.test(ua)
-      && !/iPhone|iPad|iPod/.test(ua));
-    setFrosted(!isBlink);
-  }, []);
-
-  return frosted;
+  return useSyncExternalStore(subscribeToBrowserEngine, getFrostedFallback, serverFrostedFallback);
 }
 
 export function GlassNavbarSurface({ children, className }: { children: ReactNode; className: string }) {

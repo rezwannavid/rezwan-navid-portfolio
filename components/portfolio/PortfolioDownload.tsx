@@ -41,7 +41,7 @@ export function PortfolioDownload({ pdf }: { pdf: PortfolioPdf }) {
                   alt="Cover of Mir Rezwan Navid’s 2026 product design portfolio"
                   fill
                   priority
-                  unoptimized
+                  quality={90}
                   sizes="425px"
                 />
               </ParallaxMedia>

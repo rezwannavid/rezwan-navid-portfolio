@@ -4,7 +4,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { createPageMetadata } from "@/lib/metadata";
 import { breadcrumbSchema, pageSchema, schemaIds, webPageSchema } from "@/lib/structuredData";
 import { absoluteUrl } from "@/lib/site";
-import { getPortfolioPdfMetadata } from "@/lib/portfolioPdf";
+import { portfolioPdfMetadata } from "@/lib/portfolioPdf";
 
 const title = "Product Design Portfolio 2026";
 const description = "View and download Mir Rezwan Navid’s 2026 product design portfolio featuring product studies, design systems, AI exploration, and product thinking.";
@@ -18,7 +18,7 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default function PortfolioPage() {
-  const pdf = getPortfolioPdfMetadata();
+  const pdf = portfolioPdfMetadata;
   const portfolioSchema = {
     "@type": "CreativeWork",
     "@id": `${absoluteUrl("/portfolio")}#portfolio`,

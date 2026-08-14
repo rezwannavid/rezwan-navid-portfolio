@@ -9,13 +9,13 @@ import { motionEase, physicalSpring } from "@/lib/motion";
 import { GlassNavbarSurface } from "@/components/layout/GlassNavbarSurface";
 import { MobileNavigation } from "@/components/layout/MobileNavigation";
 
-type TooltipState = { label: string; visible: boolean };
+type TooltipState = { label: string; visible: boolean; pathname: string };
 const MotionLink = motion.create(Link);
 
 export function GlobalNavbar() {
   const pathname = usePathname();
   const reduceMotion = useReducedMotion();
-  const [tooltip, setTooltip] = useState<TooltipState>({ label: "", visible: false });
+  const [tooltip, setTooltip] = useState<TooltipState>({ label: "", visible: false, pathname });
   const suppressTooltip = useRef(false);
   const suppressTimer = useRef<number | null>(null);
   const tooltipX = useMotionValue(0);
@@ -23,7 +23,6 @@ export function GlobalNavbar() {
   const smoothTooltipX = useSpring(tooltipX, { stiffness: 520, damping: 38, mass: .42 });
   const smoothTooltipY = useSpring(tooltipY, { stiffness: 520, damping: 38, mass: .42 });
 
-  useEffect(() => setTooltip((current) => ({ ...current, visible: false })), [pathname]);
   useEffect(() => () => { if (suppressTimer.current) window.clearTimeout(suppressTimer.current); }, []);
 
   const updateTooltipPosition = (event: PointerEvent<HTMLElement>) => {
@@ -38,7 +37,7 @@ export function GlobalNavbar() {
     tooltipY.jump(event.clientY + 10);
     smoothTooltipX.jump(event.clientX + 16);
     smoothTooltipY.jump(event.clientY + 10);
-    setTooltip({ label, visible: true });
+    setTooltip({ label, visible: true, pathname });
   };
 
   const hideTooltip = () => setTooltip((current) => ({ ...current, visible: false }));
@@ -103,7 +102,7 @@ export function GlobalNavbar() {
       </motion.div>
 
       <AnimatePresence>
-        {tooltip.visible && (
+        {tooltip.visible && tooltip.pathname === pathname && (
           <motion.div
             className="global-navbar-tooltip"
             aria-hidden="true"
@@ -146,6 +145,7 @@ function NavbarTextItem({ item, active, reduceMotion, onNavigate }: {
   return (
     <MotionLink
       href={item.href}
+      prefetch={false}
       className={`global-navbar-text-item${active ? " is-active" : ""}`}
       aria-current={active ? "page" : undefined}
       onPointerMove={move}
@@ -189,7 +189,7 @@ function NavbarLogo({ pathname, reduceMotion }: { pathname: string; reduceMotion
       <img src="/RNLogo.svg" alt="" width="55" height="20" />
     </motion.a>
   ) : (
-    <MotionLink href="/" {...commonProps}><img src="/RNLogo.svg" alt="" width="55" height="20" /></MotionLink>
+    <MotionLink href="/" prefetch={false} {...commonProps}><img src="/RNLogo.svg" alt="" width="55" height="20" /></MotionLink>
   );
 }
 
@@ -251,5 +251,5 @@ function NavbarItem({ item, active, reduceMotion, onTooltipShow, onTooltipHide, 
     return <motion.a href={item.href} target={item.external ? "_blank" : undefined} rel={item.external ? "noreferrer" : undefined} {...interactionProps}>{content}</motion.a>;
   }
 
-  return <MotionLink href={item.href} {...interactionProps}>{content}</MotionLink>;
+  return <MotionLink href={item.href} prefetch={false} {...interactionProps}>{content}</MotionLink>;
 }

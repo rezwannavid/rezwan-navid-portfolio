@@ -5,11 +5,10 @@ import nextTypeScript from "eslint-config-next/typescript";
 const config = defineConfig([
   ...nextVitals,
   ...nextTypeScript,
-  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
+  globalIgnores([".next/**", ".vercel/**", "out/**", "build/**", "next-env.d.ts"]),
   {
     rules: {
       "@next/next/no-img-element": "off",
-      "react-hooks/set-state-in-effect": "off",
     },
   },
 ]);

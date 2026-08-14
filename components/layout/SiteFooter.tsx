@@ -16,7 +16,7 @@ export function SiteFooter() {
   return (
     <footer className="home-site-footer home-shell">
       <motion.div ref={closingRef} className="closing-art" initial={{ opacity: .2, scale: .992 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: .12 }} transition={{ duration: .78, ease: motionEase.editorial }}>
-        <motion.div className="closing-landscape-depth" style={{ y: reduceMotion ? 0 : landscapeY }}><Image unoptimized className="closing-landscape" src="/home-design/footer-landscape.png?v=1" alt="A solitary tree beneath a blue landscape" width={4096} height={2403} sizes="1078px" /></motion.div>
+        <motion.div className="closing-landscape-depth" style={{ y: reduceMotion ? 0 : landscapeY }}><Image quality={90} className="closing-landscape" src="/home-design/footer-landscape.png" alt="A solitary tree beneath a blue landscape" width={4096} height={2403} sizes="1078px" /></motion.div>
         <motion.img className="closing-curved-title" style={{ y: reduceMotion ? 0 : titleY }} src="/home-design/create-with-impact.png?v=1" alt="Create with Impact" width="1471" height="329" loading="lazy" />
         <img className="closing-logo" src="/RNLogo.svg" alt="" width="55" height="20" loading="lazy" />
         <img className="closing-logo-secondary" src="/RNLogo.svg" alt="" width="55" height="20" loading="lazy" />

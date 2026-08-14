@@ -282,7 +282,7 @@ function ProductThinkingTitle() {
   let wordIndex = 0;
   return (
     <motion.h2 className="mobile-thinking-title" initial={reduceMotion ? false : "hidden"} whileInView={reduceMotion ? undefined : "visible"} viewport={{ once: true, amount: .3 }} aria-label="Product thinking is the culture of 21st-century technology.">
-      {thinkingLines.map((line, lineIndex) => <span className="mobile-thinking-line" aria-hidden="true" key={line.join("-")}>{line.map((word) => {
+      {thinkingLines.map((line) => <span className="mobile-thinking-line" aria-hidden="true" key={line.join("-")}>{line.map((word) => {
         const index = wordIndex++;
         const culture = word === "culture";
         return <span className="mobile-thinking-word-mask" key={word}><motion.span className={culture ? "is-culture" : ""} variants={{ hidden: { y: "108%", opacity: 0 }, visible: { y: 0, opacity: 1, color: culture ? "#e7e7e7" : undefined, transition: { duration: .76, delay: index * .075 + (culture ? .08 : 0), ease: motionEase.editorial } } }}>{word}</motion.span>{culture && <motion.i variants={{ hidden: { scaleX: 0 }, visible: { scaleX: 1, transition: { duration: .52, delay: index * .075 + .42, ease: motionEase.editorial } } }} />}</span>;

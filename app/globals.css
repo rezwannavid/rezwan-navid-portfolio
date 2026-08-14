@@ -65,7 +65,7 @@
 * { box-sizing: border-box; }
 html { width: 100%; max-width: 100%; min-height: 100%; overflow-x: clip; overflow-y: visible; scroll-behavior: smooth; scroll-padding-top: 88px; background: var(--environment-background); color-scheme: dark; }
 html.lenis { scroll-behavior: auto; }
-body { --font-sans: var(--font-neue-montreal); width: 100%; max-width: 100%; min-height: 100%; margin: 0; background: var(--environment-background); color: var(--color-text-primary); font-family: var(--font-sans); font-size: 13px; line-height: 16px; }
+body { --font-sans: var(--font-neue-montreal); width: 100%; max-width: 100%; min-height: 100%; margin: 0; overflow-x: clip; background: var(--environment-background); color: var(--color-text-primary); font-family: var(--font-sans); font-size: 13px; line-height: 16px; }
 .app-shell { position: relative; width: 100%; min-height: 100%; background: var(--environment-background); isolation: isolate; }
 
 /* Shared primitives for viewport-aware routes and future full-screen sections. */

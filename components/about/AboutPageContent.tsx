@@ -158,10 +158,17 @@ function MobilePrinciples() {
   });
 
   useEffect(() => {
-    principles.forEach((principle) => {
-      const image = new window.Image();
-      image.src = principle.image;
-    });
+    const mobile = window.matchMedia("(max-width: 767px), (max-height: 500px) and (orientation: landscape)");
+    const preload = () => {
+      if (!mobile.matches) return;
+      principles.forEach((principle) => {
+        const image = new window.Image();
+        image.src = principle.image;
+      });
+    };
+    preload();
+    mobile.addEventListener("change", preload);
+    return () => mobile.removeEventListener("change", preload);
   }, []);
 
   const segment = progress * principles.length;

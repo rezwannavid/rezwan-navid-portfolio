@@ -37,6 +37,7 @@ export function MobileNavigation() {
   const restoreFocus = useRef(false);
   const destinationScroll = useRef(false);
   const lockedScroll = useRef(0);
+  const releaseScrollLock = useRef<(() => void) | null>(null);
   const sheetY = useMotionValue(573);
   const layerOpacity = useMotionValue(1);
   const backdropOpacity = useTransform(sheetY, [0, 260, 573], [.62, .22, 0]);
@@ -128,6 +129,8 @@ export function MobileNavigation() {
         return;
       }
       pendingPath.current = nextPath;
+      destinationScroll.current = true;
+      releaseScrollLock.current?.();
       router.push(item.href);
     }, reduceMotion ? 90 : 540);
     timers.current.push(coverTimer, routeTimer);
@@ -144,6 +147,7 @@ export function MobileNavigation() {
     lockedScroll.current = window.scrollY;
     const body = document.body;
     const html = document.documentElement;
+    const trigger = triggerRef.current;
     const previous = {
       bodyPosition: body.style.position,
       bodyTop: body.style.top,
@@ -159,7 +163,10 @@ export function MobileNavigation() {
     body.style.overflow = "hidden";
     html.style.overflow = "hidden";
     html.style.overscrollBehavior = "none";
-    return () => {
+    let released = false;
+    const release = () => {
+      if (released) return;
+      released = true;
       body.style.position = previous.bodyPosition;
       body.style.top = previous.bodyTop;
       body.style.width = previous.bodyWidth;
@@ -169,8 +176,13 @@ export function MobileNavigation() {
       html.style.scrollBehavior = "auto";
       window.scrollTo(0, destinationScroll.current ? 0 : lockedScroll.current);
       requestAnimationFrame(() => { html.style.scrollBehavior = previous.htmlScrollBehavior; });
-      if (restoreFocus.current) requestAnimationFrame(() => triggerRef.current?.focus());
+      if (restoreFocus.current) requestAnimationFrame(() => trigger?.focus());
       destinationScroll.current = false;
+    };
+    releaseScrollLock.current = release;
+    return () => {
+      release();
+      if (releaseScrollLock.current === release) releaseScrollLock.current = null;
     };
   }, [mounted]);
 
@@ -200,13 +212,8 @@ export function MobileNavigation() {
   }, [closeMenu, mounted]);
 
   useEffect(() => {
-    const shortLandscape = window.matchMedia("(max-height: 500px) and (orientation: landscape)").matches;
-    if (window.innerWidth >= 768 && !shortLandscape) return;
-    [...primaryItems, ...secondaryItems].forEach((item) => {
-      if (!item.href.startsWith("mailto:")) router.prefetch(item.href);
-    });
     return clearTimers;
-  }, [clearTimers, router]);
+  }, [clearTimers]);
 
   return (
     <div className="mobile-navigation" data-mobile-nav-phase={phase}>
