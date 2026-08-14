@@ -1,11 +1,17 @@
-import { FlatCompat } from "@eslint/eslintrc";
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTypeScript from "eslint-config-next/typescript";
 
-const compat = new FlatCompat({ baseDirectory: import.meta.dirname });
-
-const config = [
-  { ignores: [".next/**", "node_modules/**"] },
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
-  { rules: { "@next/next/no-img-element": "off" } },
-];
+const config = defineConfig([
+  ...nextVitals,
+  ...nextTypeScript,
+  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
+  {
+    rules: {
+      "@next/next/no-img-element": "off",
+      "react-hooks/set-state-in-effect": "off",
+    },
+  },
+]);
 
 export default config;
