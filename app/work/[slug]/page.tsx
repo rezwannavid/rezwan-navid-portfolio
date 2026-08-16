@@ -6,6 +6,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { ProtectedCaseStudy, type ProtectedCaseStudyData } from "@/components/work/ProtectedCaseStudy";
 import { EventFlowProjectPage } from "@/components/work/design-project/EventFlowProjectPage";
 import { DriversAppProjectPage } from "@/components/work/design-project/DriversAppProjectPage";
+import { NeedinProjectPage } from "@/components/work/design-project/NeedinProjectPage";
 import { FodoProjectPage } from "@/components/work/design-project/FodoProjectPage";
 import { GmiCompanionProjectPage } from "@/components/work/design-project/GmiCompanionProjectPage";
 import { RuckusGamesProjectPage } from "@/components/work/design-project/RuckusGamesProjectPage";
@@ -78,6 +79,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   if (slug === "eventflow") return <EventFlowProjectPage />;
   if (slug === "drivers-app") return <DriversAppProjectPage />;
+  if (slug === "needin") return <NeedinProjectPage />;
   if (slug === "fodo") return <FodoProjectPage />;
   if (slug === "gmi-companion") return <GmiCompanionProjectPage />;
   if (slug === "ruckus-games") return <RuckusGamesProjectPage />;

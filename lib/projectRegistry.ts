@@ -7,6 +7,7 @@ export type ProjectId =
   | "10ms-for-parents"
   | "eventflow"
   | "drivers-app"
+  | "needin"
   | "ruckus-games"
   | "fodo"
   | "gmi-companion"
@@ -94,6 +95,12 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
     published: true, featured: true, workOrder: 2, featuredOrder: 2, media: { desktop: projectMediaPresets.driversDesktop, desktopFeatured: projectMediaPresets.driversDesktopFeatured, mobile: projectMediaPresets.driversMobile, fallback: { type: "asset", src: "/Drivers App Pictures/Drivers Hero.png" } },
     hero: "/Drivers App Pictures/Drivers Hero.png", placeholder: false, thumbnailAlt: "RC Drivers app displayed on a phone beside architectural panels", categories: ["product-study", "interface", "product-management"], categoryLabel: "Product Study", client: "RideCentric", locked: false, indexable: true,
     seoTitle: "RC Drivers App, Driver Operations Companion", seoDescription: "A mobile workflow helping professional drivers coordinate trips, communicate updates and stay on schedule.",
+  },
+  needin: {
+    id: "needin", slug: "needin", title: "Needin", shortDescription: "A flexible meal subscription marketplace connecting people with home cooks.", role: "Product & Design", year: "2021", timeline: "7 months", href: "/work/needin", protected: false,
+    published: true, featured: false, workOrder: 8, media: { fallback: { type: "asset", src: "/needin-exact/hero.png" } },
+    hero: "/needin-exact/hero.png", placeholder: false, thumbnailAlt: "Needin meal subscription marketplace identity", categories: ["product-study", "interface", "brand"], categoryLabel: "Product Study", client: "Needin", locked: false, theme: "dark", indexable: true,
+    seoTitle: "Needin, Home Cook Meal Subscription Marketplace", seoDescription: "Product strategy, marketplace design, brand, and end-to-end experience design for Needin, a flexible meal subscription service connecting customers with home cooks.",
   },
   "ruckus-games": {
     id: "ruckus-games", slug: "ruckus-games", title: "Ruckus Games", shortDescription: "A free multiplayer party-game platform that makes game nights effortless.", role: "Product Direction / Design Engineering", year: "2026", timeline: "3 weeks", projectType: "ai", productType: "Product Exploration with AI", madeWith: ["Claude", "Cursor", "Vercel", "Figma", "Railway", "v0"], href: "/work/ruckus-games", protected: false,
