@@ -9,9 +9,10 @@ type AnimatedLinesProps = {
   className?: string;
   emphasis?: string;
   delay?: number;
+  breakableSpacing?: boolean;
 };
 
-export function AnimatedLines({ text, className = "", emphasis, delay = 0 }: AnimatedLinesProps) {
+export function AnimatedLines({ text, className = "", emphasis, delay = 0, breakableSpacing = false }: AnimatedLinesProps) {
   const reduceMotion = useReducedMotion();
   const rootRef = useRef<HTMLSpanElement>(null);
   const wordRefs = useRef<Array<HTMLSpanElement | null>>([]);
@@ -67,27 +68,28 @@ export function AnimatedLines({ text, className = "", emphasis, delay = 0 }: Ani
       aria-label={text}
     >
       {words.map((word, index) => (
-        <span
-          ref={(node) => { wordRefs.current[index] = node; }}
-          className="animated-line-word-mask"
-          aria-hidden="true"
-          key={`${word}-${index}`}
-        >
-          <motion.span
-            className={`animated-line-word${word.replace(/[.,]/g, "") === emphasis ? " is-emphasis" : ""}`}
-            variants={{
-              hidden: { y: "105%", opacity: 0.08, letterSpacing: "0.012em" },
-              visible: {
-                y: "0%",
-                opacity: 1,
-                letterSpacing: "-0.02em",
-                transition: { duration: .8, delay: delay + lineIndexes[index] * .12, ease: motionEase.editorial },
-              },
-            }}
+        <span key={`${word}-${index}`}>
+          <span
+            ref={(node) => { wordRefs.current[index] = node; }}
+            className="animated-line-word-mask"
+            aria-hidden="true"
           >
-            {word}
-          </motion.span>
-          {index < words.length - 1 ? <span aria-hidden="true">&nbsp;</span> : null}
+            <motion.span
+              className={`animated-line-word${word.replace(/[.,]/g, "") === emphasis ? " is-emphasis" : ""}`}
+              variants={{
+                hidden: { y: "105%", opacity: 0.08, letterSpacing: "0.012em" },
+                visible: {
+                  y: "0%",
+                  opacity: 1,
+                  letterSpacing: "-0.02em",
+                  transition: { duration: .8, delay: delay + lineIndexes[index] * .12, ease: motionEase.editorial },
+                },
+              }}
+            >
+              {word}
+            </motion.span>
+          </span>
+          {index < words.length - 1 ? (breakableSpacing ? " " : <span aria-hidden="true">&nbsp;</span>) : null}
         </span>
       ))}
     </motion.span>

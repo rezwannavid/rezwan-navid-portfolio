@@ -73,10 +73,10 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
     seoTitle: "HeavyGari, Truck Booking Product Design", seoDescription: "Product and brand design for a truck-booking experience built around what people need to move.",
   },
   ridesync: {
-    id: "ridesync", slug: "ridesync", title: "RideSync", shortDescription: "A connected transportation operations platform for dispatch, teams and ride coordination.", role: "Product Manager", year: "2025", href: "/work/ridesync", protected: false,
-    published: false, featured: false, media: { fallback: { type: "asset", src: "/home-design/thumb-dashboard.png?v=2" } },
-    hero: "/home-design/thumb-dashboard.png?v=2", placeholder: true, thumbnailAlt: "RideSync transportation operations dashboard", categories: ["product-study", "product-management"], categoryLabel: "Product Study", client: "RideCentric", locked: true, theme: "dark", indexable: false,
-    seoTitle: "RideSync, Transportation Operations Platform", seoDescription: "A transportation operations platform designed for dispatch, teams and coordinated ride delivery.",
+    id: "ridesync", slug: "ridesync", title: "RideSync", shortDescription: "Designing the bridge from high-touch service to self-service.", role: "Product Manager", year: "2026", timeline: "6 months", href: "/work/ridesync", protected: false,
+    published: true, featured: false, workOrder: 0.5, media: { fallback: { type: "asset", src: "/home-design/thumb-dashboard.png?v=2" } },
+    hero: "/home-design/thumb-dashboard.png?v=2", placeholder: false, thumbnailAlt: "RideSync transportation self-service experience", categories: ["product-study", "product-management"], categoryLabel: "Product Study", client: "RideCentric", locked: false, theme: "dark", indexable: true,
+    seoTitle: "RideSync, Transportation Self-Service Product", seoDescription: "Designing the bridge from high-touch transportation service to customer self-service.",
   },
   "10ms-for-parents": {
     id: "10ms-for-parents", slug: "10ms-for-parents", title: "10MS for Parents", shortDescription: "A parent-facing trust experience designed around visibility, confidence and learning outcomes.", role: "Product Executive / Product Strategy", year: "2023", href: "/work/10ms-for-parents", protected: false,

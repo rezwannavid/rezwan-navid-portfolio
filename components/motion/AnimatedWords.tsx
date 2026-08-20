@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
+import { Fragment } from "react";
 import { motionEase } from "@/lib/motion";
 
 type AnimatedWordsProps = {
@@ -35,22 +36,24 @@ export function AnimatedWords({
       aria-label={text}
     >
       {words.map((word, index) => (
-        <span className="animated-word-mask" aria-hidden="true" key={`${word}-${index}`}>
-          <motion.span
-            className="animated-word"
-            variants={{
-              hidden: { y: "108%", opacity: 0 },
-              visible: {
-                y: "0%",
-                opacity: 1,
-                transition: { duration: .76, delay: delay + index * stagger, ease: motionEase.editorial },
-              },
-            }}
-          >
-            {word}
-          </motion.span>
-          {index < words.length - 1 ? <span aria-hidden="true">&nbsp;</span> : null}
-        </span>
+        <Fragment key={`${word}-${index}`}>
+          <span className="animated-word-mask" aria-hidden="true">
+            <motion.span
+              className="animated-word"
+              variants={{
+                hidden: { y: "108%", opacity: 0 },
+                visible: {
+                  y: "0%",
+                  opacity: 1,
+                  transition: { duration: .76, delay: delay + index * stagger, ease: motionEase.editorial },
+                },
+              }}
+            >
+              {word}
+            </motion.span>
+          </span>
+          {index < words.length - 1 ? " " : null}
+        </Fragment>
       ))}
     </MotionTag>
   );
