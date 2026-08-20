@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type CSSProperties, type SyntheticEvent } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import type { ResolvedProject } from "@/lib/projectRegistry";
 import {
   resolveProjectMedia,
@@ -33,7 +33,7 @@ function ResponsiveAsset({
   loading: "eager" | "lazy";
   objectFit?: "cover" | "contain" | "fill";
   style?: CSSProperties;
-  onError: (event: SyntheticEvent<HTMLImageElement>) => void;
+  onError: () => void;
 }) {
   const media = viewport === "desktop"
     ? "(min-width: 768px) and (min-height: 501px), (min-width: 768px) and (orientation: portrait)"
@@ -56,6 +56,65 @@ function ResponsiveAsset({
   );
 }
 
+function ResponsiveVideo({
+  src,
+  poster,
+  viewport,
+  objectFit = "cover",
+  objectPosition,
+  onError,
+}: {
+  src: string;
+  poster: string;
+  viewport: ProjectMediaViewport;
+  objectFit?: "cover" | "contain" | "fill";
+  objectPosition?: string;
+  onError: () => void;
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const [shouldPlay, setShouldPlay] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const query = viewport === "desktop"
+      ? "(min-width: 768px) and (min-height: 501px), (min-width: 768px) and (orientation: portrait)"
+      : "(max-width: 767px), (max-height: 500px) and (orientation: landscape)";
+    const viewportQuery = window.matchMedia(query);
+    if (!viewportQuery.matches || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) setShouldLoad(true);
+      setShouldPlay(entry.isIntersecting);
+    }, { rootMargin: "240px 0px", threshold: .01 });
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, [viewport]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !shouldLoad) return;
+    if (shouldPlay) void video.play().catch(() => undefined);
+    else video.pause();
+  }, [shouldLoad, shouldPlay]);
+
+  return (
+    <video
+      ref={videoRef}
+      aria-hidden="true"
+      autoPlay={shouldPlay}
+      loop
+      muted
+      playsInline
+      poster={poster}
+      preload="none"
+      src={shouldLoad ? src : undefined}
+      onError={onError}
+      style={{ objectFit, objectPosition }}
+    />
+  );
+}
+
 function Layer({
   layer,
   canvasWidth,
@@ -69,7 +128,7 @@ function Layer({
   canvasHeight: number;
   viewport: ProjectMediaViewport;
   loading: "eager" | "lazy";
-  onError: (event: SyntheticEvent<HTMLImageElement>) => void;
+  onError: () => void;
 }) {
   const layerStyle: CSSProperties = {
     left: percent(layer.x, canvasWidth),
@@ -133,6 +192,21 @@ function MediaStage({
     return (
       <span className={`project-media-slot is-${viewport}`}>
         <ResponsiveAsset src={selected.src} viewport={viewport} loading={loading} objectFit={selected.objectFit ?? "cover"} onError={onError} />
+      </span>
+    );
+  }
+
+  if (selected.type === "video") {
+    return (
+      <span className={`project-media-slot is-${viewport}`}>
+        <ResponsiveVideo
+          src={selected.src}
+          poster={selected.poster}
+          viewport={viewport}
+          objectFit={selected.objectFit}
+          objectPosition={viewport === "mobile" ? selected.mobileObjectPosition ?? selected.objectPosition : selected.objectPosition}
+          onError={onError}
+        />
       </span>
     );
   }

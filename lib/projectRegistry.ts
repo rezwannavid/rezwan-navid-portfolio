@@ -74,7 +74,10 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
   },
   ridesync: {
     id: "ridesync", slug: "ridesync", title: "RideSync", shortDescription: "Designing the bridge from high-touch service to self-service.", role: "Product Manager", year: "2026", timeline: "6 months", href: "/work/ridesync", protected: false,
-    published: true, featured: false, workOrder: 0.5, media: { fallback: { type: "asset", src: "/home-design/thumb-dashboard.png?v=2" } },
+    published: true, featured: true, workOrder: 0.5, featuredOrder: 0, media: {
+      primary: { type: "video", src: "/ridesync-exact/Cover/ridesync-cover.mp4", poster: "/ridesync-exact/Cover/ridesync-thumbnail-poster.jpg", objectFit: "cover", mobileObjectPosition: "54% center" },
+      fallback: { type: "asset", src: "/ridesync-exact/Cover/ridesync-thumbnail-poster.jpg", objectFit: "cover" },
+    },
     hero: "/home-design/thumb-dashboard.png?v=2", placeholder: false, thumbnailAlt: "RideSync transportation self-service experience", categories: ["product-study", "product-management"], categoryLabel: "Product Study", client: "RideCentric", locked: false, theme: "dark", indexable: true,
     seoTitle: "RideSync, Transportation Self-Service Product", seoDescription: "Designing the bridge from high-touch transportation service to customer self-service.",
   },
@@ -92,19 +95,22 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
   },
   "drivers-app": {
     id: "drivers-app", slug: "drivers-app", title: "Drivers App", pillLabel: "Drivers App", shortDescription: "A focused mobile companion for professional drivers coordinating trips and updates.", role: "Product Manager - Experience", year: "2026", href: "/work/drivers-app", protected: false,
-    published: true, featured: true, workOrder: 2, featuredOrder: 2, media: { desktop: projectMediaPresets.driversDesktop, desktopFeatured: projectMediaPresets.driversDesktopFeatured, mobile: projectMediaPresets.driversMobile, fallback: { type: "asset", src: "/Drivers App Pictures/Drivers Hero.png" } },
+    published: true, featured: false, workOrder: 2, media: { desktop: projectMediaPresets.driversDesktop, desktopFeatured: projectMediaPresets.driversDesktopFeatured, mobile: projectMediaPresets.driversMobile, fallback: { type: "asset", src: "/Drivers App Pictures/Drivers Hero.png" } },
     hero: "/Drivers App Pictures/Drivers Hero.png", placeholder: false, thumbnailAlt: "RC Drivers app displayed on a phone beside architectural panels", categories: ["product-study", "interface", "product-management"], categoryLabel: "Product Study", client: "RideCentric", locked: false, indexable: true,
     seoTitle: "RC Drivers App, Driver Operations Companion", seoDescription: "A mobile workflow helping professional drivers coordinate trips, communicate updates and stay on schedule.",
   },
   needin: {
     id: "needin", slug: "needin", title: "Needin", shortDescription: "A flexible meal subscription marketplace connecting people with home cooks.", role: "Product & Design", year: "2021", timeline: "7 months", href: "/work/needin", protected: false,
-    published: true, featured: false, workOrder: 8, media: { fallback: { type: "asset", src: "/needin-exact/hero.png" } },
-    hero: "/needin-exact/hero.png", placeholder: false, thumbnailAlt: "Needin meal subscription marketplace identity", categories: ["product-study", "interface", "brand"], categoryLabel: "Product Study", client: "Needin", locked: false, theme: "dark", indexable: true,
+    published: true, featured: true, workOrder: 8, featuredOrder: 1, media: {
+      primary: { type: "video", src: "/needin-exact/Thumbnail/needin-thumbnail.mp4", poster: "/needin-exact/Thumbnail/needin-thumbnail-poster.jpg", objectFit: "cover", mobileObjectPosition: "50% center" },
+      fallback: { type: "asset", src: "/needin-exact/Thumbnail/needin-thumbnail-poster.jpg", objectFit: "cover" },
+    },
+    hero: "/needin-exact/hero.png", placeholder: false, thumbnailAlt: "Needin meal-selection experience displayed on a phone", categories: ["product-study", "interface", "brand"], categoryLabel: "Product Study", client: "Needin", locked: false, theme: "dark", indexable: true,
     seoTitle: "Needin, Home Cook Meal Subscription Marketplace", seoDescription: "Product strategy, marketplace design, brand, and end-to-end experience design for Needin, a flexible meal subscription service connecting customers with home cooks.",
   },
   "ruckus-games": {
     id: "ruckus-games", slug: "ruckus-games", title: "Ruckus Games", shortDescription: "A free multiplayer party-game platform that makes game nights effortless.", role: "Product Direction / Design Engineering", year: "2026", timeline: "3 weeks", projectType: "ai", productType: "Product Exploration with AI", madeWith: ["Claude", "Cursor", "Vercel", "Figma", "Railway", "v0"], href: "/work/ruckus-games", protected: false,
-    published: true, featured: true, workOrder: 3, featuredOrder: 0, media: { desktop: projectMediaPresets.ruckusDesktop, desktopFeatured: projectMediaPresets.ruckusDesktop, mobile: projectMediaPresets.ruckusMobile, fallback: { type: "asset", src: "/Ruckus Games Pictures/EventFlow 01.png" } },
+    published: true, featured: false, workOrder: 3, media: { desktop: projectMediaPresets.ruckusDesktop, desktopFeatured: projectMediaPresets.ruckusDesktop, mobile: projectMediaPresets.ruckusMobile, fallback: { type: "asset", src: "/Ruckus Games Pictures/EventFlow 01.png" } },
     hero: "/Ruckus Games Pictures/EventFlow 01.png", placeholder: false, thumbnailAlt: "Ruckus multiplayer party game experience on a phone", categories: ["ai"], categoryLabel: "AI", client: "Ruckus Games", locked: false, theme: "dark", indexable: true,
     seoTitle: "Ruckus Games, Multiplayer Party Games", seoDescription: "Product direction and design engineering for expressive multiplayer party games.",
   },
@@ -116,8 +122,11 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
   },
   "gmi-companion": {
     id: "gmi-companion", slug: "gmi-companion", title: "GMI Companion", shortDescription: "A connected product experience bringing guidance, resources, organizational context, and AI-powered support together.", role: "Design Direction / Interface Design", year: "2026", platform: "Web, Mobile", href: "/work/gmi-companion", protected: false,
-    published: true, featured: true, workOrder: 1, featuredOrder: 1, media: { desktop: projectMediaPresets.gmiDesktop, desktopFeatured: projectMediaPresets.gmiDesktop, mobile: projectMediaPresets.gmiMobile, fallback: { type: "asset", src: "/GMI Companion Pictures/Hero.png" } },
-    hero: "/GMI Companion Pictures/Hero.png", placeholder: false, thumbnailAlt: "GMI Companion identity across a red and blue motion gradient", categories: ["product-study", "interface", "brand", "ai"], categoryLabel: "Product Study", client: "GMI", locked: false, theme: "dark", indexable: true,
+    published: true, featured: true, workOrder: 1, featuredOrder: 2, media: {
+      primary: { type: "video", src: "/GMI Companion Pictures/Thumbnail/gmi-thumbnail.mp4", poster: "/GMI Companion Pictures/Thumbnail/gmi-thumbnail-poster.jpg", objectFit: "cover", mobileObjectPosition: "50% center" },
+      fallback: { type: "asset", src: "/GMI Companion Pictures/Thumbnail/gmi-thumbnail-poster.jpg", objectFit: "cover" },
+    },
+    hero: "/GMI Companion Pictures/Hero.png", placeholder: false, thumbnailAlt: "GMI Companion experience displayed on a phone held over a red and blue gradient", categories: ["product-study", "interface", "brand", "ai"], categoryLabel: "Product Study", client: "GMI", locked: false, theme: "dark", indexable: true,
     seoTitle: "GMI Companion, Connected Mission-Driven Product Experience", seoDescription: "Design direction, interface design, brand, and motion for GMI Companion, a connected support experience for mission-driven organizations.",
   },
   "gldn-route": {

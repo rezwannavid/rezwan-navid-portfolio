@@ -4,6 +4,15 @@ export type ProjectMediaAsset = {
   objectFit?: "cover" | "contain" | "fill";
 };
 
+export type ProjectMediaVideo = {
+  type: "video";
+  src: string;
+  poster: string;
+  objectFit?: "cover" | "contain" | "fill";
+  objectPosition?: string;
+  mobileObjectPosition?: string;
+};
+
 export type ProjectMediaLayerMedia = {
   x: number;
   y: number;
@@ -35,9 +44,10 @@ export type ProjectMediaComposition = {
   layers: ProjectMediaLayer[];
 };
 
-export type ProjectMedia = ProjectMediaAsset | ProjectMediaComposition;
+export type ProjectMedia = ProjectMediaAsset | ProjectMediaVideo | ProjectMediaComposition;
 
 export type ProjectMediaSet = {
+  primary?: ProjectMedia;
   desktop?: ProjectMedia;
   desktopFeatured?: ProjectMedia;
   mobile?: ProjectMedia;
@@ -54,15 +64,15 @@ export function resolveProjectMedia(
   options: { context: ProjectMediaContext; viewport: ProjectMediaViewport },
 ): ProjectMedia {
   const { context, viewport } = options;
-  if (context === "small") return project.media.small ?? project.media.fallback;
+  if (context === "small") return project.media.small ?? project.media.primary ?? project.media.fallback;
   if (context === "homepage") {
     return viewport === "mobile"
-      ? project.media.mobileFeatured ?? project.media.mobile ?? project.media.fallback
-      : project.media.desktopFeatured ?? project.media.desktop ?? project.media.fallback;
+      ? project.media.mobileFeatured ?? project.media.primary ?? project.media.mobile ?? project.media.fallback
+      : project.media.desktopFeatured ?? project.media.primary ?? project.media.desktop ?? project.media.fallback;
   }
   return viewport === "mobile"
-    ? project.media.mobile ?? project.media.fallback
-    : project.media.desktop ?? project.media.fallback;
+    ? project.media.primary ?? project.media.mobile ?? project.media.fallback
+    : project.media.primary ?? project.media.desktop ?? project.media.fallback;
 }
 
 const ruckusDesktop: ProjectMediaComposition = {
@@ -95,46 +105,6 @@ const ruckusMobile: ProjectMediaComposition = {
     { src: "/project-media/ruckus/mobile-left.png", x: -96, y: 66, width: 188, height: 390, objectFit: "fill" },
     { src: "/Ruckus Games Pictures/phone-frame-group-2.png", x: 103, y: 66.25, width: 188, height: 390.258, objectFit: "fill" },
     { src: "/Ruckus Games Pictures/phone-animation-group-2.gif", x: 110.04, y: 73.28, width: 175.176, height: 377.028, objectFit: "fill", borderRadius: 27.775 },
-  ],
-};
-
-const gmiDesktop: ProjectMediaComposition = {
-  type: "composition",
-  width: 947,
-  height: 623,
-  background: "#efe0e0",
-  layers: [
-    { src: "/project-media/gmi-companion/device-frame.png", x: 42, y: 32.41, width: 271.764, height: 561.783, objectFit: "fill" },
-    { src: "/GMI Companion Pictures/Motion 02.gif", x: 52.45, y: 41.54, width: 250.785, height: 543.687, objectFit: "fill", borderRadius: 38.674 },
-    { src: "/project-media/gmi-companion/device-frame.png", x: 335.97, y: 32.478, width: 271.512, height: 561.264, objectFit: "fill" },
-    { src: "/GMI Companion Pictures/New.gif", x: 346.41, y: 41.598, width: 250.553, height: 543.184, objectFit: "fill", borderRadius: 38.638 },
-    { src: "/project-media/gmi-companion/device-frame.png", x: 630, y: 29, width: 271.747, height: 561.75, objectFit: "fill" },
-    { src: "/GMI Companion Pictures/Motion 03.gif", x: 640.45, y: 38.13, width: 250.77, height: 543.654, objectFit: "fill", borderRadius: 38.672 },
-  ],
-};
-
-const gmiMobile: ProjectMediaComposition = {
-  type: "composition",
-  width: 393,
-  height: 523,
-  background: "#de383e",
-  layers: [
-    { src: "/project-media/gmi-companion/device-frame.png", x: 36.23, y: 20, width: 320.766, height: 663.08, objectFit: "fill" },
-    { src: "/GMI Companion Pictures/New.gif", x: 48.57, y: 30.77, width: 296.005, height: 641.721, objectFit: "fill", borderRadius: 45.647 },
-  ],
-};
-
-const gmiDesktopFeatured: ProjectMediaComposition = {
-  type: "composition",
-  width: 691,
-  height: 464,
-  background: "#fff",
-  layers: [
-    { x: -202.975, y: 18.589, width: 800.88, height: 122.193, rotate: -32.47, borderRadius: 93.485, background: "linear-gradient(180deg,#df383e 0%,rgba(121,30,34,0) 100%)" },
-    { x: -186.057, y: 149.143, width: 811.921, height: 122.193, rotate: -32.47, borderRadius: 93.485, background: "linear-gradient(180deg,#e06245 0%,rgba(122,53,38,0) 100%)" },
-    { x: -60.614, y: 202.442, width: 848.727, height: 122.193, rotate: -32.47, borderRadius: 93.485, background: "linear-gradient(180deg,#1d92c4 0%,rgba(14,70,94,0) 100%)" },
-    { x: -57.744, y: 345.452, width: 848.727, height: 122.193, rotate: -32.47, borderRadius: 93.485, background: "linear-gradient(180deg,#73b9d6 0%,rgba(60,97,112,0) 100%)" },
-    { x: 18.707, y: 445.38, width: 836.949, height: 122.193, rotate: -32.47, borderRadius: 93.485, background: "linear-gradient(180deg,#b3d2e0 0%,rgba(97,114,122,0) 100%)" },
   ],
 };
 
@@ -178,9 +148,6 @@ const driversDesktopFeatured: ProjectMediaComposition = {
 export const projectMediaPresets = {
   ruckusDesktop,
   ruckusMobile,
-  gmiDesktop,
-  gmiMobile,
-  gmiDesktopFeatured,
   driversDesktop,
   driversMobile,
   driversDesktopFeatured,

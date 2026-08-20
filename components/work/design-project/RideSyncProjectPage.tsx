@@ -14,7 +14,7 @@ const media = {
   informationModel: "/ridesync-exact/HQ/ridesync-guest-access-flow.png",
   twoQuestions: "/ridesync-exact/booker-passenger-questions-poster.png",
   dispatchModel: "/ridesync-exact/HQ/dispatch-information-model.png",
-  passengerView: "/ridesync-exact/passenger-itinerary-dashboard-poster.png",
+  passengerView: "/ridesync-exact/Cover/ridesync-thumbnail-poster.jpg",
   cityIllustration: "/ridesync-exact/live-itinerary-cityscape-poster.png",
   eventDashboard: "/ridesync-exact/event-dashboard-poster.png",
   eventMap: "/ridesync-exact/HQ/event-map-laptop.png",
@@ -28,7 +28,7 @@ const media = {
 const videos = {
   relationship: "/ridesync-exact/Video/passenger-information-gap.mp4",
   twoQuestions: "/ridesync-exact/Video/booker-passenger-questions.mp4",
-  passengerView: "/ridesync-exact/Video/passenger-sharing-flow.mp4",
+  passengerView: "/ridesync-exact/Cover/ridesync-cover.mp4",
   cityIllustration: "/ridesync-exact/Video/live-itinerary-cityscape.mp4",
   eventDashboard: "/ridesync-exact/Video/event-dashboard-overview.mp4",
   payment: "/ridesync-exact/Video/confirmation-payment-experience.mp4",
@@ -112,7 +112,13 @@ export function RideSyncProjectPage() {
           <Visual src={media.dispatchModel} alt="RideSync customer model compared with dispatch records" width={474} height={384} />
           <p className="ridesync-product-label"><CopyText>The product</CopyText></p>
           <div className="ridesync-itinerary-copy"><h2><HeadingText>A forwarded itinerary became a living itinerary.</HeadingText></h2><p><span className="ridesync-copy-block"><CopyText>The passenger view turned static information into an experience that changed with the trip.</CopyText></span><span className="ridesync-copy-block"><CopyText>An incoming flight could affect pickup. A chauffeur could move from unassigned to assigned. A vehicle could move from approaching to in progress. The passenger could track the ride when information was enough and call the chauffeur when conversation was actually necessary.</CopyText></span></p></div>
-          <Visual src={media.passengerView} videoSrc={videos.passengerView} alt="RideSync passenger itinerary and ride status experience" width={1170} height={752} />
+          <Visual
+            src={media.passengerView}
+            videoSrc={videos.passengerView}
+            alt="RideSync living itinerary experience displayed on a Studio Display mockup"
+            width={1920}
+            height={1280}
+          />
           <p className="ridesync-product-caption"><CopyText>The product answered questions before they became support requests.</CopyText></p>
           <Visual src={media.cityIllustration} videoSrc={videos.cityIllustration} alt="A blue cityscape illustration used in the RideSync experience" width={877} height={453} />
           <div className="ridesync-booker-copy"><h2><HeadingText>For bookers, visibility scaled from one passenger to the whole event.</HeadingText></h2><p><span className="ridesync-copy-block"><CopyText>Once RideSync became useful at the individual itinerary level, the same information model could support bookers coordinating larger groups.</CopyText></span><span className="ridesync-copy-block"><CopyText>The event view surfaced rides by date, passenger, and status, while the map turned multiple simultaneous rides into something understandable at a glance.</CopyText></span></p></div>

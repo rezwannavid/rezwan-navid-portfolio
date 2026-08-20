@@ -1443,6 +1443,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
 .project-media-picture { display: contents; }
 .project-media-layer { position: absolute; display: block; transform-origin: center; }
 .project-media-picture > img, .project-media-layer > img { display: block; width: 100%; height: 100%; max-width: none; user-select: none; }
+.project-media-slot > video { display: block; width: 100%; height: 100%; max-width: none; }
 @media (max-width: 767px), (max-height: 500px) and (orientation: landscape) {
   .project-media-slot.is-desktop { display: none; }
   .project-media-slot.is-mobile { display: block; }
@@ -3343,6 +3344,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   .mobile-featured-motion-frame, .mobile-featured-link { position: relative; display: block; width: 100%; height: 100%; overflow: hidden; }
   .mobile-featured-motion-frame { border-radius: 9px; transform-origin: center; will-change: clip-path, transform; }
   .mobile-featured-image-depth { position: absolute; inset: -9%; transform-origin: center; will-change: transform; backface-visibility: hidden; }
+  .mobile-featured-image-depth:is(.is-ridesync, .is-needin, .is-gmi-companion) { inset: 0; }
   .mobile-featured-link .project-media-renderer { image-rendering: auto; backface-visibility: hidden; }
   .mobile-see-work { margin-top: 44px; }
 
