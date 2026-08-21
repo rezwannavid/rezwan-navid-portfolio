@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
-import { useCallback, useEffect, useRef, type CSSProperties, type KeyboardEvent, type PointerEvent, type WheelEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent, type WheelEvent } from "react";
 import type { PhotographyItem } from "@/lib/photographyGallery";
 import { motionEase } from "@/lib/motion";
 
@@ -25,6 +25,15 @@ export function PhotographyGallery({ items }: { items: PhotographyItem[] }) {
   const animationFrame = useRef<number | null>(null);
   const railX = useMotionValue(0);
   const reduceMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 767px), (max-height: 500px) and (orientation: landscape)");
+    const update = () => setIsMobile(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
 
   const measure = useCallback(() => {
     const viewport = viewportRef.current;
@@ -52,6 +61,12 @@ export function PhotographyGallery({ items }: { items: PhotographyItem[] }) {
   }, [softlySnap]);
 
   useEffect(() => {
+    if (isMobile) {
+      target.current = 0;
+      current.current = 0;
+      railX.set(0);
+      return;
+    }
     measure();
     const observer = new ResizeObserver(measure);
     if (viewportRef.current) observer.observe(viewportRef.current);
@@ -75,9 +90,10 @@ export function PhotographyGallery({ items }: { items: PhotographyItem[] }) {
       if (animationFrame.current) cancelAnimationFrame(animationFrame.current);
       if (snapTimer.current) window.clearTimeout(snapTimer.current);
     };
-  }, [measure, railX, reduceMotion]);
+  }, [isMobile, measure, railX, reduceMotion]);
 
   const onWheel = (event: WheelEvent<HTMLElement>) => {
+    if (isMobile) return;
     const delta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
     if (!delta) return;
     const next = clamp(target.current + delta * .82, 0, maximum.current);
@@ -87,6 +103,7 @@ export function PhotographyGallery({ items }: { items: PhotographyItem[] }) {
   };
 
   const onPointerDown = (event: PointerEvent<HTMLElement>) => {
+    if (isMobile) return;
     if (event.pointerType === "mouse" && event.button !== 0) return;
     dragging.current = true;
     dragStartX.current = event.clientX;
@@ -98,6 +115,7 @@ export function PhotographyGallery({ items }: { items: PhotographyItem[] }) {
   };
 
   const onPointerMove = (event: PointerEvent<HTMLElement>) => {
+    if (isMobile) return;
     if (!dragging.current) return;
     const delta = event.clientX - dragStartX.current;
     dragVelocity.current = event.clientX - lastDragX.current;
@@ -106,6 +124,7 @@ export function PhotographyGallery({ items }: { items: PhotographyItem[] }) {
   };
 
   const endDrag = (event: PointerEvent<HTMLElement>) => {
+    if (isMobile) return;
     if (!dragging.current) return;
     dragging.current = false;
     event.currentTarget.dataset.dragging = "false";
@@ -115,6 +134,7 @@ export function PhotographyGallery({ items }: { items: PhotographyItem[] }) {
   };
 
   const onKeyDown = (event: KeyboardEvent<HTMLElement>) => {
+    if (isMobile) return;
     if (event.key !== "ArrowLeft" && event.key !== "ArrowRight" && event.key !== "Home" && event.key !== "End") return;
     event.preventDefault();
     if (event.key === "Home") target.current = 0;
@@ -124,7 +144,7 @@ export function PhotographyGallery({ items }: { items: PhotographyItem[] }) {
   };
 
   return (
-    <main className="photography-page" data-node-id="924:30758">
+    <main className="photography-page" data-mobile={isMobile ? "true" : "false"} data-node-id="924:30758">
       <h1 className="sr-only">Photography by Mir Rezwan Navid</h1>
       <div className="photography-title">
         <img src="/photography-design/world-through-my-lens.png" alt="World through my lens" width="1280" height="1280" />
@@ -134,7 +154,7 @@ export function PhotographyGallery({ items }: { items: PhotographyItem[] }) {
         ref={viewportRef}
         className="photography-viewport"
         aria-label="Photography gallery"
-        tabIndex={0}
+        tabIndex={isMobile ? -1 : 0}
         onWheel={onWheel}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
@@ -182,7 +202,14 @@ function PhotoFrame({ item, priority, frameRef, reduceMotion, getGalleryVelocity
     lift.set(0);
   };
 
-  const dimensions = { "--photo-width": `${item.displayWidth}px`, "--photo-height": `${imageHeight}px`, "--frame-y": `${item.yOffset}px`, "--frame-z": `${item.baseRotateZ}deg` } as CSSProperties;
+  const dimensions = {
+    "--photo-width": `${item.displayWidth}px`,
+    "--photo-height": `${imageHeight}px`,
+    "--frame-y": `${item.yOffset}px`,
+    "--frame-z": `${item.baseRotateZ}deg`,
+    "--mobile-photo-aspect": `${item.width} / ${item.height}`,
+    "--mobile-frame-aspect": `${item.displayWidth + 82} / ${imageHeight + 92}`,
+  } as CSSProperties;
 
   return (
     <div ref={frameRef} className="photography-frame-hitbox" style={dimensions} onPointerMove={move} onPointerLeave={reset}>

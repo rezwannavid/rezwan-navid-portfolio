@@ -35,6 +35,17 @@ const mobileIndexTitleVariants = {
 
 const modulo = (value: number, length: number) => ((value % length) + length) % length;
 
+function GridIcon() {
+  return (
+    <svg className="work-grid-icon" viewBox="0 0 18 18" aria-hidden="true">
+      <rect x="1.5" y="1.5" width="5.5" height="5.5" rx="1.35" />
+      <rect x="11" y="1.5" width="5.5" height="5.5" rx="1.35" />
+      <rect x="1.5" y="11" width="5.5" height="5.5" rx="1.35" />
+      <rect x="11" y="11" width="5.5" height="5.5" rx="1.35" />
+    </svg>
+  );
+}
+
 function scrollImmediately(top: number) {
   const event = new CustomEvent(immediateScrollEvent, { cancelable: true, detail: { top } });
   if (window.dispatchEvent(event)) {
@@ -325,7 +336,7 @@ function MobileProjects() {
         onClick={toggleAllWork}
         whileTap={reduceMotion ? undefined : { opacity: .72 }}
       >
-        <motion.span aria-hidden="true" animate={{ rotate: allWorkOpen ? 180 : 0 }} transition={{ duration: reduceMotion ? 0 : .22, ease: motionEase.editorial }} />
+        <motion.span aria-hidden="true" animate={{ scale: allWorkOpen ? .88 : 1, rotate: allWorkOpen ? 90 : 0 }} transition={{ duration: reduceMotion ? 0 : .22, ease: motionEase.editorial }}><GridIcon /></motion.span>
       </motion.button>
 
       <div className="work-browser-mobile-list" aria-label="Selected work">
@@ -406,12 +417,14 @@ function MobileProjects() {
 }
 
 export function WorkProjectBrowser() {
+  const reduceMotion = useReducedMotion();
   const isMobile = useMobileWorkMode();
   const runwayRef = useRef<HTMLElement>(null);
   const activeRef = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const [focusIndex, setFocusIndex] = useState<number | null>(null);
+  const [desktopGridOpen, setDesktopGridOpen] = useState(false);
   const displayIndex = focusIndex ?? hoverIndex ?? activeIndex;
   const displayedProject = workProjects[displayIndex];
 
@@ -484,9 +497,30 @@ export function WorkProjectBrowser() {
           <div className="work-browser-stage">
             <ProjectMeta project={displayedProject} />
             <div className="work-browser-presentation">
-              <ProjectRail activeIndex={activeIndex} displayIndex={displayIndex} setHoverIndex={setHoverIndex} setFocusIndex={setFocusIndex} />
+              <div className="work-browser-presentation-nav">
+                <button className="desktop-work-grid-toggle" type="button" aria-label={desktopGridOpen ? "Close project grid" : "Open project grid"} aria-expanded={desktopGridOpen} aria-controls="desktop-all-work-index" onClick={() => setDesktopGridOpen((open) => !open)}>
+                  <motion.span animate={{ scale: desktopGridOpen ? .9 : 1, rotate: desktopGridOpen ? 90 : 0 }} transition={{ duration: reduceMotion ? 0 : .24, ease: motionEase.editorial }}><GridIcon /></motion.span>
+                </button>
+                <ProjectRail activeIndex={activeIndex} displayIndex={displayIndex} setHoverIndex={setHoverIndex} setFocusIndex={setFocusIndex} />
+              </div>
               <div className="work-browser-canvas">{isMobile === false ? <ProjectCover project={displayedProject} /> : null}</div>
             </div>
+            <AnimatePresence>
+              {desktopGridOpen && isMobile === false && (
+                <motion.div className="desktop-all-work" id="desktop-all-work-index" role="dialog" aria-label="All work" initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12, clipPath: "inset(0 0 100% 0)" }} animate={{ opacity: 1, y: 0, clipPath: "inset(0 0 0% 0)" }} exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 8, clipPath: "inset(0 0 100% 0)" }} transition={{ duration: reduceMotion ? .1 : .42, ease: motionEase.editorial }}>
+                  <nav className="desktop-all-work-grid" aria-label="All projects" data-lenis-prevent data-lenis-prevent-wheel onWheel={(event) => event.stopPropagation()}>
+                    {workProjects.map((project, index) => (
+                      <motion.article className="desktop-all-work-card" key={project.slug} initial={reduceMotion ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : .32, delay: Math.min(index, 8) * .025, ease: motionEase.editorial }}>
+                        <ProjectLink className="desktop-all-work-link" href={project.href} projectId={project.id} aria-label={`${project.locked ? "Preview" : "View"} ${project.title}`}>
+                          <span className="desktop-all-work-media"><ProjectMedia project={project} context="work" priority={index < 4} /></span>
+                          <span className="desktop-all-work-title">{project.title}</span>
+                        </ProjectLink>
+                      </motion.article>
+                    ))}
+                  </nav>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
         <div className="work-browser-steps" aria-hidden="true">{Array.from({ length: workProjects.length * LOOP_COPIES }, (_, index) => <span key={index} />)}</div>

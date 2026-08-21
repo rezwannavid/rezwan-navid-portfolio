@@ -42,7 +42,7 @@ export default async function PortfolioPage() {
   };
 
   return (
-    <div className="home-page portfolio-page">
+    <div className={`home-page portfolio-page${hasAccess ? "" : " is-locked"}`}>
       <main className="portfolio-main">
         <JsonLd data={pageSchema(
           webPageSchema({ name: title, description, path: "/portfolio", type: "CollectionPage" }),

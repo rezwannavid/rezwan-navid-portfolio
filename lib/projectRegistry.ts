@@ -162,7 +162,7 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
   tygrlabs: {
     id: "tygrlabs", slug: "tygrlabs", title: "TygrLabs", shortDescription: "A new identity for a product studio working across design, technology, and emerging ideas.", role: "Design Direction, Brand, Motion & Interface", year: "2023-2024", timeline: "8 weeks", productType: "Brand System Refresh", href: "/work/tygrlabs", protected: false,
     published: true, featured: false, workOrder: 7, media: {
-      primary: { type: "video", src: "/Tygrlabs Pictures/Thumbnail/tygrlabs-thumbnail.mp4", poster: "/Tygrlabs Pictures/Thumbnail/tygrlabs-thumbnail-poster.jpg", objectFit: "cover", mobileObjectPosition: "50% center" },
+      primary: { type: "video", src: "/Tygrlabs Pictures/Thumbnail/tygrlabs-thumbnail.mp4", poster: "/Tygrlabs Pictures/Thumbnail/tygrlabs-thumbnail-poster.jpg", objectFit: "cover", mobileObjectPosition: "48.8% center" },
       fallback: { type: "asset", src: "/Tygrlabs Pictures/Thumbnail/tygrlabs-thumbnail-poster.jpg", objectFit: "cover" },
     },
     hero: "/Tygrlabs Pictures/opening-hero.png", placeholder: false, thumbnailAlt: "TygrLabs identity mark over a red, green, yellow, and warm neutral gradient", categories: ["brand", "design-system"], categoryLabel: "Brand", client: "TygrLabs", locked: false, indexable: true,
