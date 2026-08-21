@@ -15,7 +15,6 @@ export function WorkProjectCard({ project, index }: { project: WorkProject; inde
           <div className="work-card-title-row">
             <h2>{project.title}</h2>
             {project.protected && <span className="work-protected-label"><LockIcon />Password Protected</span>}
-            {project.comingSoon && <span className="work-coming-soon-label">Coming soon</span>}
           </div>
           <p>{project.role}</p>
         </div>
@@ -30,7 +29,7 @@ export function WorkProjectCard({ project, index }: { project: WorkProject; inde
               <span className="work-category-tag"><CategoryIcon />{project.categoryLabel}</span>
               <dl>
                 <div><dt className="sr-only">Year</dt><dd>{project.year}</dd></div>
-                <div><dt className="sr-only">Status</dt><dd>{project.comingSoon ? "Coming soon" : "Shipped"}</dd></div>
+                <div><dt className="sr-only">Status</dt><dd>Shipped</dd></div>
                 <div><dt className="sr-only">Client</dt><dd>{project.client}</dd></div>
               </dl>
             </div>

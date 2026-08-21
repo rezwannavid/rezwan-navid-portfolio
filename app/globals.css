@@ -1297,7 +1297,6 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
 .work-card-title-row h2 { margin: 0; font-size: 28px; line-height: 28px; font-weight: 500; letter-spacing: -.02em; }
 .work-protected-label { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; line-height: 18px; font-weight: 500; letter-spacing: .01em; white-space: nowrap; }
 .work-protected-label svg { width: 17px; height: 17px; }
-.work-coming-soon-label { display: inline-flex; align-items: center; min-height: 22px; padding: 2px 9px; border: 1px solid rgb(231 231 231 / .28); border-radius: 999px; color: rgb(231 231 231 / .82); font-size: 11px; line-height: 16px; font-weight: 500; letter-spacing: .02em; text-transform: uppercase; white-space: nowrap; }
 .work-card-heading > p { margin: 0; color: var(--color-text-secondary); font-size: 13px; line-height: 16px; }
 .work-card-layout { display: grid; grid-template-columns: minmax(0, 592px) 180px; gap: 24px; }
 .work-card-media { display: block; width: 100%; aspect-ratio: 592 / 340; border-radius: 5px; overflow: hidden; background: #f4f4f4; transform: translateZ(0); }
@@ -3359,7 +3358,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   .work-project-card + .work-project-card { padding-top: 50px; border-top: 1px solid var(--color-border); }
   .work-card-heading { width: 100%; gap: 0; margin-bottom: 36px; }
   .work-card-title-row h2 { font-size: 28px; line-height: 30px; }
-  .work-protected-label, .work-coming-soon-label, .work-card-heading > p { display: none; }
+  .work-protected-label, .work-card-heading > p { display: none; }
   .work-card-layout { display: flex; flex-direction: column; gap: 10px; }
   .work-card-media { width: 100%; aspect-ratio: 376 / 256; }
   .work-card-placeholder { background-size: 48px 48px; background-position: 0 0, 0 24px, 24px -24px, -24px 0; }

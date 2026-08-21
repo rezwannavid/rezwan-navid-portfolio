@@ -49,7 +49,6 @@ export type ProjectDefinition = {
   categoryLabel: string;
   client: string;
   locked: boolean;
-  comingSoon?: boolean;
   theme?: "checker" | "dark";
   indexable: boolean;
   seoTitle: string;
@@ -62,9 +61,9 @@ export type ResolvedProject = ProjectDefinition & {
 
 const definitions: Record<ProjectId, ProjectDefinition> = {
   ridecentric: {
-    id: "ridecentric", slug: "ridecentric", title: "RideCentric+", shortDescription: "An enterprise mobility platform for corporate travel, events and transportation operations.", role: "Product Manager / Product Direction", year: "2025", timeline: "4 months", href: "/work/ridecentric", protected: false,
+    id: "ridecentric", slug: "ridecentric", title: "RideCentric+", shortDescription: "An enterprise mobility platform for corporate travel, events and transportation operations.", role: "Product Manager / Product Direction", year: "2025", timeline: "4 months", href: "/work/ridecentric", protected: true,
     published: true, featured: true, workOrder: 4, featuredOrder: 4, media: { fallback: { type: "asset", src: "/ridecentric-exact/ridecentric-plus-hero.webp", objectFit: "cover" } },
-    hero: "/ridecentric-exact/ridecentric-plus-hero.webp", placeholder: false, thumbnailAlt: "RideCentric+ enterprise transportation dashboard displayed on a desktop monitor", categories: ["product-study", "interface", "design-system"], categoryLabel: "Product Study", client: "RideCentric", locked: false, comingSoon: true, theme: "dark", indexable: false,
+    hero: "/ridecentric-exact/ridecentric-plus-hero.webp", placeholder: false, thumbnailAlt: "RideCentric+ enterprise transportation dashboard displayed on a desktop monitor", categories: ["product-study", "interface", "design-system"], categoryLabel: "Product Study", client: "RideCentric", locked: true, theme: "dark", indexable: false,
     seoTitle: "RideCentric+, Enterprise Mobility Product Design", seoDescription: "Designing an enterprise mobility platform for managing complex ride operations, events, teams and workflows at scale.",
   },
   heavygari: {
