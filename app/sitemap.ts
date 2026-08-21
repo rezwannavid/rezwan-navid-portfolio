@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: absoluteUrl("/work"), changeFrequency: "monthly", priority: 0.9 },
     { url: absoluteUrl("/portfolio"), changeFrequency: "monthly", priority: 0.9 },
     { url: absoluteUrl("/about"), changeFrequency: "monthly", priority: 0.8 },
+    { url: absoluteUrl("/contact"), changeFrequency: "yearly", priority: 0.6 },
     { url: absoluteUrl("/photography"), changeFrequency: "monthly", priority: 0.7 },
     ...projects.filter((project) => project.indexable).map((project) => ({
       url: absoluteUrl(`/work/${project.slug}`),

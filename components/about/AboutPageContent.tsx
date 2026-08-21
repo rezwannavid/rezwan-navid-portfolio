@@ -208,7 +208,7 @@ function MobilePrincipleVisual({ image, role, transitionProgress, final, reduceM
   const y = reduceMotion ? 0 : incoming ? (1 - progress) * 42 : progress * -28;
   const scale = reduceMotion ? 1 : incoming ? 1.055 - progress * .055 : 1 - progress * .025;
   const clipPath = reduceMotion || !incoming ? "inset(0% 0 0% 0)" : `inset(${(1 - progress) * 100}% 0 0% 0)`;
-  return <div className={`about-mobile-principle-layer is-${role}`} style={{ zIndex: incoming ? 2 : 1, opacity: incoming ? 1 : 1 - progress * .16, transform: `translate3d(0, ${y}px, 0) scale(${scale})`, clipPath }}><Image quality={90} src={image} alt="" fill sizes="100vw" priority={image === principles[0].image} /></div>;
+  return <div className={`about-mobile-principle-layer is-${role}`} style={{ zIndex: incoming ? 2 : 1, opacity: incoming ? 1 : 1 - progress * .16, transform: `translate3d(0, ${y}px, 0) scale(${scale})`, clipPath }}><Image quality={90} src={image} alt="" fill sizes="(max-width: 767px) 110vw, 1px" priority={image === principles[0].image} /></div>;
 }
 
 function HowIThink() {

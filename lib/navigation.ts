@@ -43,7 +43,7 @@ export const globalNavigation: readonly GlobalNavItem[] = [
   {
     id: "contact",
     label: "Contact",
-    href: "mailto:m.rezwannavid@gmail.com",
+    href: "/contact",
     icon: "/navbar/contact.svg",
     iconSize: 20,
     labelWidth: 52,
