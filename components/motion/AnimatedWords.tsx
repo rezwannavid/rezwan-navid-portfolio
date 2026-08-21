@@ -26,18 +26,19 @@ export function AnimatedWords({
   const words = text.split(" ");
   const reveal = reduceMotion ? undefined : "visible";
 
-  return (
+  return <>
+    <span className="sr-only">{text}</span>
     <MotionTag
       className={`animated-words ${className}`.trim()}
       initial={reduceMotion ? false : "hidden"}
       animate={mode === "load" ? reveal : undefined}
       whileInView={mode === "view" ? reveal : undefined}
       viewport={{ once: true, amount: 0.18 }}
-      aria-label={text}
+      aria-hidden="true"
     >
       {words.map((word, index) => (
         <Fragment key={`${word}-${index}`}>
-          <span className="animated-word-mask" aria-hidden="true">
+          <span className="animated-word-mask">
             <motion.span
               className="animated-word"
               variants={{
@@ -56,5 +57,5 @@ export function AnimatedWords({
         </Fragment>
       ))}
     </MotionTag>
-  );
+  </>;
 }

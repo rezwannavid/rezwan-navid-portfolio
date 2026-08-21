@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Children, isValidElement, useLayoutEffect, useState, type CSSProperties, type ReactNode } from "react";
+import { useReducedMotion } from "motion/react";
+import { Children, isValidElement, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { AnimatedLines } from "@/components/motion/AnimatedLines";
 import { AnimatedWords } from "@/components/motion/AnimatedWords";
 import { ParallaxMedia } from "@/components/motion/ParallaxMedia";
@@ -11,6 +12,7 @@ import { NextProject } from "@/components/work/design-project/DesignProjectPrimi
 
 const DESIGN_WIDTH = 1280;
 const DESIGN_HEIGHT = 13718 - 52;
+const transparentPixel = "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
 
 function textLines(children: ReactNode) {
   const lines: ReactNode[][] = [[]];
@@ -55,11 +57,35 @@ function Positioned({ children, className = "", x, y, width, style }: {
 }
 
 function AnimatedMediaLayer({ src, className }: { src: string; className: string }) {
+  const reduceMotion = useReducedMotion();
+  const mediaRef = useRef<HTMLVideoElement | HTMLImageElement>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const media = mediaRef.current;
+    if (!media || reduceMotion) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) setShouldLoad(true);
+      setIsVisible(entry.isIntersecting);
+    }, { rootMargin: "400px 0px", threshold: .01 });
+    observer.observe(media);
+    return () => observer.disconnect();
+  }, [reduceMotion]);
+
+  useEffect(() => {
+    const media = mediaRef.current;
+    if (!(media instanceof HTMLVideoElement) || !shouldLoad) return;
+    if (isVisible && !document.hidden) void media.play().catch(() => undefined);
+    else media.pause();
+  }, [isVisible, shouldLoad]);
+
+  if (reduceMotion) return null;
   if (src.endsWith(".mp4")) {
-    return <video className={`needin-animated-layer ${className}`.trim()} autoPlay loop muted playsInline preload="metadata" aria-hidden="true"><source src={src} type="video/mp4" /></video>;
+    return <video ref={mediaRef as React.RefObject<HTMLVideoElement>} className={`needin-animated-layer ${className}`.trim()} autoPlay={isVisible} loop muted playsInline preload="none" aria-hidden="true" src={shouldLoad ? src : undefined} />;
   }
 
-  return <img className={`needin-animated-layer ${className}`.trim()} src={src} alt="" aria-hidden="true" />;
+  return <img ref={mediaRef as React.RefObject<HTMLImageElement>} className={`needin-animated-layer ${className}`.trim()} src={shouldLoad ? src : transparentPixel} alt="" aria-hidden="true" loading="lazy" decoding="async" />;
 }
 
 const PHONE_ANIMATION_CLASSES = new Set([
@@ -88,7 +114,7 @@ function MediaBlock({ src, alt, x, y, width, height, className = "", animatedSrc
 }) {
   return <div className={`needin-media ${className}`.trim()} style={{ left: x, top: y, width, height }}>
     <ParallaxMedia className="needin-media-depth" distance={0} xDistance={0} rotateDistance={0} reveal revealOffset={34}>
-      <img src={src} alt={alt} />
+      <img src={src} alt={alt} loading={y < 900 ? "eager" : "lazy"} decoding="async" />
       {animatedSrc ? <><AnimatedMediaLayer src={animatedSrc} className={animationClass} /><PhoneFrameLayer animationClass={animationClass} /></> : null}
     </ParallaxMedia>
   </div>;
@@ -196,9 +222,9 @@ function DesktopNeedin() {
           <Positioned className="needin-contributions" x={398} y={12140} width={194}>Customer &amp; cook research<br />Marketplace strategy<br />Subscription model<br />Service design<br />Product prioritization<br />Information architecture<br />User flows<br />UX/UI<br />Interaction design<br />Prototyping<br />Design system</Positioned>
 
           <Positioned className="needin-next-title needin-centered" x={507} y={12671} width={267}>next project</Positioned>
-          <ParallaxMedia className="needin-next-image" distance={0} xDistance={0} rotateDistance={0} reveal revealOffset={38}><Link href="/work/ridecentric"><img src="/ridecentric-exact/raw-9.png" alt="RideCentric+" /></Link></ParallaxMedia>
+          <ParallaxMedia className="needin-next-image" distance={0} xDistance={0} rotateDistance={0} reveal revealOffset={38}><Link href="/work/ridecentric"><img src="/ridecentric-exact/raw-9.png" alt="RideCentric+" loading="lazy" decoding="async" /></Link></ParallaxMedia>
           <Positioned className="needin-meta-value needin-centered" x={597} y={13185} width={86}>RideCentric+</Positioned>
-          <Link className="needin-work-strip" href="/work"><span className="needin-work-thumb needin-work-blue"><img src="/ridecentric-exact/raw-9.png" alt="" /></span><span className="needin-work-thumb needin-work-mint"><img src="/ridecentric-exact/raw-11.png" alt="" /></span><span className="needin-work-thumb needin-work-coral"><img src="/ridecentric-exact/raw-12.png" alt="" /></span><span className="needin-work-text">see all work</span><span className="needin-work-arrow">→</span></Link>
+          <Link className="needin-work-strip" href="/work"><span className="needin-work-thumb needin-work-blue"><img src="/ridecentric-exact/raw-9.png" alt="" loading="lazy" decoding="async" /></span><span className="needin-work-thumb needin-work-mint"><img src="/ridecentric-exact/raw-11.png" alt="" loading="lazy" decoding="async" /></span><span className="needin-work-thumb needin-work-coral"><img src="/ridecentric-exact/raw-12.png" alt="" loading="lazy" decoding="async" /></span><span className="needin-work-text">see all work</span><span className="needin-work-arrow">→</span></Link>
         </div>
       </article>
     </main>
@@ -214,7 +240,7 @@ function RBody({ children, className = "" }: { children: string; className?: str
 function RLabel({ children }: { children: string }) { return <p className="needin-r-label"><AnimatedLines text={children} /></p>; }
 function RMetaField({ label, value, delay = 0 }: { label: string; value: string; delay?: number }) { return <div><span><AnimatedLines text={label} delay={delay} /></span><strong><AnimatedLines text={value} delay={delay + .08} /></strong></div>; }
 function RVisual({ className = "", src, alt = "", animatedSrc, animationClass = "" }: { className?: string; src?: string; alt?: string; animatedSrc?: string; animationClass?: string }) {
-  return <div className={`needin-r-lime ${className}`}><ParallaxMedia className="needin-r-lime-depth" distance={0} xDistance={0} rotateDistance={0} reveal revealOffset={42}>{src ? <><img src={src} alt={alt} />{animatedSrc ? <><AnimatedMediaLayer src={animatedSrc} className={animationClass} /><PhoneFrameLayer animationClass={animationClass} /></> : null}</> : <span />}</ParallaxMedia></div>;
+  return <div className={`needin-r-lime ${className}`}><ParallaxMedia className="needin-r-lime-depth" distance={0} xDistance={0} rotateDistance={0} reveal revealOffset={42}>{src ? <><img src={src} alt={alt} loading="lazy" decoding="async" />{animatedSrc ? <><AnimatedMediaLayer src={animatedSrc} className={animationClass} /><PhoneFrameLayer animationClass={animationClass} /></> : null}</> : <span />}</ParallaxMedia></div>;
 }
 
 function ResponsiveNeedin() {

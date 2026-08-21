@@ -101,8 +101,8 @@ function FlipPhoto() {
     <motion.button className="about-child-flip" type="button" data-flipped={flipped} data-cursor="Flip" aria-label="Flip childhood photo" aria-pressed={flipped} initial={reduceMotion ? false : { opacity: 0, x: 34, y: 28, scale: .88, rotate: 3 }} whileInView={reduceMotion ? undefined : { opacity: 1, x: 0, y: 0, scale: 1, rotate: 0 }} viewport={{ once: true, amount: .3 }} transition={{ duration: .82, delay: .15, ease: motionEase.editorial }} onClick={() => setFlipped((value) => !value)} onPointerMove={move} onPointerLeave={reset} onPointerUp={reset} onPointerCancel={reset}>
       <motion.span className="about-child-tilt" style={{ x: reduceMotion ? 0 : smoothTouchX, y: reduceMotion ? 0 : smoothTouchY, rotateX: reduceMotion ? 0 : rotateX, rotateY: reduceMotion ? 0 : rotateY }}>
         <motion.span className="about-child-flipper" animate={reduceMotion ? { opacity: 1 } : { rotateY: flipped ? 180 : 0 }} transition={{ duration: .58, ease: motionEase.editorial }}>
-          <span className="about-child-face about-child-front"><Image unoptimized src="/about/childhood-photo.png" alt="Mir Rezwan Navid as a child" width={473} height={1024} /></span>
-          <span className="about-child-face about-child-back"><Image unoptimized src="/home-design/human-clouds.png?v=2" alt="Placeholder artwork on the back of the childhood photo" width={1028} height={640} /></span>
+          <span className="about-child-face about-child-front"><Image quality={90} src="/about/childhood-photo.png" alt="Mir Rezwan Navid as a child" width={473} height={1024} /></span>
+          <span className="about-child-face about-child-back"><Image quality={90} src="/home-design/human-clouds.png" alt="Placeholder artwork on the back of the childhood photo" width={1028} height={640} /></span>
         </motion.span>
       </motion.span>
     </motion.button>
@@ -122,7 +122,7 @@ function MemoryPhoto() {
     offsetX.set(((event.clientX - rect.left) / rect.width - .5) * 4);
     offsetY.set(((event.clientY - rect.top) / rect.height - .5) * 3);
   };
-  return <motion.div className="about-memory-image" initial={reduceMotion ? false : { opacity: .15, x: -28, y: 32, scale: .88, rotate: -3 }} whileInView={reduceMotion ? undefined : { opacity: 1, x: 0, y: 0, scale: 1, rotate: 0 }} viewport={{ once: true, amount: .15 }} transition={{ duration: .84, ease: motionEase.editorial }} onPointerMove={move} onPointerLeave={reset} onPointerUp={reset} onPointerCancel={reset}><motion.span className="about-memory-tactile" style={{ x: reduceMotion ? 0 : x, y: reduceMotion ? 0 : y }}><Image unoptimized src="/about/childhood-companion.png" alt="Abstract cloud and water artwork" width={736} height={1182} /></motion.span></motion.div>;
+  return <motion.div className="about-memory-image" initial={reduceMotion ? false : { opacity: .15, x: -28, y: 32, scale: .88, rotate: -3 }} whileInView={reduceMotion ? undefined : { opacity: 1, x: 0, y: 0, scale: 1, rotate: 0 }} viewport={{ once: true, amount: .15 }} transition={{ duration: .84, ease: motionEase.editorial }} onPointerMove={move} onPointerLeave={reset} onPointerUp={reset} onPointerCancel={reset}><motion.span className="about-memory-tactile" style={{ x: reduceMotion ? 0 : x, y: reduceMotion ? 0 : y }}><Image quality={90} src="/about/childhood-companion.png" alt="Abstract cloud and water artwork" width={736} height={1182} /></motion.span></motion.div>;
 }
 
 function PrincipleImage({ src, angle }: { src: string; angle: number }) {
@@ -138,12 +138,12 @@ function PrincipleImage({ src, angle }: { src: string; angle: number }) {
     pointerY.set(((event.clientY - rect.top) / rect.height - .5) * 8);
   };
   const reset = () => { pointerX.set(0); pointerY.set(0); };
-  return <motion.div className="about-principle-image" initial={reduceMotion ? { opacity: 1 } : { opacity: .2, scale: .78, y: 28, rotate: angle * 3 }} animate={{ opacity: 1, scale: 1, y: 0, rotate: angle }} exit={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: .86, y: -12, rotate: angle * -2 }} transition={{ duration: .44, ease: motionEase.editorial }} style={{ x: reduceMotion ? 0 : x, translateY: reduceMotion ? 0 : y }} onPointerMove={move} onPointerLeave={reset}><Image unoptimized src={src} alt="" width={1028} height={984} /></motion.div>;
+  return <motion.div className="about-principle-image" initial={reduceMotion ? { opacity: 1 } : { opacity: .2, scale: .78, y: 28, rotate: angle * 3 }} animate={{ opacity: 1, scale: 1, y: 0, rotate: angle }} exit={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: .86, y: -12, rotate: angle * -2 }} transition={{ duration: .44, ease: motionEase.editorial }} style={{ x: reduceMotion ? 0 : x, translateY: reduceMotion ? 0 : y }} onPointerMove={move} onPointerLeave={reset}><Image quality={90} src={src} alt="" width={1028} height={984} /></motion.div>;
 }
 
 function MobilePrincipleWords({ text }: { text: string }) {
   const reduceMotion = useReducedMotion();
-  return <span className="about-mobile-principle-words" aria-label={text}>{text.split(" ").map((word, index) => <span className="about-mobile-word-mask" aria-hidden="true" key={`${word}-${index}`}><motion.span initial={reduceMotion ? false : { opacity: 0, y: 8, filter: "blur(5px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={reduceMotion ? undefined : { opacity: 0, y: -6, filter: "blur(4px)" }} transition={{ duration: reduceMotion ? .01 : .28, delay: reduceMotion ? 0 : index * .018, ease: motionEase.editorial }}>{word}</motion.span>{index < text.split(" ").length - 1 ? <span>&nbsp;</span> : null}</span>)}</span>;
+  return <><span className="sr-only">{text}</span><span className="about-mobile-principle-words" aria-hidden="true">{text.split(" ").map((word, index) => <span className="about-mobile-word-mask" key={`${word}-${index}`}><motion.span initial={reduceMotion ? false : { opacity: 0, y: 8, filter: "blur(5px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={reduceMotion ? undefined : { opacity: 0, y: -6, filter: "blur(4px)" }} transition={{ duration: reduceMotion ? .01 : .28, delay: reduceMotion ? 0 : index * .018, ease: motionEase.editorial }}>{word}</motion.span>{index < text.split(" ").length - 1 ? <span>&nbsp;</span> : null}</span>)}</span></>;
 }
 
 function MobilePrinciples() {
@@ -208,7 +208,7 @@ function MobilePrincipleVisual({ image, role, transitionProgress, final, reduceM
   const y = reduceMotion ? 0 : incoming ? (1 - progress) * 42 : progress * -28;
   const scale = reduceMotion ? 1 : incoming ? 1.055 - progress * .055 : 1 - progress * .025;
   const clipPath = reduceMotion || !incoming ? "inset(0% 0 0% 0)" : `inset(${(1 - progress) * 100}% 0 0% 0)`;
-  return <div className={`about-mobile-principle-layer is-${role}`} style={{ zIndex: incoming ? 2 : 1, opacity: incoming ? 1 : 1 - progress * .16, transform: `translate3d(0, ${y}px, 0) scale(${scale})`, clipPath }}><Image unoptimized src={image} alt="" fill sizes="100vw" priority={image === principles[0].image} /></div>;
+  return <div className={`about-mobile-principle-layer is-${role}`} style={{ zIndex: incoming ? 2 : 1, opacity: incoming ? 1 : 1 - progress * .16, transform: `translate3d(0, ${y}px, 0) scale(${scale})`, clipPath }}><Image quality={90} src={image} alt="" fill sizes="100vw" priority={image === principles[0].image} /></div>;
 }
 
 function HowIThink() {

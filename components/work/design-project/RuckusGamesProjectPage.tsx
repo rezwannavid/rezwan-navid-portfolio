@@ -43,6 +43,8 @@ function PhoneGif({ group }: { group: 1 | 2 }) {
           width={1317}
           height={2716}
           aria-hidden="true"
+          loading="lazy"
+          decoding="async"
         />
         {/* A plain img preserves the original GIF animation without image optimization. */}
         <img
@@ -51,6 +53,8 @@ function PhoneGif({ group }: { group: 1 | 2 }) {
           alt={group === 1 ? "Animated word prompt reveal inside the Ruckus phone interface" : "Animated game progress reveal inside the Ruckus phone interface"}
           width={group === 1 ? 394 : 786}
           height={group === 1 ? 848 : 1696}
+          loading="lazy"
+          decoding="async"
         />
       </div>
     </RevealMedia>
@@ -65,6 +69,8 @@ function SquareGif({ index }: { index: 1 | 2 | 3 }) {
         alt={`Ruckus game micro-interaction ${index} in motion`}
         width={index === 1 ? 1462 : index === 2 ? 1358 : 1444}
         height={index === 1 ? 1462 : index === 2 ? 1358 : 1444}
+        loading="lazy"
+        decoding="async"
       />
     </RevealMedia>
   );

@@ -31,10 +31,8 @@ export function PortfolioDownload({ pdf, locked = false }: { pdf: PortfolioPdf; 
         <p><AnimatedLines text="A curated collection of product studies, design systems, AI exploration & product thinking" delay={.12} /></p>
       </div>
 
-      {locked ? <div className="portfolio-access"><ProtectedProjectGate slug="portfolio" redirectPath="/portfolio" protectedLabel="These downloads are protected" submitLabel="unlock downloads" successLabel="opening downloads" /></div> : <>
-
       <motion.div className="portfolio-artifact" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7, delay: .34, ease: motionEase.editorial }}>
-        <a href={pdf.href} className="portfolio-cover-link" aria-label="Open Mir Rezwan Navid’s 2026 portfolio PDF">
+        <div className="portfolio-cover-link" aria-label="Cover of Mir Rezwan Navid’s 2026 portfolio">
           <RevealMedia className="portfolio-cover-reveal" delay={.3}>
             <span className="portfolio-cover-mask">
               <ParallaxMedia className="portfolio-cover-parallax" distance={7}>
@@ -49,14 +47,14 @@ export function PortfolioDownload({ pdf, locked = false }: { pdf: PortfolioPdf; 
               </ParallaxMedia>
             </span>
           </RevealMedia>
-        </a>
+        </div>
         <motion.div className="portfolio-metadata" initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .42, delay: .66, ease: motionEase.snappy }}>
           <span>Last updated {pdf.lastUpdated}</span>
           <span>{pdf.pageCount} Pages | {pdf.fileSize}</span>
         </motion.div>
       </motion.div>
 
-      <div className="portfolio-download-grid">
+      {!locked && <div className="portfolio-download-grid">
         {downloads.map((download, index) => (
           <motion.a
             className="portfolio-download-row"
@@ -72,8 +70,9 @@ export function PortfolioDownload({ pdf, locked = false }: { pdf: PortfolioPdf; 
             <img src="/home-design/download.svg" alt="" width="26" height="26" />
           </motion.a>
         ))}
-      </div>
-      </>}
+      </div>}
+
+      {locked ? <div className="portfolio-access"><ProtectedProjectGate slug="portfolio" redirectPath="/portfolio" protectedLabel="These downloads are protected" submitLabel="unlock downloads" successLabel="opening downloads" /></div> : null}
     </section>
   );
 }

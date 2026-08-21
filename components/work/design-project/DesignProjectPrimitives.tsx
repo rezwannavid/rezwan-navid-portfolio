@@ -92,9 +92,9 @@ export function ProjectVisual({
     <figure className={`design-project-visual ${className}`.trim()} data-project-transition-hero={transitionProject?.slug}>
       <ParallaxMedia className="design-project-visual-depth" distance={distance} xDistance={xDistance} velocityResponse reveal revealDelay={delay} revealOffset={30}>
         {native ? (
-          <img src={src} alt={alt} width={width} height={height} loading={priority ? "eager" : "lazy"} />
+          <img src={src} alt={alt} width={width} height={height} loading={priority ? "eager" : "lazy"} decoding="async" />
         ) : (
-          <Image unoptimized priority={priority} src={src} alt={alt} width={width} height={height} sizes="(min-width: 1000px) 920px, calc(100vw - 40px)" />
+          <Image priority={priority} quality={90} src={src} alt={alt} width={width} height={height} sizes="(min-width: 1000px) 920px, calc(100vw - 40px)" />
         )}
       </ParallaxMedia>
     </figure>

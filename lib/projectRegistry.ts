@@ -62,8 +62,8 @@ export type ResolvedProject = ProjectDefinition & {
 const definitions: Record<ProjectId, ProjectDefinition> = {
   ridecentric: {
     id: "ridecentric", slug: "ridecentric", title: "RideCentric+", shortDescription: "An enterprise mobility platform for corporate travel, events and transportation operations.", role: "Product Manager / Product Direction", year: "2025", timeline: "4 months", href: "/work/ridecentric", protected: true,
-    published: true, featured: true, workOrder: 0, featuredOrder: 0, media: { fallback: { type: "asset", src: "/ridecentric-exact/ridecentric-plus-hero-hd.png", objectFit: "cover" } },
-    hero: "/ridecentric-exact/ridecentric-plus-hero-hd.png", placeholder: false, thumbnailAlt: "RideCentric+ enterprise transportation dashboard displayed on a desktop monitor", categories: ["product-study", "interface", "design-system"], categoryLabel: "Product Study", client: "RideCentric", locked: true, theme: "dark", indexable: false,
+    published: true, featured: true, workOrder: 0, featuredOrder: 0, media: { fallback: { type: "asset", src: "/ridecentric-exact/ridecentric-plus-hero.webp", objectFit: "cover" } },
+    hero: "/ridecentric-exact/ridecentric-plus-hero.webp", placeholder: false, thumbnailAlt: "RideCentric+ enterprise transportation dashboard displayed on a desktop monitor", categories: ["product-study", "interface", "design-system"], categoryLabel: "Product Study", client: "RideCentric", locked: true, theme: "dark", indexable: false,
     seoTitle: "RideCentric+, Enterprise Mobility Product Design", seoDescription: "Designing an enterprise mobility platform for managing complex ride operations, events, teams and workflows at scale.",
   },
   heavygari: {
@@ -89,7 +89,7 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
   },
   eventflow: {
     id: "eventflow", slug: "eventflow", title: "EventFlow", shortDescription: "An event-aware transportation planning extension for the FIFA World Cup.", role: "Product Manager - Experience", year: "2026", timeline: "5 weeks", href: "/work/eventflow", protected: false,
-    published: true, featured: false, workOrder: 5, media: { fallback: { type: "asset", src: "/Eventflow Pictures/Thumbnail/Free ewew 14 Pro on a Plane Mockup (Mockuuups Studio).png", objectFit: "cover" } },
+    published: true, featured: false, workOrder: 5, media: { fallback: { type: "asset", src: "/Eventflow Pictures/Thumbnail/eventflow-thumbnail.webp", objectFit: "cover" } },
     hero: "/Eventflow Pictures/EventFlow 0ew1.png", placeholder: false, thumbnailAlt: "EventFlow World Cup itinerary shown on a phone in a passenger's hand", categories: ["product-study", "interface"], categoryLabel: "Product Study", client: "RideCentric", locked: false, indexable: true,
     seoTitle: "EventFlow, World Cup Ride Planning", seoDescription: "An event-aware transportation planning extension helping World Cup fans coordinate venues, pickup timing and post-match journeys.",
   },

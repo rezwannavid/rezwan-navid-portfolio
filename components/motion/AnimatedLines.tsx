@@ -58,14 +58,15 @@ export function AnimatedLines({ text, className = "", emphasis, delay = 0, break
     };
   }, []);
 
-  return (
+  return <>
+    <span className="sr-only">{text}</span>
     <motion.span
       ref={rootRef}
       className={`animated-lines ${className}`.trim()}
       initial={reduceMotion ? false : "hidden"}
       whileInView={reduceMotion ? undefined : "visible"}
       viewport={{ once: true, amount: 0.15 }}
-      aria-label={text}
+      aria-hidden="true"
     >
       {words.map((word, index) => (
         <span key={`${word}-${index}`}>
@@ -77,7 +78,7 @@ export function AnimatedLines({ text, className = "", emphasis, delay = 0, break
             <motion.span
               className={`animated-line-word${word.replace(/[.,]/g, "") === emphasis ? " is-emphasis" : ""}`}
               variants={{
-                hidden: { y: "105%", opacity: 0.08, letterSpacing: "0.012em" },
+                hidden: { y: "105%", opacity: 0, letterSpacing: "0.012em" },
                 visible: {
                   y: "0%",
                   opacity: 1,
@@ -93,5 +94,5 @@ export function AnimatedLines({ text, className = "", emphasis, delay = 0, break
         </span>
       ))}
     </motion.span>
-  );
+  </>;
 }

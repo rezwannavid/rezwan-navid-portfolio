@@ -1,4 +1,4 @@
-import { createHmac, timingSafeEqual } from "node:crypto";
+import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 
 export const accessCookieName = "rn_case_study_access";
 
@@ -9,9 +9,8 @@ function accessSecret() {
 export function verifyCaseStudyPassword(supplied: string) {
   const expected = process.env.CASE_STUDY_PASSWORD;
   if (!expected || !accessSecret()) return { valid: false, configured: false };
-  const expectedBuffer = Buffer.from(expected);
-  const suppliedBuffer = Buffer.from(supplied);
-  if (expectedBuffer.length !== suppliedBuffer.length) return { valid: false, configured: true };
+  const expectedBuffer = createHash("sha256").update(expected).digest();
+  const suppliedBuffer = createHash("sha256").update(supplied).digest();
   return { valid: timingSafeEqual(expectedBuffer, suppliedBuffer), configured: true };
 }
 

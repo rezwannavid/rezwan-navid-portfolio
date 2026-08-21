@@ -58,7 +58,7 @@ export function createPageMetadata({
     creator: siteConfig.name,
     publisher: siteConfig.name,
     category,
-    referrer: "origin-when-cross-origin",
+    referrer: "strict-origin-when-cross-origin",
     keywords: [...new Set([...sharedKeywords, ...keywords])],
     alternates: { canonical },
     robots: indexable ? sharedRobots : { index: false, follow: false, nocache: true },

@@ -125,6 +125,7 @@ export function PhotographyGallery({ items }: { items: PhotographyItem[] }) {
 
   return (
     <main className="photography-page" data-node-id="924:30758">
+      <h1 className="sr-only">Photography by Mir Rezwan Navid</h1>
       <div className="photography-title">
         <img src="/photography-design/world-through-my-lens.png" alt="World through my lens" width="1280" height="1280" />
       </div>

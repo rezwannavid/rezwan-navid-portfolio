@@ -123,7 +123,7 @@ function ResponsiveRideCentric() {
             <div><span>Responsibilities</span><strong>Product Vision, Product Strategy, Discovery, Prioritization, UX Leadership, Stakeholder Alignment, Delivery</strong></div>
             <div><span>Team</span><strong>PM 01, Engineers 07,<br />QA 02, Designer 03</strong></div>
           </div>
-          <div className="rcxr-hero-media"><ParallaxMedia className="rcxr-media-depth" distance={16} velocityResponse reveal revealDelay={.06} revealOffset={30}><img src="/ridecentric-exact/ridecentric-plus-hero-hd.png" alt="RideCentric+ dashboard shown in a desktop display mockup" /></ParallaxMedia></div>
+          <div className="rcxr-hero-media"><ParallaxMedia className="rcxr-media-depth" distance={16} velocityResponse reveal revealDelay={.06} revealOffset={30}><img src="/ridecentric-exact/ridecentric-plus-hero.webp" alt="RideCentric+ dashboard shown in a desktop display mockup" decoding="async" /></ParallaxMedia></div>
         </section>
 
         <section className="rcxr-shell rcxr-opening">
@@ -263,7 +263,7 @@ export function RideCentricProjectPage() {
         <Positioned className="rcx-meta-label" x={829} y={447} width={36}>Team</Positioned>
         <Positioned className="rcx-meta-value" x={829} y={470} width={157}>PM 01, Engineers 07,<br />QA 02, Designer 03</Positioned>
 
-        <div className="rcx-hero-image"><ParallaxMedia className="rcx-media-parallax" distance={18} velocityResponse reveal revealDelay={.08} revealOffset={30}><img src="/ridecentric-exact/ridecentric-plus-hero-hd.png" alt="RideCentric+ dashboard shown in a desktop display mockup" /></ParallaxMedia></div>
+        <div className="rcx-hero-image"><ParallaxMedia className="rcx-media-parallax" distance={18} velocityResponse reveal revealDelay={.08} revealOffset={30}><img src="/ridecentric-exact/ridecentric-plus-hero.webp" alt="RideCentric+ dashboard shown in a desktop display mockup" decoding="async" /></ParallaxMedia></div>
 
         <Positioned className="rcx-opening-title" x={239} y={1149} width={532}>Moving one person is a ride problem.<br />Moving 100 people is an operations<br />problem.</Positioned>
         <Positioned className="rcx-subhead rcx-subhead-large" x={236} y={1296} width={506}>RideCentric+ gives organizations one place to coordinate<br />complex transportation across passengers, schedules,<br />events, teams and fulfilment partners.</Positioned>
@@ -339,22 +339,22 @@ export function RideCentricProjectPage() {
         <Positioned className="rcx-contributions" x={395.207} y={13075.035} width={263}>Research &amp; synthesis<br />Product strategy<br />Three Horizons roadmap<br />Prioritization<br />Enterprise architecture<br />Information architecture<br />UX/UI<br />Interaction design<br />Design system<br />Prototyping<br />Cross-functional product leadership</Positioned>
 
         <Positioned className="rcx-serif rcx-next-title" x={507} y={13573} width={267}>next project</Positioned>
-        <div className="rcx-next-image"><ParallaxMedia className="rcx-media-parallax" distance={16} velocityResponse reveal revealOffset={30}><Link className="rcx-next-image-link" href="/work/ridecentric"><img src="/ridecentric-exact/ridecentric-plus-hero-hd.png" alt="RideCentric+" /></Link></ParallaxMedia></div>
+        <div className="rcx-next-image"><ParallaxMedia className="rcx-media-parallax" distance={16} velocityResponse reveal revealOffset={30}><Link className="rcx-next-image-link" href="/work/ridecentric"><img src="/ridecentric-exact/ridecentric-plus-hero.webp" alt="RideCentric+" loading="lazy" decoding="async" /></Link></ParallaxMedia></div>
         <Positioned className="rcx-next-label rcx-centered" x={597} y={14087} width={86}>RideCentric+</Positioned>
 
         <RevealMedia className="rcx-work-strip"><Link className="rcx-work-strip-link" href="/work">
-          <span className="rcx-work-thumb rcx-work-blue"><img src="/ridecentric-exact/raw-9.png" alt="" /></span>
-          <span className="rcx-work-thumb rcx-work-mint"><img src="/ridecentric-exact/raw-11.png" alt="" /></span>
-          <span className="rcx-work-thumb rcx-work-coral"><img src="/ridecentric-exact/raw-12.png" alt="" /></span>
+          <span className="rcx-work-thumb rcx-work-blue"><img src="/ridecentric-exact/raw-9.png" alt="" loading="lazy" decoding="async" /></span>
+          <span className="rcx-work-thumb rcx-work-mint"><img src="/ridecentric-exact/raw-11.png" alt="" loading="lazy" decoding="async" /></span>
+          <span className="rcx-work-thumb rcx-work-coral"><img src="/ridecentric-exact/raw-12.png" alt="" loading="lazy" decoding="async" /></span>
           <span className="rcx-work-text">see all work</span><span className="rcx-work-arrow">→</span>
         </Link></RevealMedia>
 
         <Positioned className="rcx-serif rcx-contact-title" x={100} y={14619} width={443}>let’s build something<br />worth building</Positioned>
         <a className="rcx-contact-link" href="mailto:hello@rezwannavid.me"><span>email me</span><span>→</span></a>
         <div className="rcx-footer-art"><ParallaxMedia className="rcx-media-parallax" distance={14} velocityResponse reveal revealOffset={30}>
-          <img className="rcx-footer-landscape" src="/ridecentric-exact/raw-1.png" alt="A solitary tree beneath a blue landscape" />
-          <img className="rcx-footer-title" src="/home-design/create-with-impact.png" alt="Create with Impact" />
-          <img className="rcx-footer-logo" src="/RNLogo.svg" alt="" />
+          <img className="rcx-footer-landscape" src="/ridecentric-exact/raw-1.png" alt="A solitary tree beneath a blue landscape" loading="lazy" decoding="async" />
+          <img className="rcx-footer-title" src="/home-design/create-with-impact.png" alt="Create with Impact" loading="lazy" decoding="async" />
+          <img className="rcx-footer-logo" src="/RNLogo.svg" alt="" loading="lazy" decoding="async" />
         </ParallaxMedia></div>
         <Positioned className="rcx-footer-credit rcx-centered" x={531} y={15427} width={218}>made with coffee and droopy eyes</Positioned>
         </div>

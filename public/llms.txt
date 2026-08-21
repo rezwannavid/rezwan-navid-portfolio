@@ -32,7 +32,7 @@ Brand statement: Product Brain, Design Heart
 ## Selected projects
 
 - [RideCentric+](https://rezwannavid.me/work/ridecentric), Enterprise transportation operations platform. The detailed case study is password protected.
-- [Global Mission Institute](https://rezwannavid.me/work/global-mission-institute), Digital learning experience and brand system for mission training.
+- [GMI Companion](https://rezwannavid.me/work/gmi-companion), Connected guidance, resources, organizational context, and AI-assisted support for mission-driven organizations.
 - [Drivers App](https://rezwannavid.me/work/drivers-app), Mobile workflow for professional driver operations.
 
 ## About

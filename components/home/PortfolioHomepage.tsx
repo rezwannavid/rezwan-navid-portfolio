@@ -56,7 +56,7 @@ function IdentityCard() {
     >
       <span className="identity-overline">04/08</span>
       <motion.p className="identity-role" style={{ x: copyX, y: copyY }}><strong>design engineer /</strong><br /><em>product thinker</em></motion.p>
-      <motion.div className="identity-photo" style={{ x: portraitX, y: portraitY }}><Image unoptimized src="/home-design/profile-card-portrait.png?v=1" alt="Portrait of Mir Rezwan Navid" width={904} height={904} priority /></motion.div>
+      <motion.div className="identity-photo" style={{ x: portraitX, y: portraitY }}><Image quality={90} src="/home-design/profile-card-portrait.png" alt="Portrait of Mir Rezwan Navid" width={904} height={904} priority /></motion.div>
       <motion.p className="identity-name" style={{ x: portraitX, y: portraitY }}><span>Mir</span><br /><strong>Rezwan</strong><br /><em>Navid</em></motion.p>
       <motion.div className="identity-details" aria-label="Current roles" style={{ x: copyX, y: copyY }}>
         <span>@mir.stdio</span><span>founder</span>
@@ -92,10 +92,10 @@ function HumanUnderstandingSection() {
   return (
     <section className="human-section" aria-label="Design is deeply about human understanding">
       <div className="human-cluster">
-        <ParallaxMedia className="human-image human-clouds" distance={14} xDistance={3} rotateDistance={.55} velocityResponse reveal><Image unoptimized src="/home-design/human-clouds.png?v=2" alt="Soft clouds over a green landscape" width={1844} height={1144} /></ParallaxMedia>
-        <ParallaxMedia className="human-image human-flowers" distance={-18} xDistance={-5} rotateDistance={1.2} velocityResponse reveal revealDelay={.09}><Image unoptimized src="/home-design/human-flowers.png?v=2" alt="Flowers and ground textures" width={1028} height={640} /></ParallaxMedia>
-        <ParallaxMedia className="human-image human-sky" distance={22} xDistance={6} rotateDistance={-.9} velocityResponse reveal revealDelay={.18}><Image unoptimized src="/home-design/human-sky.png?v=2" alt="Distant tree beneath a warm sky" width={1028} height={640} /></ParallaxMedia>
-        <ParallaxMedia className="human-image human-tree" distance={-12} xDistance={4} rotateDistance={.75} velocityResponse reveal revealDelay={.27}><Image unoptimized src="/home-design/human-tree.png?v=2" alt="A tree canopy viewed from below" width={1028} height={984} /></ParallaxMedia>
+        <ParallaxMedia className="human-image human-clouds" distance={14} xDistance={3} rotateDistance={.55} velocityResponse reveal><Image quality={90} src="/home-design/human-clouds.png" alt="Soft clouds over a green landscape" width={1844} height={1144} /></ParallaxMedia>
+        <ParallaxMedia className="human-image human-flowers" distance={-18} xDistance={-5} rotateDistance={1.2} velocityResponse reveal revealDelay={.09}><Image quality={90} src="/home-design/human-flowers.png" alt="Flowers and ground textures" width={1028} height={640} /></ParallaxMedia>
+        <ParallaxMedia className="human-image human-sky" distance={22} xDistance={6} rotateDistance={-.9} velocityResponse reveal revealDelay={.18}><Image quality={90} src="/home-design/human-sky.png" alt="Distant tree beneath a warm sky" width={1028} height={640} /></ParallaxMedia>
+        <ParallaxMedia className="human-image human-tree" distance={-12} xDistance={4} rotateDistance={.75} velocityResponse reveal revealDelay={.27}><Image quality={90} src="/home-design/human-tree.png" alt="A tree canopy viewed from below" width={1028} height={984} /></ParallaxMedia>
         <ParallaxMedia className="human-statement" distance={4} xDistance={32} rotateDistance={.5} reveal revealDelay={.36} revealOffset={6}><img src="/home-design/human-statement.png?v=1" alt="Product is deeply about human understanding" width="2901" height="1079" loading="lazy" /></ParallaxMedia>
       </div>
     </section>
@@ -117,7 +117,7 @@ function FeaturedWorkSection() {
               viewport={{ once: true, amount: .12 }}
               transition={{ duration: .7, delay: index * .035, ease: motionEase.editorial }}
             >
-              <TiltLink href={project.href} projectId={project.id} ariaLabel={`View ${project.title}, ${project.year}`} className="featured-media-link">
+              <TiltLink href={project.href} projectId={project.id} ariaLabel={`View ${project.title}, ${project.year}${project.locked ? ", full study locked" : ""}`} className="featured-media-link">
                 <RevealMedia className="featured-reveal" delay={.04}>
                   <span className="featured-media-mask">
                     <ParallaxMedia className="featured-scroll-depth" distance={12} velocityResponse>
@@ -149,7 +149,7 @@ function ExperienceSection() {
       <motion.div className="experience-frame" initial="hidden" whileInView="visible" viewport={{ once: true, amount: .2 }}>
         <motion.div className="experience-media" variants={{ hidden: { clipPath: "inset(8% 0 42% 0 round 8px)" }, visible: { clipPath: "inset(0% 0 0% 0 round 8px)", transition: { duration: .82, ease: motionEase.editorial } } }}>
           <motion.div className="experience-photo" variants={{ hidden: { scale: 1.025, y: 8 }, visible: { scale: 1, y: 0, transition: { duration: .82, ease: motionEase.editorial } } }}>
-            <Image unoptimized src="/home-design/experience-banner.png?v=2" alt="Mir Rezwan Navid speaking at a technology event" width={4096} height={2731} sizes="1386px" />
+            <Image quality={90} src="/home-design/experience-banner.png" alt="Mir Rezwan Navid speaking at a technology event" width={4096} height={2731} sizes="1386px" />
           </motion.div>
           <div
             className="experience-gradient"

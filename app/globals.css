@@ -1229,7 +1229,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
 .portfolio-download-row::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--home-ink); transform: scaleX(0); transform-origin: right; transition: transform var(--home-medium) var(--home-ease); }
 .portfolio-download-row > span { transition: transform var(--home-medium) var(--home-ease), opacity var(--home-fast) ease; }
 .portfolio-download-row img { width: 26px; height: 26px; overflow: visible; transition: transform var(--home-medium) var(--home-ease); }
-.portfolio-access { position: absolute; top: 299px; left: 50%; width: min(1080px, calc(100% - 2 * var(--home-gutter))); translate: -50% 0; }
+.portfolio-access { position: absolute; top: 697px; left: 50%; width: min(1080px, calc(100% - 2 * var(--home-gutter))); translate: -50% 0; }
 .portfolio-access .case-study-shell { width: 100%; }
 .portfolio-access .protected-access { margin-top: 0; }
 @media (hover: hover) and (pointer: fine) {
@@ -1656,8 +1656,8 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
 .closing-curved-title { position: absolute; z-index: 2; top: 14.833%; left: 32.842%; width: 34.101%; height: 12.194%; max-width: none; object-fit: fill; }
 .closing-logo { position: absolute; z-index: 2; top: 25.706%; left: 47.032%; width: 55px; height: 20px; filter: brightness(0); }
 .closing-logo-secondary { display: none; }
-.closing-nav { position: absolute; z-index: 2; top: 36.107%; left: 3.34%; width: 55px; height: 161px; display: flex; flex-direction: column; color: #040404; font-size: 14px; line-height: 23px; font-weight: 700; white-space: nowrap; }
-.closing-nav a { height: 23px; transition: transform var(--home-fast) var(--home-ease), opacity var(--home-fast) ease; }
+.closing-nav { position: absolute; z-index: 2; top: 36.107%; left: 3.34%; width: 55px; height: 168px; display: flex; flex-direction: column; color: #040404; font-size: 14px; line-height: 24px; font-weight: 700; white-space: nowrap; }
+.closing-nav a { height: 24px; transition: transform var(--home-fast) var(--home-ease), opacity var(--home-fast) ease; }
 .closing-nav a:hover { transform: translateX(3px); opacity: .65; }
 .closing-socials { position: absolute; z-index: 2; top: 36.85%; right: 3.618%; width: 26px; height: 152px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
 .closing-socials a, .closing-socials img { display: block; width: 24px; height: 24px; }
@@ -3339,7 +3339,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   .portfolio-download-grid { top: 660px; width: calc(100% - 40px); grid-template-columns: 1fr; gap: 0; }
   .portfolio-download-row { height: 96px; }
   .portfolio-download-row + .portfolio-download-row { border-top: 0; }
-  .portfolio-access { top: 278px; width: calc(100% - 40px); }
+  .portfolio-access { top: 660px; width: calc(100% - 40px); }
   .home-contact.is-portfolio { width: calc(100% - 40px); }
   .home-contact.is-portfolio .contact-row { height: 260px; display: block; }
   .home-contact.is-portfolio .contact-row h2 { width: 100%; font-size: 40px; line-height: 1.02; }

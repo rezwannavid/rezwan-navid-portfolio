@@ -131,7 +131,7 @@ function MobileIdentityCard() {
       >
         <span className="mobile-identity-index">04/08</span>
         <p className="mobile-identity-role"><strong>design engineer /</strong><br /><em>product thinker</em></p>
-        <div className="mobile-identity-photo"><Image unoptimized src="/home-design/profile-card-portrait.png?v=1" alt="Portrait of Mir Rezwan Navid" fill priority sizes="172px" /></div>
+        <div className="mobile-identity-photo"><Image quality={90} src="/home-design/profile-card-portrait.png" alt="Portrait of Mir Rezwan Navid" fill priority sizes="172px" /></div>
         <p className="mobile-identity-name"><span>Mir</span><br />Rezwan<br /><em>Navid</em></p>
         <p className="mobile-identity-description">Designing products that solve complex problems through research, systems thinking, and thoughtful execution</p>
       </motion.article>
@@ -152,10 +152,10 @@ function MobileHero() {
 }
 
 const collage = [
-  { src: "/home-design/human-flowers.png?v=2", alt: "Flowers and ground textures", className: "is-flowers", y: 14, x: -4, rotate: 1.1, delay: 0 },
-  { src: "/home-design/human-sky.png?v=2", alt: "Distant tree beneath a warm sky", className: "is-sky", y: -17, x: 5, rotate: -.8, delay: .08 },
-  { src: "/home-design/human-clouds.png?v=2", alt: "Soft clouds over a green landscape", className: "is-clouds", y: 21, x: 2, rotate: .45, delay: .15 },
-  { src: "/home-design/human-tree.png?v=2", alt: "A tree canopy viewed from below", className: "is-tree", y: -12, x: -3, rotate: -.65, delay: .22 },
+  { src: "/home-design/human-flowers.png", alt: "Flowers and ground textures", className: "is-flowers", y: 14, x: -4, rotate: 1.1, delay: 0 },
+  { src: "/home-design/human-sky.png", alt: "Distant tree beneath a warm sky", className: "is-sky", y: -17, x: 5, rotate: -.8, delay: .08 },
+  { src: "/home-design/human-clouds.png", alt: "Soft clouds over a green landscape", className: "is-clouds", y: 21, x: 2, rotate: .45, delay: .15 },
+  { src: "/home-design/human-tree.png", alt: "A tree canopy viewed from below", className: "is-tree", y: -12, x: -3, rotate: -.65, delay: .22 },
 ];
 
 function FloatingCollageCard({ item }: { item: (typeof collage)[number] }) {
@@ -179,7 +179,7 @@ function FloatingCollageCard({ item }: { item: (typeof collage)[number] }) {
       viewport={{ once: true, amount: .22 }}
       transition={{ duration: .72, delay: item.delay, ease: motionEase.editorial }}
       {...tactile.handlers}
-    ><Image unoptimized src={item.src} alt={item.alt} fill sizes="(max-width: 767px) 298px, 1px" /></motion.div>
+    ><Image quality={90} src={item.src} alt={item.alt} fill sizes="(max-width: 767px) 298px, 1px" /></motion.div>
   );
 }
 
@@ -264,7 +264,7 @@ function MobileExperience() {
   return (
     <section ref={frame} className="mobile-experience" aria-labelledby="mobile-experience-title">
       <div className="mobile-experience-frame">
-        <motion.div className="mobile-experience-depth" initial={reduceMotion ? false : { opacity: 0, clipPath: "inset(18% 0 24% 0 round 4px)" }} whileInView={reduceMotion ? undefined : { opacity: 1, clipPath: "inset(0% 0 0% 0 round 4px)" }} viewport={{ once: true, amount: .1 }} transition={{ duration: .9, delay: .42, ease: motionEase.editorial }} style={{ y: reduceMotion ? 0 : imageY, scale: reduceMotion ? 1 : imageScale }}><Image unoptimized src="/home-design/Speaker Contianer.png" alt="Mir Rezwan Navid speaking at a technology event" fill sizes="(max-width: 767px) 100vw, 1px" /></motion.div>
+        <motion.div className="mobile-experience-depth" initial={reduceMotion ? false : { opacity: 0, clipPath: "inset(18% 0 24% 0 round 4px)" }} whileInView={reduceMotion ? undefined : { opacity: 1, clipPath: "inset(0% 0 0% 0 round 4px)" }} viewport={{ once: true, amount: .1 }} transition={{ duration: .9, delay: .42, ease: motionEase.editorial }} style={{ y: reduceMotion ? 0 : imageY, scale: reduceMotion ? 1 : imageScale }}><Image quality={90} src="/home-design/Speaker Contianer.png" alt="Mir Rezwan Navid speaking at a technology event" fill sizes="(max-width: 767px) 100vw, 1px" /></motion.div>
         <h2 id="mobile-experience-title"><AnimatedWords text="7+ years building" stagger={.075} /><AnimatedWords text="products across" delay={.11} stagger={.075} /><AnimatedWords text="industries" delay={.22} /></h2>
       </div>
       <AwardsMarquee />
