@@ -2028,12 +2028,16 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
 .heavygari-project-page .design-project-next { margin-top: 171px; }
 
 @media (min-width: 768px) and (max-width: 1099px) {
+  .heavygari-composition { width: 100%; }
+  .heavygari-project-page .design-project-intro { height: clamp(590px, 59.24vw, 651px); }
   .heavygari-project-page .heavygari-opening { margin-top: clamp(52px, 6.85vw, 73px); }
   .heavygari-first-pair { margin-top: clamp(62px, 8.05vw, 90px); }
   .heavygari-project-page .heavygari-journey { margin-top: clamp(64px, 8.42vw, 91px); }
   .heavygari-editorial-stage { margin-top: clamp(72px, 8.98vw, 97px); }
   .heavygari-selection-copy, .heavygari-vehicle-copy { font-size: clamp(13px, 1.48vw, 16px); line-height: 1.5; }
   .heavygari-booking-copy { font-size: clamp(11px, 1.3vw, 14px); line-height: 1.5; }
+  .heavygari-project-page .heavygari-closing { width: 70%; margin-top: clamp(64px, 7.88vw, 85px); }
+  .heavygari-project-page .design-project-next { margin-top: clamp(136px, 15.85vw, 171px); }
 }
 
 /* GMI Companion, editorial composition from Figma 915:17303. */
