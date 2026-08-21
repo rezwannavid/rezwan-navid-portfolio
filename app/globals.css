@@ -3548,19 +3548,28 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   .heavygari-hero { width: 100%; }
   .heavygari-project-page .design-project-intro { height: auto; }
   .heavygari-project-page .heavygari-opening { width: 100%; margin: 42px 0 0; font-size: 20px; line-height: 27px; }
-  .heavygari-first-pair { width: 100%; margin: 70px 0 0; gap: 1.1%; }
+  .heavygari-first-pair { width: 100%; margin: 70px 0 0; display: flex; flex-direction: column; gap: 12px; aspect-ratio: auto; }
+  .heavygari-first-pair .design-project-visual { height: auto; aspect-ratio: 1368 / 1806; }
   .heavygari-project-page .heavygari-journey { width: 100%; margin-top: 58px; padding-inline: 3px; font-size: 17px; line-height: 24px; }
   .heavygari-editorial-stage { display: flex; width: 100%; aspect-ratio: auto; margin-top: 72px; flex-direction: column; }
   .heavygari-editorial-stage .design-project-visual,
   .heavygari-editorial-stage .heavygari-copy { position: relative; inset: auto; width: 100%; height: auto; }
-  .heavygari-vehicle, .heavygari-booking-management, .heavygari-booking-details { aspect-ratio: 456 / 602; }
+  .heavygari-vehicle, .heavygari-booking-management, .heavygari-booking-details { aspect-ratio: 1368 / 1806; }
   .heavygari-statement-card { aspect-ratio: 456 / 312; margin-top: 8px; }
   .heavygari-project-page .heavygari-selection-copy,
   .heavygari-project-page .heavygari-vehicle-copy,
   .heavygari-project-page .heavygari-booking-copy { margin-top: 28px; font-size: 15px; line-height: 22px; }
   .heavygari-project-page .heavygari-vehicle-copy { margin-top: 58px; }
   .heavygari-booking-management, .heavygari-booking-details { margin-top: 58px; }
-  .heavygari-tracking { aspect-ratio: 456 / 493; margin-top: 8px; }
+  .heavygari-tracking { aspect-ratio: 1368 / 1806; margin-top: 8px; }
+  .heavygari-vehicle { order: 1; }
+  .heavygari-selection-copy { order: 2; }
+  .heavygari-statement-card { order: 3; }
+  .heavygari-vehicle-copy { order: 4; }
+  .heavygari-booking-management { order: 5; }
+  .heavygari-booking-copy { order: 6; }
+  .heavygari-booking-details { order: 7; }
+  .heavygari-tracking { order: 8; }
   .heavygari-project-page .heavygari-closing { width: 100%; margin-top: 58px; padding-inline: 3px; font-size: 17px; line-height: 24px; }
   .heavygari-project-page .design-project-next { margin-top: 120px; }
 }
@@ -3776,7 +3785,9 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
 
   .needin-r-lime:has(img) img { object-fit: contain; }
   .needin-r-problem-media { aspect-ratio: 818 / 346; }
-  .needin-r-decision .needin-r-meal-card { aspect-ratio: 542 / 650; }
+  .needin-r-decision .needin-r-meal-card { aspect-ratio: 1324 / 1092; background: #c7f366; }
+  .needin-r-decision .needin-r-meal-card > .parallax-entry > img:not(.needin-animated-layer) { display: none; }
+  .needin-r-decision .needin-anim-meal { inset: 0; width: 100% !important; height: 100% !important; border-radius: inherit; }
 
   .needin-r-product-grid .needin-r-product-phone {
     width: 100%;
