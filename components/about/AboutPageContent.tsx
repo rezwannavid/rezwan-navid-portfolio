@@ -28,28 +28,28 @@ const principles = [
   {
     title: "understand people at a deeper level",
     description: "The best product decisions come from understanding behavior, context, motivation, and what people actually need, not just what they say they want.",
-    image: "/about/powerpoint-memory.png",
+    image: "/about/principle-01.png",
     color: "linear-gradient(77deg, #29b8ec 4%, #0824f8 100%)",
     angle: -1.5,
   },
   {
     title: "fast decisions beat slow perfection.",
     description: "Momentum creates clarity. Make the smallest meaningful decision, learn from reality, and keep the product moving.",
-    image: "/home-design/human-flowers.png?v=2",
+    image: "/about/principle-02.png",
     color: "linear-gradient(92deg, #e7553f 0%, #bb2b52 100%)",
     angle: 1.4,
   },
   {
     title: "great products live between people and possibility.",
     description: "Useful products balance what people understand today with what technology can make possible tomorrow.",
-    image: "/home-design/human-clouds.png?v=2",
+    image: "/about/principle-03.png",
     color: "linear-gradient(87deg, #4a72d8 0%, #8662db 100%)",
     angle: -1.2,
   },
   {
     title: "good business follows great products.",
     description: "Durable growth is usually the consequence of solving a real problem clearly, repeatedly, and with care.",
-    image: "/home-design/human-sky.png?v=2",
+    image: "/about/principle-04.png",
     color: "linear-gradient(88deg, #b99147 0%, #5f784b 100%)",
     angle: 1.2,
   },
@@ -122,7 +122,7 @@ function MemoryPhoto() {
     offsetX.set(((event.clientX - rect.left) / rect.width - .5) * 4);
     offsetY.set(((event.clientY - rect.top) / rect.height - .5) * 3);
   };
-  return <motion.div className="about-memory-image" initial={reduceMotion ? false : { opacity: .15, x: -28, y: 32, scale: .88, rotate: -3 }} whileInView={reduceMotion ? undefined : { opacity: 1, x: 0, y: 0, scale: 1, rotate: 0 }} viewport={{ once: true, amount: .15 }} transition={{ duration: .84, ease: motionEase.editorial }} onPointerMove={move} onPointerLeave={reset} onPointerUp={reset} onPointerCancel={reset}><motion.span className="about-memory-tactile" style={{ x: reduceMotion ? 0 : x, y: reduceMotion ? 0 : y }}><Image unoptimized src="/about/powerpoint-memory.png" alt="Abstract artwork representing an early PowerPoint interface experiment" width={1028} height={984} /></motion.span></motion.div>;
+  return <motion.div className="about-memory-image" initial={reduceMotion ? false : { opacity: .15, x: -28, y: 32, scale: .88, rotate: -3 }} whileInView={reduceMotion ? undefined : { opacity: 1, x: 0, y: 0, scale: 1, rotate: 0 }} viewport={{ once: true, amount: .15 }} transition={{ duration: .84, ease: motionEase.editorial }} onPointerMove={move} onPointerLeave={reset} onPointerUp={reset} onPointerCancel={reset}><motion.span className="about-memory-tactile" style={{ x: reduceMotion ? 0 : x, y: reduceMotion ? 0 : y }}><Image unoptimized src="/about/childhood-companion.png" alt="Abstract cloud and water artwork" width={736} height={1182} /></motion.span></motion.div>;
 }
 
 function PrincipleImage({ src, angle }: { src: string; angle: number }) {
@@ -327,7 +327,7 @@ function OutsideWork() {
 }
 
 function AboutLinks() {
-  return <EditorialLinks className="about-links" ariaLabel="About page links" items={[{ href: "/work", label: "my work" }, { href: "https://medium.com/@rezwannavidalvee", label: "my opinions", external: true }]} />;
+  return <EditorialLinks className="about-links" ariaLabel="About page links" items={[{ href: "/work", label: "my work" }]} />;
 }
 
 export function AboutPageContent() {

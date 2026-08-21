@@ -13,7 +13,7 @@ export async function POST(request: Request) {
   const slug = typeof body.slug === "string" ? body.slug : "";
   const password = typeof body.password === "string" ? body.password : "";
   const project = getWorkProject(slug);
-  if (!project?.protected) {
+  if (slug !== "portfolio" && !project?.protected) {
     return NextResponse.json({ error: "Protected project not found." }, { status: 404 });
   }
   if (!password || password.length > 256) {
@@ -33,7 +33,7 @@ export async function POST(request: Request) {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
-    path: "/work",
+    path: "/",
   });
   return response;
 }

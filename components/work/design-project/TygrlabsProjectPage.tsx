@@ -67,8 +67,8 @@ export function TygrlabsProjectPage() {
 
         <CaseStudyShell className="tygr-composition">
           <EditorialCopy className="tygr-opening-copy">{[
-            "A new identity for a product studio working across design, technology, and emerging ideas.",
-            "The system was built to give Tygrlabs a stronger point of view, bold enough to be recognizable, but flexible enough to live across products, digital experiences, and everything the studio creates next.",
+            "A new identity for a company ready to become something bigger.",
+            "The system was built to reflect that evolution, moving beyond what the brand had been known for and creating an identity broad enough to support new ideas, new ventures, and wherever the company goes next.",
           ]}</EditorialCopy>
 
           <section className="tygr-existing-row" aria-labelledby="tygr-existing-title">

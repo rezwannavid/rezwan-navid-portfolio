@@ -71,8 +71,8 @@ export function DriversAppProjectPage() {
           description="RC Drivers is the companion app for RideCentric drivers, providing trip details, navigation, and ride management in a streamlined interface designed for use on the move."
           metadata={{
             role: "Product Manager - Experience",
-            year: "2026",
-            timeline: "6 months",
+            year: "2025",
+            timeline: "3 months",
             responsibilities: "Product Vision, Product Strategy, Discovery, Prioritization, UX Leadership, Stakeholder Alignment, Delivery",
             team: <><span>PM </span>01, <span>Engineers </span>07, <span>QA </span>02, <span>Designer </span>03</>,
           }}

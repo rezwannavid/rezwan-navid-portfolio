@@ -79,7 +79,7 @@ function HeroSection() {
           <h1 id="home-title"><span>Product Brain,</span><em>Design Heart</em></h1>
           <div className="home-hero-actions">
             <Link href="/work">see work <Arrow /></Link>
-            <a href="mailto:hello@rezwannavid.me">connect <Arrow /></a>
+            <Link href="/about">about me <Arrow /></Link>
           </div>
         </div>
         <div ref={registerIntroCard} className="identity-card-entry home-intro-card-entry"><IdentityCard /></div>
@@ -123,7 +123,7 @@ function FeaturedWorkSection() {
                     <ParallaxMedia className="featured-scroll-depth" distance={12} velocityResponse>
                       <ProjectMedia project={project} context="homepage" priority={index === 0} />
                     </ParallaxMedia>
-                    {project.locked ? <span className="featured-lock">Case study locked</span> : null}
+                    {project.locked ? <span className="featured-lock">Full study locked</span> : null}
                   </span>
                 </RevealMedia>
               </TiltLink>
@@ -176,7 +176,7 @@ function PhilosophySection() {
     <section className="home-philosophy" aria-labelledby="philosophy-title">
       <h2 id="philosophy-title"><AnimatedLines text="Product thinking is the culture of 21st-century technology." emphasis="culture" /></h2>
       <VideoFeature />
-      <EditorialLinks ariaLabel="More about Mir Rezwan Navid" items={[{ href: "/about", label: "about me" }, { href: "/opinion", label: "opinion" }]} />
+      <EditorialLinks ariaLabel="More about Mir Rezwan Navid" items={[{ href: "/about", label: "about me" }]} />
     </section>
   );
 }

@@ -21,7 +21,7 @@ export function SiteFooter() {
         <img className="closing-logo" src="/RNLogo.svg" alt="" width="55" height="20" loading="lazy" />
         <img className="closing-logo-secondary" src="/RNLogo.svg" alt="" width="55" height="20" loading="lazy" />
         <nav className="closing-nav" aria-label="Footer navigation">
-          <Link href="/">home</Link><Link href="/work">work</Link><Link href="/about">about</Link><a href="mailto:hello@rezwannavid.me">contact</a><Link href="/opinion">opinion</Link><Link href="/portfolio">portfolio</Link><Link href="/photography">lens</Link>
+          <Link href="/">home</Link><Link href="/work">work</Link><Link href="/about">about</Link><a href="mailto:hello@rezwannavid.me">contact</a><Link href="/portfolio">portfolio</Link><Link href="/photography">lens</Link>
         </nav>
         <nav className="closing-socials" aria-label="Social links">
           <a href="https://instagram.com/rezwannavid" aria-label="Instagram"><img src="/home-design/footer-instagram.svg" alt="" width="24" height="24" loading="lazy" /></a>

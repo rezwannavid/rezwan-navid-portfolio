@@ -7,8 +7,6 @@ import type { PhotographyItem } from "@/lib/photographyGallery";
 import { motionEase } from "@/lib/motion";
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
-const title = "World through my lens";
-
 export function PhotographyGallery({ items }: { items: PhotographyItem[] }) {
   const viewportRef = useRef<HTMLElement>(null);
   const railRef = useRef<HTMLDivElement>(null);
@@ -127,11 +125,8 @@ export function PhotographyGallery({ items }: { items: PhotographyItem[] }) {
 
   return (
     <main className="photography-page" data-node-id="924:30758">
-      <div className="photography-title" aria-label={title}>
-        <div className="photography-title-arc" aria-hidden="true">
-          {[...title].map((character, index) => <span key={`${character}-${index}`} style={{ "--letter-angle": `${-62 + index * (124 / (title.length - 1))}deg` } as CSSProperties}>{character === " " ? "\u00a0" : character}</span>)}
-        </div>
-        <img src="/photography-design/world-through-my-lens.svg" alt="" width="74" height="74" aria-hidden="true" />
+      <div className="photography-title">
+        <img src="/photography-design/world-through-my-lens.png" alt="World through my lens" width="1280" height="1280" />
       </div>
 
       <section

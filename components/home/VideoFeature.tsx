@@ -9,6 +9,9 @@ export function VideoFeature() {
   const [requested, setRequested] = useState(false);
   const reduceMotion = useReducedMotion();
 
+  const homepageVideoVisible = false;
+  if (!homepageVideoVisible) return null;
+
   return (
     <motion.div
       className="home-video-frame"

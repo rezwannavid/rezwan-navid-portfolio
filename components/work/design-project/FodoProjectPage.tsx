@@ -27,7 +27,7 @@ function GifVisual({ name, alt, className, delay }: { name: string; alt: string;
 
 export function FodoProjectPage() {
   const project = getProject("fodo");
-  if (!project || !project.timeline || !project.platform || !project.focus || !project.productType || !project.waitlist || !project.madeWith) return null;
+  if (!project || !project.platform || !project.focus || !project.productType || !project.waitlist || !project.madeWith) return null;
   return (
     <div className="home-page design-project-page fodo-project-page">
       <main>
@@ -35,7 +35,6 @@ export function FodoProjectPage() {
           <h1 id="fodo-title"><AnimatedWords text={project.title} mode="load" delay={.17} stagger={.055} /></h1>
           <div className="fodo-meta-row">
             <Meta className="fodo-meta-year" label="Year" delay={.05}>{project.year}</Meta>
-            <Meta className="fodo-meta-timeline" label="Timeline" delay={.09}>{project.timeline}</Meta>
             <Meta className="fodo-meta-waitlist" delay={.13}>{project.waitlist}</Meta>
             <Meta className="fodo-meta-type" label="Type" delay={.17}>{project.productType}</Meta>
             <Meta className="fodo-meta-platform" label="Platform" delay={.2}>{project.platform}</Meta>

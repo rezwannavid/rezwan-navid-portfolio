@@ -32,8 +32,8 @@ const overrides: Record<string, PhotoOverride> = {
 };
 
 const curatedOrder = [
-  "IMG_9092.JPG", "IMG_9095.JPG", "IMG_9093.JPG", "IMG_0357.jpeg", "IMG_5450.jpg",
-  "IMG_7560.JPG", "IMG_2862.JPG", "IMG_0633_jpg.jpg", "IMG_9094.JPG", "IMG_3095.jpeg",
+  "IMG_9092.JPG", "IMG_9095.JPG", "IMG_9093.JPG", "IMG_5450.jpg",
+  "IMG_7560.JPG", "IMG_2862.JPG", "IMG_9094.JPG",
   "IDG_20260706_183815_196.jpg",
 ];
 

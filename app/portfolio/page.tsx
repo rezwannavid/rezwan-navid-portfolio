@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { PortfolioDownload } from "@/components/portfolio/PortfolioDownload";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { createPageMetadata } from "@/lib/metadata";
 import { breadcrumbSchema, pageSchema, schemaIds, webPageSchema } from "@/lib/structuredData";
 import { absoluteUrl } from "@/lib/site";
 import { portfolioPdfMetadata } from "@/lib/portfolioPdf";
+import { accessCookieName, hasValidAccessToken } from "@/lib/workAccess";
 
 const title = "Product Design Portfolio 2026";
 const description = "View and download Mir Rezwan Navid’s 2026 product design portfolio featuring product studies, design systems, AI exploration, and product thinking.";
@@ -17,8 +19,10 @@ export const metadata: Metadata = createPageMetadata({
   category: "Product Design Portfolio",
 });
 
-export default function PortfolioPage() {
+export default async function PortfolioPage() {
   const pdf = portfolioPdfMetadata;
+  const cookieStore = await cookies();
+  const hasAccess = hasValidAccessToken(cookieStore.get(accessCookieName)?.value);
   const portfolioSchema = {
     "@type": "CreativeWork",
     "@id": `${absoluteUrl("/portfolio")}#portfolio`,
@@ -45,7 +49,7 @@ export default function PortfolioPage() {
           breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Portfolio", path: "/portfolio" }]),
           portfolioSchema,
         )} />
-        <PortfolioDownload pdf={pdf} />
+        <PortfolioDownload pdf={pdf} locked={!hasAccess} />
       </main>
     </div>
   );

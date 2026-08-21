@@ -113,7 +113,7 @@ function DesktopNeedin() {
           <Positioned className="needin-meta-label" x={239} y={347}>Year</Positioned>
           <Positioned className="needin-meta-value" x={239} y={367}>2021</Positioned>
           <Positioned className="needin-meta-label" x={338} y={347}>Timeline</Positioned>
-          <Positioned className="needin-meta-value" x={338} y={367}>7 months</Positioned>
+          <Positioned className="needin-meta-value" x={338} y={367}>4 months</Positioned>
           <Positioned className="needin-intro" x={234} y={466} width={537}>Needin connects people with home cooks through flexible meal subscriptions, bringing familiar food, healthier everyday meals, and cuisines from other cultures into a predictable routine.</Positioned>
           <Positioned className="needin-meta-label" x={829} y={277}>Responsibilities</Positioned>
           <Positioned className="needin-meta-value" x={829} y={304} width={229}>Product Vision, Product Strategy, Discovery, Prioritization, UX Leadership, Stakeholder Alignment, Delivery</Positioned>
@@ -222,7 +222,7 @@ function ResponsiveNeedin() {
     <main className="needin-r-main">
       <section className="needin-r-shell needin-r-hero">
         <h1><AnimatedWords text="Needin" mode="load" delay={.12} /></h1>
-        <div className="needin-r-meta"><RMetaField label="Role" value="Product & Design" delay={.16} /><RMetaField label="Year" value="2021" delay={.22} /><RMetaField label="Timeline" value="7 months" delay={.28} /></div>
+        <div className="needin-r-meta"><RMetaField label="Role" value="Product & Design" delay={.16} /><RMetaField label="Year" value="2021" delay={.22} /><RMetaField label="Timeline" value="4 months" delay={.28} /></div>
         <RBody className="needin-r-intro">Needin connects people with home cooks through flexible meal subscriptions, bringing familiar food, healthier everyday meals, and cuisines from other cultures into a predictable routine.</RBody>
         <div className="needin-r-side"><RMetaField label="Responsibilities" value="Product Vision, Product Strategy, Discovery, Prioritization, UX Leadership, Stakeholder Alignment, Delivery" delay={.2} /><RMetaField label="Team" value="Engineers 03, Designer 02" delay={.3} /></div>
         <ParallaxMedia className="needin-r-hero-image" distance={0} xDistance={0} rotateDistance={0} reveal revealOffset={36}><img src="/needin-exact/brand-hero.png" alt="Needin identity with the line feel like home, right at home" /></ParallaxMedia>

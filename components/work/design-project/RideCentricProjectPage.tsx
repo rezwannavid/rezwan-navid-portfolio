@@ -115,7 +115,7 @@ function ResponsiveRideCentric() {
             <div className="rcxr-meta-core">
               <div><span>Role</span><strong>Product Manager</strong></div>
               <div><span>Year</span><strong>2025</strong></div>
-              <div><span>Timeline</span><strong>6 months</strong></div>
+              <div><span>Timeline</span><strong>4 months</strong></div>
             </div>
             <p className="rcxr-intro"><AnimatedLines text="Designing an enterprise mobility platform for corporate travel, events, and transportation operations." /></p>
           </div>
@@ -123,7 +123,7 @@ function ResponsiveRideCentric() {
             <div><span>Responsibilities</span><strong>Product Vision, Product Strategy, Discovery, Prioritization, UX Leadership, Stakeholder Alignment, Delivery</strong></div>
             <div><span>Team</span><strong>PM 01, Engineers 07,<br />QA 02, Designer 03</strong></div>
           </div>
-          <div className="rcxr-hero-media"><ParallaxMedia className="rcxr-media-depth" distance={16} velocityResponse reveal revealDelay={.06} revealOffset={30}><img src="/ridecentric-exact/raw-9.png" alt="RideCentric+ dashboard shown in a desktop display mockup" /></ParallaxMedia></div>
+          <div className="rcxr-hero-media"><ParallaxMedia className="rcxr-media-depth" distance={16} velocityResponse reveal revealDelay={.06} revealOffset={30}><img src="/ridecentric-exact/ridecentric-plus-hero-hd.png" alt="RideCentric+ dashboard shown in a desktop display mockup" /></ParallaxMedia></div>
         </section>
 
         <section className="rcxr-shell rcxr-opening">
@@ -256,14 +256,14 @@ export function RideCentricProjectPage() {
         <Positioned className="rcx-meta-label" x={239} y={322} width={29}>Year</Positioned>
         <Positioned className="rcx-meta-value" x={239} y={342} width={35}>2025</Positioned>
         <Positioned className="rcx-meta-label" x={338} y={322} width={55}>Timeline</Positioned>
-        <Positioned className="rcx-meta-value" x={338} y={342} width={61}>6 months</Positioned>
+        <Positioned className="rcx-meta-value" x={338} y={342} width={61}>4 months</Positioned>
         <Positioned className="rcx-intro" x={238} y={421} width={474}>Designing an enterprise mobility<br />platform for corporate travel, events,<br />and transportation operations.</Positioned>
         <Positioned className="rcx-meta-label" x={829} y={277} width={101}>Responsibilities</Positioned>
         <Positioned className="rcx-meta-value" x={829} y={304} width={229}>Product Vision, Product Strategy,<br />Discovery, Prioritization, UX<br />Leadership, Stakeholder Alignment,<br />Delivery</Positioned>
         <Positioned className="rcx-meta-label" x={829} y={447} width={36}>Team</Positioned>
         <Positioned className="rcx-meta-value" x={829} y={470} width={157}>PM 01, Engineers 07,<br />QA 02, Designer 03</Positioned>
 
-        <div className="rcx-hero-image"><ParallaxMedia className="rcx-media-parallax" distance={18} velocityResponse reveal revealDelay={.08} revealOffset={30}><img src="/ridecentric-exact/raw-9.png" alt="RideCentric+ dashboard shown in a desktop display mockup" /></ParallaxMedia></div>
+        <div className="rcx-hero-image"><ParallaxMedia className="rcx-media-parallax" distance={18} velocityResponse reveal revealDelay={.08} revealOffset={30}><img src="/ridecentric-exact/ridecentric-plus-hero-hd.png" alt="RideCentric+ dashboard shown in a desktop display mockup" /></ParallaxMedia></div>
 
         <Positioned className="rcx-opening-title" x={239} y={1149} width={532}>Moving one person is a ride problem.<br />Moving 100 people is an operations<br />problem.</Positioned>
         <Positioned className="rcx-subhead rcx-subhead-large" x={236} y={1296} width={506}>RideCentric+ gives organizations one place to coordinate<br />complex transportation across passengers, schedules,<br />events, teams and fulfilment partners.</Positioned>
@@ -339,7 +339,7 @@ export function RideCentricProjectPage() {
         <Positioned className="rcx-contributions" x={395.207} y={13075.035} width={263}>Research &amp; synthesis<br />Product strategy<br />Three Horizons roadmap<br />Prioritization<br />Enterprise architecture<br />Information architecture<br />UX/UI<br />Interaction design<br />Design system<br />Prototyping<br />Cross-functional product leadership</Positioned>
 
         <Positioned className="rcx-serif rcx-next-title" x={507} y={13573} width={267}>next project</Positioned>
-        <div className="rcx-next-image"><ParallaxMedia className="rcx-media-parallax" distance={16} velocityResponse reveal revealOffset={30}><Link className="rcx-next-image-link" href="/work/ridecentric"><img src="/ridecentric-exact/raw-9.png" alt="RideCentric+" /></Link></ParallaxMedia></div>
+        <div className="rcx-next-image"><ParallaxMedia className="rcx-media-parallax" distance={16} velocityResponse reveal revealOffset={30}><Link className="rcx-next-image-link" href="/work/ridecentric"><img src="/ridecentric-exact/ridecentric-plus-hero-hd.png" alt="RideCentric+" /></Link></ParallaxMedia></div>
         <Positioned className="rcx-next-label rcx-centered" x={597} y={14087} width={86}>RideCentric+</Positioned>
 
         <RevealMedia className="rcx-work-strip"><Link className="rcx-work-strip-link" href="/work">

@@ -222,7 +222,7 @@ function MobileProjectCard({ project, index }: { project: ResolvedProject; index
       ? ["inset(6% .8% 9% round 9px)", "inset(0% 0% 0% round 9px)", "inset(4% .4% 6% round 9px)"]
       : ["inset(7% .8% 8% round 9px)", "inset(0% 0% 0% round 9px)", "inset(4% .4% 5% round 9px)"]);
   const frameScale = useTransform(scrollYProgress, [0, .5, 1], index === 0 ? [.96, 1, .98] : index === 1 ? [.968, 1, .984] : [.964, 1, .982]);
-  const usesUnifiedThumbnail = project.id === "ridesync" || project.id === "needin" || project.id === "gmi-companion";
+  const usesUnifiedThumbnail = project.id === "ridecentric" || project.id === "ridesync" || project.id === "needin" || project.id === "gmi-companion";
   const imageScale = useTransform(scrollYProgress, [0, .5, 1], usesUnifiedThumbnail ? [1.025, 1, 1.015] : index === 1 ? [1.14, 1.035, 1.09] : index === 2 ? [1.13, 1.025, 1.08] : [1.15, 1.04, 1.1]);
   const imageY = useTransform(scrollYProgress, [0, .5, 1], usesUnifiedThumbnail ? [10, 0, -8] : index === 2 ? [36, 0, -46] : index === 1 ? [50, -2, -38] : [42, 0, -34]);
   return (
@@ -232,6 +232,7 @@ function MobileProjectCard({ project, index }: { project: ResolvedProject; index
           <motion.div className={`mobile-featured-image-depth is-${project.id}`} style={{ scale: reduceMotion ? 1 : imageScale, y: reduceMotion ? 0 : imageY }}>
             <ProjectMedia project={project} context="homepage" priority={index === 0} />
           </motion.div>
+          {project.locked ? <span className="featured-lock">Full study locked</span> : null}
         </ProjectLink>
       </motion.div>
     </motion.article>
@@ -297,7 +298,7 @@ function MobilePhilosophy() {
     <section className="mobile-philosophy" aria-labelledby="mobile-philosophy-title">
       <div id="mobile-philosophy-title"><ProductThinkingTitle /></div>
       <VideoFeature />
-      <EditorialLinks ariaLabel="More about Mir Rezwan Navid" items={[{ href: "/about", label: "about me" }, { href: "/opinion", label: "opinions" }]} />
+      <EditorialLinks ariaLabel="More about Mir Rezwan Navid" items={[{ href: "/about", label: "about me" }]} />
     </section>
   );
 }

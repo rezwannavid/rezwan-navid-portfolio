@@ -1,5 +1,5 @@
 export type GlobalNavItem = {
-  id: "opinion" | "portfolio" | "photography" | "contact";
+  id: "portfolio" | "photography" | "contact";
   label: string;
   href: string;
   icon: string;
@@ -22,15 +22,6 @@ export const globalTextNavigation: readonly GlobalTextNavItem[] = [
 ] as const;
 
 export const globalNavigation: readonly GlobalNavItem[] = [
-  {
-    id: "opinion",
-    label: "Opinion",
-    href: "/opinion",
-    icon: "/navbar/opinion.svg",
-    iconSize: 20,
-    labelWidth: 51,
-    activeRoutes: ["/opinion"],
-  },
   {
     id: "portfolio",
     label: "Portfolio",

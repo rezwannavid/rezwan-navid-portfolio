@@ -22,7 +22,7 @@ type ProtectedPreviewEditorial = Omit<ProtectedCaseStudyData, "slug" | "title" |
 
 const protectedPreviews: Record<string, ProtectedPreviewEditorial> = {
   ridecentric: {
-    timeline: "6 months",
+    timeline: "4 months",
     responsibilities: "Product Vision, Product Strategy, Discovery, Prioritization, UX Leadership, Stakeholder Alignment, Delivery",
     team: [
       { label: "PM", value: "01" },

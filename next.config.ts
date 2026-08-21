@@ -39,10 +39,6 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: "/Rezwan-Navid-Portfolio-2026.pdf",
-        headers: [{ key: "Cache-Control", value: "public, max-age=3600, stale-while-revalidate=86400" }],
-      },
-      {
         source: "/rezwan-navid-portfolio-og.png",
         headers: [{ key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" }],
       },

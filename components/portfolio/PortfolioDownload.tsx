@@ -6,7 +6,7 @@ import { AnimatedLines } from "@/components/motion/AnimatedLines";
 import { AnimatedWords } from "@/components/motion/AnimatedWords";
 import { ParallaxMedia } from "@/components/motion/ParallaxMedia";
 import { RevealMedia } from "@/components/motion/RevealMedia";
-import { TiltLink } from "@/components/motion/TiltLink";
+import { ProtectedProjectGate } from "@/components/work/ProtectedProjectGate";
 import { motionEase } from "@/lib/motion";
 
 type PortfolioPdf = {
@@ -16,9 +16,9 @@ type PortfolioPdf = {
   pageCount: number;
 };
 
-const resumeHref = "/Rezwan-Navid-Resume.pdf";
+const resumeHref = "/api/portfolio/download/resume";
 
-export function PortfolioDownload({ pdf }: { pdf: PortfolioPdf }) {
+export function PortfolioDownload({ pdf, locked = false }: { pdf: PortfolioPdf; locked?: boolean }) {
   const downloads = [
     { label: "download portfolio", href: pdf.href, filename: "Rezwan-Navid-Portfolio-2026.pdf" },
     { label: "download resume", href: resumeHref, filename: "Rezwan-Navid-Resume.pdf" },
@@ -31,8 +31,10 @@ export function PortfolioDownload({ pdf }: { pdf: PortfolioPdf }) {
         <p><AnimatedLines text="A curated collection of product studies, design systems, AI exploration & product thinking" delay={.12} /></p>
       </div>
 
+      {locked ? <div className="portfolio-access"><ProtectedProjectGate slug="portfolio" redirectPath="/portfolio" protectedLabel="These downloads are protected" submitLabel="unlock downloads" successLabel="opening downloads" /></div> : <>
+
       <motion.div className="portfolio-artifact" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7, delay: .34, ease: motionEase.editorial }}>
-        <TiltLink href={pdf.href} ariaLabel="Open Mir Rezwan Navid’s 2026 portfolio PDF" cursorLabel="View" className="portfolio-cover-link">
+        <a href={pdf.href} className="portfolio-cover-link" aria-label="Open Mir Rezwan Navid’s 2026 portfolio PDF">
           <RevealMedia className="portfolio-cover-reveal" delay={.3}>
             <span className="portfolio-cover-mask">
               <ParallaxMedia className="portfolio-cover-parallax" distance={7}>
@@ -47,7 +49,7 @@ export function PortfolioDownload({ pdf }: { pdf: PortfolioPdf }) {
               </ParallaxMedia>
             </span>
           </RevealMedia>
-        </TiltLink>
+        </a>
         <motion.div className="portfolio-metadata" initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .42, delay: .66, ease: motionEase.snappy }}>
           <span>Last updated {pdf.lastUpdated}</span>
           <span>{pdf.pageCount} Pages | {pdf.fileSize}</span>
@@ -60,7 +62,6 @@ export function PortfolioDownload({ pdf }: { pdf: PortfolioPdf }) {
             className="portfolio-download-row"
             href={download.href}
             download={download.filename}
-            data-cursor="Download"
             key={download.label}
             initial={{ opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -72,6 +73,7 @@ export function PortfolioDownload({ pdf }: { pdf: PortfolioPdf }) {
           </motion.a>
         ))}
       </div>
+      </>}
     </section>
   );
 }

@@ -26,7 +26,7 @@ export function EventFlowProjectPage() {
           metadata={{
             role: project.role,
             year: project.year,
-            timeline: "6 months",
+            timeline: project.timeline ?? "",
             responsibilities: "Product Vision, Product Strategy, Discovery, Prioritization, UX Leadership, Stakeholder Alignment, Delivery",
             team: <><span>PM </span>01, <span>Engineers </span>07, <span>QA </span>02, <span>Designer </span>03</>,
           }}

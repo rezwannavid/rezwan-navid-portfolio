@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
+import { ProjectLink } from "@/components/motion/ProjectTransition";
 import { TiltLink } from "@/components/motion/TiltLink";
 import { ProjectMedia } from "@/components/project/ProjectMedia";
 import { motionEase } from "@/lib/motion";
@@ -12,6 +13,25 @@ const LOOP_COPIES = 3;
 const DESKTOP_STEP_SVH = 65;
 const immediateScrollEvent = "portfolio:immediate-scroll";
 const mobileWorkQuery = "(max-width: 767px), (max-height: 500px) and (orientation: landscape)";
+
+const mobileIndexMediaVariants = {
+  hidden: { opacity: 0, y: 14, scale: .975 },
+  visible: (index: number) => ({
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: .38, delay: Math.min(index, 3) * .045, ease: motionEase.editorial },
+  }),
+};
+
+const mobileIndexTitleVariants = {
+  hidden: { opacity: 0, y: 7 },
+  visible: (index: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: .28, delay: .07 + Math.min(index, 3) * .045, ease: motionEase.editorial },
+  }),
+};
 
 const modulo = (value: number, length: number) => ((value % length) + length) % length;
 
@@ -128,11 +148,12 @@ function MobileProjects() {
   const savedScrollRef = useRef(0);
   const bodyStylesRef = useRef<Partial<CSSStyleDeclaration> | null>(null);
   const cardRefs = useRef<Array<HTMLAnchorElement | null>>([]);
+  const allWorkRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [compact, setCompact] = useState(false);
   const [allWorkOpen, setAllWorkOpen] = useState(false);
   const activeProject = workProjects[activeIndex] ?? workProjects[0];
-  const stickyHeading = allWorkOpen ? "All Work" : activeProject.title;
+  const stickyHeading = allWorkOpen ? "All work" : activeProject.title;
 
   const releaseScroll = useCallback((restorePosition = true) => {
     const saved = bodyStylesRef.current;
@@ -224,28 +245,36 @@ function MobileProjects() {
     };
   }, []);
 
-  const selectProject = useCallback((index: number) => {
+  const beginProjectNavigation = useCallback(() => {
     setAllWorkOpen(false);
     releaseScroll(false);
-    requestAnimationFrame(() => {
-      const card = cardRefs.current[index];
-      if (!card) return;
-      const nav = document.querySelector<HTMLElement>(".mobile-nav-closed");
-      const safeTop = Math.max(0, (nav?.getBoundingClientRect().top ?? 10) - 10);
-      scrollImmediately(window.scrollY + card.getBoundingClientRect().top - safeTop - 174 + 1);
-    });
   }, [releaseScroll]);
 
   useEffect(() => {
     if (!allWorkOpen) return;
+    const focusFrame = requestAnimationFrame(() => {
+      allWorkRef.current?.querySelector<HTMLAnchorElement>("a[href]")?.focus({ preventScroll: true });
+    });
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== "Escape") return;
-      event.preventDefault();
-      setAllWorkOpen(false);
-      releaseScroll(true);
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setAllWorkOpen(false);
+        releaseScroll(true);
+        return;
+      }
+      if (event.key !== "Tab" || !allWorkRef.current) return;
+      const links = [...allWorkRef.current.querySelectorAll<HTMLAnchorElement>("a[href]")];
+      if (!links.length) return;
+      const first = links[0];
+      const last = links[links.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
     };
     document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
+    return () => {
+      cancelAnimationFrame(focusFrame);
+      document.removeEventListener("keydown", onKeyDown);
+    };
   }, [allWorkOpen, releaseScroll]);
 
   return (
@@ -309,7 +338,7 @@ function MobileProjects() {
             key={project.slug}
             aria-label={`${project.locked ? "Preview" : "View"} ${project.title}`}
           >
-            {isMobile ? <ProjectMedia project={project} context="work" priority={index === 0} /> : null}
+            {isMobile && !allWorkOpen ? <ProjectMedia project={project} context="work" priority={index === 0} /> : null}
           </Link>
         ))}
       </div>
@@ -317,27 +346,56 @@ function MobileProjects() {
       <AnimatePresence>
         {allWorkOpen && (
           <motion.div
+            ref={allWorkRef}
             className="mobile-all-work"
             id="mobile-all-work-index"
             role="dialog"
             aria-modal="true"
             aria-label="All work"
-            initial={reduceMotion ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: reduceMotion ? 0 : .2, ease: motionEase.editorial }}
+            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -10, clipPath: "inset(0 0 100% 0)" }}
+            animate={{ opacity: 1, y: 0, clipPath: "inset(0 0 0% 0)" }}
+            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -7, clipPath: "inset(0 0 100% 0)" }}
+            transition={{ duration: reduceMotion ? .1 : .46, ease: motionEase.editorial }}
           >
-            <nav className="mobile-all-work-list" aria-label="All projects">
+            <nav
+              className="mobile-all-work-grid"
+              aria-label="All projects"
+              data-lenis-prevent
+              data-lenis-prevent-touch
+              data-lenis-prevent-wheel
+              onTouchMove={(event) => event.stopPropagation()}
+              onWheel={(event) => event.stopPropagation()}
+            >
               {workProjects.map((project, index) => (
-                <motion.div
-                  className="mobile-all-work-row"
+                <motion.article
+                  className="mobile-all-work-card"
                   key={project.slug}
-                  initial={reduceMotion ? false : { opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: reduceMotion ? 0 : .2, delay: reduceMotion ? 0 : index * .025, ease: motionEase.editorial }}
+                  custom={index}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: .12 }}
                 >
-                  <button type="button" onClick={() => selectProject(index)}>{project.pillLabel ?? project.title}</button>
-                </motion.div>
+                  <ProjectLink
+                    className="mobile-all-work-link"
+                    href={project.href}
+                    projectId={project.id}
+                    onClick={beginProjectNavigation}
+                    aria-label={`${project.locked ? "Preview" : "View"} ${project.title}`}
+                  >
+                    <motion.span
+                      className="mobile-all-work-press"
+                      whileTap={reduceMotion ? undefined : { scale: .975 }}
+                      transition={{ duration: .14, ease: motionEase.snappy }}
+                    >
+                      <motion.span className="mobile-all-work-media" custom={index} variants={reduceMotion ? undefined : mobileIndexMediaVariants}>
+                        {isMobile ? <ProjectMedia project={project} context="work" priority={index < 2} /> : null}
+                      </motion.span>
+                      <motion.span className="mobile-all-work-title" custom={index} variants={reduceMotion ? undefined : mobileIndexTitleVariants}>
+                        {project.title}
+                      </motion.span>
+                    </motion.span>
+                  </ProjectLink>
+                </motion.article>
               ))}
             </nav>
           </motion.div>
