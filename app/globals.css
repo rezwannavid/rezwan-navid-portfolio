@@ -2012,6 +2012,15 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
 .heavygari-project-page .heavygari-opening { width: 85%; margin: 73px 0 0 7.593%; font-size: 22px; line-height: 31px; }
 .heavygari-first-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.192%; width: 85.463%; aspect-ratio: 923 / 602; margin: 90px 0 0 7.222%; }
 .heavygari-first-pair .design-project-visual { width: 100%; height: 100%; }
+.heavygari-first-pair .design-project-visual img,
+.heavygari-vehicle img,
+.heavygari-booking-management img,
+.heavygari-booking-details img,
+.heavygari-tracking img { object-fit: contain; }
+.heavygari-vehicle,
+.heavygari-booking-management,
+.heavygari-booking-details { background: #dfe8ea; }
+.heavygari-tracking { background: #ff4a00; }
 .heavygari-project-page .heavygari-journey { width: 63.704%; margin: 91px auto 0; font-size: 20px; line-height: 29px; text-align: center; }
 .heavygari-editorial-stage { position: relative; width: 85.556%; aspect-ratio: 924 / 1584; margin: 97px auto 0; }
 .heavygari-editorial-stage .design-project-visual,
@@ -3553,19 +3562,19 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   .heavygari-project-page .design-project-intro { height: auto; }
   .heavygari-project-page .heavygari-opening { width: 100%; margin: 42px 0 0; font-size: 20px; line-height: 27px; }
   .heavygari-first-pair { width: 100%; margin: 70px 0 0; display: flex; flex-direction: column; gap: 12px; aspect-ratio: auto; }
-  .heavygari-first-pair .design-project-visual { height: auto; aspect-ratio: 1368 / 1806; }
+  .heavygari-first-pair .design-project-visual { height: auto; aspect-ratio: 5340 / 9276; }
   .heavygari-project-page .heavygari-journey { width: 100%; margin-top: 58px; padding-inline: 3px; font-size: 17px; line-height: 24px; }
   .heavygari-editorial-stage { display: flex; width: 100%; aspect-ratio: auto; margin-top: 72px; flex-direction: column; }
   .heavygari-editorial-stage .design-project-visual,
   .heavygari-editorial-stage .heavygari-copy { position: relative; inset: auto; width: 100%; height: auto; }
-  .heavygari-vehicle, .heavygari-booking-management, .heavygari-booking-details { aspect-ratio: 1368 / 1806; }
+  .heavygari-vehicle, .heavygari-booking-management, .heavygari-booking-details { aspect-ratio: 5340 / 9276; }
   .heavygari-statement-card { aspect-ratio: 456 / 312; margin-top: 8px; }
   .heavygari-project-page .heavygari-selection-copy,
   .heavygari-project-page .heavygari-vehicle-copy,
   .heavygari-project-page .heavygari-booking-copy { margin-top: 28px; font-size: 15px; line-height: 22px; }
   .heavygari-project-page .heavygari-vehicle-copy { margin-top: 58px; }
   .heavygari-booking-management, .heavygari-booking-details { margin-top: 58px; }
-  .heavygari-tracking { aspect-ratio: 1368 / 1806; margin-top: 8px; }
+  .heavygari-tracking { aspect-ratio: 5340 / 9276; margin-top: 8px; }
   .heavygari-vehicle { order: 1; }
   .heavygari-selection-copy { order: 2; }
   .heavygari-statement-card { order: 3; }
