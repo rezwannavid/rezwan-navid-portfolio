@@ -67,7 +67,7 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
     seoTitle: "RideCentric+, Enterprise Mobility Product Design", seoDescription: "Designing an enterprise mobility platform for managing complex ride operations, events, teams and workflows at scale.",
   },
   heavygari: {
-    id: "heavygari", slug: "heavygari", title: "HeavyGari", shortDescription: "A truck-booking experience that makes moving goods, homes, and larger loads feel as straightforward as booking a ride.", role: "Product Designer", year: "2019", timeline: "7 weeks", href: "/work/heavygari", protected: false,
+    id: "heavygari", slug: "heavygari", title: "HeavyGari", shortDescription: "A truck-booking experience that makes moving goods, homes, and larger loads feel as straightforward as booking a ride.", role: "Product Designer", year: "2019", timeline: "6 months", href: "/work/heavygari", protected: false,
     published: true, featured: false, workOrder: 11, media: { fallback: { type: "asset", src: "/HeavyGari Pictures/Thumbnail/heavygari-thumbnail.png", objectFit: "cover" } },
     hero: "/HeavyGari Pictures/Hero.png", placeholder: false, thumbnailAlt: "HeavyGari truck booking experience", categories: ["product-study", "interface", "brand"], categoryLabel: "Product Study", client: "HeavyGari", locked: false, theme: "dark", indexable: true,
     seoTitle: "HeavyGari, Truck Booking Product Design", seoDescription: "Product and brand design for a truck-booking experience built around what people need to move.",
