@@ -3576,7 +3576,8 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   .gmi-composition { width: 100%; }
   .gmi-hero { width: 100%; }
   .gmi-project-page .gmi-motion-copy { width: 100%; margin: 48px 0 0; font-size: 20px; line-height: 27px; }
-  .gmi-motion-grid { width: 100%; margin-top: 70px; gap: .8%; }
+  .gmi-motion-grid { width: 100%; margin-top: 70px; display: grid; grid-template-columns: 1fr; gap: 12px; aspect-ratio: auto; }
+  .gmi-motion-grid .gmi-animated-composition { height: auto; aspect-ratio: 697 / 1260; }
   .gmi-transitions-copy, .gmi-organization-copy { width: 100%; padding-inline: 3px; font-size: 17px; line-height: 24px; }
   .gmi-project-page .gmi-transitions-copy { margin-top: 54px; }
   .gmi-tablet { left: auto; width: 100%; margin: 72px 0 0; }
