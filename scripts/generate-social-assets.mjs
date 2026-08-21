@@ -11,7 +11,7 @@ const title = Buffer.from(`
     <text x="92" y="300" fill="#e7e7e7" font-family="Arial, Helvetica, sans-serif" font-size="60" letter-spacing="-1.5">Product Brain,</text>
     <text x="92" y="365" fill="#e7e7e7" font-family="Arial, Helvetica, sans-serif" font-size="60" letter-spacing="-1.5">Design Heart</text>
     <text x="95" y="430" fill="#e7e7e7" font-family="Arial, Helvetica, sans-serif" font-size="34">Mir Rezwan Navid</text>
-    <text x="95" y="475" fill="#999" font-family="Arial, Helvetica, sans-serif" font-size="25">Design Engineer, Product Thinker</text>
+    <text x="95" y="475" fill="#999" font-family="Arial, Helvetica, sans-serif" font-size="25">Product Designer &amp; Design Engineer</text>
   </svg>`);
 
 const socialImage = await sharp(title)
