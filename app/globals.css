@@ -722,8 +722,8 @@ img { display: block; max-width: 100%; }
 .needin-reflection-title { font-size: 151px; line-height: 111px; letter-spacing: 1.51px; }
 .needin-reflection-card { position: absolute; top: 10734px; left: 398px; width: 498px; height: 451px; overflow: hidden; border-radius: 9.438px; background: #003324; }
 .needin-reflection-depth { position: absolute; inset: -28px -12px; }
-.needin-reflection-depth .parallax-entry, .needin-reflection-depth span { display: block; width: 100%; height: 100%; }
-.needin-reflection-depth span { background: #003324; }
+.needin-reflection-depth .parallax-entry, .needin-reflection-depth img { display: block; width: 100%; height: 100%; }
+.needin-reflection-depth img { object-fit: cover; }
 .needin-role-heading { color: #e7e7e7; font-family: var(--home-sans); font-size: 23.594px; line-height: 33.032px; font-weight: 500; letter-spacing: .2359px; }
 .needin-role-name { line-height: 34px; }
 .needin-role-label { color: #e7e7e7; font-size: 19px; line-height: 35px; font-weight: 500; }
@@ -1334,8 +1334,6 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
 .protected-access-label img { width: 14px; height: 14px; margin-top: 2px; }
 .protected-gate-row { height: 160px; border-top: 1px solid var(--home-line); border-bottom: 1px solid var(--home-line); display: grid; grid-template-columns: 1fr 1fr; }
 .protected-password-field { position: relative; min-width: 0; height: 100%; display: flex; align-items: center; }
-.protected-password-field::before { content: ""; position: absolute; left: 0; top: 52px; width: 2px; height: 44px; border-radius: 2px; background: #d9d9d9; opacity: 0; transition: opacity var(--home-fast) ease; }
-.protected-password-field:focus-within::before { opacity: 1; }
 .protected-password-field input { width: 100%; height: 100%; min-width: 0; padding: 0 36px 0 0; border: 0; outline: 0; background: transparent; color: var(--home-ink); font-family: var(--home-serif); font-size: 36px; line-height: 1; font-weight: 300; font-variation-settings: "SOFT" 100, "opsz" 144, "WONK" 1; }
 .protected-password-field input::placeholder { color: rgb(231 231 231 / .3); opacity: 1; transition: color var(--home-fast) ease, opacity var(--home-fast) ease; }
 .protected-password-field input[aria-invalid="true"]::placeholder { color: rgb(231 190 186 / .48); }
@@ -1408,7 +1406,6 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
   .protected-password-field, .protected-submit.portfolio-download-row { height: 108px; }
   .protected-submit.portfolio-download-row { border-left: 0; border-top: 1px solid var(--home-line); font-size: 28px; }
   .protected-password-field input { font-size: 28px; }
-  .protected-password-field::before { top: 32px; }
   .protected-see-work { height: 150px; }
   .protected-see-work a { font-size: 28px; }
   .protected-case-main .home-contact.is-portfolio { padding-top: 120px; }
@@ -1462,6 +1459,10 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
 .project-media-layer { position: absolute; display: block; transform-origin: center; }
 .project-media-picture > img, .project-media-layer > img { display: block; width: 100%; height: 100%; max-width: none; user-select: none; }
 .project-media-slot > video { display: block; width: 100%; height: 100%; max-width: none; }
+.video-load-indicator { position: absolute; z-index: 5; top: 50%; left: 50%; width: 26px; aspect-ratio: 1; border: 2px solid rgb(255 255 255 / .28); border-top-color: rgb(255 255 255 / .92); border-radius: 50%; pointer-events: none; translate: -50% -50%; animation: video-load-spin .72s linear infinite; }
+.needin-video-load-indicator { width: 22px; border-width: 1.5px; }
+@keyframes video-load-spin { to { rotate: 1turn; } }
+@media (prefers-reduced-motion: reduce) { .video-load-indicator { animation: none; } }
 @media (max-width: 767px), (max-height: 500px) and (orientation: landscape) {
   .project-media-slot.is-desktop { display: none; }
   .project-media-slot.is-mobile { display: block; }
@@ -1674,7 +1675,7 @@ html[data-project-transition-arriving] [data-project-transition-hero] .parallax-
 .about-page { min-width: 960px; }
 .about-page main { position: relative; }
 .about-shell { position: relative; width: min(1080px, calc(100% - 2 * var(--home-gutter))); margin-inline: auto; }
-.about-copy { color: rgb(233 233 233 / .9); font-size: 14px; line-height: 23px; }
+.about-copy { color: rgb(233 233 233 / .9); font-size: 16px; line-height: 26px; }
 .about-copy p + p { margin-top: 18px; }
 .about-hero { height: 930px; padding-top: 66px; }
 .about-hero-stage { height: 864px; perspective: 1100px; }

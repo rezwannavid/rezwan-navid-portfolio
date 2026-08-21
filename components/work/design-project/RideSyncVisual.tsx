@@ -27,6 +27,7 @@ export function RideSyncVisual({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const [isNearViewport, setIsNearViewport] = useState(false);
+  const [isVideoReady, setIsVideoReady] = useState(false);
 
   useEffect(() => {
     const frame = frameRef.current;
@@ -71,6 +72,7 @@ export function RideSyncVisual({
             poster={src}
             preload="none"
             src={videoSrc}
+            onCanPlay={() => setIsVideoReady(true)}
           />
         ) : (
           <Image
@@ -82,6 +84,7 @@ export function RideSyncVisual({
             sizes="(min-width: 1100px) 1080px, calc(100vw - 40px)"
           />
         )}
+        {videoSrc && !reduceMotion && shouldLoadVideo && !isVideoReady ? <span className="video-load-indicator" aria-hidden="true" /> : null}
       </ParallaxMedia>
     </figure>
   );

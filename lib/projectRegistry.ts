@@ -62,13 +62,13 @@ export type ResolvedProject = ProjectDefinition & {
 const definitions: Record<ProjectId, ProjectDefinition> = {
   ridecentric: {
     id: "ridecentric", slug: "ridecentric", title: "RideCentric+", shortDescription: "An enterprise mobility platform for corporate travel, events and transportation operations.", role: "Product Manager / Product Direction", year: "2025", timeline: "4 months", href: "/work/ridecentric", protected: true,
-    published: true, featured: true, workOrder: 0, featuredOrder: 0, media: { fallback: { type: "asset", src: "/ridecentric-exact/ridecentric-plus-hero.webp", objectFit: "cover" } },
+    published: true, featured: true, workOrder: 4, featuredOrder: 4, media: { fallback: { type: "asset", src: "/ridecentric-exact/ridecentric-plus-hero.webp", objectFit: "cover" } },
     hero: "/ridecentric-exact/ridecentric-plus-hero.webp", placeholder: false, thumbnailAlt: "RideCentric+ enterprise transportation dashboard displayed on a desktop monitor", categories: ["product-study", "interface", "design-system"], categoryLabel: "Product Study", client: "RideCentric", locked: true, theme: "dark", indexable: false,
     seoTitle: "RideCentric+, Enterprise Mobility Product Design", seoDescription: "Designing an enterprise mobility platform for managing complex ride operations, events, teams and workflows at scale.",
   },
   heavygari: {
     id: "heavygari", slug: "heavygari", title: "HeavyGari", shortDescription: "A truck-booking experience that makes moving goods, homes, and larger loads feel as straightforward as booking a ride.", role: "Product Designer", year: "2019", timeline: "7 weeks", href: "/work/heavygari", protected: false,
-    published: true, featured: false, workOrder: 10, media: { fallback: { type: "asset", src: "/HeavyGari Pictures/Thumbnail/heavygari-thumbnail.png", objectFit: "cover" } },
+    published: true, featured: false, workOrder: 11, media: { fallback: { type: "asset", src: "/HeavyGari Pictures/Thumbnail/heavygari-thumbnail.png", objectFit: "cover" } },
     hero: "/HeavyGari Pictures/Hero.png", placeholder: false, thumbnailAlt: "HeavyGari truck booking experience", categories: ["product-study", "interface", "brand"], categoryLabel: "Product Study", client: "HeavyGari", locked: false, theme: "dark", indexable: true,
     seoTitle: "HeavyGari, Truck Booking Product Design", seoDescription: "Product and brand design for a truck-booking experience built around what people need to move.",
   },
@@ -89,13 +89,13 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
   },
   eventflow: {
     id: "eventflow", slug: "eventflow", title: "EventFlow", shortDescription: "An event-aware transportation planning extension for the FIFA World Cup.", role: "Product Manager - Experience", year: "2026", timeline: "5 weeks", href: "/work/eventflow", protected: false,
-    published: true, featured: false, workOrder: 5, media: { fallback: { type: "asset", src: "/Eventflow Pictures/Thumbnail/eventflow-thumbnail.webp", objectFit: "cover" } },
+    published: true, featured: false, workOrder: 6, media: { fallback: { type: "asset", src: "/Eventflow Pictures/Thumbnail/eventflow-thumbnail.webp", objectFit: "cover" } },
     hero: "/Eventflow Pictures/EventFlow 0ew1.png", placeholder: false, thumbnailAlt: "EventFlow World Cup itinerary shown on a phone in a passenger's hand", categories: ["product-study", "interface"], categoryLabel: "Product Study", client: "RideCentric", locked: false, indexable: true,
     seoTitle: "EventFlow, World Cup Ride Planning", seoDescription: "An event-aware transportation planning extension helping World Cup fans coordinate venues, pickup timing and post-match journeys.",
   },
   "drivers-app": {
     id: "drivers-app", slug: "drivers-app", title: "Drivers App", pillLabel: "Drivers App", shortDescription: "A focused mobile companion for professional drivers coordinating trips and updates.", role: "Product Manager - Experience", year: "2025", timeline: "3 months", href: "/work/drivers-app", protected: false,
-    published: true, featured: false, workOrder: 4, media: {
+    published: true, featured: false, workOrder: 5, media: {
       primary: { type: "video", src: "/Drivers App Pictures/Thumbnail/drivers-app-thumbnail.mp4", poster: "/Drivers App Pictures/Thumbnail/drivers-app-thumbnail-poster.jpg", objectFit: "cover", mobileObjectPosition: "50% center" },
       fallback: { type: "asset", src: "/Drivers App Pictures/Thumbnail/drivers-app-thumbnail-poster.jpg", objectFit: "cover" },
     },
@@ -113,7 +113,7 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
   },
   "ruckus-games": {
     id: "ruckus-games", slug: "ruckus-games", title: "Ruckus Games", shortDescription: "A free multiplayer party-game platform that makes game nights effortless.", role: "Product Direction / Design Engineering", year: "2026", timeline: "3 weeks", projectType: "ai", productType: "Product Exploration with AI", madeWith: ["Claude", "Cursor", "Vercel", "Figma", "Railway", "v0"], href: "/work/ruckus-games", protected: false,
-    published: true, featured: false, workOrder: 8, media: {
+    published: true, featured: false, workOrder: 9, media: {
       primary: { type: "video", src: "/Ruckus Games Pictures/Thumbnail/ruckus-games-thumbnail.mp4", poster: "/Ruckus Games Pictures/Thumbnail/ruckus-games-thumbnail-poster.jpg", objectFit: "cover", mobileObjectPosition: "50% center" },
       fallback: { type: "asset", src: "/Ruckus Games Pictures/Thumbnail/ruckus-games-thumbnail-poster.jpg", objectFit: "cover" },
     },
@@ -122,7 +122,7 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
   },
   fodo: {
     id: "fodo", slug: "fodo", title: "Fodo", shortDescription: "A tactile camera experiment exploring physical-feeling controls and playful capture.", role: "Independent", year: "2026", platform: "iOS", focus: ["Interaction Design", "Prototyping", "Skeuomorphism"], projectType: "personal", productType: "Product Exploration with AI", waitlist: "100+ in Waitlist", madeWith: ["Claude", "Cursor", "SwiftUI", "Figma", "Adobe After Effects"], href: "/work/fodo", protected: false,
-    published: true, featured: false, workOrder: 9, media: { fallback: { type: "asset", src: "/Fodo Pictures/Header.png" } },
+    published: true, featured: false, workOrder: 10, media: { fallback: { type: "asset", src: "/Fodo Pictures/Header.png" } },
     hero: "/Fodo Pictures/Header.png", placeholder: false, thumbnailAlt: "Fodo tactile camera interface held against a sunset landscape", categories: ["interface"], categoryLabel: "Personal Project", client: "Independent", locked: false, indexable: true,
     seoTitle: "Fodo, Tactile Camera Experiment", seoDescription: "A tactile camera concept exploring physical-feeling controls and playful capture.",
   },
@@ -161,7 +161,7 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
   },
   tygrlabs: {
     id: "tygrlabs", slug: "tygrlabs", title: "TygrLabs", shortDescription: "A new identity for a product studio working across design, technology, and emerging ideas.", role: "Design Direction, Brand, Motion & Interface", year: "2023-2024", timeline: "8 weeks", productType: "Brand System Refresh", href: "/work/tygrlabs", protected: false,
-    published: true, featured: false, workOrder: 6, media: {
+    published: true, featured: false, workOrder: 7, media: {
       primary: { type: "video", src: "/Tygrlabs Pictures/Thumbnail/tygrlabs-thumbnail.mp4", poster: "/Tygrlabs Pictures/Thumbnail/tygrlabs-thumbnail-poster.jpg", objectFit: "cover", mobileObjectPosition: "50% center" },
       fallback: { type: "asset", src: "/Tygrlabs Pictures/Thumbnail/tygrlabs-thumbnail-poster.jpg", objectFit: "cover" },
     },

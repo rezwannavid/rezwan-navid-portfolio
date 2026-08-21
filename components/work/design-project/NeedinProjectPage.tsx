@@ -61,6 +61,7 @@ function AnimatedMediaLayer({ src, className }: { src: string; className: string
   const mediaRef = useRef<HTMLVideoElement | HTMLImageElement>(null);
   const [shouldLoad, setShouldLoad] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     const media = mediaRef.current;
@@ -82,7 +83,10 @@ function AnimatedMediaLayer({ src, className }: { src: string; className: string
 
   if (reduceMotion) return null;
   if (src.endsWith(".mp4")) {
-    return <video ref={mediaRef as React.RefObject<HTMLVideoElement>} className={`needin-animated-layer ${className}`.trim()} autoPlay={isVisible} loop muted playsInline preload="none" aria-hidden="true" src={shouldLoad ? src : undefined} />;
+    return <>
+      <video ref={mediaRef as React.RefObject<HTMLVideoElement>} className={`needin-animated-layer ${className}`.trim()} autoPlay={isVisible} loop muted playsInline preload="none" aria-hidden="true" src={shouldLoad ? src : undefined} onCanPlay={() => setIsReady(true)} />
+      {shouldLoad && !isReady ? <span className="video-load-indicator needin-video-load-indicator" aria-hidden="true" /> : null}
+    </>;
   }
 
   return <img ref={mediaRef as React.RefObject<HTMLImageElement>} className={`needin-animated-layer ${className}`.trim()} src={shouldLoad ? src : transparentPixel} alt="" aria-hidden="true" loading="lazy" decoding="async" />;
@@ -123,7 +127,7 @@ function MediaBlock({ src, alt, x, y, width, height, className = "", animatedSrc
 function ReflectionCard({ responsive = false }: { responsive?: boolean }) {
   return <div className={responsive ? "needin-r-reflection-card" : "needin-reflection-card"}>
     <ParallaxMedia className="needin-reflection-depth" distance={0} xDistance={0} rotateDistance={0} reveal revealOffset={38}>
-      <span />
+      <img src="/needin-exact/needin-reflection-portrait.png" alt="Illustrated portrait of Rezwan on a lime background" loading="lazy" decoding="async" />
     </ParallaxMedia>
   </div>;
 }
