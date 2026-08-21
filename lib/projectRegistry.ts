@@ -95,7 +95,7 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
   },
   "drivers-app": {
     id: "drivers-app", slug: "drivers-app", title: "Drivers App", pillLabel: "Drivers App", shortDescription: "A focused mobile companion for professional drivers coordinating trips and updates.", role: "Product Manager - Experience", year: "2025", timeline: "3 months", href: "/work/drivers-app", protected: false,
-    published: true, featured: false, workOrder: 5, media: {
+    published: true, featured: true, workOrder: 5, featuredOrder: 5, media: {
       primary: { type: "video", src: "/Drivers App Pictures/Thumbnail/drivers-app-thumbnail.mp4", poster: "/Drivers App Pictures/Thumbnail/drivers-app-thumbnail-poster.jpg", objectFit: "cover", mobileObjectPosition: "50% center" },
       fallback: { type: "asset", src: "/Drivers App Pictures/Thumbnail/drivers-app-thumbnail-poster.jpg", objectFit: "cover" },
     },
