@@ -47,6 +47,7 @@ export type ProjectDefinition = {
   thumbnailAlt: string;
   categories: ProjectCategory[];
   categoryLabel: string;
+  homepageContentType?: string;
   client: string;
   locked: boolean;
   comingSoon?: boolean;
@@ -62,9 +63,9 @@ export type ResolvedProject = ProjectDefinition & {
 
 const definitions: Record<ProjectId, ProjectDefinition> = {
   ridecentric: {
-    id: "ridecentric", slug: "ridecentric", title: "RideCentric+", shortDescription: "An enterprise mobility platform for corporate travel, events and transportation operations.", role: "Product Manager / Product Direction", year: "2025", timeline: "4 months", href: "/work/ridecentric", protected: false,
+    id: "ridecentric", slug: "ridecentric", title: "RideCentric+", shortDescription: "An enterprise mobility platform for corporate travel, events and transportation operations.", role: "Product Manager / Product Direction", year: "2025", timeline: "4 months", href: "/work/ridecentric", protected: true,
     published: true, featured: true, workOrder: 4, featuredOrder: 4, media: { fallback: { type: "asset", src: "/ridecentric-exact/ridecentric-plus-hero.webp", objectFit: "cover" } },
-    hero: "/ridecentric-exact/ridecentric-plus-hero.webp", placeholder: false, thumbnailAlt: "RideCentric+ enterprise transportation dashboard displayed on a desktop monitor", categories: ["product-study", "interface", "design-system"], categoryLabel: "Product Study", client: "RideCentric", locked: false, comingSoon: true, theme: "dark", indexable: false,
+    hero: "/ridecentric-exact/ridecentric-plus-hero.webp", placeholder: false, thumbnailAlt: "RideCentric+ enterprise transportation dashboard displayed on a desktop monitor", categories: ["product-study", "interface", "design-system"], categoryLabel: "Product Study", homepageContentType: "Product & UX Study", client: "RideCentric", locked: true, theme: "dark", indexable: false,
     seoTitle: "RideCentric+, Enterprise Mobility Product Design", seoDescription: "Designing an enterprise mobility platform for managing complex ride operations, events, teams and workflows at scale.",
   },
   heavygari: {
@@ -74,12 +75,12 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
     seoTitle: "HeavyGari, Truck Booking Product Design", seoDescription: "Product and brand design for a truck-booking experience built around what people need to move.",
   },
   ridesync: {
-    id: "ridesync", slug: "ridesync", title: "RideSync", shortDescription: "Designing the bridge from high-touch service to self-service.", role: "Product Manager", year: "2026", timeline: "6 months", href: "/work/ridesync", protected: false,
+    id: "ridesync", slug: "ridesync", title: "RideSync", shortDescription: "Designing the bridge from high-touch service to self-service.", role: "Product Manager", year: "2024", timeline: "6 months", href: "/work/ridesync", protected: false,
     published: true, featured: true, workOrder: 1, featuredOrder: 2, media: {
       primary: { type: "video", src: "/ridesync-exact/Cover/ridesync-cover.mp4", poster: "/ridesync-exact/Cover/ridesync-thumbnail-poster.jpg", objectFit: "cover", mobileObjectPosition: "54% center" },
       fallback: { type: "asset", src: "/ridesync-exact/Cover/ridesync-thumbnail-poster.jpg", objectFit: "cover" },
     },
-    hero: "/home-design/thumb-dashboard.png?v=2", placeholder: false, thumbnailAlt: "RideSync transportation self-service experience", categories: ["product-study", "product-management"], categoryLabel: "Product Study", client: "RideCentric", locked: false, theme: "dark", indexable: true,
+    hero: "/home-design/thumb-dashboard.png?v=2", placeholder: false, thumbnailAlt: "RideSync transportation self-service experience", categories: ["product-study", "product-management"], categoryLabel: "Product Study", homepageContentType: "Product & UX Study", client: "RideCentric", locked: false, theme: "dark", indexable: true,
     seoTitle: "RideSync, Transportation Self-Service Product", seoDescription: "Designing the bridge from high-touch transportation service to customer self-service.",
   },
   "10ms-for-parents": {
@@ -100,7 +101,7 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
       primary: { type: "video", src: "/Drivers App Pictures/Thumbnail/drivers-app-thumbnail.mp4", poster: "/Drivers App Pictures/Thumbnail/drivers-app-thumbnail-poster.jpg", objectFit: "cover", mobileObjectPosition: "50% center" },
       fallback: { type: "asset", src: "/Drivers App Pictures/Thumbnail/drivers-app-thumbnail-poster.jpg", objectFit: "cover" },
     },
-    hero: "/Drivers App Pictures/Drivers Hero.png", placeholder: false, thumbnailAlt: "RC Drivers app displayed on a phone beside architectural panels", categories: ["product-study", "interface", "product-management"], categoryLabel: "Product Study", client: "RideCentric", locked: false, indexable: true,
+    hero: "/Drivers App Pictures/Drivers Hero.png", placeholder: false, thumbnailAlt: "RC Drivers app displayed on a phone beside architectural panels", categories: ["product-study", "interface", "product-management"], categoryLabel: "Product Study", homepageContentType: "Interface Showcase", client: "RideCentric", locked: false, indexable: true,
     seoTitle: "RC Drivers App, Driver Operations Companion", seoDescription: "A mobile workflow helping professional drivers coordinate trips, communicate updates and stay on schedule.",
   },
   needin: {
@@ -109,7 +110,7 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
       primary: { type: "video", src: "/needin-exact/Thumbnail/needin-thumbnail.mp4", poster: "/needin-exact/Thumbnail/needin-thumbnail-poster.jpg", objectFit: "cover", mobileObjectPosition: "50% center" },
       fallback: { type: "asset", src: "/needin-exact/Thumbnail/needin-thumbnail-poster.jpg", objectFit: "cover" },
     },
-    hero: "/needin-exact/hero.png", placeholder: false, thumbnailAlt: "Needin meal-selection experience displayed on a phone", categories: ["product-study", "interface", "brand"], categoryLabel: "Product Study", client: "Needin", locked: false, theme: "dark", indexable: true,
+    hero: "/needin-exact/hero.png", placeholder: false, thumbnailAlt: "Needin meal-selection experience displayed on a phone", categories: ["product-study", "interface", "brand"], categoryLabel: "Product Study", homepageContentType: "Product & Experience Study", client: "Needin", locked: false, theme: "dark", indexable: true,
     seoTitle: "Needin, Home Cook Meal Subscription Marketplace", seoDescription: "Product strategy, marketplace design, brand, and end-to-end experience design for Needin, a flexible meal subscription service connecting customers with home cooks.",
   },
   "ruckus-games": {
@@ -133,7 +134,7 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
       primary: { type: "video", src: "/GMI Companion Pictures/Thumbnail/gmi-thumbnail.mp4", poster: "/GMI Companion Pictures/Thumbnail/gmi-thumbnail-poster.jpg", objectFit: "cover", mobileObjectPosition: "50% center" },
       fallback: { type: "asset", src: "/GMI Companion Pictures/Thumbnail/gmi-thumbnail-poster.jpg", objectFit: "cover" },
     },
-    hero: "/GMI Companion Pictures/Hero.png", placeholder: false, thumbnailAlt: "GMI Companion experience displayed on a phone held over a red and blue gradient", categories: ["product-study", "interface", "brand", "ai"], categoryLabel: "Product Study", client: "GMI", locked: false, theme: "dark", indexable: true,
+    hero: "/GMI Companion Pictures/Hero.png", placeholder: false, thumbnailAlt: "GMI Companion experience displayed on a phone held over a red and blue gradient", categories: ["product-study", "interface", "brand", "ai"], categoryLabel: "Product Study", homepageContentType: "Interface Showcase", client: "GMI", locked: false, theme: "dark", indexable: true,
     seoTitle: "GMI Companion, Connected Mission-Driven Product Experience", seoDescription: "Design direction, interface design, brand, and motion for GMI Companion, a connected support experience for mission-driven organizations.",
   },
   "gldn-route": {
