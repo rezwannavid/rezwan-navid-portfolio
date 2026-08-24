@@ -235,6 +235,28 @@ function MobileProjectCard({ project, index }: { project: ResolvedProject; index
           {project.locked ? <span className="featured-lock">Full study locked</span> : null}
         </ProjectLink>
       </motion.div>
+      <motion.div
+        className="mobile-featured-details"
+        initial={reduceMotion ? false : "hidden"}
+        whileInView={reduceMotion ? undefined : "visible"}
+        viewport={{ once: true, amount: .35 }}
+        variants={{ hidden: {}, visible: { transition: { staggerChildren: .055, delayChildren: .11 } } }}
+      >
+        <ProjectLink
+          className="mobile-featured-details-link"
+          href={project.href}
+          projectId={project.id}
+          aria-label={`View ${project.title}, ${project.year}, ${project.homepageContentType ?? project.categoryLabel}`}
+        >
+          <span className="mobile-featured-details-copy">
+            <motion.span className="mobile-featured-project-title" variants={{ hidden: { opacity: 0, y: 9 }, visible: { opacity: 1, y: 0, transition: { duration: .48, ease: motionEase.editorial } } }}>{project.title}</motion.span>
+            <motion.span className="mobile-featured-project-byline" variants={{ hidden: { opacity: 0, y: 7 }, visible: { opacity: 1, y: 0, transition: { duration: .44, ease: motionEase.editorial } } }}>
+              <span>{project.year}</span><img className="mobile-featured-project-dot" src="/home-design/project-meta-dot.svg" alt="" width="3" height="3" data-project-transition-ignore /><span>{project.homepageContentType ?? project.categoryLabel}</span>
+            </motion.span>
+          </span>
+          <motion.span className="mobile-featured-project-arrow" variants={{ hidden: { opacity: 0, x: -11 }, visible: { opacity: 1, x: 0, transition: { duration: .48, ease: motionEase.snappy } } }}><img src="/home-design/project-arrow-right.svg" alt="" width="26" height="26" data-project-transition-ignore /></motion.span>
+        </ProjectLink>
+      </motion.div>
     </motion.article>
   );
 }

@@ -30,7 +30,7 @@ export function SiteFooter() {
           <a href="https://medium.com/@rezwannavidalvee" aria-label="Medium"><img src="/home-design/footer-medium.svg" alt="" width="24" height="24" loading="lazy" /></a>
           <a href="https://github.com/rezwannavid" aria-label="GitHub"><img src="/home-design/footer-github.svg" alt="" width="24" height="24" loading="lazy" /></a>
         </nav>
-        <p className="made-with made-with-desktop">made with coffee and droopy eyes</p>
+        <div className="made-with made-with-desktop"><p>made with coffee and droopy eyes</p><span>Mir Rezwan Navid © 2026</span></div>
       </motion.div>
       <div className="mobile-footer-credit">
         <p>made with coffee and droopy eyes</p>

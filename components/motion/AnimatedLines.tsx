@@ -69,7 +69,7 @@ export function AnimatedLines({ text, className = "", emphasis, delay = 0, break
       aria-hidden="true"
     >
       {words.map((word, index) => (
-        <span key={`${word}-${index}`}>
+        <span className={breakableSpacing ? undefined : "animated-line-token"} key={`${word}-${index}`}>
           <span
             ref={(node) => { wordRefs.current[index] = node; }}
             className="animated-line-word-mask"

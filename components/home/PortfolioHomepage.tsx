@@ -9,6 +9,7 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { AnimatedLines } from "@/components/motion/AnimatedLines";
 import { AnimatedWords } from "@/components/motion/AnimatedWords";
 import { ParallaxMedia } from "@/components/motion/ParallaxMedia";
+import { ProjectLink } from "@/components/motion/ProjectTransition";
 import { RevealMedia } from "@/components/motion/RevealMedia";
 import { TiltLink } from "@/components/motion/TiltLink";
 import { VideoFeature } from "@/components/home/VideoFeature";
@@ -127,7 +128,31 @@ function FeaturedWorkSection() {
                   </span>
                 </RevealMedia>
               </TiltLink>
-              <motion.div className="featured-meta" initial={{ opacity: 0, x: -5 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: .2 }} transition={{ duration: .45, delay: .16, ease: motionEase.snappy }}><span>{project.title}</span><span>{project.year}</span></motion.div>
+              <motion.div
+                className="featured-details"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: .3 }}
+                variants={{
+                  hidden: {},
+                  visible: { transition: { staggerChildren: .055, delayChildren: .12 } },
+                }}
+              >
+                <ProjectLink
+                  className="featured-details-link"
+                  href={project.href}
+                  projectId={project.id}
+                  aria-label={`View ${project.title}, ${project.year}, ${project.homepageContentType ?? project.categoryLabel}`}
+                >
+                  <span className="featured-details-copy">
+                    <motion.span className="featured-project-title" variants={{ hidden: { opacity: 0, y: 9 }, visible: { opacity: 1, y: 0, transition: { duration: .5, ease: motionEase.editorial } } }}>{project.title}</motion.span>
+                    <motion.span className="featured-project-byline" variants={{ hidden: { opacity: 0, y: 7 }, visible: { opacity: 1, y: 0, transition: { duration: .45, ease: motionEase.editorial } } }}>
+                      <span>{project.year}</span><img className="featured-project-dot" src="/home-design/project-meta-dot.svg" alt="" width="3" height="3" data-project-transition-ignore /><span>{project.homepageContentType ?? project.categoryLabel}</span>
+                    </motion.span>
+                  </span>
+                  <motion.span className="featured-project-arrow" variants={{ hidden: { opacity: 0, x: -12 }, visible: { opacity: 1, x: 0, transition: { duration: .5, ease: motionEase.snappy } } }}><img src="/home-design/project-arrow-right.svg" alt="" width="26" height="26" data-project-transition-ignore /></motion.span>
+                </ProjectLink>
+              </motion.div>
             </motion.article>
           ))}
         </div>
