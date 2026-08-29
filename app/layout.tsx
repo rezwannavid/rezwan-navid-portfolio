@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
+import { Analytics } from '@vercel/analytics/next';
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PageTransitionLayer } from "@/components/motion/PageTransitionLayer";
 import { ProjectTransitionProvider } from "@/components/motion/ProjectTransition";
@@ -101,6 +102,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             </ProjectTransitionProvider>
           </SmoothScrollProvider>
         </div>
+        <Analytics />
       </body>
     </html>
   );
