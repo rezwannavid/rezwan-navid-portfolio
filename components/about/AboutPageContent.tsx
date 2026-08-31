@@ -187,10 +187,10 @@ function MobilePrinciples() {
           <div className="about-mobile-principle-shade" />
         </div>
         <div className="about-mobile-principle-copy">
-          <AnimatePresence initial={false} mode="sync">
+          <AnimatePresence initial={false} mode="wait">
             <motion.h3 key={active.title} initial={{ opacity: 1 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduceMotion ? .01 : .12 }}><MobilePrincipleWords text={active.title} /></motion.h3>
           </AnimatePresence>
-          <AnimatePresence initial={false} mode="sync">
+          <AnimatePresence initial={false} mode="wait">
             <motion.p key={active.description} initial={reduceMotion ? false : { opacity: 0, y: 6, filter: "blur(4px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={reduceMotion ? undefined : { opacity: 0, y: -4, filter: "blur(3px)" }} transition={{ duration: reduceMotion ? .01 : .25, ease: motionEase.editorial }}>{active.description}</motion.p>
           </AnimatePresence>
         </div>

@@ -77,8 +77,8 @@ const definitions: Record<ProjectId, ProjectDefinition> = {
   ridesync: {
     id: "ridesync", slug: "ridesync", title: "RideSync", shortDescription: "Designing the bridge from high-touch service to self-service.", role: "Product Manager", year: "2024", timeline: "6 months", href: "/work/ridesync", protected: false,
     published: true, featured: true, workOrder: 1, featuredOrder: 2, media: {
-      primary: { type: "video", src: "/ridesync-exact/Cover/ridesync-cover.mp4", poster: "/ridesync-exact/Cover/ridesync-thumbnail-poster.jpg", objectFit: "cover", mobileObjectPosition: "54% center" },
-      fallback: { type: "asset", src: "/ridesync-exact/Cover/ridesync-thumbnail-poster.jpg", objectFit: "cover" },
+      primary: { type: "video", src: "/ridesync-exact/679c10846bf9be51f007aa3b_Flowit_StudioDisplay_Thumb.mp4", poster: "/ridesync-exact/679c10846bf9be51f007aa3b_Flowit_StudioDisplay_Thumb-poster.jpg", objectFit: "cover", mobileObjectPosition: "50% center" },
+      fallback: { type: "asset", src: "/ridesync-exact/679c10846bf9be51f007aa3b_Flowit_StudioDisplay_Thumb-poster.jpg", objectFit: "cover" },
     },
     hero: "/home-design/thumb-dashboard.png?v=2", placeholder: false, thumbnailAlt: "RideSync transportation self-service experience", categories: ["product-study", "product-management"], categoryLabel: "Product Study", homepageContentType: "Product & UX Study", client: "RideCentric", locked: false, theme: "dark", indexable: true,
     seoTitle: "RideSync, Transportation Self-Service Product", seoDescription: "Designing the bridge from high-touch transportation service to customer self-service.",
