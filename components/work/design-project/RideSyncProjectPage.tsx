@@ -14,7 +14,7 @@ const media = {
   informationModel: "/ridesync-exact/HQ/ridesync-guest-access-flow.png",
   twoQuestions: "/ridesync-exact/booker-passenger-questions-poster.png",
   dispatchModel: "/ridesync-exact/HQ/dispatch-information-model.png",
-  passengerView: "/ridesync-exact/Cover/ridesync-thumbnail-poster.jpg",
+  passengerView: "/ridesync-exact/679c10846bf9be51f007aa3b_Flowit_StudioDisplay_Thumb-poster.jpg",
   cityIllustration: "/ridesync-exact/live-itinerary-cityscape-poster.png",
   eventDashboard: "/ridesync-exact/event-dashboard-poster.png",
   eventMap: "/ridesync-exact/HQ/event-map-laptop.png",
@@ -28,7 +28,7 @@ const media = {
 const videos = {
   relationship: "/ridesync-exact/Video/passenger-information-gap.mp4",
   twoQuestions: "/ridesync-exact/Video/booker-passenger-questions.mp4",
-  passengerView: "/ridesync-exact/Cover/ridesync-cover.mp4",
+  passengerView: "/ridesync-exact/679c10846bf9be51f007aa3b_Flowit_StudioDisplay_Thumb.mp4",
   cityIllustration: "/ridesync-exact/Video/live-itinerary-cityscape.mp4",
   eventDashboard: "/ridesync-exact/Video/event-dashboard-overview.mp4",
   payment: "/ridesync-exact/Video/confirmation-payment-experience.mp4",
