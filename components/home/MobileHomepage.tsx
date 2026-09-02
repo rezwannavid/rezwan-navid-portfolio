@@ -286,7 +286,7 @@ function MobileExperience() {
   return (
     <section ref={frame} className="mobile-experience" aria-labelledby="mobile-experience-title">
       <div className="mobile-experience-frame">
-        <motion.div className="mobile-experience-depth" initial={reduceMotion ? false : { opacity: 0, clipPath: "inset(18% 0 24% 0 round 4px)" }} whileInView={reduceMotion ? undefined : { opacity: 1, clipPath: "inset(0% 0 0% 0 round 4px)" }} viewport={{ once: true, amount: .1 }} transition={{ duration: .9, delay: .42, ease: motionEase.editorial }} style={{ y: reduceMotion ? 0 : imageY, scale: reduceMotion ? 1 : imageScale }}><Image quality={90} src="/home-design/Speaker Contianer.png" alt="Mir Rezwan Navid speaking at a technology event" fill sizes="(max-width: 767px) 100vw, 1px" /></motion.div>
+        <motion.div className="mobile-experience-depth" initial={reduceMotion ? false : { opacity: 0, clipPath: "inset(18% 0 24% 0 round 4px)" }} whileInView={reduceMotion ? undefined : { opacity: 1, clipPath: "inset(0% 0 0% 0 round 4px)" }} viewport={{ once: true, amount: .1 }} transition={{ duration: .9, delay: .42, ease: motionEase.editorial }} style={{ y: reduceMotion ? 0 : imageY, scale: reduceMotion ? 1 : imageScale }}><Image quality={90} src="/home-design/speaker-container-2026.webp" alt="Mir Rezwan Navid speaking at a technology event" fill sizes="(max-width: 767px) 100vw, 1px" /></motion.div>
         <h2 id="mobile-experience-title"><AnimatedWords text="7+ years building" stagger={.075} /><AnimatedWords text="products across" delay={.11} stagger={.075} /><AnimatedWords text="industries" delay={.22} /></h2>
       </div>
       <AwardsMarquee />

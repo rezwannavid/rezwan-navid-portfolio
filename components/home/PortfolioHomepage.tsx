@@ -174,7 +174,7 @@ function ExperienceSection() {
       <motion.div className="experience-frame" initial="hidden" whileInView="visible" viewport={{ once: true, amount: .2 }}>
         <motion.div className="experience-media" variants={{ hidden: { clipPath: "inset(8% 0 42% 0 round 8px)" }, visible: { clipPath: "inset(0% 0 0% 0 round 8px)", transition: { duration: .82, ease: motionEase.editorial } } }}>
           <motion.div className="experience-photo" variants={{ hidden: { scale: 1.025, y: 8 }, visible: { scale: 1, y: 0, transition: { duration: .82, ease: motionEase.editorial } } }}>
-            <Image quality={90} src="/home-design/experience-banner.png" alt="Mir Rezwan Navid speaking at a technology event" width={4096} height={2731} sizes="1386px" />
+            <Image quality={90} src="/home-design/experience-banner-2026.webp" alt="Mir Rezwan Navid speaking at a technology event" width={4096} height={2731} sizes="1386px" />
           </motion.div>
           <div
             className="experience-gradient"
