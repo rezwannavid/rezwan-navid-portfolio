@@ -116,15 +116,16 @@ export function RideSyncProjectPage() {
             src={media.passengerView}
             videoSrc={videos.passengerView}
             alt="RideSync living itinerary experience displayed on a Studio Display mockup"
-            width={1920}
-            height={1280}
+            width={16}
+            height={9}
+            className="ridesync-passenger-view"
           />
           <p className="ridesync-product-caption"><CopyText>The product answered questions before they became support requests.</CopyText></p>
           <Visual src={media.cityIllustration} videoSrc={videos.cityIllustration} alt="A blue cityscape illustration used in the RideSync experience" width={877} height={453} />
           <div className="ridesync-booker-copy"><h2><HeadingText>For bookers, visibility scaled from one passenger to the whole event.</HeadingText></h2><p><span className="ridesync-copy-block"><CopyText>Once RideSync became useful at the individual itinerary level, the same information model could support bookers coordinating larger groups.</CopyText></span><span className="ridesync-copy-block"><CopyText>The event view surfaced rides by date, passenger, and status, while the map turned multiple simultaneous rides into something understandable at a glance.</CopyText></span></p></div>
           <Visual src={media.eventDashboard} videoSrc={videos.eventDashboard} alt="RideSync event dashboard with passengers, rides and statuses" width={1116} height={718} />
           <p className="ridesync-dashboard-caption"><CopyText>The booker no longer had to reconstruct the event from confirmations and email threads.</CopyText></p>
-          <Visual src={media.eventMap} alt="RideSync event map showing simultaneous rides" width={1104} height={665} />
+          <Visual src={media.eventMap} alt="RideSync event map showing simultaneous rides" width={1104} height={665} className="ridesync-event-map" unoptimized />
         </section>
 
         <section className="ridesync-story ridesync-story-payment"><h2><HeadingText>Self-service only worked if confirmation and payment could stay inside the same experience.</HeadingText></h2><p><span className="ridesync-copy-block"><CopyText>Card payment could be automated end-to-end, but enterprise customers still relied on bank transfers.</CopyText></span><span className="ridesync-copy-block"><CopyText>Rather than removing that workflow to make the product cleaner, we kept the familiar payment method and digitized everything around it.</CopyText></span></p><Visual src={media.payment} videoSrc={videos.payment} alt="RideSync confirmation and payment experience" width={1104} height={710} /></section>

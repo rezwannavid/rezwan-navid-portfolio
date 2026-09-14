@@ -400,7 +400,7 @@ img { display: block; max-width: 100%; }
 .ridesync-entry-question .ridesync-visual { top: 1249px; left: 240px; width: 804px; height: 430px; background: #e5e9ec; }
 .ridesync-entry-question p { top: 1725px; color: rgb(231 231 231 / .66); font-size: 18px; line-height: 26px; font-weight: 500; letter-spacing: .01em; }
 .ridesync-entry-question .ridesync-copy-block + .ridesync-copy-block { margin-top: 26px; }
-.ridesync-story-product { height: 4413px; }
+.ridesync-story-product { height: 4319px; }
 .ridesync-story-product > .ridesync-chapter-label { top: -36px !important; }
 .ridesync-story-product > .ridesync-product-label { top: 520px; }
 .ridesync-product-model-copy h2 { top: 0; width: 398px; }
@@ -410,15 +410,15 @@ img { display: block; max-width: 100%; }
 .ridesync-story-product > .ridesync-visual:nth-of-type(1) { top: -6px; left: 682px; width: 474px; height: 384px; }
 .ridesync-itinerary-copy h2 { top: 553px; }
 .ridesync-itinerary-copy p { top: 668px; }
-.ridesync-story-product > .ridesync-visual:nth-of-type(2) { top: 896px; left: 49px; width: 1170px; height: 752px; }
-.ridesync-product-caption { top: 1692px !important; }
-.ridesync-story-product > .ridesync-visual:nth-of-type(3) { top: 1788px; left: 202px; width: 877px; height: 453px; }
-.ridesync-booker-copy h2 { top: 2375px; }
-.ridesync-booker-copy p { top: 2516px; }
+.ridesync-story-product > .ridesync-visual:nth-of-type(2) { top: 896px; left: 49px; width: 1170px; height: 658px; }
+.ridesync-product-caption { top: 1598px !important; }
+.ridesync-story-product > .ridesync-visual:nth-of-type(3) { top: 1694px; left: 202px; width: 877px; height: 453px; }
+.ridesync-booker-copy h2 { top: 2281px; }
+.ridesync-booker-copy p { top: 2422px; }
 .ridesync-booker-copy p { min-height: 207px; }
-.ridesync-story-product > .ridesync-visual:nth-of-type(4) { top: 2723px; left: 76px; width: 1116px; height: 718px; }
-.ridesync-dashboard-caption { top: 3495px !important; }
-.ridesync-story-product > .ridesync-visual:nth-of-type(5) { top: 3601px; left: 82px; width: 1104px; height: 665px; }
+.ridesync-story-product > .ridesync-visual:nth-of-type(4) { top: 2629px; left: 76px; width: 1116px; height: 718px; }
+.ridesync-dashboard-caption { top: 3401px !important; }
+.ridesync-story-product > .ridesync-visual:nth-of-type(5) { top: 3507px; left: 82px; width: 1104px; height: 665px; }
 .ridesync-story-payment { height: 1311px; }
 .ridesync-story-payment > h2 { top: 0; }
 .ridesync-story-payment > p { top: 200px; width: 422px; color: #e7e7e7; font-size: 18px; line-height: 26px; }
@@ -681,7 +681,10 @@ img { display: block; max-width: 100%; }
 .needin-media { position: absolute; overflow: hidden; border-radius: 8px; }
 .needin-media-depth, .needin-media-depth .parallax-entry { position: relative; width: 100%; height: 100%; }
 .needin-media img, .needin-media video { display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; }
-.needin-animated-layer { position: absolute !important; z-index: 2; max-width: none; background: #f1e9e0; object-fit: cover; }
+.needin-animation-slot { position: absolute !important; z-index: 2; overflow: hidden; }
+.needin-animated-layer { position: absolute !important; inset: 0; width: 100% !important; height: 100% !important; max-width: none; opacity: 0; background: #f1e9e0; object-fit: cover; transition: opacity .18s ease-out; }
+.needin-animated-layer.is-ready { opacity: 1; }
+.needin-anim-full { inset: 0 !important; width: 100% !important; height: 100% !important; border-radius: inherit; }
 .needin-phone-frame-layer {
   position: absolute !important;
   z-index: 3;

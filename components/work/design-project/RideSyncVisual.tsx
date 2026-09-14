@@ -13,6 +13,7 @@ export function RideSyncVisual({
   height,
   className = "",
   priority = false,
+  unoptimized = false,
 }: {
   src: string;
   videoSrc?: string;
@@ -21,6 +22,7 @@ export function RideSyncVisual({
   height: number;
   className?: string;
   priority?: boolean;
+  unoptimized?: boolean;
 }) {
   const reduceMotion = useReducedMotion();
   const frameRef = useRef<HTMLElement>(null);
@@ -81,6 +83,7 @@ export function RideSyncVisual({
             width={width}
             height={height}
             priority={priority}
+            unoptimized={unoptimized}
             sizes="(min-width: 1100px) 1080px, calc(100vw - 40px)"
           />
         )}
